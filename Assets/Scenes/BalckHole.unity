@@ -542,7 +542,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _asteroidPrefab: {fileID: 5598675613931354585, guid: fcd0cc99b6db638479cafd0c41992a82, type: 3}
-  _impulse: 4
+  _impulse: 3
   _spawnPeriod: 1
   _cam: {fileID: 633411341}
 --- !u!4 &882331069
@@ -1890,10 +1890,10 @@ GameObject:
   - component: {fileID: 7748670380506294297}
   - component: {fileID: 7940578562333368422}
   - component: {fileID: 3725002946941060788}
-  - component: {fileID: 2279411043730520424}
   - component: {fileID: 7762469232121173583}
   - component: {fileID: 9023587604843124424}
   - component: {fileID: 9023587604843124425}
+  - component: {fileID: 9023587604843124426}
   m_Layer: 6
   m_Name: Ship
   m_TagString: Player
@@ -1901,26 +1901,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!95 &2279411043730520424
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 395894773481399447}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: b14b459d52f76934e9bb4da76f9c7823, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
 --- !u!4 &2705252279848381748
 Transform:
   m_ObjectHideFlags: 0
@@ -2088,7 +2068,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2705252279866932739
 Transform:
   m_ObjectHideFlags: 0
@@ -2121,7 +2101,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2705252280081397297
 Transform:
   m_ObjectHideFlags: 0
@@ -2221,7 +2201,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2705252280779969073
 Transform:
   m_ObjectHideFlags: 0
@@ -2309,8 +2289,8 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 2, y: 2}
-    newSize: {x: 0.32, y: 0.32}
+    oldSize: {x: 0.72, y: 0.5}
+    newSize: {x: 0.72, y: 0.5}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -2359,15 +2339,15 @@ SpriteRenderer:
   m_SortingLayerID: -944656187
   m_SortingLayer: 2
   m_SortingOrder: 3
-  m_Sprite: {fileID: 21300000, guid: 0f39a9205e4394ee1b6ba8269428d176, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 7552aaae8bcb08643b0af8b7ca547b2e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.32, y: 0.32}
+  m_Size: {x: 0.72, y: 0.5}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!114 &9023587604843124424
@@ -2389,10 +2369,11 @@ MonoBehaviour:
   _angularVelocity: 0.04
   _radius: 8
   objectBoundsScale: 0.9
-  _initialHealth: 100
-  deathEffect: {fileID: 0}
-  PlayerHitEffect: {fileID: 0}
+  _initialHealth: 3
+  deathEffect: {fileID: 5925885586263924435, guid: 6f6e2584aa537cf41b45a6638a850c70, type: 3}
+  PlayerHitEffect: {fileID: 3475963656773050237, guid: a2470789432ee494f8a25498725f2d15, type: 3}
   dodgePrefab: {fileID: 0}
+  flashEffect: {fileID: 9023587604843124426}
   _gravityOn: 0
   _gravityScale: 0
 --- !u!114 &9023587604843124425
@@ -2413,3 +2394,17 @@ MonoBehaviour:
   _projectileSpread: 0
   _fireRate: 0.2
   _bulletForce: 20
+--- !u!114 &9023587604843124426
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 395894773481399447}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bdff688a0679dab45ba8ba615f7ced97, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flashMaterial: {fileID: 2100000, guid: 38efd29d7f4c21046a74bb4fcb596ec8, type: 2}
+  duration: 0.1

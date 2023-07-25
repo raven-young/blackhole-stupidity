@@ -23,12 +23,12 @@ public class Ship : MonoBehaviour
 
     [Header("Screen")]
     private Vector2 screenBounds;
-    private float objectWidth;
-    private float objectHeight;
+    //private float objectWidth;
+    //private float objectHeight;
     [SerializeField] private float objectBoundsScale;
 
     [Header("Logic")]
-    [SerializeField] private float _initialHealth = 100;
+    [SerializeField] private float _initialHealth = 3;
     private float _currentHealth;
     private bool isDead = false;
     private bool isInvincible = false;
@@ -37,6 +37,7 @@ public class Ship : MonoBehaviour
     [SerializeField] private GameObject deathEffect;
     [SerializeField] private GameObject PlayerHitEffect;
     [SerializeField] private DamageNumber dodgePrefab;
+    [SerializeField] protected FlashColor flashEffect;
 
     [Header("Debug")]
     [SerializeField] private bool _gravityOn = false;
@@ -47,7 +48,7 @@ public class Ship : MonoBehaviour
     {
         Instance = this;
         playerInputActions = new PlayerInputActions();
-        _initialHealth = _currentHealth;
+        _currentHealth = _initialHealth;
     }
 
     private void OnEnable()
@@ -64,8 +65,8 @@ public class Ship : MonoBehaviour
     {
         //canvas = GameObject.FindObjectOfType<CanvasManager>().GetComponent<CanvasManager>();
         screenBounds = _cam.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, _cam.transform.position.z));
-        objectWidth = objectBoundsScale * transform.GetComponent<SpriteRenderer>().bounds.extents.x; //extents = size of width / 2
-        objectHeight = objectBoundsScale * transform.GetComponent<SpriteRenderer>().bounds.extents.y; //extents = size of height / 2
+        //objectWidth = objectBoundsScale * transform.GetComponent<SpriteRenderer>().bounds.extents.x; //extents = size of width / 2
+        //objectHeight = objectBoundsScale * transform.GetComponent<SpriteRenderer>().bounds.extents.y; //extents = size of height / 2
     }
 
     void Update()
@@ -116,11 +117,20 @@ public class Ship : MonoBehaviour
         //transform.position = viewPos;
     }
 
-    public void takeDamage(int firePower)
+    public void takeDamage(int damage)
     {
+        Debug.Log(isInvincible + " " + damage + " " + _currentHealth);
         if (isInvincible)
         {
             return;
+        }
+
+        flashEffect.Flash();
+        _currentHealth -= damage;
+
+        if (_currentHealth <= 0)
+        {
+            die();
         }
     }
 

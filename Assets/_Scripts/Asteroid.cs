@@ -8,6 +8,8 @@ public class Asteroid : MonoBehaviour
     [SerializeField] private Rigidbody2D _rb;
     [SerializeField] private int _health = 3;
     [SerializeField] private GameObject _explosionEffect;
+    [SerializeField] private int _playerDamage = 1;
+    [SerializeField] protected FlashColor flashEffect;
 
     // Start is called before the first frame update
     void Start()
@@ -24,6 +26,8 @@ public class Asteroid : MonoBehaviour
 
     public void takeDamage(int damage)
     {
+
+        flashEffect.Flash();
         _health--;
 
         if (_health <= 0)
@@ -36,7 +40,8 @@ public class Asteroid : MonoBehaviour
     {
         switch (collision.gameObject.layer)
         {
-            case 6: // player
+            case 6: // ship
+                collision.gameObject.GetComponent<Ship>().takeDamage(_playerDamage);
                 break;
             case 10: // black hole
                 Die();
