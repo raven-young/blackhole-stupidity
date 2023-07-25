@@ -1,0 +1,77 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - DestroyOnReload
+  - Logic
+  - EnemySide
+  - Bullet
+  - Heart
+  - Canvas
+  - CanvasManager
+  - Water
+  - HeartUI
+  - Pickups
+  - GameManager
+  - Music
+  - BorderDestroyer
+  - HighlightBox
+  - Grazebox
+  - EnemyCollector
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - 
+  - Water
+  - UI
+  - Player
+  - 
+  - Asteroid
+  - Pickups
+  - BlackHole
+  - 
+  - 
+  - Collector
+  - 
+  - 
+  - AgentUnpassable
+  - PlayerHitbox
+  - BulletPlayer
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Terrain
+    uniqueID: 975898213
+    locked: 0
+  - name: Water
+    uniqueID: 305894833
+    locked: 0
+  - name: AgentUnpassable
+    uniqueID: 2515986781
+    locked: 0
+  - name: Default
+    uniqueID: 0
+    locked: 0
+  - name: TerrainTop
+    uniqueID: 919231889
+    locked: 0
+  - name: Agents
+    uniqueID: 3350311109
+    locked: 0
+  - name: WorldUI
+    uniqueID: 1937391881
+    locked: 0
