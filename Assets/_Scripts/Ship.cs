@@ -8,22 +8,8 @@ using DamageNumbersPro;
 public class Ship : MonoBehaviour
 {
     [SerializeField] private Camera _cam;
-    [SerializeField] private SpriteRenderer gunSprite;
-    [SerializeField] private GameObject deathEffect;
-    [SerializeField] private GameObject PlayerHitEffect;
-
-    [SerializeField] public bool isInvincible = false;
-    private bool isDead = false;
-
     private PlayerInputActions playerInputActions;
     public static Ship Instance;
-
-    [SerializeField] private DamageNumber dodgePrefab;
-    [SerializeField] private float objectBoundsScale;
-
-    private Vector2 screenBounds;
-    private float objectWidth;
-    private float objectHeight;
 
     [Header("Movement")]
     private Vector2 _movement;
@@ -31,10 +17,37 @@ public class Ship : MonoBehaviour
     [SerializeField] private float _forceMagnitude = 10f;
     [SerializeField] private float _speed = 5f;
 
+    private float _theta = Mathf.PI/2;
+    [SerializeField] private float _angularVelocity = 1f;
+    [SerializeField] private float _radius = 2f; // distance from black hole
+
+    [Header("Screen")]
+    private Vector2 screenBounds;
+    private float objectWidth;
+    private float objectHeight;
+    [SerializeField] private float objectBoundsScale;
+
+    [Header("Logic")]
+    [SerializeField] private float _initialHealth = 100;
+    private float _currentHealth;
+    private bool isDead = false;
+    private bool isInvincible = false;
+
+    [Header("Effects")]
+    [SerializeField] private GameObject deathEffect;
+    [SerializeField] private GameObject PlayerHitEffect;
+    [SerializeField] private DamageNumber dodgePrefab;
+
+    [Header("Debug")]
+    [SerializeField] private bool _gravityOn = false;
+    [Range(-5, 5)]
+    [SerializeField] private float _gravityScale;
+
     private void Awake()
     {
         Instance = this;
         playerInputActions = new PlayerInputActions();
+        _initialHealth = _currentHealth;
     }
 
     private void OnEnable()
@@ -62,6 +75,10 @@ public class Ship : MonoBehaviour
 
         /// Movement
         _movement = playerInputActions.Player.Move.ReadValue<Vector2>();
+
+        if (_gravityOn)
+            _radius -= _gravityScale * Time.deltaTime;
+
     }
 
     // Executed on fixed frequency (default 50 Hz), good for physics as framerate is not const
@@ -72,20 +89,31 @@ public class Ship : MonoBehaviour
 
         // old Movement
         // To avoid diagonal movement being sqrt(2) faster, normalize vector
-        Vector2 newpos = _rb.position + _speed * Time.fixedDeltaTime * _movement.normalized;
-        _rb.MovePosition(newpos);
+        //Vector2 newpos = _rb.position + _speed * Time.fixedDeltaTime * _movement.normalized;
+        //_rb.MovePosition(newpos);
 
         // Physics Movement
         //_rb.AddForceAtPosition(_forceMagnitude * movement.y * Vector2.right, transform.position, ForceMode2D.Force);
+
+        // Polar Movement
+        _theta += _angularVelocity * _movement.x;
+
+        // clamp angle to screen bounds
+        // max angle depends on radius and screenbounds
+        float thetaMax = Mathf.Acos(screenBounds.x / _radius);
+        _theta = Mathf.Clamp(_theta, thetaMax, Mathf.PI-thetaMax);
+
+        Vector2 newpos = new Vector2(_radius * Mathf.Cos(_theta), _radius * Mathf.Sin(_theta));
+        _rb.MovePosition(newpos);
     }
 
     void LateUpdate()
     {
         // Clamp ship pos to screen bounds
-        Vector3 viewPos = transform.position;
-        viewPos.x = Mathf.Clamp(viewPos.x, -screenBounds.x + objectWidth, screenBounds.x - objectWidth);
-        viewPos.y = Mathf.Clamp(viewPos.y, -screenBounds.y + objectHeight, screenBounds.y - objectHeight);
-        transform.position = viewPos;
+        //Vector3 viewPos = transform.position;
+        //viewPos.x = Mathf.Clamp(viewPos.x, -screenBounds.x + objectWidth, screenBounds.x - objectWidth);
+        //viewPos.y = Mathf.Clamp(viewPos.y, -screenBounds.y + objectHeight, screenBounds.y - objectHeight);
+        //transform.position = viewPos;
     }
 
     public void takeDamage(int firePower)
