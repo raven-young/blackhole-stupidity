@@ -96,7 +96,7 @@ public class Ship : MonoBehaviour
         //_rb.AddForceAtPosition(_forceMagnitude * movement.y * Vector2.right, transform.position, ForceMode2D.Force);
 
         // Polar Movement
-        _theta += _angularVelocity * _movement.x;
+        _theta -= _angularVelocity * _movement.x;
 
         // clamp angle to screen bounds
         // max angle depends on radius and screenbounds

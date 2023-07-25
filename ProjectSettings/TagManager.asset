@@ -28,20 +28,20 @@ TagManager:
   - Water
   - UI
   - Player
-  - BulletEnemy
-  - Enemy
+  - 
+  - Asteroid
   - Pickups
-  - Spawner
-  - Hacking
-  - SabotagedEnemy
+  - 
+  - 
+  - 
   - Collector
-  - Doors
-  - Terrain
+  - 
+  - 
   - AgentUnpassable
   - PlayerHitbox
   - BulletPlayer
-  - MiscHittable
-  - EnemyIgnoreAgents
+  - 
+  - 
   - 
   - 
   - 
