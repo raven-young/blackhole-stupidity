@@ -31,4 +31,9 @@ public class BlackHole : MonoBehaviour
     {
         
     }
+
+    public void ChangeSize(float scaleMultiplier)
+    {
+        transform.localScale *= scaleMultiplier;
+    }
 }

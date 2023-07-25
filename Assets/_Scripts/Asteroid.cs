@@ -10,6 +10,7 @@ public class Asteroid : MonoBehaviour
     [SerializeField] private GameObject _explosionEffect;
     [SerializeField] private int _playerDamage = 1;
     [SerializeField] protected FlashColor flashEffect;
+    [SerializeField] private float _blakHoleGrowthRate = 1.03f;
 
     // Start is called before the first frame update
     void Start()
@@ -32,6 +33,7 @@ public class Asteroid : MonoBehaviour
 
         if (_health <= 0)
         {
+            Ship.Instance.Radius *= 1.1f;
             Die();
         }
     }
@@ -42,11 +44,17 @@ public class Asteroid : MonoBehaviour
         {
             case 6: // ship
                 collision.gameObject.GetComponent<Ship>().takeDamage(_playerDamage);
-                break;
-            case 10: // black hole
                 Die();
                 break;
-        } 
+            case 10: // black hole
+                // increase BH
+                BlackHole.Instance.ChangeSize(_blakHoleGrowthRate);
+                Die();
+                break;
+            default:
+                break;
+        }
+        
     }
 
     private void Die()

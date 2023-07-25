@@ -19,7 +19,7 @@ public class Ship : MonoBehaviour
 
     private float _theta = Mathf.PI/2;
     [SerializeField] private float _angularVelocity = 1f;
-    [SerializeField] private float _radius = 2f; // distance from black hole
+    [SerializeField] public float Radius = 2f; // distance from black hole
 
     [Header("Screen")]
     private Vector2 screenBounds;
@@ -78,7 +78,7 @@ public class Ship : MonoBehaviour
         _movement = playerInputActions.Player.Move.ReadValue<Vector2>();
 
         if (_gravityOn)
-            _radius -= _gravityScale * Time.deltaTime;
+            Radius -= _gravityScale * Time.deltaTime;
 
     }
 
@@ -101,10 +101,10 @@ public class Ship : MonoBehaviour
 
         // clamp angle to screen bounds
         // max angle depends on radius and screenbounds
-        float thetaMax = Mathf.Acos(screenBounds.x / _radius);
+        float thetaMax = Mathf.Acos(screenBounds.x / Radius);
         _theta = Mathf.Clamp(_theta, thetaMax, Mathf.PI-thetaMax);
 
-        Vector2 newpos = new Vector2(_radius * Mathf.Cos(_theta), _radius * Mathf.Sin(_theta));
+        Vector2 newpos = new Vector2(Radius * Mathf.Cos(_theta), Radius * Mathf.Sin(_theta));
         _rb.MovePosition(newpos);
     }
 
@@ -119,19 +119,21 @@ public class Ship : MonoBehaviour
 
     public void takeDamage(int damage)
     {
-        Debug.Log(isInvincible + " " + damage + " " + _currentHealth);
         if (isInvincible)
         {
             return;
         }
 
         flashEffect.Flash();
-        _currentHealth -= damage;
 
-        if (_currentHealth <= 0)
-        {
-            die();
-        }
+        Radius *= 0.9f;
+
+        //_currentHealth -= damage;
+
+        //if (_currentHealth <= 0)
+        //{
+        //    die();
+        //}
     }
 
     IEnumerator activateInvincibility(float duration)
@@ -140,8 +142,8 @@ public class Ship : MonoBehaviour
         yield return new WaitForSeconds(duration);
         if (!isDead)
             isInvincible = false;
-
     }
+
     void die()
     {
         // death animation
@@ -151,5 +153,13 @@ public class Ship : MonoBehaviour
         isDead = true;
         isInvincible = true;
         //StartCoroutine(GameManager.Instance.GameOver());
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.layer == 10) // black hole
+        {
+            die();
+        }
     }
 }
