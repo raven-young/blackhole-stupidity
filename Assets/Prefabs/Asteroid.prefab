@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5598675613931354586}
   - component: {fileID: 1950772556}
   - component: {fileID: 8008156213487637211}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Asteroid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -100,7 +100,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rb: {fileID: 1950772556}
-  _health: 0
+  _health: 5
   _explosionEffect: {fileID: 5925885586263924435, guid: 6f6e2584aa537cf41b45a6638a850c70, type: 3}
 --- !u!50 &1950772556
 Rigidbody2D:

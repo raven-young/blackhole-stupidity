@@ -28,7 +28,10 @@ public class Spawner : MonoBehaviour
         {
             Vector2 spawnPos =  new Vector2(Random.Range(-_screenBoundsX, _screenBoundsX), transform.position.y);
             GameObject asteroid = Instantiate(_asteroidPrefab, spawnPos, Quaternion.identity);
-            asteroid.GetComponent<Rigidbody2D>().AddForce(-_impulse*Vector2.up, ForceMode2D.Impulse);
+            float randomAngle = Random.Range(0, 15f);
+            Vector2 direction = Vector2.up.Rotate(spawnPos.x > 0 ? -randomAngle : randomAngle);
+            float randomImpulse = Random.Range(0.5f, 1f);
+            asteroid.GetComponent<Rigidbody2D>().AddForce(-randomImpulse*_impulse * direction, ForceMode2D.Impulse);
             _spawnTimer = 0;
         }
     }

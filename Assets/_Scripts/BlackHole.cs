@@ -6,8 +6,20 @@ public class BlackHole : MonoBehaviour
 {
 
     [SerializeField] private float _initalForce;
-    private float _currentForce;
+    public float CurrentForce;
 
+    public static BlackHole Instance;
+
+    private void Awake()
+    {
+        if (Instance != null)
+        {
+            Destroy(gameObject);
+        }
+        Instance = this;
+
+        CurrentForce = _initalForce;
+    }
     // Start is called before the first frame update
     void Start()
     {

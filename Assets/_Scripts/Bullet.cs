@@ -37,8 +37,8 @@ public class Bullet : MonoBehaviour
 
     private void BulletExit(Collider2D collider)
     {
-        //GameObject effect = Instantiate(hitEffect, transform.position, Quaternion.identity);
-        //Destroy(effect, effectDuration);
+        GameObject effect = Instantiate(hitEffect, transform.position, Quaternion.identity);
+        Destroy(effect, effectDuration);
 
         if (piercing < 0)
         {
