@@ -80,7 +80,7 @@ public class QuestionAsteroid : MonoBehaviour
         _questionActive = true;
         _questionAsteroid.SetActive(true);
         _correctAnswer = _correctAnswer == 1 ? 2 : (_correctAnswer == 2 ? 3 : 1);
-        _questionText.text = "Answer: " + _correctAnswer;
+        _questionText.text = "exp(0) * " + _correctAnswer + " =";
     }
 
     // Activate when correctly answering question
@@ -109,8 +109,9 @@ public class QuestionAsteroid : MonoBehaviour
 
     void SpawnStuff(bool correctlyAnswered)
     {
-        var prefab1 = _scrapPrefab;
-        var prefab2 = _fuelPrefab;
+        GameObject prefab1 = _scrapPrefab;
+        GameObject prefab2 = _fuelPrefab;
+
         if (!correctlyAnswered) 
             prefab1 = prefab2 = _asteroidPrefab;
 

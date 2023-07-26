@@ -68,7 +68,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public IEnumerator GameOver(bool victorious = false)
+    public IEnumerator GameOver(bool victorious = false, float _delay = 0f)
     {
         if (victorious) 
             SoundManager.Instance.PlaySound(_victoryClip);
@@ -77,7 +77,7 @@ public class GameManager : MonoBehaviour
         gameHasEnded = true;
         canPause = false;
         CanvasManager.Instance.RenderGameOverScreen(victorious);
-        yield return new WaitForSeconds(4f);
+        yield return new WaitForSeconds(_delay);
         canPause = true;
         PauseGame();
     }

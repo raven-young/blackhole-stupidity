@@ -10,6 +10,7 @@ TagManager:
   - Pickups
   - GameManager
   - Music
+  - Grazebox
   layers:
   - Default
   - TransparentFX
@@ -22,7 +23,7 @@ TagManager:
   - Asteroid
   - 
   - BlackHole
-  - 
+  - EscapeHorizon
   - 
   - 
   - 

@@ -163,7 +163,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rb: {fileID: 1950772556}
-  _health: 5
+  _health: 15
   _explosionEffect: {fileID: 5925885586263924435, guid: 6f6e2584aa537cf41b45a6638a850c70, type: 3}
   _playerDamage: 5
   flashEffect: {fileID: -7005874727660072378}

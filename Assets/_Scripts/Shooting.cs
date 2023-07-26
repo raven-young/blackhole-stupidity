@@ -11,7 +11,8 @@ public class Shooting : MonoBehaviour
 {
 
     //[SerializeField] private static Transform GunPivot;
-    [SerializeField] private Transform firePoint;
+    [SerializeField] private Transform firePointLeft;
+    [SerializeField] private Transform firePointRight;
     [SerializeField] private Bullet bulletPrefab;
     private Slider ammoSlider;
 
@@ -137,13 +138,12 @@ public class Shooting : MonoBehaviour
 
     public void Shoot()
     {
-        //StartCoroutine(Player.Instance.knockback(GunPivot.right * -knockbackStrength * PlayerStats.BulletForce.Value, knockbackDuration));
-        //ShockEvent.Instance.Shock();
-        for (int i = 0; i < _projectileNumber; i++)
+        for (int i = 0; i < 2*_projectileNumber; i++)
         {
             Vector2 direction = Vector2.up;//Quaternion.AngleAxis((i - 0.5f * (_projectileNumber - 1)) * _projectileSpread, Vector3.forward) * firePoint.right;
             //spreadAngle.eulerAngles = new Vector3(0, 0, -90 + Mathf.Rad2Deg * Mathf.Atan2(direction.y, direction.x));
             Bullet bullet = _pool.Get();
+            var firePoint = i % 2 == 0 ? firePointLeft : firePointRight;
             bullet.transform.SetPositionAndRotation(firePoint.position, spreadAngle);
             Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
             rb.velocity = (direction * _bulletForce);

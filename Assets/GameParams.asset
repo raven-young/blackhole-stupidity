@@ -12,3 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 682973243c633894598bc19ce7526a77, type: 3}
   m_Name: GameParams
   m_EditorClassIdentifier: 
+  AngularVelocity: 1
+  BurnRate: 2
+  VelocityScale: 0.5
+  BlackHoleRotationSpeed: 0

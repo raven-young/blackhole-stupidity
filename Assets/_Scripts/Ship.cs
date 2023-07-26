@@ -8,6 +8,7 @@ using UnityEngine.UI;
 
 public class Ship : MonoBehaviour
 {
+    [SerializeField] private GameParams _gameParams;
     [SerializeField] private Camera _cam;
     private PlayerInputActions playerInputActions;
     public static Ship Instance;
@@ -15,27 +16,24 @@ public class Ship : MonoBehaviour
     [Header("Movement")]
     private Vector2 _movement;
     [SerializeField] private Rigidbody2D _rb;
-    [SerializeField] private float _forceMagnitude = 10f;
-    [SerializeField] private float _speed = 5f;
+    //[SerializeField] private float _forceMagnitude = 10f;
+    //[SerializeField] private float _speed = 5f;
 
     private float _theta = Mathf.PI/2;
-    [SerializeField] private float _angularVelocity = 1f;
-    private float _radius = 2f; // distance from black hole
+    private float _radius; // distance from black hole
 
     [Header("Screen")]
     private Vector2 screenBounds;
     [SerializeField] private float objectBoundsScale;
 
     [Header("Logic")]
+    [SerializeField] public float InitialFuel = 100;
     [SerializeField] public float InitialHealth = 100;
     public float CurrentHealth;
-    [SerializeField] public float InitialFuel = 100;
-    [SerializeField] private float _burnRate = 2f; // multiplier that determines rate of fuel consumption
     public float CurrentFuel;
 
     private bool isDead = false;
     private bool isInvincible = false;
-    [SerializeField] private float _velocityScale; // modify ship velocity
 
     [Header("Effects")]
     [SerializeField] private GameObject deathEffect;
@@ -47,6 +45,7 @@ public class Ship : MonoBehaviour
     [SerializeField] private bool _gravityOn = false;
     [Range(-5, 5)]
     [SerializeField] private float _gravityScale;
+    [SerializeField, Range(10,30)] private float winradius = 18f;
 
     private void Awake()
     {
@@ -77,7 +76,14 @@ public class Ship : MonoBehaviour
         if (isDead)
             return;
 
-        CurrentFuel -= _burnRate * Time.deltaTime;
+        // workaround due to broken triggers
+        if (_radius > winradius)
+        {
+            StartCoroutine(GameManager.Instance.GameOver(true));
+        }
+
+
+        CurrentFuel -= _gameParams.BurnRate * Time.deltaTime;
         CanvasManager.Instance.UpdateFuel(CurrentFuel);
 
         /// Movement
@@ -89,7 +95,7 @@ public class Ship : MonoBehaviour
         // calculate radius based on ship health and black hole mass
         var ratio = CurrentHealth / BlackHole.Instance.CurrentForce;
         var velocity = ratio > 1 ? ratio : ratio == 1 ? 0 : -1 / ratio;
-        _radius += _velocityScale * velocity * Time.deltaTime;
+        _radius += _gameParams.VelocityScale * velocity * Time.deltaTime;
 
         // rotate ship
         transform.rotation = Quaternion.Euler(0, 0, _theta*Mathf.Rad2Deg-90);
@@ -111,7 +117,7 @@ public class Ship : MonoBehaviour
         //_rb.AddForceAtPosition(_forceMagnitude * movement.y * Vector2.right, transform.position, ForceMode2D.Force);
 
         // Polar Movement
-        _theta -= _angularVelocity * _movement.x;
+        _theta -= Time.fixedDeltaTime * _gameParams.AngularVelocity * _movement.x;
 
         // clamp angle to screen bounds
         // max angle depends on radius and screenbounds
@@ -165,9 +171,19 @@ public class Ship : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+
+        if (collision.gameObject.layer == 0)
+            Debug.Log("enter " + collision.gameObject.layer);
+
         if (collision.gameObject.layer == 10) // black hole
         {
             Die();
         }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.layer == 0)
+            Debug.Log("exit " + collision.gameObject.layer);
     }
 }
