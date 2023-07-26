@@ -20,7 +20,7 @@ public class Ship : MonoBehaviour
     //[SerializeField] private float _speed = 5f;
 
     private float _theta = Mathf.PI/2;
-    private float _radius; // distance from black hole
+    public float ShipPositionRadius; // distance from black hole
 
     [Header("Screen")]
     private Vector2 screenBounds;
@@ -68,7 +68,7 @@ public class Ship : MonoBehaviour
     private void Start()
     {
         screenBounds = _cam.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, _cam.transform.position.z));
-        _radius = 0.66f * screenBounds.y;
+        ShipPositionRadius = 0.66f * screenBounds.y;
     }
 
     void Update()
@@ -77,7 +77,7 @@ public class Ship : MonoBehaviour
             return;
 
         // workaround due to broken triggers
-        if (_radius > winradius)
+        if (ShipPositionRadius > winradius)
         {
             StartCoroutine(GameManager.Instance.GameOver(true));
         }
@@ -90,12 +90,12 @@ public class Ship : MonoBehaviour
         _movement = playerInputActions.Player.Move.ReadValue<Vector2>();
 
         if (_gravityOn)
-            _radius -= _gravityScale * Time.deltaTime;
+            ShipPositionRadius -= _gravityScale * Time.deltaTime;
 
         // calculate radius based on ship health and black hole mass
         var ratio = CurrentHealth / BlackHole.Instance.CurrentForce;
         var velocity = ratio > 1 ? ratio : ratio == 1 ? 0 : -1 / ratio;
-        _radius += _gameParams.VelocityScale * velocity * Time.deltaTime;
+        ShipPositionRadius += _gameParams.VelocityScale * velocity * Time.deltaTime;
 
         // rotate ship
         transform.rotation = Quaternion.Euler(0, 0, _theta*Mathf.Rad2Deg-90);
@@ -121,10 +121,10 @@ public class Ship : MonoBehaviour
 
         // clamp angle to screen bounds
         // max angle depends on radius and screenbounds
-        float thetaMax = Mathf.Acos(screenBounds.x / _radius);
+        float thetaMax = Mathf.Acos(screenBounds.x / ShipPositionRadius);
         _theta = Mathf.Clamp(_theta, thetaMax, Mathf.PI-thetaMax);
 
-        Vector2 newpos = new Vector2(_radius * Mathf.Cos(_theta), _radius * Mathf.Sin(_theta));
+        Vector2 newpos = new Vector2(ShipPositionRadius * Mathf.Cos(_theta), ShipPositionRadius * Mathf.Sin(_theta));
         _rb.MovePosition(newpos);
     }
 

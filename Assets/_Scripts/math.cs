@@ -5,7 +5,7 @@ using UnityEngine;
 public class NewBehaviourScript : MonoBehaviour
 {
 
-    public   class MathChallenge {
+    public class MathChallenge {
 
         public MathChallenge (){
 

@@ -24,11 +24,16 @@ public class QuestionAsteroid : MonoBehaviour
     [Header("Question")]
     [SerializeField] private GameObject _questionAsteroid;
     [SerializeField] private TMP_Text _questionText;
+    [SerializeField] private TMP_Text _answer1Text;
+    [SerializeField] private TMP_Text _answer2Text;
+    [SerializeField] private TMP_Text _answer3Text;
 
     private bool _questionActive = false;
     private int _correctAnswer; // 1,2,3
     private float _durationDelta = 0;
     private float _deltaDelta = 0;
+    private MathChallenge challenge;
+
 
     private void Awake()
     {
@@ -43,6 +48,7 @@ public class QuestionAsteroid : MonoBehaviour
     void Start()
     {
         _questionAsteroid.SetActive(false);
+        challenge = new MathChallenge();
     }
 
     private void OnDisable()
@@ -79,8 +85,17 @@ public class QuestionAsteroid : MonoBehaviour
         _deltaDelta = 0;
         _questionActive = true;
         _questionAsteroid.SetActive(true);
-        _correctAnswer = _correctAnswer == 1 ? 2 : (_correctAnswer == 2 ? 3 : 1);
-        _questionText.text = "exp(0) * " + _correctAnswer + " =";
+
+        var c = challenge.challenge((int)Ship.Instance.ShipPositionRadius/4);
+        _correctAnswer = c.Item5 + 1;
+        _questionText.text = c.Item1;
+        _answer1Text.text = c.Item2;
+        _answer2Text.text = c.Item3;
+        _answer3Text.text = c.Item4;
+
+        // dummy
+        //_correctAnswer = _correctAnswer == 1 ? 2 : (_correctAnswer == 2 ? 3 : 1);
+        //_questionText.text = "exp(0) * " + _correctAnswer + " =";
     }
 
     // Activate when correctly answering question
