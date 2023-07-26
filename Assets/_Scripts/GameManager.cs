@@ -46,8 +46,7 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         Cursor.visible = false;
-
-
+        Time.timeScale = 1;
         // need to execute always
         ScreenBounds = _cam.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, _cam.transform.position.z));
 
@@ -113,9 +112,6 @@ public class GameManager : MonoBehaviour
         timePassed = 0f;
     }
 
-    private void Update()
-    {
-    }
     public void Quit()
     {
         Application.Quit();

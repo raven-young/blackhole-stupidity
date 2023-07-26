@@ -110,7 +110,7 @@ public class QuestionAsteroid : MonoBehaviour
         // spawn fuel & scrap
     }
 
-    // Activate when incorrectl ansering question or timer runs out
+    // Activate when incorrectly ansering question or timer runs out
     void Fail()
     {
         _durationDelta = 0;
