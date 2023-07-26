@@ -46,15 +46,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Hack"",
-                    ""type"": ""Button"",
-                    ""id"": ""25df0ae0-d668-4f9f-9af7-78431e97b4da"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
                     ""name"": ""Aim"",
                     ""type"": ""PassThrough"",
                     ""id"": ""67009aa4-042e-452c-a32e-13bb03ba6f89"",
@@ -62,15 +53,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
-                },
-                {
-                    ""name"": ""ActivatePower"",
-                    ""type"": ""Button"",
-                    ""id"": ""8d4b9319-a7f6-4ec3-b9e9-0a1df980e4eb"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
                 },
                 {
                     ""name"": ""EscapeAction"",
@@ -82,16 +64,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Action1"",
-                    ""type"": ""Button"",
-                    ""id"": ""17b63ad0-a8cc-4014-918e-e7390878fbd0"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""Action3"",
+                    ""name"": ""Answer1"",
                     ""type"": ""Button"",
                     ""id"": ""ade4a41c-57c3-4a99-a070-25f22586a93a"",
                     ""expectedControlType"": ""Button"",
@@ -100,9 +73,18 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Reload"",
+                    ""name"": ""Answer2"",
                     ""type"": ""Button"",
-                    ""id"": ""e3f3eac8-e0b8-4c0c-b0f5-5e8f9864dd5b"",
+                    ""id"": ""17b63ad0-a8cc-4014-918e-e7390878fbd0"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Answer3"",
+                    ""type"": ""Button"",
+                    ""id"": ""496a9448-1ef7-48fa-9e05-4f725a8a9165"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -308,28 +290,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""dbfecaae-9764-4fb1-9f72-d498847402ed"",
-                    ""path"": ""<Mouse>/rightButton"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""KeyboardMouse"",
-                    ""action"": ""Hack"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""3ba8b07e-864f-45fa-9e94-04526b3faaf0"",
-                    ""path"": ""<Gamepad>/leftTrigger"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Gamepad"",
-                    ""action"": ""Hack"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""1e0f487a-8861-41da-99c4-5a868096a7ec"",
                     ""path"": ""<Gamepad>/rightStick"",
                     ""interactions"": """",
@@ -347,28 +307,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": ""KeyboardMouse"",
                     ""action"": ""Aim"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""279a6eaf-6d4c-46f9-bdaf-ad9402dd4344"",
-                    ""path"": ""<Keyboard>/space"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""KeyboardMouse"",
-                    ""action"": ""ActivatePower"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""c7a6c83d-e401-4e98-b8c2-ba7ef82515eb"",
-                    ""path"": ""<Gamepad>/buttonSouth"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Gamepad"",
-                    ""action"": ""ActivatePower"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -397,88 +335,22 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""a6c4b952-b986-43ba-83bc-baa07374eccf"",
-                    ""path"": ""<Keyboard>/q"",
+                    ""path"": ""<Keyboard>/k"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""KeyboardMouse"",
-                    ""action"": ""Action1"",
+                    ""action"": ""Answer2"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
                     ""id"": ""22172d20-e0ac-4ad6-84a3-ad07d2241c38"",
-                    ""path"": ""<Gamepad>/buttonWest"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Gamepad"",
-                    ""action"": ""Action1"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""73b56f63-a91a-441b-ac1f-f75eb054cf16"",
-                    ""path"": ""<Gamepad>/leftShoulder"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Gamepad"",
-                    ""action"": ""Action1"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""9af7bed4-046a-4c4e-ab3e-8bef8fc50896"",
-                    ""path"": ""<Keyboard>/e"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""KeyboardMouse"",
-                    ""action"": ""Action3"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""db97f370-0456-4c40-9664-5a7fd17d46c9"",
-                    ""path"": ""<Gamepad>/buttonEast"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Action3"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""6ceb1971-f9a7-4524-96f0-e416df77238e"",
-                    ""path"": ""<Gamepad>/rightShoulder"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Gamepad"",
-                    ""action"": ""Action3"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""de7ad8a2-26e5-4f3b-9292-62831a178cb1"",
-                    ""path"": ""<Keyboard>/r"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""KeyboardMouse"",
-                    ""action"": ""Reload"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""35d76205-b8a6-4840-8802-55f1237b30d0"",
                     ""path"": ""<Gamepad>/buttonNorth"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
-                    ""action"": ""Reload"",
+                    ""action"": ""Answer2"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -501,6 +373,50 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": ""KeyboardMouse"",
                     ""action"": ""DevTools"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9af7bed4-046a-4c4e-ab3e-8bef8fc50896"",
+                    ""path"": ""<Keyboard>/j"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KeyboardMouse"",
+                    ""action"": ""Answer1"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""db97f370-0456-4c40-9664-5a7fd17d46c9"",
+                    ""path"": ""<Gamepad>/buttonWest"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Answer1"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d9cbe2a0-96c2-415b-bef9-c5927d81c215"",
+                    ""path"": ""<Keyboard>/l"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KeyboardMouse"",
+                    ""action"": ""Answer3"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""59469def-ef0c-4f3a-b574-eb97f11c8e62"",
+                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Answer3"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1090,13 +1006,11 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
         m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
         m_Player_Fire = m_Player.FindAction("Fire", throwIfNotFound: true);
-        m_Player_Hack = m_Player.FindAction("Hack", throwIfNotFound: true);
         m_Player_Aim = m_Player.FindAction("Aim", throwIfNotFound: true);
-        m_Player_ActivatePower = m_Player.FindAction("ActivatePower", throwIfNotFound: true);
         m_Player_EscapeAction = m_Player.FindAction("EscapeAction", throwIfNotFound: true);
-        m_Player_Action1 = m_Player.FindAction("Action1", throwIfNotFound: true);
-        m_Player_Action3 = m_Player.FindAction("Action3", throwIfNotFound: true);
-        m_Player_Reload = m_Player.FindAction("Reload", throwIfNotFound: true);
+        m_Player_Answer1 = m_Player.FindAction("Answer1", throwIfNotFound: true);
+        m_Player_Answer2 = m_Player.FindAction("Answer2", throwIfNotFound: true);
+        m_Player_Answer3 = m_Player.FindAction("Answer3", throwIfNotFound: true);
         m_Player_DevTools = m_Player.FindAction("DevTools", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
@@ -1173,13 +1087,11 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private List<IPlayerActions> m_PlayerActionsCallbackInterfaces = new List<IPlayerActions>();
     private readonly InputAction m_Player_Move;
     private readonly InputAction m_Player_Fire;
-    private readonly InputAction m_Player_Hack;
     private readonly InputAction m_Player_Aim;
-    private readonly InputAction m_Player_ActivatePower;
     private readonly InputAction m_Player_EscapeAction;
-    private readonly InputAction m_Player_Action1;
-    private readonly InputAction m_Player_Action3;
-    private readonly InputAction m_Player_Reload;
+    private readonly InputAction m_Player_Answer1;
+    private readonly InputAction m_Player_Answer2;
+    private readonly InputAction m_Player_Answer3;
     private readonly InputAction m_Player_DevTools;
     public struct PlayerActions
     {
@@ -1187,13 +1099,11 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         public PlayerActions(@PlayerInputActions wrapper) { m_Wrapper = wrapper; }
         public InputAction @Move => m_Wrapper.m_Player_Move;
         public InputAction @Fire => m_Wrapper.m_Player_Fire;
-        public InputAction @Hack => m_Wrapper.m_Player_Hack;
         public InputAction @Aim => m_Wrapper.m_Player_Aim;
-        public InputAction @ActivatePower => m_Wrapper.m_Player_ActivatePower;
         public InputAction @EscapeAction => m_Wrapper.m_Player_EscapeAction;
-        public InputAction @Action1 => m_Wrapper.m_Player_Action1;
-        public InputAction @Action3 => m_Wrapper.m_Player_Action3;
-        public InputAction @Reload => m_Wrapper.m_Player_Reload;
+        public InputAction @Answer1 => m_Wrapper.m_Player_Answer1;
+        public InputAction @Answer2 => m_Wrapper.m_Player_Answer2;
+        public InputAction @Answer3 => m_Wrapper.m_Player_Answer3;
         public InputAction @DevTools => m_Wrapper.m_Player_DevTools;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
@@ -1210,27 +1120,21 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Fire.started += instance.OnFire;
             @Fire.performed += instance.OnFire;
             @Fire.canceled += instance.OnFire;
-            @Hack.started += instance.OnHack;
-            @Hack.performed += instance.OnHack;
-            @Hack.canceled += instance.OnHack;
             @Aim.started += instance.OnAim;
             @Aim.performed += instance.OnAim;
             @Aim.canceled += instance.OnAim;
-            @ActivatePower.started += instance.OnActivatePower;
-            @ActivatePower.performed += instance.OnActivatePower;
-            @ActivatePower.canceled += instance.OnActivatePower;
             @EscapeAction.started += instance.OnEscapeAction;
             @EscapeAction.performed += instance.OnEscapeAction;
             @EscapeAction.canceled += instance.OnEscapeAction;
-            @Action1.started += instance.OnAction1;
-            @Action1.performed += instance.OnAction1;
-            @Action1.canceled += instance.OnAction1;
-            @Action3.started += instance.OnAction3;
-            @Action3.performed += instance.OnAction3;
-            @Action3.canceled += instance.OnAction3;
-            @Reload.started += instance.OnReload;
-            @Reload.performed += instance.OnReload;
-            @Reload.canceled += instance.OnReload;
+            @Answer1.started += instance.OnAnswer1;
+            @Answer1.performed += instance.OnAnswer1;
+            @Answer1.canceled += instance.OnAnswer1;
+            @Answer2.started += instance.OnAnswer2;
+            @Answer2.performed += instance.OnAnswer2;
+            @Answer2.canceled += instance.OnAnswer2;
+            @Answer3.started += instance.OnAnswer3;
+            @Answer3.performed += instance.OnAnswer3;
+            @Answer3.canceled += instance.OnAnswer3;
             @DevTools.started += instance.OnDevTools;
             @DevTools.performed += instance.OnDevTools;
             @DevTools.canceled += instance.OnDevTools;
@@ -1244,27 +1148,21 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Fire.started -= instance.OnFire;
             @Fire.performed -= instance.OnFire;
             @Fire.canceled -= instance.OnFire;
-            @Hack.started -= instance.OnHack;
-            @Hack.performed -= instance.OnHack;
-            @Hack.canceled -= instance.OnHack;
             @Aim.started -= instance.OnAim;
             @Aim.performed -= instance.OnAim;
             @Aim.canceled -= instance.OnAim;
-            @ActivatePower.started -= instance.OnActivatePower;
-            @ActivatePower.performed -= instance.OnActivatePower;
-            @ActivatePower.canceled -= instance.OnActivatePower;
             @EscapeAction.started -= instance.OnEscapeAction;
             @EscapeAction.performed -= instance.OnEscapeAction;
             @EscapeAction.canceled -= instance.OnEscapeAction;
-            @Action1.started -= instance.OnAction1;
-            @Action1.performed -= instance.OnAction1;
-            @Action1.canceled -= instance.OnAction1;
-            @Action3.started -= instance.OnAction3;
-            @Action3.performed -= instance.OnAction3;
-            @Action3.canceled -= instance.OnAction3;
-            @Reload.started -= instance.OnReload;
-            @Reload.performed -= instance.OnReload;
-            @Reload.canceled -= instance.OnReload;
+            @Answer1.started -= instance.OnAnswer1;
+            @Answer1.performed -= instance.OnAnswer1;
+            @Answer1.canceled -= instance.OnAnswer1;
+            @Answer2.started -= instance.OnAnswer2;
+            @Answer2.performed -= instance.OnAnswer2;
+            @Answer2.canceled -= instance.OnAnswer2;
+            @Answer3.started -= instance.OnAnswer3;
+            @Answer3.performed -= instance.OnAnswer3;
+            @Answer3.canceled -= instance.OnAnswer3;
             @DevTools.started -= instance.OnDevTools;
             @DevTools.performed -= instance.OnDevTools;
             @DevTools.canceled -= instance.OnDevTools;
@@ -1452,13 +1350,11 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     {
         void OnMove(InputAction.CallbackContext context);
         void OnFire(InputAction.CallbackContext context);
-        void OnHack(InputAction.CallbackContext context);
         void OnAim(InputAction.CallbackContext context);
-        void OnActivatePower(InputAction.CallbackContext context);
         void OnEscapeAction(InputAction.CallbackContext context);
-        void OnAction1(InputAction.CallbackContext context);
-        void OnAction3(InputAction.CallbackContext context);
-        void OnReload(InputAction.CallbackContext context);
+        void OnAnswer1(InputAction.CallbackContext context);
+        void OnAnswer2(InputAction.CallbackContext context);
+        void OnAnswer3(InputAction.CallbackContext context);
         void OnDevTools(InputAction.CallbackContext context);
     }
     public interface IUIActions

@@ -24,15 +24,6 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Hack",
-                    "type": "Button",
-                    "id": "25df0ae0-d668-4f9f-9af7-78431e97b4da",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "Aim",
                     "type": "PassThrough",
                     "id": "67009aa4-042e-452c-a32e-13bb03ba6f89",
@@ -40,15 +31,6 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
-                },
-                {
-                    "name": "ActivatePower",
-                    "type": "Button",
-                    "id": "8d4b9319-a7f6-4ec3-b9e9-0a1df980e4eb",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
                 },
                 {
                     "name": "EscapeAction",
@@ -60,16 +42,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Action1",
-                    "type": "Button",
-                    "id": "17b63ad0-a8cc-4014-918e-e7390878fbd0",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Action3",
+                    "name": "Answer1",
                     "type": "Button",
                     "id": "ade4a41c-57c3-4a99-a070-25f22586a93a",
                     "expectedControlType": "Button",
@@ -78,9 +51,18 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Reload",
+                    "name": "Answer2",
                     "type": "Button",
-                    "id": "e3f3eac8-e0b8-4c0c-b0f5-5e8f9864dd5b",
+                    "id": "17b63ad0-a8cc-4014-918e-e7390878fbd0",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Answer3",
+                    "type": "Button",
+                    "id": "496a9448-1ef7-48fa-9e05-4f725a8a9165",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -286,28 +268,6 @@
                 },
                 {
                     "name": "",
-                    "id": "dbfecaae-9764-4fb1-9f72-d498847402ed",
-                    "path": "<Mouse>/rightButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "KeyboardMouse",
-                    "action": "Hack",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "3ba8b07e-864f-45fa-9e94-04526b3faaf0",
-                    "path": "<Gamepad>/leftTrigger",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Gamepad",
-                    "action": "Hack",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "1e0f487a-8861-41da-99c4-5a868096a7ec",
                     "path": "<Gamepad>/rightStick",
                     "interactions": "",
@@ -325,28 +285,6 @@
                     "processors": "",
                     "groups": "KeyboardMouse",
                     "action": "Aim",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "279a6eaf-6d4c-46f9-bdaf-ad9402dd4344",
-                    "path": "<Keyboard>/space",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "KeyboardMouse",
-                    "action": "ActivatePower",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "c7a6c83d-e401-4e98-b8c2-ba7ef82515eb",
-                    "path": "<Gamepad>/buttonSouth",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Gamepad",
-                    "action": "ActivatePower",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -375,88 +313,22 @@
                 {
                     "name": "",
                     "id": "a6c4b952-b986-43ba-83bc-baa07374eccf",
-                    "path": "<Keyboard>/q",
+                    "path": "<Keyboard>/k",
                     "interactions": "",
                     "processors": "",
                     "groups": "KeyboardMouse",
-                    "action": "Action1",
+                    "action": "Answer2",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
                     "id": "22172d20-e0ac-4ad6-84a3-ad07d2241c38",
-                    "path": "<Gamepad>/buttonWest",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Gamepad",
-                    "action": "Action1",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "73b56f63-a91a-441b-ac1f-f75eb054cf16",
-                    "path": "<Gamepad>/leftShoulder",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Gamepad",
-                    "action": "Action1",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "9af7bed4-046a-4c4e-ab3e-8bef8fc50896",
-                    "path": "<Keyboard>/e",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "KeyboardMouse",
-                    "action": "Action3",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "db97f370-0456-4c40-9664-5a7fd17d46c9",
-                    "path": "<Gamepad>/buttonEast",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Action3",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "6ceb1971-f9a7-4524-96f0-e416df77238e",
-                    "path": "<Gamepad>/rightShoulder",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Gamepad",
-                    "action": "Action3",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "de7ad8a2-26e5-4f3b-9292-62831a178cb1",
-                    "path": "<Keyboard>/r",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "KeyboardMouse",
-                    "action": "Reload",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "35d76205-b8a6-4840-8802-55f1237b30d0",
                     "path": "<Gamepad>/buttonNorth",
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
-                    "action": "Reload",
+                    "action": "Answer2",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -479,6 +351,50 @@
                     "processors": "",
                     "groups": "KeyboardMouse",
                     "action": "DevTools",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "9af7bed4-046a-4c4e-ab3e-8bef8fc50896",
+                    "path": "<Keyboard>/j",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "KeyboardMouse",
+                    "action": "Answer1",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "db97f370-0456-4c40-9664-5a7fd17d46c9",
+                    "path": "<Gamepad>/buttonWest",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Answer1",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d9cbe2a0-96c2-415b-bef9-c5927d81c215",
+                    "path": "<Keyboard>/l",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "KeyboardMouse",
+                    "action": "Answer3",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "59469def-ef0c-4f3a-b574-eb97f11c8e62",
+                    "path": "<Gamepad>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Answer3",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

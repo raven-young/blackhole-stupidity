@@ -152,7 +152,7 @@ public class Ship : MonoBehaviour
         gameObject.GetComponent<Renderer>().enabled = false;
         isDead = true;
         isInvincible = true;
-        //StartCoroutine(GameManager.Instance.GameOver());
+        StartCoroutine(GameManager.Instance.GameOver());
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

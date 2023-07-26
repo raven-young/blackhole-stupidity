@@ -11,6 +11,7 @@ public class Asteroid : MonoBehaviour
     [SerializeField] private int _playerDamage = 1;
     [SerializeField] protected FlashColor flashEffect;
     [SerializeField] private float _blakHoleGrowthRate = 1.03f;
+    [SerializeField] private float _scrapBonus = 1.03f;
 
     // Start is called before the first frame update
     void Start()
@@ -33,7 +34,7 @@ public class Asteroid : MonoBehaviour
 
         if (_health <= 0)
         {
-            Ship.Instance.Radius *= 1.1f;
+            Ship.Instance.Radius *= _scrapBonus;
             Die();
         }
     }
