@@ -8,7 +8,7 @@ public class Asteroid : MonoBehaviour
     [SerializeField] private Rigidbody2D _rb;
     [SerializeField] private int _health = 3;
     [SerializeField] private GameObject _explosionEffect;
-    [SerializeField] private int _playerDamage = 1;
+    [SerializeField] private int _playerDamage = 3; 
     [SerializeField] protected FlashColor flashEffect;
     [SerializeField] private float _blakHoleGrowthRate = 1.03f;
     [SerializeField] private float _scrapBonus = 1.03f;
@@ -19,22 +19,28 @@ public class Asteroid : MonoBehaviour
         
     }
 
+    private void Update()
+    {
+        // Despawn if below x axis
+        if (transform.position.y < -1)
+            Destroy(gameObject);
+    }
+
     private void FixedUpdate()
     {
         // force in direction of black hole
         float force = BlackHole.Instance.CurrentForce;
-        transform.GetComponent<Rigidbody2D>().AddForce(-transform.position*force*Time.fixedDeltaTime, ForceMode2D.Force);
+        _rb.AddForce(-transform.position*force*Time.fixedDeltaTime, ForceMode2D.Force);
     }
 
-    public void takeDamage(int damage)
+    public void TakeDamage(int damage)
     {
 
         flashEffect.Flash();
-        _health--;
+        _health -= damage;
 
         if (_health <= 0)
         {
-            Ship.Instance.Radius *= _scrapBonus;
             Die();
         }
     }
@@ -44,7 +50,7 @@ public class Asteroid : MonoBehaviour
         switch (collision.gameObject.layer)
         {
             case 6: // ship
-                collision.gameObject.GetComponent<Ship>().takeDamage(_playerDamage);
+                collision.gameObject.GetComponent<Ship>().TakeDamage(_playerDamage);
                 Die();
                 break;
             case 10: // black hole

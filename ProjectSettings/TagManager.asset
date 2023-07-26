@@ -6,20 +6,10 @@ TagManager:
   tags:
   - DestroyOnReload
   - Logic
-  - EnemySide
-  - Bullet
   - Heart
-  - Canvas
-  - CanvasManager
-  - Water
-  - HeartUI
   - Pickups
   - GameManager
   - Music
-  - BorderDestroyer
-  - HighlightBox
-  - Grazebox
-  - EnemyCollector
   layers:
   - Default
   - TransparentFX
@@ -28,17 +18,17 @@ TagManager:
   - Water
   - UI
   - Ship
-  - 
-  - Asteroid
   - Pickups
+  - Asteroid
+  - 
   - BlackHole
   - 
   - 
-  - Collector
   - 
   - 
-  - AgentUnpassable
-  - PlayerHitbox
+  - 
+  - 
+  - 
   - BulletPlayer
   - 
   - 

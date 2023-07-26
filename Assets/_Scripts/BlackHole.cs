@@ -5,7 +5,7 @@ using UnityEngine;
 public class BlackHole : MonoBehaviour
 {
 
-    [SerializeField] private float _initalForce;
+    private float _initalForce;
     public float CurrentForce;
 
     public static BlackHole Instance;
@@ -18,12 +18,14 @@ public class BlackHole : MonoBehaviour
         }
         Instance = this;
 
-        CurrentForce = _initalForce;
+        
     }
     // Start is called before the first frame update
     void Start()
     {
-        
+        // At the start of the game, BH force and ship fuel are balanced
+        _initalForce = Ship.Instance.CurrentFuel;
+        CurrentForce = _initalForce;
     }
 
     // Update is called once per frame

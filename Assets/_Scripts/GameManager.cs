@@ -4,7 +4,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.InputSystem;
 using UnityEngine.EventSystems;
-using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -21,11 +20,11 @@ public class GameManager : MonoBehaviour
     private PlayerInputActions playerInputActions;
     [SerializeField] private Camera _cam;
 
-    [Header("UI")]
-    [SerializeField] private Slider _fuelSlider;
-
     [Header("Logic")]
     [SerializeField] private float _initialFuel = 20f; // seconds
+
+    [Header("Sounds")]
+    [SerializeField] private AudioClip _deathClip, _victoryClip;
 
     private void Awake()
     {
@@ -47,8 +46,7 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         Cursor.visible = false;
-        _fuelSlider.maxValue = _initialFuel;
-        _fuelSlider.value = _initialFuel;
+
 
         // need to execute always
         ScreenBounds = _cam.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, _cam.transform.position.z));
@@ -72,6 +70,10 @@ public class GameManager : MonoBehaviour
 
     public IEnumerator GameOver(bool victorious = false)
     {
+        if (victorious) 
+            SoundManager.Instance.PlaySound(_victoryClip);
+        else
+            SoundManager.Instance.PlaySound(_deathClip);
         gameHasEnded = true;
         canPause = false;
         CanvasManager.Instance.RenderGameOverScreen(victorious);
@@ -113,7 +115,6 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        _fuelSlider.value -= Time.deltaTime;
     }
     public void Quit()
     {
@@ -122,6 +123,6 @@ public class GameManager : MonoBehaviour
 
     public void OnDrawGizmos()
     {
-        Gizmos.DrawCube(new Vector3(0, ScreenBounds.y/2, 0), new Vector3(2*ScreenBounds.x, ScreenBounds.y, 1));
+        Gizmos.DrawWireCube(new Vector3(0, ScreenBounds.y/2, 0), new Vector3(2*ScreenBounds.x, ScreenBounds.y, 1));
     }
 }

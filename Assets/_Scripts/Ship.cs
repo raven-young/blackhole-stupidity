@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using DamageNumbersPro;
+using UnityEngine.UI;
 
 public class Ship : MonoBehaviour
 {
@@ -19,7 +20,7 @@ public class Ship : MonoBehaviour
 
     private float _theta = Mathf.PI/2;
     [SerializeField] private float _angularVelocity = 1f;
-    [SerializeField] public float Radius = 2f; // distance from black hole
+    private float _radius = 2f; // distance from black hole
 
     [Header("Screen")]
     private Vector2 screenBounds;
@@ -28,10 +29,15 @@ public class Ship : MonoBehaviour
     [SerializeField] private float objectBoundsScale;
 
     [Header("Logic")]
-    [SerializeField] private float _initialHealth = 3;
-    private float _currentHealth;
+    [SerializeField] public float InitialHealth = 100;
+    public float CurrentHealth;
+    [SerializeField] public float InitialFuel = 100;
+    [SerializeField] private float _burnRate = 2f; // multiplier that determines rate of fuel consumption
+    public float CurrentFuel;
+
     private bool isDead = false;
     private bool isInvincible = false;
+    [SerializeField] private float _velocityScale; // modify ship velocity
 
     [Header("Effects")]
     [SerializeField] private GameObject deathEffect;
@@ -48,7 +54,8 @@ public class Ship : MonoBehaviour
     {
         Instance = this;
         playerInputActions = new PlayerInputActions();
-        _currentHealth = _initialHealth;
+        CurrentHealth = InitialHealth;
+        CurrentFuel = InitialFuel;
     }
 
     private void OnEnable()
@@ -67,6 +74,7 @@ public class Ship : MonoBehaviour
         screenBounds = _cam.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, _cam.transform.position.z));
         //objectWidth = objectBoundsScale * transform.GetComponent<SpriteRenderer>().bounds.extents.x; //extents = size of width / 2
         //objectHeight = objectBoundsScale * transform.GetComponent<SpriteRenderer>().bounds.extents.y; //extents = size of height / 2
+        _radius = 0.66f * screenBounds.y;
     }
 
     void Update()
@@ -74,11 +82,19 @@ public class Ship : MonoBehaviour
         if (isDead)
             return;
 
+        CurrentFuel -= _burnRate * Time.deltaTime;
+        CanvasManager.Instance.UpdateFuel(CurrentFuel);
+
         /// Movement
         _movement = playerInputActions.Player.Move.ReadValue<Vector2>();
 
         if (_gravityOn)
-            Radius -= _gravityScale * Time.deltaTime;
+            _radius -= _gravityScale * Time.deltaTime;
+
+        // calculate radius based on ship health and black hole mass
+        var ratio = CurrentHealth / BlackHole.Instance.CurrentForce;
+        var velocity = ratio > 1 ? ratio : ratio == 1 ? 0 : -1 / ratio;
+        _radius += _velocityScale * velocity * Time.deltaTime;
 
     }
 
@@ -101,10 +117,10 @@ public class Ship : MonoBehaviour
 
         // clamp angle to screen bounds
         // max angle depends on radius and screenbounds
-        float thetaMax = Mathf.Acos(screenBounds.x / Radius);
+        float thetaMax = Mathf.Acos(screenBounds.x / _radius);
         _theta = Mathf.Clamp(_theta, thetaMax, Mathf.PI-thetaMax);
 
-        Vector2 newpos = new Vector2(Radius * Mathf.Cos(_theta), Radius * Mathf.Sin(_theta));
+        Vector2 newpos = new Vector2(_radius * Mathf.Cos(_theta), _radius * Mathf.Sin(_theta));
         _rb.MovePosition(newpos);
     }
 
@@ -117,7 +133,7 @@ public class Ship : MonoBehaviour
         //transform.position = viewPos;
     }
 
-    public void takeDamage(int damage)
+    public void TakeDamage(int damage)
     {
         if (isInvincible)
         {
@@ -126,17 +142,11 @@ public class Ship : MonoBehaviour
 
         flashEffect.Flash();
 
-        Radius *= 0.9f;
-
-        //_currentHealth -= damage;
-
-        //if (_currentHealth <= 0)
-        //{
-        //    die();
-        //}
+        CurrentHealth -= damage;
+        CanvasManager.Instance.UpdateHealth(CurrentHealth);
     }
 
-    IEnumerator activateInvincibility(float duration)
+    IEnumerator ActivateInvincibility(float duration)
     {
         isInvincible = true;
         yield return new WaitForSeconds(duration);
@@ -144,7 +154,7 @@ public class Ship : MonoBehaviour
             isInvincible = false;
     }
 
-    void die()
+    void Die()
     {
         // death animation
         GameObject effect = Instantiate(deathEffect, transform.position, Quaternion.identity);
@@ -159,7 +169,7 @@ public class Ship : MonoBehaviour
     {
         if (collision.gameObject.layer == 10) // black hole
         {
-            die();
+            Die();
         }
     }
 }

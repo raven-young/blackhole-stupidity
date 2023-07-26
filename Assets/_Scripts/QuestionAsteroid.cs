@@ -114,8 +114,6 @@ public class QuestionAsteroid : MonoBehaviour
         if (!correctlyAnswered) 
             prefab1 = prefab2 = _asteroidPrefab;
 
-        Debug.Log(prefab1 + " " + prefab2);
-
         for (int i = 0; i < _spawnAmount; i++)
         {
             float randomX = 0.3f * GameManager.Instance.ScreenBounds.x * (Random.Range(0, 1) < 0.5 ? 1 : -1);
