@@ -24,8 +24,6 @@ public class Ship : MonoBehaviour
 
     [Header("Screen")]
     private Vector2 screenBounds;
-    //private float objectWidth;
-    //private float objectHeight;
     [SerializeField] private float objectBoundsScale;
 
     [Header("Logic")]
@@ -70,10 +68,7 @@ public class Ship : MonoBehaviour
 
     private void Start()
     {
-        //canvas = GameObject.FindObjectOfType<CanvasManager>().GetComponent<CanvasManager>();
         screenBounds = _cam.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, _cam.transform.position.z));
-        //objectWidth = objectBoundsScale * transform.GetComponent<SpriteRenderer>().bounds.extents.x; //extents = size of width / 2
-        //objectHeight = objectBoundsScale * transform.GetComponent<SpriteRenderer>().bounds.extents.y; //extents = size of height / 2
         _radius = 0.66f * screenBounds.y;
     }
 
@@ -95,6 +90,9 @@ public class Ship : MonoBehaviour
         var ratio = CurrentHealth / BlackHole.Instance.CurrentForce;
         var velocity = ratio > 1 ? ratio : ratio == 1 ? 0 : -1 / ratio;
         _radius += _velocityScale * velocity * Time.deltaTime;
+
+        // rotate ship
+        transform.rotation = Quaternion.Euler(0, 0, _theta*Mathf.Rad2Deg-90);
 
     }
 
@@ -124,14 +122,14 @@ public class Ship : MonoBehaviour
         _rb.MovePosition(newpos);
     }
 
-    void LateUpdate()
-    {
-        // Clamp ship pos to screen bounds
-        //Vector3 viewPos = transform.position;
-        //viewPos.x = Mathf.Clamp(viewPos.x, -screenBounds.x + objectWidth, screenBounds.x - objectWidth);
-        //viewPos.y = Mathf.Clamp(viewPos.y, -screenBounds.y + objectHeight, screenBounds.y - objectHeight);
-        //transform.position = viewPos;
-    }
+    //void LateUpdate()
+    //{
+    //    // Clamp ship pos to screen bounds
+    //    //Vector3 viewPos = transform.position;
+    //    //viewPos.x = Mathf.Clamp(viewPos.x, -screenBounds.x + objectWidth, screenBounds.x - objectWidth);
+    //    //viewPos.y = Mathf.Clamp(viewPos.y, -screenBounds.y + objectHeight, screenBounds.y - objectHeight);
+    //    //transform.position = viewPos;
+    //}
 
     public void TakeDamage(int damage)
     {
