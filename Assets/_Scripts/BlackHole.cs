@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class BlackHole : MonoBehaviour
 {
+    [SerializeField] private GameParams _gameParams;
 
     private float _initalForce;
     public float CurrentForce;
@@ -26,12 +27,6 @@ public class BlackHole : MonoBehaviour
         // At the start of the game, BH force and ship fuel are balanced
         _initalForce = Ship.Instance.CurrentFuel;
         CurrentForce = _initalForce;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     public void ChangeSize(float scaleMultiplier)
