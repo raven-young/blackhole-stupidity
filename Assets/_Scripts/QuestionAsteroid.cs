@@ -7,19 +7,11 @@ using TMPro;
 public class QuestionAsteroid : MonoBehaviour
 {
     private PlayerInputActions playerInputActions;
+    [SerializeField] private GameParams _gameParams;
 
     [SerializeField] private GameObject _scrapPrefab;
     [SerializeField] private GameObject _fuelPrefab;
     [SerializeField] private GameObject _asteroidPrefab;
-
-    [Header("Parameters")]
-    [SerializeField] private float _questionDuration; // time to answer the question
-    [SerializeField] private float _questionDelta; // time until next question
-    [SerializeField] private int _spawnAmount = 3; // how many things to spawn after answering question
-    [Range(0,10)]
-    [SerializeField] private float _spawnImpulse; // max impulse applied to spawned objects
-    [Range(0,360)]
-    [SerializeField] private float _maxSpawnAngle;
 
     [Header("Question")]
     [SerializeField] private GameObject _questionAsteroid;
@@ -63,7 +55,7 @@ public class QuestionAsteroid : MonoBehaviour
         {
             _deltaDelta += Time.deltaTime;
 
-            if (_deltaDelta > _questionDelta)
+            if (_deltaDelta > _gameParams.QuestionDelta)
             {   
                 SpawnQuestion();
             }
@@ -73,7 +65,7 @@ public class QuestionAsteroid : MonoBehaviour
         {
             _durationDelta += Time.deltaTime;
 
-            if (_durationDelta > _questionDuration)
+            if (_durationDelta > _gameParams.QuestionDuration)
             {
                 Fail();
             }
@@ -130,16 +122,16 @@ public class QuestionAsteroid : MonoBehaviour
         if (!correctlyAnswered) 
             prefab1 = prefab2 = _asteroidPrefab;
 
-        for (int i = 0; i < _spawnAmount; i++)
+        for (int i = 0; i < _gameParams.SpawnAmount; i++)
         {
-            float randomX = 0.3f * GameManager.Instance.ScreenBounds.x * (Random.Range(0, 1) < 0.5 ? 1 : -1);
+            float randomX = 0.1f * Random.Range(-1f, 1f) * GameManager.Instance.ScreenBounds.x;
             Vector2 spawnPos = new Vector2(transform.position.x + randomX, transform.position.y);
             GameObject spawnedObject = Instantiate(Random.Range(0f, 1f) < 0.5 ? prefab1 : prefab2,
                                                    spawnPos, Quaternion.identity);
 
-            Vector2 direction = Vector2.up.Rotate(Random.Range(-_maxSpawnAngle, _maxSpawnAngle));
+            Vector2 direction = Vector2.up.Rotate(Random.Range(-_gameParams.MaxSpawnAngle, _gameParams.MaxSpawnAngle));
 
-            spawnedObject.GetComponent<Rigidbody2D>().AddForce(-Random.Range(0.5f, 1f) * _spawnImpulse * direction, 
+            spawnedObject.GetComponent<Rigidbody2D>().AddForce(-Random.Range(0.5f, 1f) * _gameParams.SpawnImpulse * direction, 
                                                                ForceMode2D.Impulse);
         }
     }
