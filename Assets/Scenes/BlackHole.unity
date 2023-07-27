@@ -680,6 +680,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Global Volume
       objectReference: {fileID: 0}
+    - target: {fileID: 3575795274087357865, guid: 206b266e2ae560645bd71a1890fbb5fb, type: 3}
+      propertyPath: sharedProfile
+      value: 
+      objectReference: {fileID: 11400000, guid: ef94118ed7e74a149b1ca36a738e33de, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1069,6 +1073,10 @@ PrefabInstance:
     - target: {fileID: 1822769079800727778, guid: 6712ae19200c18940aed585cdb400bff, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2171336313493504409, guid: 6712ae19200c18940aed585cdb400bff, type: 3}
+      propertyPath: m_RenderPostProcessing
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6920130681049235801, guid: 6712ae19200c18940aed585cdb400bff, type: 3}
       propertyPath: m_Name
