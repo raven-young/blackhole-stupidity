@@ -5,10 +5,8 @@ using UnityEngine;
 public class RandomSmallSpawner : MonoBehaviour
 {
 
+    [SerializeField] private GameParams _gameParams;
     [SerializeField] private GameObject _asteroidPrefab;
-
-    [SerializeField] private float _impulse; // impulse on newly spawned asteroids
-    [SerializeField] private float _spawnPeriod; // spawn new asteroids at this rate
 
     [SerializeField] private Camera _cam;
     private float _screenBoundsX;
@@ -24,14 +22,14 @@ public class RandomSmallSpawner : MonoBehaviour
     void Update()
     {
         _spawnTimer += Time.deltaTime;
-        if (_spawnTimer > _spawnPeriod)
+        if (_spawnTimer > _gameParams.SpawnPeriod)
         {
-            Vector2 spawnPos =  new Vector2(Random.Range(-_screenBoundsX, _screenBoundsX), transform.position.y);
+            Vector2 spawnPos =  new Vector2(0.6f*Random.Range(-_screenBoundsX, _screenBoundsX), transform.position.y);
             GameObject asteroid = Instantiate(_asteroidPrefab, spawnPos, Quaternion.identity);
             float randomAngle = Random.Range(0, 15f);
             Vector2 direction = Vector2.up.Rotate(spawnPos.x > 0 ? -randomAngle : randomAngle);
             float randomImpulse = Random.Range(0.5f, 1f);
-            asteroid.GetComponent<Rigidbody2D>().AddForce(-randomImpulse*_impulse * direction, ForceMode2D.Impulse);
+            asteroid.GetComponent<Rigidbody2D>().AddForce(-randomImpulse*_gameParams.RandomAsteroidImpulse * direction, ForceMode2D.Impulse);
             _spawnTimer = 0;
         }
     }

@@ -43,7 +43,7 @@ public class CanvasManager : MonoBehaviour
     public void RenderPauseScreen()
     {
         pauseScreen.SetActive(true);
-        GameObject ResumeButton = pauseScreen.transform.Find("Resume Button").gameObject;
+        //GameObject ResumeButton = pauseScreen.transform.Find("Resume Button").gameObject;
         //var eventSystem = EventSystem.current;
         //eventSystem.SetSelectedGameObject(ResumeButton, new BaseEventData(eventSystem));
     }
