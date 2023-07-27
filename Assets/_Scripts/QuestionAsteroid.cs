@@ -13,7 +13,7 @@ public class QuestionAsteroid : MonoBehaviour
     [SerializeField] private GameObject _fuelPrefab;
     [SerializeField] private GameObject _asteroidPrefab;
     [SerializeField] private GameObject _explosionEffect;
-    [SerializeField] private Vector3 _spawnPoint;
+    [SerializeField] private Transform _spawnPoint;
 
     [Header("Question")]
     [SerializeField] private GameObject _questionAsteroid;
@@ -53,7 +53,7 @@ public class QuestionAsteroid : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //transform.position = Vector3.MoveTowards(transform.position, Vector3.zero, Time.deltaTime * _gameParams.QuestionAsteroidSpeed);
+        transform.position = Vector3.MoveTowards(transform.position, Vector3.zero, Time.deltaTime * _gameParams.QuestionAsteroidSpeed);
 
         if (!_questionActive)
         {
@@ -86,7 +86,7 @@ public class QuestionAsteroid : MonoBehaviour
         _deltaDelta = 0;
         _questionActive = true;
         _questionAsteroid.SetActive(true);
-        //transform.position = _spawnPoint;
+        transform.position = _spawnPoint.position;
 
         //float difficulty
         var c = challenge.challenge((int)Ship.Instance.ShipPositionRadius/4);

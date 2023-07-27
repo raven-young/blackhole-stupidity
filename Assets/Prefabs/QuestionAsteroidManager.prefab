@@ -817,11 +817,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c4b313ae2ac1cf479210350dd2b38b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gameParams: {fileID: 11400000, guid: 8997eda04107ded43858f1ccd23b19e5, type: 2}
+  _gameParams: {fileID: 11400000, guid: dd8a65e487f3ad244b57dea38948a9e4, type: 2}
   _scrapPrefab: {fileID: 8286676867828052198, guid: 531f5f3db79bbbf44abd00bde3097c0b, type: 3}
   _fuelPrefab: {fileID: 6076754549465699595, guid: 7e3af6bd38af4d64994d634d6c5a7084, type: 3}
   _asteroidPrefab: {fileID: 5598675613931354585, guid: fcd0cc99b6db638479cafd0c41992a82, type: 3}
   _explosionEffect: {fileID: 5925885586263924435, guid: 6f6e2584aa537cf41b45a6638a850c70, type: 3}
+  _spawnPoint: {fileID: 0}
   _questionAsteroid: {fileID: 5591658288240847084}
   _questionText: {fileID: 8449463032570993212}
   _answer1Text: {fileID: 6914066261278075312}
