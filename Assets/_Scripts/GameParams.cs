@@ -21,6 +21,7 @@ public class GameParams : ScriptableObject
     public float FireRate = 1f;
     public float BulletForce = 10f;
     public int BulletDamage = 1;
+    public float LaserDuration = 0.5f;
 
     [Header("Black Hole")]
     [Range(0f,2f), Tooltip("Growth rate when asteroids fall in")]

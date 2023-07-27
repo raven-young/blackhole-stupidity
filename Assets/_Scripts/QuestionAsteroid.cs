@@ -12,6 +12,7 @@ public class QuestionAsteroid : MonoBehaviour
     [SerializeField] private GameObject _scrapPrefab;
     [SerializeField] private GameObject _fuelPrefab;
     [SerializeField] private GameObject _asteroidPrefab;
+    [SerializeField] private GameObject _explosionEffect;
 
     [Header("Question")]
     [SerializeField] private GameObject _questionAsteroid;
@@ -92,13 +93,18 @@ public class QuestionAsteroid : MonoBehaviour
     }
 
     // Activate when correctly answering question
-    void Success()
+    IEnumerator Success()
     {
+        SpawnStuff(true);
+        Debug.Log("Correct answer!");
+
+        // spawn laser
+        StartCoroutine(LaserEffect.Instance.ActivateLaser(_gameParams.LaserDuration));
+        yield return new WaitForSeconds(_gameParams.LaserDuration);
+        Explode();
         _durationDelta = 0;
         _questionActive = false;
         _questionAsteroid.SetActive(false);
-        SpawnStuff(true);
-        Debug.Log("Correct answer!");
     }
 
     // Activate when incorrectly ansering question or timer runs out
@@ -108,9 +114,14 @@ public class QuestionAsteroid : MonoBehaviour
         _questionActive = false;
         _questionAsteroid.SetActive(false);
         SpawnStuff(false);
+        Explode();
         Debug.Log("Wrong answer!");
+    }
 
-        // spawn debris
+    void Explode()
+    {
+        GameObject effect = Instantiate(_explosionEffect, transform.position, Quaternion.identity);
+        Destroy(effect, 0.3f);
     }
 
     void SpawnStuff(bool correctlyAnswered)
@@ -144,7 +155,7 @@ public class QuestionAsteroid : MonoBehaviour
         if (context.performed)
         {
             if (_correctAnswer == 1)
-                Success();
+                StartCoroutine(Success());
             else
                 Fail();
         }
@@ -158,7 +169,7 @@ public class QuestionAsteroid : MonoBehaviour
         if (context.performed)
         {
             if (_correctAnswer == 2)
-                Success();
+                StartCoroutine(Success());
             else
                 Fail();
         }
@@ -172,7 +183,7 @@ public class QuestionAsteroid : MonoBehaviour
         if (context.performed)
         {
             if (_correctAnswer == 3)
-                Success();
+                StartCoroutine(Success());
             else
                 Fail();
         }
