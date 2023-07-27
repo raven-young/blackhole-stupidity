@@ -45,7 +45,6 @@ public class Ship : MonoBehaviour
     [SerializeField] private bool _gravityOn = false;
     [Range(-5, 5)]
     [SerializeField] private float _gravityScale;
-    [SerializeField, Range(10,30)] private float winradius = 18f;
 
     private void Awake()
     {
@@ -77,7 +76,7 @@ public class Ship : MonoBehaviour
             return;
 
         // workaround due to broken triggers
-        if (ShipPositionRadius > winradius)
+        if (ShipPositionRadius > _gameParams.WinRadius)
         {
             StartCoroutine(GameManager.Instance.GameOver(true));
         }

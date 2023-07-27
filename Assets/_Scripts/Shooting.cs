@@ -10,6 +10,7 @@ using DG.Tweening;
 public class Shooting : MonoBehaviour
 {
 
+    [SerializeField] private GameParams _gameParams;
     //[SerializeField] private static Transform GunPivot;
     [SerializeField] private Transform firePointLeft;
     [SerializeField] private Transform firePointRight;
@@ -26,8 +27,6 @@ public class Shooting : MonoBehaviour
     [SerializeField] private int _projectileNumber = 1;
     [SerializeField] private float _projectileSpread = 30f;
     private float _shootCooldown;
-    [SerializeField] private float _fireRate = 1f;
-    [SerializeField] private float _bulletForce = 1f;
 
     private static IObjectPool<Bullet> _pool;
     //public static int remainingAmmo;
@@ -96,7 +95,7 @@ public class Shooting : MonoBehaviour
     {
 
         _shootCooldown += Time.deltaTime;
-        if (_shootCooldown > _fireRate)
+        if (_shootCooldown > _gameParams.FireRate)
         {
             _canShoot = true;
             _shootCooldown = 0f;
@@ -146,7 +145,7 @@ public class Shooting : MonoBehaviour
             var firePoint = i % 2 == 0 ? firePointLeft : firePointRight;
             bullet.transform.SetPositionAndRotation(firePoint.position, spreadAngle);
             Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
-            rb.velocity = (direction * _bulletForce);
+            rb.velocity = (direction * _gameParams.BulletForce);
             //rb.AddForce(direction * PlayerStats.BulletForce.Value, ForceMode2D.Impulse);
         }
 

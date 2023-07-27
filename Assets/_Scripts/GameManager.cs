@@ -123,10 +123,13 @@ public class GameManager : MonoBehaviour
     {
         Gizmos.DrawWireCube(new Vector3(0, ScreenBounds.y/2, 0), new Vector3(2*ScreenBounds.x, ScreenBounds.y, 1));
 
-        // playable cone
+        // Playable cone
         if (_gameParams.MaxTheta > 0) {
             Gizmos.DrawLine(Vector3.zero, new Vector3(20*Mathf.Cos(_gameParams.MaxTheta), 20 * Mathf.Sin(_gameParams.MaxTheta), 0));
             Gizmos.DrawLine(Vector3.zero, new Vector3(20 * Mathf.Cos(Mathf.PI-_gameParams.MaxTheta), 20 * Mathf.Sin(Mathf.PI-_gameParams.MaxTheta), 0));
         }
+
+        // Escape horizon
+        Gizmos.DrawWireSphere(Vector3.zero, _gameParams.WinRadius);
     }
 }

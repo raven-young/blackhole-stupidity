@@ -2572,14 +2572,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c4b313ae2ac1cf479210350dd2b38b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _gameParams: {fileID: 11400000, guid: 8997eda04107ded43858f1ccd23b19e5, type: 2}
   _scrapPrefab: {fileID: 8286676867828052198, guid: 531f5f3db79bbbf44abd00bde3097c0b, type: 3}
   _fuelPrefab: {fileID: 6076754549465699595, guid: 7e3af6bd38af4d64994d634d6c5a7084, type: 3}
   _asteroidPrefab: {fileID: 5598675613931354585, guid: fcd0cc99b6db638479cafd0c41992a82, type: 3}
-  _questionDuration: 5
-  _questionDelta: 2
-  _spawnAmount: 4
-  _spawnImpulse: 10
-  _maxSpawnAngle: 48
   _questionAsteroid: {fileID: 103795277}
   _questionText: {fileID: 1701214661}
   _answer1Text: {fileID: 2028055458}
@@ -4054,6 +4050,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11eeba097c46ead4c854dc9307dec0f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _gameParams: {fileID: 11400000, guid: 8997eda04107ded43858f1ccd23b19e5, type: 2}
   restartDelay: 2
   gameHasEnded: 0
   isPaused: 0
@@ -6981,7 +6978,6 @@ MonoBehaviour:
   flashEffect: {fileID: 9023587604843124426}
   _gravityOn: 1
   _gravityScale: 0
-  winradius: 18
 --- !u!114 &9023587604843124425
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6994,13 +6990,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e35c0ed06a400f4b97b371fb96d345f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _gameParams: {fileID: 11400000, guid: 8997eda04107ded43858f1ccd23b19e5, type: 2}
   firePointLeft: {fileID: 1952731402}
   firePointRight: {fileID: 810819683}
   bulletPrefab: {fileID: 4686544690451634382, guid: 817bc351183ab644eacb44f871bf96a1, type: 3}
   _projectileNumber: 1
   _projectileSpread: 0
-  _fireRate: 0.1
-  _bulletForce: 25
 --- !u!114 &9023587604843124426
 MonoBehaviour:
   m_ObjectHideFlags: 0

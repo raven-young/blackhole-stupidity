@@ -5,20 +5,17 @@ using UnityEngine;
 public class Asteroid : MonoBehaviour
 {
 
+    [SerializeField] private GameParams _gameParams;
     [SerializeField] private Rigidbody2D _rb;
-    [SerializeField] private int _health = 3;
-    [SerializeField] private GameObject _explosionEffect;
-    [SerializeField] private int _playerDamage = 3; 
+    [SerializeField] private GameObject _explosionEffect; 
     [SerializeField] protected FlashColor flashEffect;
-    [SerializeField] private float _blakHoleGrowthRate = 1.03f;
-    [SerializeField] private float _scrapBonus = 1.03f;
 
-    // Start is called before the first frame update
-    void Start()
+    private int _currentHealth;
+
+    private void Start()
     {
-        
+        _currentHealth = _gameParams.AsteroidHealth;
     }
-
     private void Update()
     {
         // Despawn if below x axis
@@ -37,9 +34,9 @@ public class Asteroid : MonoBehaviour
     {
 
         flashEffect.Flash();
-        _health -= damage;
+        _currentHealth -= damage;
 
-        if (_health <= 0)
+        if (_currentHealth <= 0)
         {
             Die();
         }
@@ -50,12 +47,12 @@ public class Asteroid : MonoBehaviour
         switch (collision.gameObject.layer)
         {
             case 6: // ship
-                collision.gameObject.GetComponent<Ship>().TakeDamage(_playerDamage);
+                collision.gameObject.GetComponent<Ship>().TakeDamage(_gameParams.PlayerDamage);
                 Die();
                 break;
             case 10: // black hole
                 // increase BH
-                BlackHole.Instance.ChangeSize(_blakHoleGrowthRate);
+                BlackHole.Instance.ChangeSize(_gameParams.BlackHoleGrowthRate);
                 Die();
                 break;
             default:
