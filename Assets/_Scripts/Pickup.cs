@@ -7,10 +7,8 @@ public class Pickup : MonoBehaviour
 
     [SerializeField] private GameParams _gameParams;
     [SerializeField] private Rigidbody2D _rb;
-    // Start is called before the first frame update
-    void Start()
-    {
-    }
+
+    [SerializeField] private AudioClip _pickupClip;
 
     private void Update()
     {
@@ -38,6 +36,6 @@ public class Pickup : MonoBehaviour
 
     protected virtual void ApplyItem()
     {
-
+        SoundManager.Instance.PlaySound(_pickupClip);
     }
 }

@@ -223,6 +223,18 @@ PrefabInstance:
       propertyPath: m_Color.a
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5724717070111858488, guid: 3e904b9919c1c2f48aaf85ed11ecd8b5, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5724717070111858488, guid: 3e904b9919c1c2f48aaf85ed11ecd8b5, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5724717070111858488, guid: 3e904b9919c1c2f48aaf85ed11ecd8b5, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.2
+      objectReference: {fileID: 0}
     - target: {fileID: 8170323525790532215, guid: 3e904b9919c1c2f48aaf85ed11ecd8b5, type: 3}
       propertyPath: m_LocalScale.x
       value: 8
@@ -308,6 +320,10 @@ PrefabInstance:
       propertyPath: _cam
       value: 
       objectReference: {fileID: 633411341}
+    - target: {fileID: 1304530170888227037, guid: ea5e34f07dcb90942975456de4928f7f, type: 3}
+      propertyPath: _deathClip
+      value: 
+      objectReference: {fileID: 8300000, guid: c349dbaa87f396f4dbafb4e6f9a4a9cb, type: 3}
     - target: {fileID: 1304530170888227037, guid: ea5e34f07dcb90942975456de4928f7f, type: 3}
       propertyPath: _gameParams
       value: 
@@ -682,6 +698,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1357050622}
     - target: {fileID: 149209926670495141, guid: e9597025e6cd5ef40a5f78deb3c3734d, type: 3}
+      propertyPath: _bigLaserClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 232fc660d6838f84195dfd7f5c30b046, type: 3}
+    - target: {fileID: 149209926670495141, guid: e9597025e6cd5ef40a5f78deb3c3734d, type: 3}
       propertyPath: _rightAnswerclip
       value: 
       objectReference: {fileID: 8300000, guid: e4e3ecc4a62b0fe458359847acf5680c, type: 3}
@@ -879,6 +899,10 @@ PrefabInstance:
       propertyPath: _gameParams
       value: 
       objectReference: {fileID: 11400000, guid: dd8a65e487f3ad244b57dea38948a9e4, type: 2}
+    - target: {fileID: 8708556452647656273, guid: cab30414fdac94247835ee4e16734d65, type: 3}
+      propertyPath: _smallLaserClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 774dceecf82d4b74c87b6f2b7a990013, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

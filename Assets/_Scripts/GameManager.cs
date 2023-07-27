@@ -10,7 +10,6 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
     [SerializeField] private GameParams _gameParams;
 
-    public float restartDelay = 2f;
     public bool gameHasEnded = false;
     public bool isPaused = false;
     public bool canPause = true;
@@ -21,9 +20,6 @@ public class GameManager : MonoBehaviour
     public Vector2 ScreenBounds;
     private PlayerInputActions playerInputActions;
     [SerializeField] private Camera _cam;
-
-    [Header("Logic")]
-    [SerializeField] private float _initialFuel = 20f; // seconds
 
     [Header("Sounds")]
     [SerializeField] private AudioClip _deathClip, _victoryClip;
@@ -71,9 +67,10 @@ public class GameManager : MonoBehaviour
 
     public IEnumerator GameOver(bool victorious = false, float _delay = 0f)
     {
-        if (victorious) 
+        SoundManager.Instance.ChangeMusicVolume(0f);
+        if (victorious)
             SoundManager.Instance.PlaySound(_victoryClip);
-        else
+        else 
             SoundManager.Instance.PlaySound(_deathClip);
         gameHasEnded = true;
         canPause = false;
@@ -81,6 +78,9 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(_delay);
         canPause = true;
         PauseGame();
+        AudioClip _clipUsed = victorious ? _victoryClip : _deathClip;
+        yield return new WaitForSecondsRealtime(1.2f * _clipUsed.length);
+        SoundManager.Instance.ChangeMusicVolume(1f);
     }
     public void PauseGame()
     {

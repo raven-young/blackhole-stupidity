@@ -36,6 +36,8 @@ public class Shooting : MonoBehaviour
 
     //[SerializeField] float knockbackStrength = 0.05f, knockbackDuration = 0.02f;
 
+    [SerializeField] private AudioClip _smallLaserClip;
+
     private void Awake()
     {
 
@@ -144,6 +146,8 @@ public class Shooting : MonoBehaviour
 
     public void Shoot()
     {
+        SoundManager.Instance.PlaySound(_smallLaserClip);
+
         for (int i = 0; i < 2*_projectileNumber; i++)
         {
             Vector2 direction = Vector2.up;//Quaternion.AngleAxis((i - 0.5f * (_projectileNumber - 1)) * _projectileSpread, Vector3.forward) * firePoint.right;

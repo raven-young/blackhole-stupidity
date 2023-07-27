@@ -163,4 +163,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _gameParams: {fileID: 11400000, guid: dd8a65e487f3ad244b57dea38948a9e4, type: 2}
   _rb: {fileID: 7754709820201179556}
+  _pickupClip: {fileID: 8300000, guid: 81507b00c60ce65469050492969e63b2, type: 3}
   _fuelBonus: 3
