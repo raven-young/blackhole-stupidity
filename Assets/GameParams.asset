@@ -18,7 +18,7 @@ MonoBehaviour:
   VelocityScale: 0.2
   MaxTheta: 0.7
   FireRate: 0.1
-  BulletForce: 10
+  BulletForce: 30
   BulletDamage: 1
   LaserDuration: 0.5
   BlackHoleGrowthRate: 1.01

@@ -31,7 +31,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 4.6243796, y: 20.890505, z: -0.124331355}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -161,5 +161,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3fc4146ca47435408a7e3dab162f070, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _gameParams: {fileID: 11400000, guid: dd8a65e487f3ad244b57dea38948a9e4, type: 2}
   _rb: {fileID: 3664537557719413871}
+  _pickupClip: {fileID: 8300000, guid: 81507b00c60ce65469050492969e63b2, type: 3}
   _scrapBonus: 3

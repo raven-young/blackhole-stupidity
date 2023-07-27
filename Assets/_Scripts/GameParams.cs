@@ -45,4 +45,9 @@ public class GameParams : ScriptableObject
     [Header("Random Astroid Spawner")]
     public float SpawnPeriod = 3f;
     public float RandomAsteroidImpulse = 10f;
+
+    [Header("Scoring")]
+    public int CorrectAnswerScore = 1;
+    public int ShotAsteroidScore = 1;
+    public int CollectedItemScore = 1;
 }

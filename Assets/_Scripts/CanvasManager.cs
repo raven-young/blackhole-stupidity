@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class CanvasManager : MonoBehaviour
 {
@@ -10,8 +11,11 @@ public class CanvasManager : MonoBehaviour
     [SerializeField] private GameObject gameOverScreen;
     [SerializeField] private GameObject victoryScreen;
     [SerializeField] private GameObject pauseScreen;
+    [SerializeField] private TMP_Text _scoreText;
 
     [SerializeField] private Slider _fuelSlider, _healthSlider;
+
+    private int _score = 0;
 
     private void Awake()
     {
@@ -38,6 +42,12 @@ public class CanvasManager : MonoBehaviour
     public void UpdateFuel(float newValue)
     {
         _fuelSlider.value = newValue;
+    }
+
+    public void IncrementScore(int amount)
+    {
+        _score += amount;
+        _scoreText.text = "Score: " + _score;
     }
 
     public void RenderPauseScreen()

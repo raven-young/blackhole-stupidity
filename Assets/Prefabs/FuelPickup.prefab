@@ -161,5 +161,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48675fd1cae7ece43b64edea3ec4516b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _gameParams: {fileID: 11400000, guid: dd8a65e487f3ad244b57dea38948a9e4, type: 2}
   _rb: {fileID: 7754709820201179556}
+  _pickupClip: {fileID: 8300000, guid: 81507b00c60ce65469050492969e63b2, type: 3}
   _fuelBonus: 3
