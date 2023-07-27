@@ -86,7 +86,7 @@ public class QuestionAsteroid : MonoBehaviour
         _deltaDelta = 0;
         _questionActive = true;
         _questionAsteroid.SetActive(true);
-        transform.position = _spawnPoint;
+        //transform.position = _spawnPoint;
 
         //float difficulty
         var c = challenge.challenge((int)Ship.Instance.ShipPositionRadius/4);
