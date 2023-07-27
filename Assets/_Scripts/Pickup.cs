@@ -5,6 +5,7 @@ using UnityEngine;
 public class Pickup : MonoBehaviour
 {
 
+    [SerializeField] private GameParams _gameParams;
     [SerializeField] private Rigidbody2D _rb;
     // Start is called before the first frame update
     void Start()
@@ -30,6 +31,7 @@ public class Pickup : MonoBehaviour
         if (collision.gameObject.layer == 6) // ship
         {
             ApplyItem();
+            CanvasManager.Instance.IncrementScore(_gameParams.CollectedItemScore);
             Destroy(gameObject);
         }
     }

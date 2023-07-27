@@ -63,6 +63,7 @@ public class Asteroid : MonoBehaviour
 
     private void Die()
     {
+        CanvasManager.Instance.IncrementScore(_gameParams.ShotAsteroidScore);
         GameObject effect = Instantiate(_explosionEffect, transform.position, Quaternion.identity);
         Destroy(effect, 0.3f);
         Destroy(gameObject);

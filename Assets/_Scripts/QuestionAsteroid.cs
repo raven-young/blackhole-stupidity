@@ -28,7 +28,6 @@ public class QuestionAsteroid : MonoBehaviour
     private float _deltaDelta = 0;
     private MathChallenge challenge;
 
-
     private void Awake()
     {
         playerInputActions = new PlayerInputActions();
@@ -105,6 +104,7 @@ public class QuestionAsteroid : MonoBehaviour
     IEnumerator Success()
     {
         SpawnStuff(true);
+        CanvasManager.Instance.IncrementScore(_gameParams.CorrectAnswerScore);
         Debug.Log("Correct answer!");
 
         // spawn laser
