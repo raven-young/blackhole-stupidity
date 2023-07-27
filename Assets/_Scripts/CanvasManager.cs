@@ -8,6 +8,7 @@ public class CanvasManager : MonoBehaviour
 {
 
     public static CanvasManager Instance;
+    [SerializeField] private GameParams _gameParams;
     [SerializeField] private GameObject gameOverScreen;
     [SerializeField] private GameObject victoryScreen;
     [SerializeField] private GameObject pauseScreen;
@@ -29,9 +30,9 @@ public class CanvasManager : MonoBehaviour
     {
         _fuelSlider.maxValue = Ship.Instance.InitialFuel;
         _fuelSlider.value = Ship.Instance.InitialFuel;
-        _healthSlider.maxValue = Ship.Instance.InitialHealth;
+        _healthSlider.maxValue = _gameParams.MaxHealth;
         _healthSlider.minValue = 0;
-        _healthSlider.value = Ship.Instance.InitialHealth / 2;
+        _healthSlider.value = _gameParams.MaxHealth / 2;
     }
 
     public void UpdateHealth(float newValue)

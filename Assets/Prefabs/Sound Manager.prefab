@@ -176,7 +176,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _musicSource: {fileID: 5617236779780539471}
   _effectsSource: {fileID: 3724101941455378432}
-  _backgroundMusic: {fileID: 8300000, guid: d2c2e07af6d4a2c468d01f6c2e8aa220, type: 3}
+  _backgroundMusic: {fileID: 8300000, guid: e05cac388890b514a89ffaea4439652d, type: 3}
+  _nervousMusic: {fileID: 8300000, guid: d2c2e07af6d4a2c468d01f6c2e8aa220, type: 3}
 --- !u!1 &9093993742795832969
 GameObject:
   m_ObjectHideFlags: 0

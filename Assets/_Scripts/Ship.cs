@@ -28,7 +28,6 @@ public class Ship : MonoBehaviour
 
     [Header("Logic")]
     [SerializeField] public float InitialFuel = 100;
-    [SerializeField] public float InitialHealth = 100;
     public float CurrentHealth;
     public float CurrentFuel;
 
@@ -50,7 +49,7 @@ public class Ship : MonoBehaviour
     {
         Instance = this;
         playerInputActions = new PlayerInputActions();
-        CurrentHealth = InitialHealth;
+        CurrentHealth = _gameParams.MaxHealth/2;
         CurrentFuel = InitialFuel;
     }
 

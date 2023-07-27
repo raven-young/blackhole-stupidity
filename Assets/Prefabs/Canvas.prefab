@@ -1345,8 +1345,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.25, y: 0}
   m_AnchorMax: {x: 0.75, y: 1}
-  m_AnchoredPosition: {x: 0.17449951, y: -0.6389046}
-  m_SizeDelta: {x: 5.2333, y: -11.2777}
+  m_AnchoredPosition: {x: 0.17450047, y: -2.1376}
+  m_SizeDelta: {x: 5.2333, y: -14.2752}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &3802918931527765353
 GameObject:
@@ -2366,8 +2366,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.25, y: 0}
   m_AnchorMax: {x: 0.75, y: 1}
-  m_AnchoredPosition: {x: 0.17449951, y: -0.6389046}
-  m_SizeDelta: {x: 5.2333, y: -11.2777}
+  m_AnchoredPosition: {x: 0.17450047, y: -2.1376}
+  m_SizeDelta: {x: 5.2333, y: -14.2752}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &5682246497480350174
 GameObject:
@@ -2622,6 +2622,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa3bae06b4c70e7498b3feb6061b7cb7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _gameParams: {fileID: 11400000, guid: dd8a65e487f3ad244b57dea38948a9e4, type: 2}
   gameOverScreen: {fileID: 1736660819990711954}
   victoryScreen: {fileID: 8829001538225206859}
   pauseScreen: {fileID: 4662283994338043256}

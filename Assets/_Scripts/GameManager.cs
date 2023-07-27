@@ -51,6 +51,11 @@ public class GameManager : MonoBehaviour
 
     }
 
+    private void Update()
+    {
+        //DistanceToEscapeHorizon();
+    }
+
     private void EscapeAction(InputAction.CallbackContext context)
     {
         if (!isPaused && context.performed)
@@ -66,7 +71,15 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public IEnumerator GameOver(bool victorious = false, float _delay = 0f)
+    void DistanceToEscapeHorizon()
+    {
+        if (Physics.Raycast(Ship.Instance.ShipPositionRadius * Vector2.up, -Vector2.up, out RaycastHit hit, 30f))//, LayerMask.GetMask("BlackHole")))
+            Debug.Log(hit.distance);
+        else
+            Debug.Log("else " + Ship.Instance.ShipPositionRadius * Vector2.up);
+    }
+
+    public IEnumerator GameOver(bool victorious = false)
     {
         SoundManager.Instance.ChangeMusicVolume(0f);
         if (victorious)
@@ -76,12 +89,12 @@ public class GameManager : MonoBehaviour
         gameHasEnded = true;
         canPause = false;
         CanvasManager.Instance.RenderGameOverScreen(victorious);
-        yield return new WaitForSeconds(_delay);
+
+        AudioClip _clipUsed = victorious ? _victoryClip : _deathClip;
+        SoundManager.Instance.ChangeMusicVolume(1f, 1.2f*_clipUsed.length);
+        yield return new WaitForSecondsRealtime(1.2f * _clipUsed.length);
         canPause = true;
         PauseGame();
-        AudioClip _clipUsed = victorious ? _victoryClip : _deathClip;
-        yield return new WaitForSecondsRealtime(1.2f * _clipUsed.length);
-        SoundManager.Instance.ChangeMusicVolume(1f);
     }
     public void PauseGame()
     {

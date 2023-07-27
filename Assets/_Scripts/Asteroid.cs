@@ -9,6 +9,7 @@ public class Asteroid : MonoBehaviour
     [SerializeField] private Rigidbody2D _rb;
     [SerializeField] private GameObject _explosionEffect; 
     [SerializeField] protected FlashColor flashEffect;
+    [SerializeField] private AudioClip _explosionClip;
 
     private int _currentHealth;
 
@@ -70,6 +71,7 @@ public class Asteroid : MonoBehaviour
 
     private void Die()
     {
+        SoundManager.Instance.PlaySound(_explosionClip, 0.5f);
         CanvasManager.Instance.IncrementScore(_gameParams.ShotAsteroidScore);
         GameObject effect = Instantiate(_explosionEffect, transform.position, Quaternion.identity);
         Destroy(effect, 0.3f);
