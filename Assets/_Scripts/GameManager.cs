@@ -25,6 +25,9 @@ public class GameManager : MonoBehaviour
     [Header("Sounds")]
     [SerializeField] private AudioClip _deathClip, _victoryClip;
 
+    public float DistanceToEventHorizon = 8f;
+    public float InitialDistanceToEventHorizon { get; private set; }
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -49,11 +52,14 @@ public class GameManager : MonoBehaviour
         // need to execute always
         ScreenBounds = _cam.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, _cam.transform.position.z));
         SoundManager.Instance.ChangeToBG();
+
+        DistanceToEscapeHorizon();
+        InitialDistanceToEventHorizon = DistanceToEventHorizon;
     }
 
     private void Update()
     {
-        //DistanceToEscapeHorizon();
+        DistanceToEscapeHorizon();
     }
 
     private void EscapeAction(InputAction.CallbackContext context)
@@ -73,10 +79,8 @@ public class GameManager : MonoBehaviour
 
     void DistanceToEscapeHorizon()
     {
-        if (Physics.Raycast(Ship.Instance.ShipPositionRadius * Vector2.up, -Vector2.up, out RaycastHit hit, 30f))//, LayerMask.GetMask("BlackHole")))
-            Debug.Log(hit.distance);
-        else
-            Debug.Log("else " + Ship.Instance.ShipPositionRadius * Vector2.up);
+        RaycastHit2D hit = Physics2D.Raycast(Ship.Instance.ShipPositionRadius * Vector2.up, -Vector2.up, 30, LayerMask.GetMask("BlackHole"));
+        DistanceToEventHorizon = hit.distance;
     }
 
     public IEnumerator GameOver(bool victorious = false)

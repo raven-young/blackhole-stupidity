@@ -89,8 +89,9 @@ public class QuestionAsteroid : MonoBehaviour
         _questionAsteroid.SetActive(true);
         transform.position = _spawnPoint.position;
 
-        //float difficulty
-        var c = challenge.challenge((int)Ship.Instance.ShipPositionRadius/4);
+        int difficulty = (int)GameManager.Instance.DistanceToEventHorizon / 4;
+        var c = challenge.challenge(difficulty);
+        Debug.Log("challenge level: " + difficulty);
         _correctAnswer = c.Item5 + 1;
         _questionText.text = c.Item1;
         _answer1Text.text = c.Item2;
