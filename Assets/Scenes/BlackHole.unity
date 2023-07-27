@@ -681,6 +681,14 @@ PrefabInstance:
       propertyPath: _spawnPoint
       value: 
       objectReference: {fileID: 1357050622}
+    - target: {fileID: 149209926670495141, guid: e9597025e6cd5ef40a5f78deb3c3734d, type: 3}
+      propertyPath: _rightAnswerclip
+      value: 
+      objectReference: {fileID: 8300000, guid: e4e3ecc4a62b0fe458359847acf5680c, type: 3}
+    - target: {fileID: 149209926670495141, guid: e9597025e6cd5ef40a5f78deb3c3734d, type: 3}
+      propertyPath: _wrongAnswerclip
+      value: 
+      objectReference: {fileID: 8300000, guid: 3b92775ccaa84f54fbab325dbdf1d934, type: 3}
     - target: {fileID: 3245433454325952308, guid: e9597025e6cd5ef40a5f78deb3c3734d, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

@@ -15,6 +15,13 @@ public class Asteroid : MonoBehaviour
     private void Start()
     {
         _currentHealth = _gameParams.AsteroidHealth;
+
+        // random flip
+        gameObject.GetComponent<SpriteRenderer>().flipY = Random.Range(0f, 1f) < 0.5f;
+
+        var spin = Random.Range(0f, 1f) < 0.5f ? 1 : -1;
+        // random torque
+        _rb.AddTorque(10f * spin, ForceMode2D.Impulse);
     }
     private void Update()
     {

@@ -28,6 +28,9 @@ public class QuestionAsteroid : MonoBehaviour
     private float _deltaDelta = 0;
     private MathChallenge challenge;
 
+    [SerializeField] private AudioClip _rightAnswerclip;
+    [SerializeField] private AudioClip _wrongAnswerclip;
+
     private void Awake()
     {
         playerInputActions = new PlayerInputActions();
@@ -105,6 +108,7 @@ public class QuestionAsteroid : MonoBehaviour
     {
         SpawnStuff(true);
         CanvasManager.Instance.IncrementScore(_gameParams.CorrectAnswerScore);
+        SoundManager.Instance.PlayMusic(_rightAnswerclip);
         Debug.Log("Correct answer!");
 
         // spawn laser
@@ -125,6 +129,7 @@ public class QuestionAsteroid : MonoBehaviour
         _questionAsteroid.SetActive(false);
         SpawnStuff(false);
         Explode();
+        SoundManager.Instance.PlayMusic(_wrongAnswerclip);
         Debug.Log("Wrong answer!");
     }
 
