@@ -78,6 +78,7 @@ public class QuestionAsteroid : MonoBehaviour
         _questionActive = true;
         _questionAsteroid.SetActive(true);
 
+        //float difficulty
         var c = challenge.challenge((int)Ship.Instance.ShipPositionRadius/4);
         _correctAnswer = c.Item5 + 1;
         _questionText.text = c.Item1;
@@ -98,8 +99,6 @@ public class QuestionAsteroid : MonoBehaviour
         _questionAsteroid.SetActive(false);
         SpawnStuff(true);
         Debug.Log("Correct answer!");
-
-        // spawn fuel & scrap
     }
 
     // Activate when incorrectly ansering question or timer runs out

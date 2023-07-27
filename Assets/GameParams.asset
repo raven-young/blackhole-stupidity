@@ -12,7 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 682973243c633894598bc19ce7526a77, type: 3}
   m_Name: GameParams
   m_EditorClassIdentifier: 
+  WinRadius: 18.6
   AngularVelocity: 1
   BurnRate: 2
   VelocityScale: 0.5
-  BlackHoleRotationSpeed: 0
+  MaxTheta: 1.01
+  FireRate: 0.1
+  BulletForce: 15
+  BulletDamage: 1
+  BlackHoleGrowthRate: 1.03
+  QuestionDuration: 5
+  QuestionDelta: 2
+  SpawnAmount: 6
+  SpawnImpulse: 9.09
+  MaxSpawnAngle: 217
+  PlayerDamage: 5
+  AsteroidHealth: 5
