@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 682973243c633894598bc19ce7526a77, type: 3}
   m_Name: GameParams
   m_EditorClassIdentifier: 
-  WinRadius: 18.6
+  WinRadius: 18.8
   AngularVelocity: 1
   BurnRate: 2
   VelocityScale: 0.5
-  MaxTheta: 1.01
+  MaxTheta: 1.091
   FireRate: 0.1
   BulletForce: 15
   BulletDamage: 1
