@@ -11,6 +11,7 @@ public class GameParams : ScriptableObject
     public float WinRadius = 18f;
 
     [Header("Ship")]
+    public int MaxHealth = 100;
     public float AngularVelocity = 1f;
     public float BurnRate = 2f; // multiplier that determines rate of fuel consumption
     public float VelocityScale = 2f; // modify ship velocity

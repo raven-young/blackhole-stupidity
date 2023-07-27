@@ -166,6 +166,7 @@ MonoBehaviour:
   _rb: {fileID: 1950772556}
   _explosionEffect: {fileID: 5925885586263924435, guid: 6f6e2584aa537cf41b45a6638a850c70, type: 3}
   flashEffect: {fileID: -7005874727660072378}
+  _explosionClip: {fileID: 8300000, guid: 7545016ee713ea04c997ebda18fdb639, type: 3}
 --- !u!114 &-7005874727660072378
 MonoBehaviour:
   m_ObjectHideFlags: 0

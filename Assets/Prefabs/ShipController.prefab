@@ -646,7 +646,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ebfe19e6b7f9f1499d81b2eed638fee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gameParams: {fileID: 11400000, guid: 8997eda04107ded43858f1ccd23b19e5, type: 2}
+  _gameParams: {fileID: 11400000, guid: dd8a65e487f3ad244b57dea38948a9e4, type: 2}
   _cam: {fileID: 0}
   _rb: {fileID: 5636098531872528327}
   ShipPositionRadius: 0
@@ -673,12 +673,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e35c0ed06a400f4b97b371fb96d345f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gameParams: {fileID: 11400000, guid: 8997eda04107ded43858f1ccd23b19e5, type: 2}
+  _gameParams: {fileID: 11400000, guid: dd8a65e487f3ad244b57dea38948a9e4, type: 2}
   firePointLeft: {fileID: 6451520538022809561}
   firePointRight: {fileID: 347501173331771258}
   bulletPrefab: {fileID: 4686544690451634382, guid: 817bc351183ab644eacb44f871bf96a1, type: 3}
   _projectileNumber: 1
   _projectileSpread: 0
+  _smallLaserClip: {fileID: 8300000, guid: 774dceecf82d4b74c87b6f2b7a990013, type: 3}
 --- !u!114 &3701107673925643275
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -766,7 +767,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 5
   m_Sprite: {fileID: 21300000, guid: 40e83b850416aa449a24e9b7d0d47342, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
