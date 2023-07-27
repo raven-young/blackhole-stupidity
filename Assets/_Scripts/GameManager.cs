@@ -84,6 +84,8 @@ public class GameManager : MonoBehaviour
     }
     public void PauseGame()
     {
+        //Debug.Log(ScreenBounds);
+
         if (!canPause)
             return;
         //CanvasManager.Instance.SwitchActionMap();

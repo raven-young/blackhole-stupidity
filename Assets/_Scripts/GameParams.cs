@@ -32,7 +32,7 @@ public class GameParams : ScriptableObject
     public float QuestionDuration; // time to answer the question
     public float QuestionDelta; // time until next question
     public int SpawnAmount; // how many things to spawn after answering question
-    [Range(0, 10), Tooltip("Maximum impulse applied to spawned objects")]
+    [Range(0, 100), Tooltip("Maximum impulse applied to spawned objects")]
     public float SpawnImpulse;
     [Range(0, 360), Tooltip("Maximum angle applied to spawned objects")]
     public float MaxSpawnAngle;
@@ -40,4 +40,8 @@ public class GameParams : ScriptableObject
     [Header("Asteroid")]
     public int PlayerDamage = 3;
     public int AsteroidHealth = 5;
+
+    [Header("Random Astroid Spawner")]
+    public float SpawnPeriod = 3f;
+    public float RandomAsteroidImpulse = 10f;
 }

@@ -16,15 +16,20 @@ public class LaserEffect : MonoBehaviour
     private void Start()
     {
         _laserAimLineRenderer = GetComponent<LineRenderer>();
+        _laserAimLineRenderer.GetComponent<LineRenderer>().enabled = false;
     }
 
-    public IEnumerator ActivateLaser(float duration)
+    private void Update()
     {
         _laserPositions[0] = transform.position;
         _laserPositions[1] = _target.position;
         _laserAimLineRenderer.SetPositions(_laserPositions);
-        gameObject.GetComponent<LineRenderer>().enabled = true;
+    }
+
+    public IEnumerator ActivateLaser(float duration)
+    {
+        _laserAimLineRenderer.GetComponent<LineRenderer>().enabled = true;
         yield return new WaitForSeconds(duration);
-        gameObject.GetComponent<LineRenderer>().enabled = false;
+        _laserAimLineRenderer.GetComponent<LineRenderer>().enabled = false;
     }
 }
