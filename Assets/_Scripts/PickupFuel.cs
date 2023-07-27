@@ -4,10 +4,9 @@ using UnityEngine;
 
 public class PickupFuel : Pickup
 {
-    [SerializeField] private int _fuelBonus;
     protected override void ApplyItem()
     {
         base.ApplyItem();
-        Ship.Instance.CurrentFuel += _fuelBonus;
+        Ship.Instance.CurrentFuel += _gameParams.FuelValue;
     }
 }

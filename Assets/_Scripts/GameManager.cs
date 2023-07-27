@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.InputSystem;
 using UnityEngine.EventSystems;
+using DG.Tweening;
 
 public class GameManager : MonoBehaviour
 {

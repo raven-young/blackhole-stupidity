@@ -16,7 +16,7 @@ MonoBehaviour:
   AngularVelocity: 1
   BurnRate: 2
   VelocityScale: 0.2
-  MaxTheta: 0.7
+  MaxTheta: 0.76
   FireRate: 0.1
   BulletForce: 30
   BulletDamage: 1
@@ -30,5 +30,10 @@ MonoBehaviour:
   QuestionAsteroidSpeed: 1
   PlayerDamage: 3
   AsteroidHealth: 5
+  ScrapValue: 6
+  FuelValue: 6
   SpawnPeriod: 1
   RandomAsteroidImpulse: 10
+  CorrectAnswerScore: 1
+  ShotAsteroidScore: 1
+  CollectedItemScore: 1

@@ -8,12 +8,10 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: STARS
-  m_Shader: {fileID: 4800000, guid: a36b7719ff0465b42ab1407d67672c5f, type: 3}
+  m_Shader: {fileID: 4800000, guid: e260cfa7296ee7642b167f1eb5be5023, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
-  m_ValidKeywords:
-  - FLICKER_ON
-  - GLOW_ON
+  m_ValidKeywords: []
   m_InvalidKeywords:
   - _EMISSION
   m_LightmapFlags: 2
@@ -206,8 +204,8 @@ Material:
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
-    - _Glow: 35
-    - _GlowGlobal: 21.3
+    - _Glow: 51
+    - _GlowGlobal: 27.2
     - _GradBlend: 1
     - _GradBoostX: 1.2
     - _GradBoostY: 1.2
@@ -319,7 +317,7 @@ Material:
     - _ColorSwapBlue: {r: 1, g: 1, b: 1, a: 1}
     - _ColorSwapGreen: {r: 1, g: 1, b: 1, a: 1}
     - _ColorSwapRed: {r: 1, g: 1, b: 1, a: 1}
-    - _EmissionColor: {r: 32, g: 32, b: 32, a: 1}
+    - _EmissionColor: {r: 1024, g: 0, b: 0, a: 1}
     - _FadeBurnColor: {r: 1, g: 1, b: 0, a: 1}
     - _Flip: {r: 1, g: 1, b: 1, a: 1}
     - _GlowColor: {r: 0.9339623, g: 0.10044494, b: 0.10044494, a: 1}
