@@ -120,8 +120,10 @@ public class Ship : MonoBehaviour
         _theta -= Time.fixedDeltaTime * _gameParams.AngularVelocity * _movement.x;
 
         // clamp angle to screen bounds
-        // max angle depends on radius and screenbounds
-        float thetaMax = Mathf.Acos(screenBounds.x / ShipPositionRadius);
+        // if using flexible aspect ratio: max angle depends on radius and screenbounds:
+        // float thetaMax = Mathf.Acos(screenBounds.x / ShipPositionRadius); //
+        // else use fixed max theta
+        float thetaMax = _gameParams.MaxTheta;
         _theta = Mathf.Clamp(_theta, thetaMax, Mathf.PI-thetaMax);
 
         Vector2 newpos = new Vector2(ShipPositionRadius * Mathf.Cos(_theta), ShipPositionRadius * Mathf.Sin(_theta));
@@ -172,7 +174,7 @@ public class Ship : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
 
-        if (collision.gameObject.layer == 0)
+        if (collision.gameObject.layer == 11)
             Debug.Log("enter " + collision.gameObject.layer);
 
         if (collision.gameObject.layer == 10) // black hole
@@ -183,7 +185,7 @@ public class Ship : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.gameObject.layer == 0)
+        if (collision.gameObject.layer == 11)
             Debug.Log("exit " + collision.gameObject.layer);
     }
 }
