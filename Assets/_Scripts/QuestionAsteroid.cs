@@ -13,6 +13,7 @@ public class QuestionAsteroid : MonoBehaviour
     [SerializeField] private GameObject _fuelPrefab;
     [SerializeField] private GameObject _asteroidPrefab;
     [SerializeField] private GameObject _explosionEffect;
+    [SerializeField] private Vector3 _spawnPoint;
 
     [Header("Question")]
     [SerializeField] private GameObject _questionAsteroid;
@@ -52,6 +53,8 @@ public class QuestionAsteroid : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        transform.position = Vector3.MoveTowards(transform.position, Vector3.zero, Time.deltaTime * _gameParams.QuestionAsteroidSpeed);
+
         if (!_questionActive)
         {
             _deltaDelta += Time.deltaTime;
@@ -64,13 +67,20 @@ public class QuestionAsteroid : MonoBehaviour
 
         else
         {
-            _durationDelta += Time.deltaTime;
-
-            if (_durationDelta > _gameParams.QuestionDuration)
-            {
+            if (transform.position.y < _gameParams.WinRadius)
                 Fail();
-            }
         }
+
+        //else
+        //{
+
+        //    _durationDelta += Time.deltaTime;
+
+        //    if (_durationDelta > _gameParams.QuestionDuration)
+        //    {
+        //        Fail();
+        //    }
+        //}
     }
 
     void SpawnQuestion()
@@ -78,6 +88,7 @@ public class QuestionAsteroid : MonoBehaviour
         _deltaDelta = 0;
         _questionActive = true;
         _questionAsteroid.SetActive(true);
+        transform.position = _spawnPoint;
 
         //float difficulty
         var c = challenge.challenge((int)Ship.Instance.ShipPositionRadius/4);
@@ -100,6 +111,7 @@ public class QuestionAsteroid : MonoBehaviour
 
         // spawn laser
         StartCoroutine(LaserEffect.Instance.ActivateLaser(_gameParams.LaserDuration));
+        StartCoroutine(Shooting.DisableShoot(_gameParams.LaserDuration));
         yield return new WaitForSeconds(_gameParams.LaserDuration);
         Explode();
         _durationDelta = 0;
@@ -139,7 +151,9 @@ public class QuestionAsteroid : MonoBehaviour
             GameObject spawnedObject = Instantiate(Random.Range(0f, 1f) < 0.5 ? prefab1 : prefab2,
                                                    spawnPos, Quaternion.identity);
 
-            Vector2 direction = Vector2.up.Rotate(Random.Range(-_gameParams.MaxSpawnAngle, _gameParams.MaxSpawnAngle));
+            float angle = Random.Range(-_gameParams.MaxSpawnAngle, _gameParams.MaxSpawnAngle);
+            Debug.Log(angle);
+            Vector2 direction = Vector2.up.Rotate(angle);
 
             spawnedObject.GetComponent<Rigidbody2D>().AddForce(-Random.Range(0.5f, 1f) * _gameParams.SpawnImpulse * direction, 
                                                                ForceMode2D.Impulse);

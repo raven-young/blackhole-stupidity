@@ -84,7 +84,11 @@ public class GameManager : MonoBehaviour
     }
     public void PauseGame()
     {
+<<<<<<< Updated upstream
         //Debug.Log(ScreenBounds);
+=======
+        Debug.Log(ScreenBounds);
+>>>>>>> Stashed changes
 
         if (!canPause)
             return;

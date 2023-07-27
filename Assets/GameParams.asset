@@ -20,14 +20,27 @@ MonoBehaviour:
   FireRate: 0.1
   BulletForce: 15
   BulletDamage: 1
+<<<<<<< Updated upstream
   LaserDuration: 0.2
-  BlackHoleGrowthRate: 1.01
-  QuestionDuration: 5
+  BlackHoleGrowthRate: 1.02
   QuestionDelta: 2
   SpawnAmount: 6
   SpawnImpulse: 29.4
   MaxSpawnAngle: 172
+  QuestionAsteroidSpeed: 1
   PlayerDamage: 5
   AsteroidHealth: 5
   SpawnPeriod: 3
+=======
+  LaserDuration: 0.3
+  BlackHoleGrowthRate: 1.005
+  QuestionDuration: 5
+  QuestionDelta: 2
+  SpawnAmount: 6
+  SpawnImpulse: 30.9
+  MaxSpawnAngle: 114
+  PlayerDamage: 5
+  AsteroidHealth: 5
+  SpawnPeriod: 1
+>>>>>>> Stashed changes
   RandomAsteroidImpulse: 10
