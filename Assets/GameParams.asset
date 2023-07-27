@@ -21,12 +21,12 @@ MonoBehaviour:
   BulletForce: 15
   BulletDamage: 1
   LaserDuration: 0.2
-  BlackHoleGrowthRate: 1.01
-  QuestionDuration: 5
+  BlackHoleGrowthRate: 1.02
   QuestionDelta: 2
   SpawnAmount: 6
   SpawnImpulse: 29.4
   MaxSpawnAngle: 172
+  QuestionAsteroidSpeed: 1
   PlayerDamage: 5
   AsteroidHealth: 5
   SpawnPeriod: 3

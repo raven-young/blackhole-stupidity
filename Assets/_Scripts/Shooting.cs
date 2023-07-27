@@ -21,7 +21,7 @@ public class Shooting : MonoBehaviour
 
     private PlayerInputActions playerInputActions;
 
-    private bool _canShoot = true;
+    private static bool _canShoot = true;
     private bool _isAutomatic = true;
     private bool _isShooting = false;
     [SerializeField] private int _projectileNumber = 1;
@@ -117,6 +117,13 @@ public class Shooting : MonoBehaviour
             _isShooting = false;
             // CancelInvoke("Shoot");
         }
+    }
+
+    public static IEnumerator DisableShoot(float duration)
+    {
+        _canShoot = false;
+        yield return new WaitForSeconds(duration);
+        _canShoot = true;
     }
 
     private void FixedUpdate()
