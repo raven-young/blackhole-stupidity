@@ -5,7 +5,7 @@ using UnityEngine;
 public class Pickup : MonoBehaviour
 {
 
-    [SerializeField] private GameParams _gameParams;
+    [SerializeField] protected GameParams _gameParams;
     [SerializeField] private Rigidbody2D _rb;
 
     [SerializeField] private AudioClip _pickupClip;

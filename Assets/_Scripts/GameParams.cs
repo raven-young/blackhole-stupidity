@@ -42,6 +42,10 @@ public class GameParams : ScriptableObject
     public int PlayerDamage = 3;
     public int AsteroidHealth = 5;
 
+    [Header("Items")]
+    public int ScrapValue;
+    public int FuelValue;
+
     [Header("Random Astroid Spawner")]
     public float SpawnPeriod = 3f;
     public float RandomAsteroidImpulse = 10f;
