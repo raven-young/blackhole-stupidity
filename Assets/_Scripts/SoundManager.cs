@@ -7,7 +7,7 @@ public class SoundManager : MonoBehaviour
 {
     public static SoundManager Instance;
     [SerializeField] private AudioSource _musicSource, _effectsSource;
-    [SerializeField] private AudioClip _backgroundMusic, _nervousMusic;
+    [SerializeField] private AudioClip _backgroundMusic, _nervousMusic, _mainMenuMusic;
 
     private void Awake()
     {
@@ -25,7 +25,13 @@ public class SoundManager : MonoBehaviour
 
     private void Start()
     {
-        PlayMusic(_backgroundMusic);
+        PlayMusic(_mainMenuMusic);
+    }
+
+    public void ChangeToBG()
+    {
+        _musicSource.Stop();
+        _musicSource.PlayOneShot(_backgroundMusic);
     }
 
     public void PlaySound(AudioClip clip, float volumeScale = 1f)

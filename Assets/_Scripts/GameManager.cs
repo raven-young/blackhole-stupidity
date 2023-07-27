@@ -48,7 +48,7 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1;
         // need to execute always
         ScreenBounds = _cam.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, _cam.transform.position.z));
-
+        SoundManager.Instance.ChangeToBG();
     }
 
     private void Update()
@@ -126,6 +126,11 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         Time.timeScale = 1;
         timePassed = 0f;
+    }
+
+    public static void QuitToMenu()
+    {
+        SceneManager.LoadScene("MainMenu");
     }
 
     public void Quit()
