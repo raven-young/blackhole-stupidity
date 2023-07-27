@@ -53,7 +53,7 @@ public class QuestionAsteroid : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.position = Vector3.MoveTowards(transform.position, Vector3.zero, Time.deltaTime * _gameParams.QuestionAsteroidSpeed);
+        //transform.position = Vector3.MoveTowards(transform.position, Vector3.zero, Time.deltaTime * _gameParams.QuestionAsteroidSpeed);
 
         if (!_questionActive)
         {
@@ -63,23 +63,21 @@ public class QuestionAsteroid : MonoBehaviour
             {   
                 SpawnQuestion();
             }
-        }
-
-        else
+        }  else
         {
-            if (transform.position.y < _gameParams.WinRadius)
+
+            _durationDelta += Time.deltaTime;
+
+            if (_durationDelta > _gameParams.QuestionDuration)
+            {
                 Fail();
+            }
         }
 
         //else
         //{
-
-        //    _durationDelta += Time.deltaTime;
-
-        //    if (_durationDelta > _gameParams.QuestionDuration)
-        //    {
+        //    if (transform.position.y < _gameParams.WinRadius)
         //        Fail();
-        //    }
         //}
     }
 
@@ -152,7 +150,6 @@ public class QuestionAsteroid : MonoBehaviour
                                                    spawnPos, Quaternion.identity);
 
             float angle = Random.Range(-_gameParams.MaxSpawnAngle, _gameParams.MaxSpawnAngle);
-            Debug.Log(angle);
             Vector2 direction = Vector2.up.Rotate(angle);
 
             spawnedObject.GetComponent<Rigidbody2D>().AddForce(-Random.Range(0.5f, 1f) * _gameParams.SpawnImpulse * direction, 

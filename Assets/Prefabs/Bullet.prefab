@@ -47,7 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5d3d30bf67788647b95a46afa270519, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gameParams: {fileID: 11400000, guid: 8997eda04107ded43858f1ccd23b19e5, type: 2}
+  _gameParams: {fileID: 11400000, guid: dd8a65e487f3ad244b57dea38948a9e4, type: 2}
   hitEffect: {fileID: 4445420595610005922, guid: ca0b22fa6066cbf4d820484bac4f8dc5, type: 3}
   effectDuration: 0.2
   piercing: 0
@@ -92,7 +92,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: 4e728a16801e3a24596b79c9a6a35d89, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
