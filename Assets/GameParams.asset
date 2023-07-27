@@ -12,35 +12,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 682973243c633894598bc19ce7526a77, type: 3}
   m_Name: GameParams
   m_EditorClassIdentifier: 
-  WinRadius: 18.8
+  WinRadius: 18
   AngularVelocity: 1
   BurnRate: 2
   VelocityScale: 0.2
-  MaxTheta: 1.01
+  MaxTheta: 0.7
   FireRate: 0.1
-  BulletForce: 15
+  BulletForce: 10
   BulletDamage: 1
-<<<<<<< Updated upstream
-  LaserDuration: 0.2
-  BlackHoleGrowthRate: 1.02
+  LaserDuration: 0.5
+  BlackHoleGrowthRate: 1.01
+  QuestionDuration: 6
   QuestionDelta: 2
   SpawnAmount: 6
-  SpawnImpulse: 29.4
-  MaxSpawnAngle: 172
+  SpawnImpulse: 24.3
+  MaxSpawnAngle: 130
   QuestionAsteroidSpeed: 1
-  PlayerDamage: 5
-  AsteroidHealth: 5
-  SpawnPeriod: 3
-=======
-  LaserDuration: 0.3
-  BlackHoleGrowthRate: 1.005
-  QuestionDuration: 5
-  QuestionDelta: 2
-  SpawnAmount: 6
-  SpawnImpulse: 30.9
-  MaxSpawnAngle: 114
-  PlayerDamage: 5
+  PlayerDamage: 3
   AsteroidHealth: 5
   SpawnPeriod: 1
->>>>>>> Stashed changes
   RandomAsteroidImpulse: 10

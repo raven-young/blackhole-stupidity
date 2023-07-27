@@ -162,7 +162,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74807ae8b0b8c67438ec6834a5bc03ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gameParams: {fileID: 11400000, guid: 8997eda04107ded43858f1ccd23b19e5, type: 2}
+  _gameParams: {fileID: 11400000, guid: dd8a65e487f3ad244b57dea38948a9e4, type: 2}
   _rb: {fileID: 1950772556}
   _explosionEffect: {fileID: 5925885586263924435, guid: 6f6e2584aa537cf41b45a6638a850c70, type: 3}
   flashEffect: {fileID: -7005874727660072378}
