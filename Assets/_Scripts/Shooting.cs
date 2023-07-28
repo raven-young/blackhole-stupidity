@@ -25,7 +25,7 @@ public class Shooting : MonoBehaviour
     private bool _isAutomatic = true;
     private bool _isShooting = false;
     [SerializeField] private int _projectileNumber = 1;
-    [SerializeField] private float _projectileSpread = 30f;
+    //[SerializeField] private float _projectileSpread = 30f;
     private float _shootCooldown;
 
     private static IObjectPool<Bullet> _pool;

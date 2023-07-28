@@ -9,6 +9,8 @@ public class GameParams : ScriptableObject
     [Header("Base Params")]
     [SerializeField, Range(10, 30),Tooltip("Escape horizon distance from origin (workaround)")] 
     public float WinRadius = 18f;
+    [Range(0,20f), Tooltip("Change to nervous theme here, tanuki reactions")]
+    public float DangerZoneRadius = 4f;
 
     [Header("Ship")]
     public int MaxHealth = 100;

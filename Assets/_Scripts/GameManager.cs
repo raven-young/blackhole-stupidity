@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using UnityEngine.InputSystem;
 using UnityEngine.EventSystems;
 using DG.Tweening;
+using System;
 
 public class GameManager : MonoBehaviour
 {
@@ -27,6 +28,14 @@ public class GameManager : MonoBehaviour
 
     public float DistanceToEventHorizon = 8f;
     public float InitialDistanceToEventHorizon { get; private set; }
+
+    public static event Action OnEnteredDangerZone;
+    public static event Action OnExitedDangerZone;
+    //public event EventHandler OnCloseToGameOver;
+
+    private float _dangerZoneMinTime = 6f; // danger zone theme active for at least this long
+    private float _dangerzoneTimer = 0f;
+    private bool _inDangerZone;
 
     private void Awake()
     {
@@ -55,11 +64,33 @@ public class GameManager : MonoBehaviour
 
         DistanceToEscapeHorizon();
         InitialDistanceToEventHorizon = DistanceToEventHorizon;
+
+        _inDangerZone = DistanceToEventHorizon > _gameParams.DangerZoneRadius;
     }
 
     private void Update()
     {
+        
         DistanceToEscapeHorizon();
+        if (DistanceToEventHorizon < _gameParams.DangerZoneRadius && !_inDangerZone)
+        {
+            OnEnteredDangerZone?.Invoke();
+            _dangerzoneTimer = 0f;
+            _inDangerZone = true;
+            Debug.Log("entered danger zone!");
+            Debug.Log("distance " + DistanceToEventHorizon + " " + _gameParams.DangerZoneRadius);
+        } else if (_inDangerZone)
+        {
+            _dangerzoneTimer += Time.deltaTime;
+            if (_dangerZoneMinTime < _dangerzoneTimer && DistanceToEventHorizon > _gameParams.DangerZoneRadius)
+            {
+                OnExitedDangerZone?.Invoke();
+                Debug.Log("left danger zone");
+                Debug.Log("distance " + DistanceToEventHorizon + " " + _gameParams.DangerZoneRadius);
+                _dangerzoneTimer = 0;
+                _inDangerZone = false;
+            }
+        }
     }
 
     private void EscapeAction(InputAction.CallbackContext context)
