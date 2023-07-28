@@ -65,28 +65,26 @@ public class GameManager : MonoBehaviour
         DistanceToEscapeHorizon();
         InitialDistanceToEventHorizon = DistanceToEventHorizon;
 
-        _inDangerZone = DistanceToEventHorizon > _gameParams.DangerZoneRadius;
+        _inDangerZone = DistanceToEventHorizon > _gameParams.DangerZoneDistance;
     }
 
     private void Update()
     {
         
         DistanceToEscapeHorizon();
-        if (DistanceToEventHorizon < _gameParams.DangerZoneRadius && !_inDangerZone)
+        if (DistanceToEventHorizon < _gameParams.DangerZoneDistance && !_inDangerZone)
         {
             OnEnteredDangerZone?.Invoke();
             _dangerzoneTimer = 0f;
             _inDangerZone = true;
-            Debug.Log("entered danger zone!");
-            Debug.Log("distance " + DistanceToEventHorizon + " " + _gameParams.DangerZoneRadius);
+            Debug.Log("entered danger zone! "+ DistanceToEventHorizon + " " + _gameParams.DangerZoneDistance);
         } else if (_inDangerZone)
         {
             _dangerzoneTimer += Time.deltaTime;
-            if (_dangerZoneMinTime < _dangerzoneTimer && DistanceToEventHorizon > _gameParams.DangerZoneRadius)
+            if (_dangerZoneMinTime < _dangerzoneTimer && DistanceToEventHorizon > _gameParams.DangerZoneDistance)
             {
                 OnExitedDangerZone?.Invoke();
-                Debug.Log("left danger zone");
-                Debug.Log("distance " + DistanceToEventHorizon + " " + _gameParams.DangerZoneRadius);
+                Debug.Log("left danger zone! " + DistanceToEventHorizon + " " + _gameParams.DangerZoneDistance);
                 _dangerzoneTimer = 0;
                 _inDangerZone = false;
             }
@@ -175,7 +173,7 @@ public class GameManager : MonoBehaviour
 
     public void OnDrawGizmos()
     {
-        Gizmos.DrawWireCube(new Vector3(0, ScreenBounds.y/2, 0), new Vector3(2*ScreenBounds.x, ScreenBounds.y, 1));
+        //Gizmos.DrawWireCube(new Vector3(0, ScreenBounds.y/2, 0), new Vector3(2*ScreenBounds.x, ScreenBounds.y, 1));
 
         // Playable cone
         if (_gameParams.MaxTheta > 0) {
@@ -185,5 +183,9 @@ public class GameManager : MonoBehaviour
 
         // Escape horizon
         Gizmos.DrawWireSphere(Vector3.zero, _gameParams.WinRadius);
+
+        // Danger zone
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(Vector3.zero, Ship.Instance.ShipPositionRadius-_gameParams.DangerZoneDistance);
     }
 }
