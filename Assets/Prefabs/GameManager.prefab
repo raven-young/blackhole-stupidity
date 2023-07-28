@@ -44,14 +44,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11eeba097c46ead4c854dc9307dec0f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gameParams: {fileID: 11400000, guid: 8997eda04107ded43858f1ccd23b19e5, type: 2}
-  restartDelay: 2
+  _gameParams: {fileID: 11400000, guid: dd8a65e487f3ad244b57dea38948a9e4, type: 2}
   gameHasEnded: 0
   isPaused: 0
   canPause: 1
   currentTimeScale: 1
   ScreenBounds: {x: 0, y: 0}
   _cam: {fileID: 0}
-  _initialFuel: 20
-  _deathClip: {fileID: 8300000, guid: fe2f6f1639366064d834db47a63df33a, type: 3}
+  _deathClip: {fileID: 8300000, guid: c349dbaa87f396f4dbafb4e6f9a4a9cb, type: 3}
   _victoryClip: {fileID: 8300000, guid: fa9dcef2776e6fe40b5f14b611939c82, type: 3}

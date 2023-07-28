@@ -25,7 +25,7 @@ public class BlackHole : MonoBehaviour
     void Start()
     {
         // At the start of the game, BH force and ship fuel are balanced
-        _initalForce = Ship.Instance.CurrentFuel;
+        _initalForce = Ship.Instance.CurrentHealth;
         CurrentForce = _initalForce;
     }
 

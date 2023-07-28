@@ -25,6 +25,9 @@ public class GameManager : MonoBehaviour
     [Header("Sounds")]
     [SerializeField] private AudioClip _deathClip, _victoryClip;
 
+    public float DistanceToEventHorizon = 8f;
+    public float InitialDistanceToEventHorizon { get; private set; }
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -48,7 +51,15 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1;
         // need to execute always
         ScreenBounds = _cam.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, _cam.transform.position.z));
+        SoundManager.Instance.ChangeToBG();
 
+        DistanceToEscapeHorizon();
+        InitialDistanceToEventHorizon = DistanceToEventHorizon;
+    }
+
+    private void Update()
+    {
+        DistanceToEscapeHorizon();
     }
 
     private void EscapeAction(InputAction.CallbackContext context)
@@ -66,7 +77,13 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public IEnumerator GameOver(bool victorious = false, float _delay = 0f)
+    void DistanceToEscapeHorizon()
+    {
+        RaycastHit2D hit = Physics2D.Raycast(Ship.Instance.ShipPositionRadius * Vector2.up, -Vector2.up, 30, LayerMask.GetMask("BlackHole"));
+        DistanceToEventHorizon = hit.distance;
+    }
+
+    public IEnumerator GameOver(bool victorious = false)
     {
         SoundManager.Instance.ChangeMusicVolume(0f);
         if (victorious)
@@ -76,12 +93,12 @@ public class GameManager : MonoBehaviour
         gameHasEnded = true;
         canPause = false;
         CanvasManager.Instance.RenderGameOverScreen(victorious);
-        yield return new WaitForSeconds(_delay);
+
+        AudioClip _clipUsed = victorious ? _victoryClip : _deathClip;
+        SoundManager.Instance.ChangeMusicVolume(1f, 1.2f*_clipUsed.length);
+        yield return new WaitForSecondsRealtime(1.2f * _clipUsed.length);
         canPause = true;
         PauseGame();
-        AudioClip _clipUsed = victorious ? _victoryClip : _deathClip;
-        yield return new WaitForSecondsRealtime(1.2f * _clipUsed.length);
-        SoundManager.Instance.ChangeMusicVolume(1f);
     }
     public void PauseGame()
     {
@@ -113,6 +130,11 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         Time.timeScale = 1;
         timePassed = 0f;
+    }
+
+    public static void QuitToMenu()
+    {
+        SceneManager.LoadScene("MainMenu");
     }
 
     public void Quit()

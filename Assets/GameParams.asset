@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: GameParams
   m_EditorClassIdentifier: 
   WinRadius: 18
+  MaxHealth: 100
   AngularVelocity: 1
   BurnRate: 2
   VelocityScale: 0.2
