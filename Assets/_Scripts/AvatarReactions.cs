@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+// crap code because no time
 public class AvatarReactions : MonoBehaviour
 {
 
-    private Sprite _sprite;
+    private Image _image;
 
     [SerializeField] private Sprite _idleDanger;
     [SerializeField] private Sprite _idleSafe;
@@ -33,17 +34,17 @@ public class AvatarReactions : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _sprite = gameObject.GetComponent<Image>().sprite;
-        _sprite = _idleSafe;
-        StartCoroutine(test());
+        _image = gameObject.GetComponent<Image>();
+        _image.sprite = _idleSafe;
+        //StartCoroutine(test());
     }
 
     IEnumerator test()
     {
-        Debug.Log(gameObject.GetComponent<Image>().sprite);
+        Debug.Log("1 "+gameObject.GetComponent<Image>().sprite.name);
         yield return new WaitForSeconds(3f);
-        _sprite = _newProblem;
-        Debug.Log(gameObject.GetComponent<Image>().sprite);
+        _image.sprite = _newProblem;
+        Debug.Log("2 "+gameObject.GetComponent<Image>().sprite.name);
     }
 
     private void OnEnable()
@@ -66,6 +67,16 @@ public class AvatarReactions : MonoBehaviour
 
     void SwapExpression()
     {
+        if (GameManager.Instance.InDangerZone)
+        {
+            _image.sprite = _idleDanger;
+            return;
+        }
 
+        if (GameManager.Instance.InDangerZone)
+        {
+            _image.sprite = _idleSafe;
+            return;
+        }
     }
 }
