@@ -45,24 +45,51 @@ TagManager:
   - 
   - 
   m_SortingLayers:
-  - name: Terrain
+  - name: Background Void
     uniqueID: 975898213
     locked: 0
-  - name: Water
+  - name: Stars
+    uniqueID: 519491921
+    locked: 0
+  - name: black hole Particles
     uniqueID: 305894833
     locked: 0
-  - name: AgentUnpassable
+  - name: Black hole layer base
     uniqueID: 2515986781
+    locked: 0
+  - name: Asteroids
+    uniqueID: 1937391881
+    locked: 0
+  - name: Bullets
+    uniqueID: 1268397013
+    locked: 0
+  - name: Math asteroids
+    uniqueID: 4248922271
+    locked: 0
+  - name: Black Hole layer mid
+    uniqueID: 2994204851
+    locked: 0
+  - name: Ship exhaust partcles
+    uniqueID: 1815167243
+    locked: 0
+  - name: Ship
+    uniqueID: 919231889
     locked: 0
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: TerrainTop
-    uniqueID: 919231889
+  - name: Black hole Layer top
+    uniqueID: 460479845
     locked: 0
-  - name: Agents
-    uniqueID: 3350311109
+  - name: Laser
+    uniqueID: 2191934285
     locked: 0
-  - name: WorldUI
-    uniqueID: 1937391881
+  - name: Game UI
+    uniqueID: 3411952387
+    locked: 0
+  - name: Menu
+    uniqueID: 6986357
+    locked: 0
+  - name: Menu UI
+    uniqueID: 2963888701
     locked: 0
