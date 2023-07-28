@@ -91,7 +91,7 @@ public class QuestionAsteroid : MonoBehaviour
 
         int difficulty = (int)GameManager.Instance.DistanceToEventHorizon / 4;
         var c = challenge.challenge(difficulty);
-        Debug.Log("challenge level: " + difficulty);
+        //Debug.Log("challenge level: " + difficulty);
         _correctAnswer = c.Item5 + 1;
         _questionText.text = c.Item1;
         _answer1Text.text = c.Item2;

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System;
+
 
 public class CanvasManager : MonoBehaviour
 {
@@ -12,7 +14,7 @@ public class CanvasManager : MonoBehaviour
     [SerializeField] private GameObject gameOverScreen;
     [SerializeField] private GameObject victoryScreen;
     [SerializeField] private GameObject pauseScreen;
-    [SerializeField] private TMP_Text _scoreText;
+    [SerializeField] private TMP_Text _scoreText, _distanceLoseText, _distanceWinText;
 
     [SerializeField] private Slider _fuelSlider, _healthSlider;
 
@@ -33,6 +35,12 @@ public class CanvasManager : MonoBehaviour
         _healthSlider.maxValue = _gameParams.MaxHealth;
         _healthSlider.minValue = 0;
         _healthSlider.value = _gameParams.MaxHealth / 2;
+    }
+
+    private void Update()
+    {
+        _distanceLoseText.text = "Fail:"+ Math.Round(GameManager.Instance.DistanceToEventHorizon, 2);
+        _distanceWinText.text = "Win:" + Math.Round(_gameParams.WinRadius - Ship.Instance.ShipPositionRadius, 2);
     }
 
     public void UpdateHealth(float newValue)
