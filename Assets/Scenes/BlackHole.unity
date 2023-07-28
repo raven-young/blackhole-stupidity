@@ -530,6 +530,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 848492527561142279, guid: 69f81f1888f1d8f469cfbb8a824abbeb, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 045c3cabb5c9e77419586dc6587ca860, type: 3}
     - target: {fileID: 1807650757103888169, guid: 69f81f1888f1d8f469cfbb8a824abbeb, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -626,6 +630,14 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1357717747}
+    - target: {fileID: 4514827455402784348, guid: 69f81f1888f1d8f469cfbb8a824abbeb, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 71
+      objectReference: {fileID: 0}
+    - target: {fileID: 4514827455402784348, guid: 69f81f1888f1d8f469cfbb8a824abbeb, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -97
+      objectReference: {fileID: 0}
     - target: {fileID: 4818331862782848678, guid: 69f81f1888f1d8f469cfbb8a824abbeb, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -1137,6 +1149,10 @@ PrefabInstance:
     - target: {fileID: 5894835792949439015, guid: 1093104d307cbda48ac6ca5894659957, type: 3}
       propertyPath: m_Name
       value: FadeRight
+      objectReference: {fileID: 0}
+    - target: {fileID: 5894835792949439015, guid: 1093104d307cbda48ac6ca5894659957, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
