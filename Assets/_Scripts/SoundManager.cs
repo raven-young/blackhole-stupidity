@@ -9,6 +9,8 @@ public class SoundManager : MonoBehaviour
     [SerializeField] private AudioSource _musicSource, _musicSource2, _effectsSource;
     [SerializeField] private AudioClip _backgroundMusic, _nervousMusic, _mainMenuMusic;
 
+    private AudioClip _activeClip;
+
     private void Awake()
     {
         if (Instance == null)
@@ -66,6 +68,13 @@ public class SoundManager : MonoBehaviour
         _musicSource.DOFade(volume, fadeDuration);
         _musicSource2.DOFade(volume, fadeDuration);
     }
+
+    public void ChangeActiveMusicVolume(float volume, float fadeDuration = 0f)
+    {
+        var source = _activeClip == _nervousMusic ? _musicSource2 : _musicSource;
+        source.DOFade(volume, fadeDuration);
+    }
+
     public void ChangeMasterVolume(float volume)
     {
         AudioListener.volume = volume;
@@ -79,11 +88,13 @@ public class SoundManager : MonoBehaviour
         {
             _musicSource.DOFade(0, fadeDuration);
             _musicSource2.DOFade(1, fadeDuration);
+            _activeClip = _nervousMusic;
         }
         else
         {
             _musicSource.DOFade(1, fadeDuration);
             _musicSource2.DOFade(0, fadeDuration);
+            _activeClip = _backgroundMusic;
         }
     }
 
