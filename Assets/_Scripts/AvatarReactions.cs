@@ -7,28 +7,36 @@ using UnityEngine.UI;
 public class AvatarReactions : MonoBehaviour
 {
 
+    public static AvatarReactions Instance;
+
     private Image _image;
 
     [SerializeField] private Sprite _idleDanger;
     [SerializeField] private Sprite _idleSafe;
     [SerializeField] private Sprite _gameOver;
     [SerializeField] private Sprite _victory;
-    [SerializeField] private Sprite _newProblem;
-    [SerializeField] private Sprite _shipHit;
-    [SerializeField] private Sprite _failedProblem;
+    [SerializeField] private Sprite _problemSpawned;
+    [SerializeField] private Sprite _asteroidHit;
+    [SerializeField] private Sprite _problemFailed;
+    [SerializeField] private Sprite _problemSuccess;
 
     [SerializeField] private float _minExpressionTime = 2f;
     private float _expressionTimer = 0f;
 
-    private enum ExpressionStates
+    private bool _reactionActive = false;
+    private bool _idleActive = true;
+
+    public enum ExpressionEvents
     {
-        IdleDanger,
-        IdleSafe,
-        GameOver,
-        Victory,
-        NewProblem,
-        ShipHit,
-        FailedProblem
+        ProblemSpawned,
+        ProblemFailed,
+        ProblemSucceeded,
+        AsteroidHit
+    }
+
+    private void Awake()
+    {
+        Instance = this;
     }
 
     // Start is called before the first frame update
@@ -36,47 +44,89 @@ public class AvatarReactions : MonoBehaviour
     {
         _image = gameObject.GetComponent<Image>();
         _image.sprite = _idleSafe;
-        //StartCoroutine(test());
-    }
-
-    IEnumerator test()
-    {
-        Debug.Log("1 "+gameObject.GetComponent<Image>().sprite.name);
-        yield return new WaitForSeconds(3f);
-        _image.sprite = _newProblem;
-        Debug.Log("2 "+gameObject.GetComponent<Image>().sprite.name);
     }
 
     private void OnEnable()
     {
         GameManager.OnEnteredDangerZone += SwapExpression;
         GameManager.OnExitedDangerZone += SwapExpression;
+
+        Asteroid.OnAsteroidHit += SwapReaction;
+        QuestionAsteroid.OnProblemFailed += SwapReaction;
+        QuestionAsteroid.OnProblemSpawned += SwapReaction;
+        QuestionAsteroid.OnProblemSuccess += SwapReaction;
     }
 
     private void OnDisable()
     {
         GameManager.OnEnteredDangerZone -= SwapExpression;
         GameManager.OnExitedDangerZone -= SwapExpression;
+
+        Asteroid.OnAsteroidHit -= SwapReaction;
+        QuestionAsteroid.OnProblemFailed -= SwapReaction;
+        QuestionAsteroid.OnProblemSpawned -= SwapReaction;
+        QuestionAsteroid.OnProblemSuccess -= SwapReaction;
+    }
+
+    void SwapReaction(ExpressionEvents expEvent)
+    {
+        switch (expEvent)
+        {
+            case ExpressionEvents.ProblemFailed:
+                StartCoroutine(React(_problemFailed));
+                break;
+            case ExpressionEvents.ProblemSpawned:
+                StartCoroutine(React(_problemSpawned));
+                break;
+            case ExpressionEvents.ProblemSucceeded:
+                StartCoroutine(React(_problemSuccess));
+                break;
+            case ExpressionEvents.AsteroidHit:
+                StartCoroutine(React(_asteroidHit));
+                break;
+
+        }
+    }
+
+    IEnumerator React(Sprite sprite)
+    {
+        _image.sprite = sprite;
+        yield return new WaitForSeconds(2f);
+        SwapExpression();
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        _expressionTimer += Time.deltaTime;
     }
+
+
 
     void SwapExpression()
     {
+
+        // do later
+        //if (_expressionTimer < _minExpressionTime)
+        //    return;
+
+        //if (_reactionActive)
+        //    return;
+
         if (GameManager.Instance.InDangerZone)
         {
             _image.sprite = _idleDanger;
+            _expressionTimer = 0f;
             return;
         }
 
         if (GameManager.Instance.InDangerZone)
         {
             _image.sprite = _idleSafe;
+            _expressionTimer = 0f;
             return;
         }
+
+        _idleActive = true;
     }
 }
