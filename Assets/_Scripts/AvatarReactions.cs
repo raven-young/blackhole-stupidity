@@ -50,6 +50,8 @@ public class AvatarReactions : MonoBehaviour
     {
         GameManager.OnEnteredDangerZone += SwapExpression;
         GameManager.OnExitedDangerZone += SwapExpression;
+        GameManager.OnGameOver += SwapExpression;
+        GameManager.OnVictory += SwapExpression;
 
         Asteroid.OnAsteroidHit += SwapReaction;
         QuestionAsteroid.OnProblemFailed += SwapReaction;
@@ -61,6 +63,8 @@ public class AvatarReactions : MonoBehaviour
     {
         GameManager.OnEnteredDangerZone -= SwapExpression;
         GameManager.OnExitedDangerZone -= SwapExpression;
+        GameManager.OnGameOver -= SwapExpression;
+        GameManager.OnVictory -= SwapExpression;
 
         Asteroid.OnAsteroidHit -= SwapReaction;
         QuestionAsteroid.OnProblemFailed -= SwapReaction;
@@ -112,6 +116,13 @@ public class AvatarReactions : MonoBehaviour
 
         //if (_reactionActive)
         //    return;
+
+        if (GameManager.Instance.gameHasEnded)
+        {
+            _image.sprite = GameManager.Instance.gameWasWon ? _victory : _gameOver;
+            _expressionTimer = 0f;
+            return;
+        }
 
         if (GameManager.Instance.InDangerZone)
         {

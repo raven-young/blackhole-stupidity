@@ -56,6 +56,7 @@ public class CutsceneIntro : MonoBehaviour
     };
 
     private int _dialogueIterator = 0;
+    private bool _dialogueSkipped = false;
 
     private void Awake()
     {
@@ -73,6 +74,9 @@ public class CutsceneIntro : MonoBehaviour
     {
         playerInputActions.Player.Enable();
         playerInputActions.Player.Fire.performed += AdvanceDialogueAction;
+        playerInputActions.Player.Answer1.performed += SkipDialogue;
+        playerInputActions.Player.Answer2.performed += SkipDialogue;
+        playerInputActions.Player.Answer3.performed += SkipDialogue;
     }
 
     void OnDisable()
@@ -90,9 +94,24 @@ public class CutsceneIntro : MonoBehaviour
         }
     }
 
-    private void DisplayNewDialogue(Dialogue dialogue)
+    private void SkipDialogue(InputAction.CallbackContext context)
     {
-        float fadeTime = 0.1f;
+        if (context.performed && !_dialogueSkipped)
+        {
+            Debug.Log("skippin:" + dialogueList.Count + " " + _dialogueIterator);
+
+            for (int i = _dialogueIterator; i <= dialogueList.Count; i++)
+            {
+                AdvanceDialogue(0.2f);
+                Debug.Log("skip");
+            }
+            _dialogueSkipped = true;
+        }
+            
+    }
+
+    private void DisplayNewDialogue(Dialogue dialogue, float fadeTime = 0.1f)
+    {
         float fadedAlpha = 0.3f;
         if (dialogue.Speaker == Speakers.Racoon)
         {
@@ -119,7 +138,7 @@ public class CutsceneIntro : MonoBehaviour
         }
     }
 
-    private void AdvanceDialogue()
+    private void AdvanceDialogue(float fadeTime = 1.0f)
     {
         if (dialogueList.Count <= _dialogueIterator)
         {
@@ -131,7 +150,7 @@ public class CutsceneIntro : MonoBehaviour
         }
 
         var next = dialogueList[_dialogueIterator];
-        DisplayNewDialogue(next);
+        DisplayNewDialogue(next, fadeTime);
         _dialogueIterator++;
     }
 }
