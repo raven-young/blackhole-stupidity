@@ -63,19 +63,19 @@ public class GameManager : MonoBehaviour
         // need to execute always
         ScreenBounds = _cam.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, _cam.transform.position.z));
 
-        SoundManager.Instance.ChangeToDialogueTheme();
         DistanceToEscapeHorizon();
         InitialDistanceToEventHorizon = DistanceToEventHorizon;
 
         InDangerZone = DistanceToEventHorizon > _gameParams.DangerZoneDistance;
 
-        Time.timeScale = 0;
-        canPause = false;
+        //Time.timeScale = 0;
+        //canPause = false;
+
+        StartGame();
     }
 
     private void Update()
     {
-        
         DistanceToEscapeHorizon();
         if (DistanceToEventHorizon < _gameParams.DangerZoneDistance && !InDangerZone)
         {

@@ -21,10 +21,10 @@ public class AvatarReactions : MonoBehaviour
     [SerializeField] private Sprite _problemSuccess;
 
     [SerializeField] private float _minExpressionTime = 2f;
-    private float _expressionTimer = 0f;
+    //private float _expressionTimer = 0f;
 
-    private bool _reactionActive = false;
-    private bool _idleActive = true;
+    //private bool _reactionActive = false;
+    //private bool _idleActive = true;
 
     public enum ExpressionEvents
     {
@@ -100,10 +100,10 @@ public class AvatarReactions : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
-    {
-        _expressionTimer += Time.deltaTime;
-    }
+    //void Update()
+    //{
+    //    _expressionTimer += Time.deltaTime;
+    //}
 
 
 
@@ -120,24 +120,24 @@ public class AvatarReactions : MonoBehaviour
         if (GameManager.Instance.gameHasEnded)
         {
             _image.sprite = GameManager.Instance.gameWasWon ? _victory : _gameOver;
-            _expressionTimer = 0f;
+            //_expressionTimer = 0f;
             return;
         }
 
         if (GameManager.Instance.InDangerZone)
         {
             _image.sprite = _idleDanger;
-            _expressionTimer = 0f;
+            //_expressionTimer = 0f;
             return;
         }
 
         if (GameManager.Instance.InDangerZone)
         {
             _image.sprite = _idleSafe;
-            _expressionTimer = 0f;
+            //_expressionTimer = 0f;
             return;
         }
 
-        _idleActive = true;
+        //_idleActive = true;
     }
 }

@@ -8,7 +8,7 @@ public class MainMenu : MonoBehaviour
 
     public void StartGame()
     {
-        SceneManager.LoadScene("BlackHole");
+        SceneManager.LoadScene("CutsceneIntro");
     }
     public void Quit()
     {
