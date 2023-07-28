@@ -60,6 +60,9 @@ TagManager:
   - name: Asteroids
     uniqueID: 1937391881
     locked: 0
+  - name: Black hole layer middle bottom
+    uniqueID: 3876731039
+    locked: 0
   - name: Bullets
     uniqueID: 1268397013
     locked: 0
@@ -71,6 +74,9 @@ TagManager:
     locked: 0
   - name: Ship exhaust partcles
     uniqueID: 1815167243
+    locked: 0
+  - name: Black hole layer middle top
+    uniqueID: 2564346913
     locked: 0
   - name: Ship
     uniqueID: 919231889
@@ -84,7 +90,10 @@ TagManager:
   - name: Laser
     uniqueID: 2191934285
     locked: 0
-  - name: Game UI
+  - name: Game UI Lower
+    uniqueID: 2053663399
+    locked: 0
+  - name: Game UI Upper
     uniqueID: 3411952387
     locked: 0
   - name: Menu
