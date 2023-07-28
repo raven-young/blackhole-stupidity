@@ -60,8 +60,8 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1;
         // need to execute always
         ScreenBounds = _cam.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, _cam.transform.position.z));
-        SoundManager.Instance.ChangeToBG();
 
+        SoundManager.Instance.ChangeToDialogueTheme();
         DistanceToEscapeHorizon();
         InitialDistanceToEventHorizon = DistanceToEventHorizon;
 
@@ -96,6 +96,7 @@ public class GameManager : MonoBehaviour
 
     public void StartGame()
     {
+        SoundManager.Instance.ChangeToBG();
         canPause = true;
         Time.timeScale = 1;
     }
