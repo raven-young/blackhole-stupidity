@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8279172605426373974}
   - component: {fileID: 5617236779780539471}
   m_Layer: 0
-  m_Name: MusicSource
+  m_Name: MusicSource1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -175,7 +175,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec5e692898a5eb7448ef1cb5fd83379c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _musicSource: {fileID: 5617236779780539471}
+  _musicSource1: {fileID: 5617236779780539471}
   _musicSource2: {fileID: 2181628709634377576}
   _effectsSource: {fileID: 3724101941455378432}
   _backgroundMusic: {fileID: 8300000, guid: e05cac388890b514a89ffaea4439652d, type: 3}
