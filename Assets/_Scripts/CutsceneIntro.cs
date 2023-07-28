@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 // dumbest dialogue system imaginable due to lack of time
 public class CutsceneIntro : MonoBehaviour
@@ -20,8 +21,8 @@ public class CutsceneIntro : MonoBehaviour
     [SerializeField] private TMP_Text _character1Text;
     [SerializeField] private TMP_Text _character2Text;
 
-    [SerializeField] private GameObject _sliders;
-    [SerializeField] private GameObject _scorePanel;
+    //[SerializeField] private GameObject _sliders;
+    //[SerializeField] private GameObject _scorePanel;
 
     private enum Speakers
     {
@@ -43,9 +44,9 @@ public class CutsceneIntro : MonoBehaviour
 
     private static List<Dialogue> dialogueList = new List<Dialogue>()
     {
-	new Dialogue(Speakers.Racoon, "This is captain Rockey, requesting immediate assistance!"),
-        new Dialogue(Speakers.Cow, "Vachette speaking, what is it captain?"),
-        new Dialogue(Speakers.Racoon, "Our ship flew too close to this black hole, we're gonna be sucked in!"),
+	new Dialogue(Speakers.Racoon, "This is Captain Rockey, requesting immediate assistance!"),
+    new Dialogue(Speakers.Cow, "Vachette speaking, what is it, Captain?"),
+    new Dialogue(Speakers.Racoon, "Our ship flew too close to this black hole, we're gonna be sucked in!"),
 	new Dialogue(Speakers.Cow, "Remember your training!"),
 	new Dialogue(Speakers.Cow, "You can escape by blasting incoming asteroids..."),
 	new Dialogue(Speakers.Cow, "And picking up any spare fuel reserves you can find."),
@@ -66,8 +67,8 @@ public class CutsceneIntro : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        SoundManager.Instance.ChangeToDialogueTheme();
         AdvanceDialogue();
-        Debug.Log(dialogueList);
     }
 
     private void OnEnable()
@@ -98,12 +99,9 @@ public class CutsceneIntro : MonoBehaviour
     {
         if (context.performed && !_dialogueSkipped)
         {
-            Debug.Log("skippin:" + dialogueList.Count + " " + _dialogueIterator);
-
             for (int i = _dialogueIterator; i <= dialogueList.Count; i++)
             {
                 AdvanceDialogue(0.2f);
-                Debug.Log("skip");
             }
             _dialogueSkipped = true;
         }
@@ -142,9 +140,9 @@ public class CutsceneIntro : MonoBehaviour
     {
         if (dialogueList.Count <= _dialogueIterator)
         {
-            GameManager.Instance.StartGame();
-            _sliders.SetActive(true);
-            _scorePanel.SetActive(true);
+            SceneManager.LoadScene("BlackHole thomas");
+            //_sliders.SetActive(true);
+            //_scorePanel.SetActive(true);
             gameObject.SetActive(false);
             return;
         }

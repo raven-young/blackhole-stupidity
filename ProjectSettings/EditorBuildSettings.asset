@@ -9,6 +9,6 @@ EditorBuildSettings:
     path: Assets/Scenes/MainMenu.unity
     guid: c7725811944f0754282732886c3829ab
   - enabled: 1
-    path: Assets/Scenes/BlackHole.unity
+    path: Assets/Scenes/oldBlackHole.unity
     guid: 2415183ddf7f8bf4280f743df3719376
   m_configObjects: {}
