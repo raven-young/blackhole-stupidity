@@ -823,7 +823,6 @@ MonoBehaviour:
   _asteroidPrefab: {fileID: 5598675613931354585, guid: fcd0cc99b6db638479cafd0c41992a82, type: 3}
   _explosionEffect: {fileID: 5925885586263924435, guid: 962adac600dffc641a3c66478be19ca5, type: 3}
   _spawnPoint: {fileID: 0}
-  _explosionClip: {fileID: 8300000, guid: 7545016ee713ea04c997ebda18fdb639, type: 3}
   _questionAsteroid: {fileID: 5591658288240847084}
   _questionText: {fileID: 8449463032570993212}
   _answer1Text: {fileID: 6914066261278075312}
@@ -832,4 +831,3 @@ MonoBehaviour:
   _rightAnswerclip: {fileID: 8300000, guid: e4e3ecc4a62b0fe458359847acf5680c, type: 3}
   _bigLaserClip: {fileID: 8300000, guid: 232fc660d6838f84195dfd7f5c30b046, type: 3}
   _wrongAnswerclip: {fileID: 8300000, guid: 3b92775ccaa84f54fbab325dbdf1d934, type: 3}
-  _alertClip: {fileID: 8300000, guid: 5fcb2db3f0a45dd49a5f7be60a1cbdf2, type: 3}
