@@ -7,7 +7,7 @@ public class SoundManager : MonoBehaviour
 {
     public static SoundManager Instance;
     [SerializeField] private AudioSource _musicSource, _musicSource2, _effectsSource;
-    [SerializeField] private AudioClip _backgroundMusic, _nervousMusic, _mainMenuMusic;
+    [SerializeField] private AudioClip _backgroundMusic, _nervousMusic, _mainMenuMusic, _dialogueMusic;
 
     private AudioClip _activeClip;
 
@@ -48,6 +48,12 @@ public class SoundManager : MonoBehaviour
         _musicSource.PlayOneShot(_backgroundMusic);
         _musicSource2.PlayOneShot(_nervousMusic);
         _musicSource2.DOFade(0, 0);
+    }
+
+    public void ChangeToDialogueTheme()
+    {
+        _musicSource.Stop();
+        _musicSource.PlayOneShot(_dialogueMusic);
     }
 
     public void PlaySound(AudioClip clip, float volumeScale = 1f)

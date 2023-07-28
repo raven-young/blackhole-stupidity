@@ -14,6 +14,7 @@ public class QuestionAsteroid : MonoBehaviour
     [SerializeField] private GameObject _asteroidPrefab;
     [SerializeField] private GameObject _explosionEffect;
     [SerializeField] private Transform _spawnPoint;
+    [SerializeField] private AudioClip _explosionClip;
 
     [Header("Question")]
     [SerializeField] private GameObject _questionAsteroid;
@@ -106,6 +107,7 @@ public class QuestionAsteroid : MonoBehaviour
     // Activate when correctly answering question
     IEnumerator Success()
     {
+        _questionActive = false;
         SpawnStuff(true);
         CanvasManager.Instance.IncrementScore(_gameParams.CorrectAnswerScore);
         SoundManager.Instance.PlayMusic(_bigLaserClip);
@@ -117,9 +119,10 @@ public class QuestionAsteroid : MonoBehaviour
         yield return new WaitForSeconds(_gameParams.LaserDuration);
         Explode();
         _durationDelta = 0;
-        _questionActive = false;
+        
         _questionAsteroid.SetActive(false);
         SoundManager.Instance.PlayMusic(_rightAnswerclip);
+        SoundManager.Instance.PlaySound(_explosionClip, 0.5f);
     }
 
     // Activate when incorrectly ansering question or timer runs out
@@ -131,6 +134,7 @@ public class QuestionAsteroid : MonoBehaviour
         SpawnStuff(false);
         Explode();
         SoundManager.Instance.PlayMusic(_wrongAnswerclip);
+        SoundManager.Instance.PlaySound(_explosionClip, 0.5f);
         Debug.Log("Wrong answer!");
     }
 

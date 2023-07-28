@@ -57,7 +57,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2501591577915484662, guid: 3d4e831daa06c514f8f9bf9fa06836b3, type: 2}
+  - {fileID: 2625009218440367740, guid: 7fca031f9a948f443a7332780919a784, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -101,15 +101,15 @@ MonoBehaviour:
       m_Calls: []
   m_text: 1
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 3d4e831daa06c514f8f9bf9fa06836b3, type: 2}
-  m_sharedMaterial: {fileID: 2501591577915484662, guid: 3d4e831daa06c514f8f9bf9fa06836b3, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 7fca031f9a948f443a7332780919a784, type: 2}
+  m_sharedMaterial: {fileID: 2625009218440367740, guid: 7fca031f9a948f443a7332780919a784, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278190080
-  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
+    rgba: 4288937728
+  m_fontColor: {r: 0, g: 1, b: 0.6396589, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -228,7 +228,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2501591577915484662, guid: 3d4e831daa06c514f8f9bf9fa06836b3, type: 2}
+  - {fileID: 2625009218440367740, guid: 7fca031f9a948f443a7332780919a784, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -272,15 +272,15 @@ MonoBehaviour:
       m_Calls: []
   m_text: 1
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 3d4e831daa06c514f8f9bf9fa06836b3, type: 2}
-  m_sharedMaterial: {fileID: 2501591577915484662, guid: 3d4e831daa06c514f8f9bf9fa06836b3, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 7fca031f9a948f443a7332780919a784, type: 2}
+  m_sharedMaterial: {fileID: 2625009218440367740, guid: 7fca031f9a948f443a7332780919a784, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278190080
-  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
+    rgba: 4288937728
+  m_fontColor: {r: 0, g: 1, b: 0.6396589, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -399,7 +399,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2501591577915484662, guid: 3d4e831daa06c514f8f9bf9fa06836b3, type: 2}
+  - {fileID: 2625009218440367740, guid: 7fca031f9a948f443a7332780919a784, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -443,15 +443,15 @@ MonoBehaviour:
       m_Calls: []
   m_text: 1
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 3d4e831daa06c514f8f9bf9fa06836b3, type: 2}
-  m_sharedMaterial: {fileID: 2501591577915484662, guid: 3d4e831daa06c514f8f9bf9fa06836b3, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 7fca031f9a948f443a7332780919a784, type: 2}
+  m_sharedMaterial: {fileID: 2625009218440367740, guid: 7fca031f9a948f443a7332780919a784, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278190080
-  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
+    rgba: 4288937728
+  m_fontColor: {r: 0, g: 1, b: 0.6396589, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -570,7 +570,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2501591577915484662, guid: 3d4e831daa06c514f8f9bf9fa06836b3, type: 2}
+  - {fileID: 2625009218440367740, guid: 7fca031f9a948f443a7332780919a784, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -614,15 +614,15 @@ MonoBehaviour:
       m_Calls: []
   m_text: Question
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 3d4e831daa06c514f8f9bf9fa06836b3, type: 2}
-  m_sharedMaterial: {fileID: 2501591577915484662, guid: 3d4e831daa06c514f8f9bf9fa06836b3, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 7fca031f9a948f443a7332780919a784, type: 2}
+  m_sharedMaterial: {fileID: 2625009218440367740, guid: 7fca031f9a948f443a7332780919a784, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278190080
-  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
+    rgba: 4288937728
+  m_fontColor: {r: 0, g: 1, b: 0.6396589, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -675,7 +675,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: -1.4833846, y: 0, z: -1.5822768, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   _SortingLayer: 0
@@ -821,7 +821,7 @@ MonoBehaviour:
   _scrapPrefab: {fileID: 8286676867828052198, guid: 531f5f3db79bbbf44abd00bde3097c0b, type: 3}
   _fuelPrefab: {fileID: 6076754549465699595, guid: 7e3af6bd38af4d64994d634d6c5a7084, type: 3}
   _asteroidPrefab: {fileID: 5598675613931354585, guid: fcd0cc99b6db638479cafd0c41992a82, type: 3}
-  _explosionEffect: {fileID: 5925885586263924435, guid: 6f6e2584aa537cf41b45a6638a850c70, type: 3}
+  _explosionEffect: {fileID: 5925885586263924435, guid: 962adac600dffc641a3c66478be19ca5, type: 3}
   _spawnPoint: {fileID: 0}
   _questionAsteroid: {fileID: 5591658288240847084}
   _questionText: {fileID: 8449463032570993212}
