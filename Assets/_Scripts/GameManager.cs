@@ -66,6 +66,9 @@ public class GameManager : MonoBehaviour
         InitialDistanceToEventHorizon = DistanceToEventHorizon;
 
         InDangerZone = DistanceToEventHorizon > _gameParams.DangerZoneDistance;
+
+        Time.timeScale = 0;
+        canPause = false;
     }
 
     private void Update()
@@ -89,6 +92,12 @@ public class GameManager : MonoBehaviour
                 _dangerzoneTimer = 0;
             }
         }
+    }
+
+    public void StartGame()
+    {
+        canPause = true;
+        Time.timeScale = 1;
     }
 
     private void EscapeAction(InputAction.CallbackContext context)
@@ -123,9 +132,9 @@ public class GameManager : MonoBehaviour
         canPause = false;
         CanvasManager.Instance.RenderGameOverScreen(victorious);
 
-        AudioClip _clipUsed = victorious ? _victoryClip : _deathClip;
-        SoundManager.Instance.ChangeMusicVolume(1f, 1.2f*_clipUsed.length);
-        yield return new WaitForSecondsRealtime(1.2f * _clipUsed.length);
+        yield return new WaitForSecondsRealtime(0.5f);
+        SoundManager.Instance.ChangeActiveMusicVolume(1f, 2f);
+        
         canPause = true;
         PauseGame();
     }
