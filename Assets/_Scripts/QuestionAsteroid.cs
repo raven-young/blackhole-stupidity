@@ -15,7 +15,7 @@ public class QuestionAsteroid : MonoBehaviour
     [SerializeField] private GameObject _asteroidPrefab;
     [SerializeField] private GameObject _explosionEffect;
     [SerializeField] private Transform _spawnPoint;
-    [SerializeField] private AudioClip _explosionClip;
+    [SerializeField] private AudioClip _explosionClip, _alertClip;
 
     [Header("Question")]
     [SerializeField] private GameObject _questionAsteroid;
@@ -34,7 +34,7 @@ public class QuestionAsteroid : MonoBehaviour
     private float _deltaDelta = 0;
     private MathChallenge challenge;
 
-    [SerializeField] private AudioClip _rightAnswerclip, _bigLaserClip, _wrongAnswerclip, _alertClip;
+    [SerializeField] private AudioClip _rightAnswerclip, _bigLaserClip, _wrongAnswerclip;
 
     private void Awake()
     {
