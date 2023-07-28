@@ -14,7 +14,7 @@ public class CanvasManager : MonoBehaviour
     [SerializeField] private GameObject gameOverScreen;
     [SerializeField] private GameObject victoryScreen;
     [SerializeField] private GameObject pauseScreen;
-    [SerializeField] private TMP_Text _scoreText, _distanceLoseText, _distanceWinText, _distanceDangerZoneText;
+    [SerializeField] private TMP_Text _scoreText, _distanceLoseText, _distanceWinText;
 
     [SerializeField] private Slider _fuelSlider, _healthSlider;
 
@@ -41,7 +41,6 @@ public class CanvasManager : MonoBehaviour
     {
         _distanceLoseText.text = "Fail:"+ Math.Round(GameManager.Instance.DistanceToEventHorizon, 2);
         _distanceWinText.text = "Win:" + Math.Round(_gameParams.WinRadius - Ship.Instance.ShipPositionRadius, 2);
-        _distanceDangerZoneText.text = "Danger:" + Math.Round(Ship.Instance.ShipPositionRadius-_gameParams.DangerZoneDistance, 2);
     }
 
     public void UpdateHealth(float newValue)

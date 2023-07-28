@@ -66,7 +66,7 @@ public class Ship : MonoBehaviour
     private void Start()
     {
         screenBounds = _cam.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, _cam.transform.position.z));
-        ShipPositionRadius = 0.58f * screenBounds.y;
+        ShipPositionRadius = transform.position.y;//0.58f * screenBounds.y;
     }
 
     void Update()

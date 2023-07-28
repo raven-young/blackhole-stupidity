@@ -75,7 +75,7 @@ public class SoundManager : MonoBehaviour
     {
         float fadeDuration = 1f;
 
-        if (_musicSource.volume > 0)
+        if (GameManager.Instance.InDangerZone)
         {
             _musicSource.DOFade(0, fadeDuration);
             _musicSource2.DOFade(1, fadeDuration);

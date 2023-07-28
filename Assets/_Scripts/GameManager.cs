@@ -35,7 +35,7 @@ public class GameManager : MonoBehaviour
 
     private float _dangerZoneMinTime = 6f; // danger zone theme active for at least this long
     private float _dangerzoneTimer = 0f;
-    private bool _inDangerZone;
+    public bool InDangerZone;
 
     private void Awake()
     {
@@ -65,28 +65,28 @@ public class GameManager : MonoBehaviour
         DistanceToEscapeHorizon();
         InitialDistanceToEventHorizon = DistanceToEventHorizon;
 
-        _inDangerZone = DistanceToEventHorizon > _gameParams.DangerZoneDistance;
+        InDangerZone = DistanceToEventHorizon > _gameParams.DangerZoneDistance;
     }
 
     private void Update()
     {
         
         DistanceToEscapeHorizon();
-        if (DistanceToEventHorizon < _gameParams.DangerZoneDistance && !_inDangerZone)
+        if (DistanceToEventHorizon < _gameParams.DangerZoneDistance && !InDangerZone)
         {
+            InDangerZone = true;
             OnEnteredDangerZone?.Invoke();
             _dangerzoneTimer = 0f;
-            _inDangerZone = true;
             Debug.Log("entered danger zone! "+ DistanceToEventHorizon + " " + _gameParams.DangerZoneDistance);
-        } else if (_inDangerZone)
+        } else if (InDangerZone)
         {
             _dangerzoneTimer += Time.deltaTime;
             if (_dangerZoneMinTime < _dangerzoneTimer && DistanceToEventHorizon > _gameParams.DangerZoneDistance)
             {
+                InDangerZone = false;
                 OnExitedDangerZone?.Invoke();
                 Debug.Log("left danger zone! " + DistanceToEventHorizon + " " + _gameParams.DangerZoneDistance);
                 _dangerzoneTimer = 0;
-                _inDangerZone = false;
             }
         }
     }
@@ -186,6 +186,6 @@ public class GameManager : MonoBehaviour
 
         // Danger zone
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(Vector3.zero, Ship.Instance.ShipPositionRadius-_gameParams.DangerZoneDistance);
+        Gizmos.DrawWireSphere(Vector3.zero, Ship.Instance.ShipPositionRadius-DistanceToEventHorizon+_gameParams.DangerZoneDistance);
     }
 }
