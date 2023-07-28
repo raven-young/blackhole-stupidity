@@ -120,7 +120,6 @@ public class Shooting : MonoBehaviour
         SoundManager.Instance.PlaySound(_smallLaserClip);
         float angle = Ship.Instance.transform.localRotation.eulerAngles.z;
         Vector2 direction = Vector2.up.Rotate(angle);
-        Debug.Log(direction);
 
         for (int i = 0; i < 2*_projectileNumber; i++)
         {

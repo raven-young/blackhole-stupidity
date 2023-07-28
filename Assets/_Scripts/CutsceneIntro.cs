@@ -43,9 +43,16 @@ public class CutsceneIntro : MonoBehaviour
 
     private static List<Dialogue> dialogueList = new List<Dialogue>()
     {
-        new Dialogue(Speakers.Racoon, "hello"),
-        new Dialogue(Speakers.Racoon, "anybody here"),
-        new Dialogue(Speakers.Cow, "moo")
+	new Dialogue(Speakers.Racoon, "This is captain Rockey, requesting immediate assistance!"),
+        new Dialogue(Speakers.Cow, "Vachette speaking, what is it captain?"),
+        new Dialogue(Speakers.Racoon, "Our ship flew too close to this black hole, we're gonna be sucked in!"),
+	new Dialogue(Speakers.Cow, "Remember your training!"),
+	new Dialogue(Speakers.Cow, "You can escape by blasting incoming asteroids..."),
+	new Dialogue(Speakers.Cow, "And picking up any spare fuel reserves you can find."),
+	new Dialogue(Speakers.Cow, "Big asteroids need a big blast, use the Mega-Laser!"),
+	new Dialogue(Speakers.Racoon, "It's encoded, we don't know how to use it!"),
+	new Dialogue(Speakers.Cow, "Solve the math problems, they can decipher the controls."),
+	new Dialogue(Speakers.Cow, "Good luck captain.")
     };
 
     private int _dialogueIterator = 0;
