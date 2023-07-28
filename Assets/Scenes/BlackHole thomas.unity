@@ -489,11 +489,11 @@ Transform:
   m_GameObject: {fileID: 2076072741}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0.0714975, w: 0.9974408}
-  m_LocalPosition: {x: 0, y: -48.86666, z: 0}
-  m_LocalScale: {x: 7.333333, y: 7.333333, z: 7.333333}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 2.2, y: 2.2, z: 2.2}
   m_ConstrainProportionsScale: 1
   m_Children: []
-  m_Father: {fileID: 98074547}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -8.2}
 --- !u!212 &2076072743
 SpriteRenderer:
@@ -1373,7 +1373,7 @@ PrefabInstance:
       objectReference: {fileID: 103795278}
     - target: {fileID: 7451768648098439259, guid: cab30414fdac94247835ee4e16734d65, type: 3}
       propertyPath: m_SortingLayer
-      value: -1
+      value: -3
       objectReference: {fileID: 0}
     - target: {fileID: 7451768648098439259, guid: cab30414fdac94247835ee4e16734d65, type: 3}
       propertyPath: m_SortingOrder
@@ -1381,7 +1381,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7451768648098439259, guid: cab30414fdac94247835ee4e16734d65, type: 3}
       propertyPath: m_SortingLayerID
-      value: 919231889
+      value: 1815167243
       objectReference: {fileID: 0}
     - target: {fileID: 7733458184721155588, guid: cab30414fdac94247835ee4e16734d65, type: 3}
       propertyPath: _cam
@@ -1406,9 +1406,6 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 8958343065476175651, guid: cab30414fdac94247835ee4e16734d65, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2076072742}
     - targetCorrespondingSourceObject: {fileID: 8958343065476175651, guid: cab30414fdac94247835ee4e16734d65, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1287488636}
@@ -1702,4 +1699,5 @@ SceneRoots:
   - {fileID: 5882876941670232701}
   - {fileID: 59641445}
   - {fileID: 1653893741}
+  - {fileID: 2076072742}
   - {fileID: 347896982}
