@@ -1,2 +1,14 @@
-- name: Unity - Builder
-  uses: game-ci/unity-builder@v2.2.0
+name: Test
+
+on:
+  push:
+    branches:
+      - '*'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Unity - Builder
+      uses: game-ci/unity-builder@v2.2.0
+
