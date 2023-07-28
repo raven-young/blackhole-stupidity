@@ -29,7 +29,7 @@ public class QuestionAsteroid : MonoBehaviour
     private float _deltaDelta = 0;
     private MathChallenge challenge;
 
-    [SerializeField] private AudioClip _rightAnswerclip, _bigLaserClip, _wrongAnswerclip, _alertClip;
+    [SerializeField] private AudioClip _rightAnswerclip, _bigLaserClip, _wrongAnswerclip;
 
     private void Awake()
     {
@@ -85,7 +85,6 @@ public class QuestionAsteroid : MonoBehaviour
 
     void SpawnQuestion()
     {
-        SoundManager.Instance.PlayMusic(_alertClip);
         _deltaDelta = 0;
         _questionActive = true;
         _questionAsteroid.SetActive(true);
