@@ -1,26 +1,30 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using System;
 
 public class Asteroid : MonoBehaviour
 {
 
     [SerializeField] private GameParams _gameParams;
     [SerializeField] private Rigidbody2D _rb;
-    [SerializeField] private GameObject _explosionEffect; 
+    [SerializeField] private GameObject _explosionEffect;
     [SerializeField] protected FlashColor flashEffect;
     [SerializeField] private AudioClip _explosionClip;
 
     private int _currentHealth;
+
+    public static event Action<AvatarReactions.ExpressionEvents> OnAsteroidHit;
 
     private void Start()
     {
         _currentHealth = _gameParams.AsteroidHealth;
 
         // random flip
-        gameObject.GetComponent<SpriteRenderer>().flipY = Random.Range(0f, 1f) < 0.5f;
+        gameObject.GetComponent<SpriteRenderer>().flipY = UnityEngine.Random.Range(0f, 1f) < 0.5f;
 
-        var spin = Random.Range(0f, 1f) < 0.5f ? 1 : -1;
+        var spin = UnityEngine.Random.Range(0f, 1f) < 0.5f ? 1 : -1;
         // random torque
         _rb.AddTorque(10f * spin, ForceMode2D.Impulse);
     }
@@ -35,7 +39,7 @@ public class Asteroid : MonoBehaviour
     {
         // force in direction of black hole
         float force = BlackHole.Instance.CurrentForce;
-        _rb.AddForce(-transform.position*force*Time.fixedDeltaTime, ForceMode2D.Force);
+        _rb.AddForce(-transform.position * force * Time.fixedDeltaTime, ForceMode2D.Force);
     }
 
     public void TakeDamage(int damage)
@@ -56,6 +60,7 @@ public class Asteroid : MonoBehaviour
         {
             case 6: // ship
                 collision.gameObject.GetComponent<Ship>().TakeDamage(_gameParams.PlayerDamage);
+                OnAsteroidHit?.Invoke(AvatarReactions.ExpressionEvents.AsteroidHit);
                 Die();
                 break;
             case 10: // black hole
@@ -66,7 +71,7 @@ public class Asteroid : MonoBehaviour
             default:
                 break;
         }
-        
+
     }
 
     private void Die()

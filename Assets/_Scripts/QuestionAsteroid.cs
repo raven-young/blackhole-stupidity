@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using TMPro;
+using System;
 
 public class QuestionAsteroid : MonoBehaviour
 {
@@ -22,6 +23,10 @@ public class QuestionAsteroid : MonoBehaviour
     [SerializeField] private TMP_Text _answer1Text;
     [SerializeField] private TMP_Text _answer2Text;
     [SerializeField] private TMP_Text _answer3Text;
+
+    public static event Action<AvatarReactions.ExpressionEvents> OnProblemSpawned;
+    public static event Action<AvatarReactions.ExpressionEvents> OnProblemFailed;
+    public static event Action<AvatarReactions.ExpressionEvents> OnProblemSuccess;
 
     private bool _questionActive = false;
     private int _correctAnswer; // 1,2,3
@@ -62,10 +67,11 @@ public class QuestionAsteroid : MonoBehaviour
             _deltaDelta += Time.deltaTime;
 
             if (_deltaDelta > _gameParams.QuestionDelta)
-            {   
+            {
                 SpawnQuestion();
             }
-        }  else
+        }
+        else
         {
 
             _durationDelta += Time.deltaTime;
@@ -85,6 +91,7 @@ public class QuestionAsteroid : MonoBehaviour
 
     void SpawnQuestion()
     {
+        OnProblemSpawned?.Invoke(AvatarReactions.ExpressionEvents.ProblemSpawned);
         SoundManager.Instance.PlayMusic(_alertClip);
         _deltaDelta = 0;
         _questionActive = true;
@@ -108,6 +115,7 @@ public class QuestionAsteroid : MonoBehaviour
     // Activate when correctly answering question
     IEnumerator Success()
     {
+        OnProblemSuccess?.Invoke(AvatarReactions.ExpressionEvents.ProblemSucceeded);
         _questionActive = false;
         SpawnStuff(true);
         CanvasManager.Instance.IncrementScore(_gameParams.CorrectAnswerScore);
@@ -120,7 +128,7 @@ public class QuestionAsteroid : MonoBehaviour
         yield return new WaitForSeconds(_gameParams.LaserDuration);
         Explode();
         _durationDelta = 0;
-        
+
         _questionAsteroid.SetActive(false);
         SoundManager.Instance.PlayMusic(_rightAnswerclip);
         SoundManager.Instance.PlaySound(_explosionClip, 0.5f);
@@ -129,6 +137,7 @@ public class QuestionAsteroid : MonoBehaviour
     // Activate when incorrectly ansering question or timer runs out
     void Fail()
     {
+        OnProblemFailed?.Invoke(AvatarReactions.ExpressionEvents.ProblemFailed);
         _durationDelta = 0;
         _questionActive = false;
         _questionAsteroid.SetActive(false);
@@ -150,20 +159,20 @@ public class QuestionAsteroid : MonoBehaviour
         GameObject prefab1 = _scrapPrefab;
         GameObject prefab2 = _fuelPrefab;
 
-        if (!correctlyAnswered) 
+        if (!correctlyAnswered)
             prefab1 = prefab2 = _asteroidPrefab;
 
         for (int i = 0; i < _gameParams.SpawnAmount; i++)
         {
-            float randomX = 0.1f * Random.Range(-1f, 1f) * GameManager.Instance.ScreenBounds.x;
+            float randomX = 0.1f * UnityEngine.Random.Range(-1f, 1f) * GameManager.Instance.ScreenBounds.x;
             Vector2 spawnPos = new Vector2(transform.position.x + randomX, transform.position.y);
-            GameObject spawnedObject = Instantiate(Random.Range(0f, 1f) < 0.5 ? prefab1 : prefab2,
+            GameObject spawnedObject = Instantiate(UnityEngine.Random.Range(0f, 1f) < 0.5 ? prefab1 : prefab2,
                                                    spawnPos, Quaternion.identity);
 
-            float angle = Random.Range(-_gameParams.MaxSpawnAngle, _gameParams.MaxSpawnAngle);
+            float angle = UnityEngine.Random.Range(-_gameParams.MaxSpawnAngle, _gameParams.MaxSpawnAngle);
             Vector2 direction = Vector2.up.Rotate(angle);
 
-            spawnedObject.GetComponent<Rigidbody2D>().AddForce(-Random.Range(0.5f, 1f) * _gameParams.SpawnImpulse * direction, 
+            spawnedObject.GetComponent<Rigidbody2D>().AddForce(-UnityEngine.Random.Range(0.5f, 1f) * _gameParams.SpawnImpulse * direction,
                                                                ForceMode2D.Impulse);
         }
     }
