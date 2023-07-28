@@ -98,7 +98,7 @@ public class GameManager : MonoBehaviour
 
     public void StartGame()
     {
-        SoundManager.Instance.ChangeToBG();
+        StartCoroutine(SoundManager.Instance.ChangeToBG());
         canPause = true;
         Time.timeScale = 1;
     }

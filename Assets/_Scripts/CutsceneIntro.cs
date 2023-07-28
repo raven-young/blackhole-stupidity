@@ -136,7 +136,7 @@ public class CutsceneIntro : MonoBehaviour
         }
     }
 
-    private void AdvanceDialogue(float fadeTime = 1.0f)
+    private void AdvanceDialogue(float fadeTime = 0.2f)
     {
         if (dialogueList.Count <= _dialogueIterator)
         {

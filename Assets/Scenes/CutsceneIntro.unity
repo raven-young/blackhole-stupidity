@@ -123,6 +123,63 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1001 &1092081559
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 5316852033623744252, guid: e31948519223f3347af7b8b9cdd06155, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -61.633358
+      objectReference: {fileID: 0}
+    - target: {fileID: 5316852033623744252, guid: e31948519223f3347af7b8b9cdd06155, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -37.763977
+      objectReference: {fileID: 0}
+    - target: {fileID: 5316852033623744252, guid: e31948519223f3347af7b8b9cdd06155, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -10.014931
+      objectReference: {fileID: 0}
+    - target: {fileID: 5316852033623744252, guid: e31948519223f3347af7b8b9cdd06155, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5316852033623744252, guid: e31948519223f3347af7b8b9cdd06155, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5316852033623744252, guid: e31948519223f3347af7b8b9cdd06155, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5316852033623744252, guid: e31948519223f3347af7b8b9cdd06155, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5316852033623744252, guid: e31948519223f3347af7b8b9cdd06155, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5316852033623744252, guid: e31948519223f3347af7b8b9cdd06155, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5316852033623744252, guid: e31948519223f3347af7b8b9cdd06155, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5326998167206958376, guid: e31948519223f3347af7b8b9cdd06155, type: 3}
+      propertyPath: m_Name
+      value: Sound Manager
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: e31948519223f3347af7b8b9cdd06155, type: 3}
 --- !u!1 &1859472623
 GameObject:
   m_ObjectHideFlags: 0
@@ -223,18 +280,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 635715682002419042, guid: ef65821650ba9c84d997014705f04e76, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 700
-      objectReference: {fileID: 0}
-    - target: {fileID: 1215668814467260118, guid: ef65821650ba9c84d997014705f04e76, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: -700
-      objectReference: {fileID: 0}
-    - target: {fileID: 1215668814467260118, guid: ef65821650ba9c84d997014705f04e76, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0
-      objectReference: {fileID: 0}
+    - target: {fileID: 4278968604986487310, guid: ef65821650ba9c84d997014705f04e76, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: ad811bd1a26b55947870b4136c7217bd, type: 3}
     - target: {fileID: 5989932247021950716, guid: ef65821650ba9c84d997014705f04e76, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -315,6 +364,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6283258991030482725, guid: ef65821650ba9c84d997014705f04e76, type: 3}
+      propertyPath: m_text
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 7022846618964385751, guid: ef65821650ba9c84d997014705f04e76, type: 3}
       propertyPath: m_Name
       value: CanvasCutscene
@@ -330,3 +383,4 @@ SceneRoots:
   m_Roots:
   - {fileID: 1859472626}
   - {fileID: 8937739288012541391}
+  - {fileID: 1092081559}
