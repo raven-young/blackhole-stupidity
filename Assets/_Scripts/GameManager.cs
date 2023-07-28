@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameParams _gameParams;
 
     public bool gameHasEnded = false;
+    public bool gameWasWon = false;
     public bool isPaused = false;
     public bool canPause = true;
     public float currentTimeScale = 1f;
@@ -31,7 +32,8 @@ public class GameManager : MonoBehaviour
 
     public static event Action OnEnteredDangerZone;
     public static event Action OnExitedDangerZone;
-    //public event EventHandler OnCloseToGameOver;
+    public static event Action OnGameOver;
+    public static event Action OnVictory;
 
     private float _dangerZoneMinTime = 6f; // danger zone theme active for at least this long
     private float _dangerzoneTimer = 0f;
@@ -124,12 +126,19 @@ public class GameManager : MonoBehaviour
 
     public IEnumerator GameOver(bool victorious = false)
     {
+        gameHasEnded = true;
         SoundManager.Instance.ChangeMusicVolume(0f);
         if (victorious)
+        {
             SoundManager.Instance.PlaySound(_victoryClip);
-        else 
+            gameWasWon = true;
+            OnVictory?.Invoke();
+        }
+        else
+        {
             SoundManager.Instance.PlaySound(_deathClip);
-        gameHasEnded = true;
+            OnGameOver?.Invoke();
+        }
         canPause = false;
         CanvasManager.Instance.RenderGameOverScreen(victorious);
 
