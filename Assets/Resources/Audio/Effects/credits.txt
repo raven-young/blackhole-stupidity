@@ -1,0 +1,11 @@
+laser_small
+https://freesound.org/people/soundslikewillem/
+
+laser_big
+https://freesound.org/people/bubaproducer/
+
+explosion_asteroid_small
+https://freesound.org/people/Robinhood76/
+
+ui_click
+https://freesound.org/people/nezuai/
