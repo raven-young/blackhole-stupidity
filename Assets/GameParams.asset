@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: GameParams
   m_EditorClassIdentifier: 
   WinRadius: 18
+  DangerZoneDistance: 4
   MaxHealth: 100
   AngularVelocity: 1
   BurnRate: 2
@@ -29,7 +30,7 @@ MonoBehaviour:
   SpawnImpulse: 24.3
   MaxSpawnAngle: 130
   QuestionAsteroidSpeed: 1
-  PlayerDamage: 3
+  PlayerDamage: 73
   AsteroidHealth: 5
   ScrapValue: 6
   FuelValue: 6
@@ -38,3 +39,5 @@ MonoBehaviour:
   CorrectAnswerScore: 1
   ShotAsteroidScore: 1
   CollectedItemScore: 1
+  ScreenShakeDuration: 0.2
+  HighScore: 11

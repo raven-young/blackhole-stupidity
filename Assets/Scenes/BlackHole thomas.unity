@@ -139,7 +139,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!212 &59641444
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -395,7 +395,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!212 &1653893740
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -640,14 +640,6 @@ PrefabInstance:
       propertyPath: _cam
       value: 
       objectReference: {fileID: 633411341}
-    - target: {fileID: 1304530170888227037, guid: ea5e34f07dcb90942975456de4928f7f, type: 3}
-      propertyPath: _deathClip
-      value: 
-      objectReference: {fileID: 8300000, guid: c349dbaa87f396f4dbafb4e6f9a4a9cb, type: 3}
-    - target: {fileID: 1304530170888227037, guid: ea5e34f07dcb90942975456de4928f7f, type: 3}
-      propertyPath: _gameParams
-      value: 
-      objectReference: {fileID: 11400000, guid: dd8a65e487f3ad244b57dea38948a9e4, type: 2}
     - target: {fileID: 3837223916565857789, guid: ea5e34f07dcb90942975456de4928f7f, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -819,10 +811,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 227616814527941042, guid: 69f81f1888f1d8f469cfbb8a824abbeb, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 1182.1
-      objectReference: {fileID: 0}
     - target: {fileID: 248847817466075375, guid: 69f81f1888f1d8f469cfbb8a824abbeb, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -947,22 +935,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1357717747}
-    - target: {fileID: 7043954929051092466, guid: 69f81f1888f1d8f469cfbb8a824abbeb, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: -1511.9485
-      objectReference: {fileID: 0}
-    - target: {fileID: 7043954929051092466, guid: 69f81f1888f1d8f469cfbb8a824abbeb, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 9
-      objectReference: {fileID: 0}
     - target: {fileID: 8221426578900889335, guid: 69f81f1888f1d8f469cfbb8a824abbeb, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1357717747}
-    - target: {fileID: 8829001538225206859, guid: 69f81f1888f1d8f469cfbb8a824abbeb, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

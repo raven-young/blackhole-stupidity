@@ -46,6 +46,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _gameParams: {fileID: 11400000, guid: dd8a65e487f3ad244b57dea38948a9e4, type: 2}
   gameHasEnded: 0
+  gameWasWon: 0
   isPaused: 0
   canPause: 1
   currentTimeScale: 1
@@ -53,3 +54,5 @@ MonoBehaviour:
   _cam: {fileID: 0}
   _deathClip: {fileID: 8300000, guid: c349dbaa87f396f4dbafb4e6f9a4a9cb, type: 3}
   _victoryClip: {fileID: 8300000, guid: fa9dcef2776e6fe40b5f14b611939c82, type: 3}
+  DistanceToEventHorizon: 8
+  InDangerZone: 0

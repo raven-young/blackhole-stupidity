@@ -112,15 +112,15 @@ public class SoundManager : MonoBehaviour
         }
     }
 
-    public IEnumerator ChangeMusic(AudioClip clip, float fadeoutDuration = 0f, float fadeinDuration = 0f, float offset = 0f)
-    {
-        _musicSource1.DOFade(0, fadeoutDuration);
-        //DOTween.To(() => _musicSource.volume, x => _musicSource.volume = x, 0, fadeoutDuration);
-        yield return new WaitForSeconds(fadeoutDuration);
-        yield return new WaitForSeconds(offset);
-        _musicSource1.Stop();
-        _musicSource1.PlayOneShot(clip);
-        _musicSource1.DOFade(1, fadeinDuration);
-        yield return new WaitForSeconds(fadeinDuration);
-    }
+    //public IEnumerator ChangeMusic(AudioClip clip, float fadeoutDuration = 0f, float fadeinDuration = 0f, float offset = 0f)
+    //{
+    //    _musicSource1.DOFade(0, fadeoutDuration);
+    //    //DOTween.To(() => _musicSource.volume, x => _musicSource.volume = x, 0, fadeoutDuration);
+    //    yield return new WaitForSeconds(fadeoutDuration);
+    //    yield return new WaitForSeconds(offset);
+    //    _musicSource1.Stop();
+    //    _musicSource1.PlayOneShot(clip);
+    //    _musicSource1.DOFade(1, fadeinDuration);
+    //    yield return new WaitForSeconds(fadeinDuration);
+    //}
 }

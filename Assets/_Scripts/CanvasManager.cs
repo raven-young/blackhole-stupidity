@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System;
+using UnityEngine.InputSystem;
 
 
 public class CanvasManager : MonoBehaviour
@@ -22,6 +23,8 @@ public class CanvasManager : MonoBehaviour
     private bool _newHighscore = false;
 
     private int _score = 0;
+
+    private PlayerInput playerInput;
 
     private void Awake()
     {
@@ -100,5 +103,19 @@ public class CanvasManager : MonoBehaviour
             //var eventSystem = EventSystem.current;
             //eventSystem.SetSelectedGameObject(ReplayButton, new BaseEventData(eventSystem));
         }
+    }
+
+    public void SwitchActionMap()
+    {
+        if (playerInput.currentActionMap.ToString() == "PlayerInputActions (UnityEngine.InputSystem.InputActionAsset):Player")
+        {
+            playerInput.SwitchCurrentActionMap("UI");
+        }
+
+        else if (playerInput.currentActionMap.ToString() == "PlayerInputActions (UnityEngine.InputSystem.InputActionAsset):UI")
+        {
+            playerInput.SwitchCurrentActionMap("Player");
+        }
+        else Debug.LogWarning("Unknown action map");
     }
 }

@@ -6,7 +6,6 @@ using UnityEngine.UI;
 // crap code because no time
 public class AvatarReactions : MonoBehaviour
 {
-
     public static AvatarReactions Instance;
 
     private Image _image;
@@ -20,7 +19,7 @@ public class AvatarReactions : MonoBehaviour
     [SerializeField] private Sprite _problemFailed;
     [SerializeField] private Sprite _problemSuccess;
 
-    [SerializeField] private float _minExpressionTime = 2f;
+    //[SerializeField] private float _minExpressionTime = 2f;
     //private float _expressionTimer = 0f;
 
     //private bool _reactionActive = false;

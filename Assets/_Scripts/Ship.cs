@@ -75,11 +75,15 @@ public class Ship : MonoBehaviour
             return;
 
         // workaround due to broken triggers
-        if ((ShipPositionRadius > _gameParams.WinRadius && !GameManager.Instance.gameHasEnded) || (CurrentFuel <= 0))
+        if (ShipPositionRadius > _gameParams.WinRadius && !GameManager.Instance.gameHasEnded)
         {
             StartCoroutine(GameManager.Instance.GameOver(true));
         }
 
+        if (CurrentFuel <= 0)
+        {
+            StartCoroutine(GameManager.Instance.GameOver(false));
+        }
 
         CurrentFuel -= _gameParams.BurnRate * Time.deltaTime;
         CanvasManager.Instance.UpdateFuel(CurrentFuel);
@@ -92,7 +96,9 @@ public class Ship : MonoBehaviour
 
         // calculate radius based on ship health and black hole mass
         var ratio = CurrentHealth / BlackHole.Instance.CurrentForce;
-        var velocity = ratio > 1 ? ratio : ratio == 1 ? 0 : -1 / ratio;
+        if (ratio <= 0)
+            StartCoroutine(GameManager.Instance.GameOver(false));
+        var velocity = ratio > 1 ? ratio : ratio == 1 ? 0 : -1/ratio;
         ShipPositionRadius += _gameParams.VelocityScale * velocity * Time.deltaTime;
 
         // rotate ship
