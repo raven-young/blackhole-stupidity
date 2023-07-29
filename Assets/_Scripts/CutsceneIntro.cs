@@ -67,7 +67,8 @@ public class CutsceneIntro : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        SoundManager.Instance.ChangeToDialogueTheme();
+        // Change from main menu theme to music source theme
+        SoundManager.Instance.ChangeMusicPairSource(SoundManager.MusicSourceID.MusicSource2);
         AdvanceDialogue();
     }
 

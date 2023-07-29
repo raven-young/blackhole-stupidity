@@ -116,9 +116,9 @@ public class AvatarReactions : MonoBehaviour
         //if (_reactionActive)
         //    return;
 
-        if (GameManager.Instance.gameHasEnded)
+        if (GameManager.Instance.GameHasEnded)
         {
-            _image.sprite = GameManager.Instance.gameWasWon ? _victory : _gameOver;
+            _image.sprite = GameManager.Instance.GameWasWon ? _victory : _gameOver;
             //_expressionTimer = 0f;
             return;
         }

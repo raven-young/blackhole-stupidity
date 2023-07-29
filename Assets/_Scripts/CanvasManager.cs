@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 using System;
 using UnityEngine.InputSystem;
-
+using UnityEngine.EventSystems;
 
 public class CanvasManager : MonoBehaviour
 {
@@ -23,8 +23,9 @@ public class CanvasManager : MonoBehaviour
     private bool _newHighscore = false;
 
     private int _score = 0;
-
+    Ship player;
     private PlayerInput playerInput;
+    private GameObject playerController;
 
     private void Awake()
     {
@@ -41,6 +42,11 @@ public class CanvasManager : MonoBehaviour
         _healthSlider.maxValue = _gameParams.MaxHealth;
         _healthSlider.minValue = 0;
         _healthSlider.value = _gameParams.MaxHealth / 2;
+
+        
+        playerController = GameObject.Find("ShipController");
+        player = playerController.transform.Find("Ship").GetComponent<Ship>();
+        playerInput = playerController.GetComponent<PlayerInput>();
     }
 
     private void Update()
@@ -73,9 +79,10 @@ public class CanvasManager : MonoBehaviour
     public void RenderPauseScreen()
     {
         pauseScreen.SetActive(true);
-        //GameObject ResumeButton = pauseScreen.transform.Find("Resume Button").gameObject;
-        //var eventSystem = EventSystem.current;
-        //eventSystem.SetSelectedGameObject(ResumeButton, new BaseEventData(eventSystem));
+        GameObject ResumeButton = pauseScreen.transform.Find("Resume Button").gameObject;
+        var eventSystem = EventSystem.current;
+        Debug.Log("event",eventSystem);
+        eventSystem.SetSelectedGameObject(ResumeButton, new BaseEventData(eventSystem));
     }
 
     public void DisablePauseScreen()
@@ -90,30 +97,33 @@ public class CanvasManager : MonoBehaviour
             _scoreTextVictory.text = _newHighscore ? "New Highscore: " + _score :  "Score: " + _score;
             _highscoreTextVictory.text = "Highscore: " + _gameParams.HighScore;
             victoryScreen.SetActive(true);
-            //GameObject ReplayButton = victoryScreen.transform.Find("Replay Button").gameObject;
-            //var eventSystem = EventSystem.current;
-            //eventSystem.SetSelectedGameObject(ReplayButton, new BaseEventData(eventSystem));
+            GameObject ReplayButton = victoryScreen.transform.Find("Replay Button").gameObject;
+            var eventSystem = EventSystem.current;
+            eventSystem.SetSelectedGameObject(ReplayButton, new BaseEventData(eventSystem));
         }
         else
         {
             _scoreTextGameOver.text = "Score: " + _score;
             _highscoreTextGameOver.text = "Highscore: " + _gameParams.HighScore;
             gameOverScreen.SetActive(true);
-            //GameObject ReplayButton = gameOverScreen.transform.Find("Replay Button").gameObject;
-            //var eventSystem = EventSystem.current;
-            //eventSystem.SetSelectedGameObject(ReplayButton, new BaseEventData(eventSystem));
+            GameObject ReplayButton = gameOverScreen.transform.Find("Replay Button").gameObject;
+            var eventSystem = EventSystem.current;
+            eventSystem.SetSelectedGameObject(ReplayButton, new BaseEventData(eventSystem));
         }
     }
 
     public void SwitchActionMap()
     {
+        Debug.Log(playerInput.currentActionMap.ToString());
         if (playerInput.currentActionMap.ToString() == "PlayerInputActions (UnityEngine.InputSystem.InputActionAsset):Player")
         {
+            Debug.Log("swtiching to UI");
             playerInput.SwitchCurrentActionMap("UI");
         }
 
         else if (playerInput.currentActionMap.ToString() == "PlayerInputActions (UnityEngine.InputSystem.InputActionAsset):UI")
         {
+            Debug.Log("swtiching to player");
             playerInput.SwitchCurrentActionMap("Player");
         }
         else Debug.LogWarning("Unknown action map");

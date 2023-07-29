@@ -12,13 +12,11 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
     [SerializeField] private GameParams _gameParams;
 
-    public bool gameHasEnded = false;
-    public bool gameWasWon = false;
-    public bool isPaused = false;
-    public bool canPause = true;
-    public float currentTimeScale = 1f;
-
-    public static float timePassed = 0f; // total time since start
+    public bool GameHasEnded = false;
+    public bool GameWasWon = false;
+    public bool IsPaused = false;
+    public bool CanPause = true;
+    public float CurrentTimeScale = 1f;
 
     public Vector2 ScreenBounds;
     private PlayerInputActions playerInputActions;
@@ -39,6 +37,9 @@ public class GameManager : MonoBehaviour
     private float _dangerzoneTimer = 0f;
     public bool InDangerZone;
 
+    [SerializeField] private GameObject _replaybutton;
+    [SerializeField] private GameObject _replaybutton_gameover;
+    [SerializeField] private GameObject _replaybutton_victory;
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -60,16 +61,13 @@ public class GameManager : MonoBehaviour
     {
         Cursor.visible = false;
         Time.timeScale = 1;
+
         // need to execute always
         ScreenBounds = _cam.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, _cam.transform.position.z));
 
         DistanceToEscapeHorizon();
         InitialDistanceToEventHorizon = DistanceToEventHorizon;
-
         InDangerZone = DistanceToEventHorizon > _gameParams.DangerZoneDistance;
-
-        //Time.timeScale = 0;
-        //canPause = false;
 
         StartGame();
     }
@@ -98,16 +96,16 @@ public class GameManager : MonoBehaviour
 
     public void StartGame()
     {
-        StartCoroutine(SoundManager.Instance.ChangeToBG());
-        canPause = true;
+        SoundManager.Instance.StartMainGameMusic();
+        CanPause = true;
         Time.timeScale = 1;
     }
 
     private void EscapeAction(InputAction.CallbackContext context)
     {
-        if (!isPaused && context.performed)
+        if (!IsPaused && context.performed)
             PauseGame();
-        else if (isPaused && context.performed)
+        else if (IsPaused && context.performed)
         {
             ResumeGame();
         }
@@ -126,50 +124,59 @@ public class GameManager : MonoBehaviour
 
     public IEnumerator GameOver(bool victorious = false)
     {
-        //CanvasManager.Instance.SwitchActionMap();
-        gameHasEnded = true;
+
+        var eventSystem = EventSystem.current;
+
+        CanvasManager.Instance.SwitchActionMap();
+        
+        GameHasEnded = true;
+
         SoundManager.Instance.ChangeMusicVolume(0f);
+
         if (victorious)
         {
+            eventSystem.SetSelectedGameObject(_replaybutton_victory, new BaseEventData(eventSystem));
             SoundManager.Instance.PlaySound(_victoryClip);
-            gameWasWon = true;
+            GameWasWon = true;
             OnVictory?.Invoke();
         }
         else
         {
+            eventSystem.SetSelectedGameObject(_replaybutton_gameover, new BaseEventData(eventSystem));
             SoundManager.Instance.PlaySound(_deathClip);
             OnGameOver?.Invoke();
         }
-        canPause = false;
-        CanvasManager.Instance.RenderGameOverScreen(victorious);
 
-        yield return new WaitForSecondsRealtime(0.5f);
-        SoundManager.Instance.ChangeActiveMusicVolume(1f, 2f);
+        CanvasManager.Instance.RenderGameOverScreen(victorious);
         
-        canPause = true;
         PauseGame();
+        yield return new WaitForSecondsRealtime(7f);
+        SoundManager.Instance.StartMainGameMusic(4f);
     }
+
     public void PauseGame()
     {
-        if (!canPause)
+        if (!CanPause)
             return;
-        //CanvasManager.Instance.SwitchActionMap();
-        currentTimeScale = Time.timeScale;
+        CanvasManager.Instance.SwitchActionMap();
+        CurrentTimeScale = Time.timeScale;
         Time.timeScale = 0;
         Cursor.visible = true;
-        if (!gameHasEnded)
+        if (!GameHasEnded)
         {
-            isPaused = true;
+            IsPaused = true;
             CanvasManager.Instance.RenderPauseScreen();
         }
+        var eventSystem = EventSystem.current;
+        eventSystem.SetSelectedGameObject(_replaybutton, new BaseEventData(eventSystem));
     }
     public void ResumeGame()
     {
-        if (!canPause)
+        if (!CanPause)
             return;
-        //CanvasManager.Instance.SwitchActionMap();
-        isPaused = false;
-        Time.timeScale = currentTimeScale;
+        CanvasManager.Instance.SwitchActionMap();
+        IsPaused = false;
+        Time.timeScale = CurrentTimeScale;
         Cursor.visible = false;
         CanvasManager.Instance.DisablePauseScreen();
     }
@@ -177,8 +184,6 @@ public class GameManager : MonoBehaviour
     public void Restart()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        Time.timeScale = 1;
-        timePassed = 0f;
     }
 
     public static void QuitToMenu()
@@ -191,21 +196,24 @@ public class GameManager : MonoBehaviour
         Application.Quit();
     }
 
-    //public void OnDrawGizmos()
-    //{
-    //    //Gizmos.DrawWireCube(new Vector3(0, ScreenBounds.y/2, 0), new Vector3(2*ScreenBounds.x, ScreenBounds.y, 1));
+    public void OnDrawGizmos()
+    {
+        if (!Application.isPlaying) return;
 
-    //    // Playable cone
-    //    if (_gameParams.MaxTheta > 0) {
-    //        Gizmos.DrawLine(Vector3.zero, new Vector3(20*Mathf.Cos(_gameParams.MaxTheta), 20 * Mathf.Sin(_gameParams.MaxTheta), 0));
-    //        Gizmos.DrawLine(Vector3.zero, new Vector3(20 * Mathf.Cos(Mathf.PI-_gameParams.MaxTheta), 20 * Mathf.Sin(Mathf.PI-_gameParams.MaxTheta), 0));
-    //    }
+        //Gizmos.DrawWireCube(new Vector3(0, ScreenBounds.y/2, 0), new Vector3(2*ScreenBounds.x, ScreenBounds.y, 1));
 
-    //    // Escape horizon
-    //    Gizmos.DrawWireSphere(Vector3.zero, _gameParams.WinRadius);
+        // Playable cone
+        if (_gameParams.MaxTheta > 0)
+        {
+            Gizmos.DrawLine(Vector3.zero, new Vector3(20 * Mathf.Cos(_gameParams.MaxTheta), 20 * Mathf.Sin(_gameParams.MaxTheta), 0));
+            Gizmos.DrawLine(Vector3.zero, new Vector3(20 * Mathf.Cos(Mathf.PI - _gameParams.MaxTheta), 20 * Mathf.Sin(Mathf.PI - _gameParams.MaxTheta), 0));
+        }
 
-    //    // Danger zone
-    //    Gizmos.color = Color.red;
-    //    Gizmos.DrawWireSphere(Vector3.zero, Ship.Instance.ShipPositionRadius-DistanceToEventHorizon+_gameParams.DangerZoneDistance);
-    //}
+        // Escape horizon
+        Gizmos.DrawWireSphere(Vector3.zero, _gameParams.WinRadius);
+
+        // Danger zone
+        //Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(Vector3.zero, Ship.Instance.ShipPositionRadius - DistanceToEventHorizon + _gameParams.DangerZoneDistance);
+    }
 }
