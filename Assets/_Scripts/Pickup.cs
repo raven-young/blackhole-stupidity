@@ -10,6 +10,15 @@ public class Pickup : MonoBehaviour
 
     [SerializeField] private AudioClip _pickupClip;
 
+    private void Start()
+    {
+        // random flip
+        gameObject.GetComponent<SpriteRenderer>().flipY = UnityEngine.Random.Range(0f, 1f) < 0.5f;
+
+        var spin = UnityEngine.Random.Range(0f, 1f) < 0.5f ? 1 : -1;
+        // random torque
+        _rb.AddTorque(10f * spin, ForceMode2D.Impulse);
+    }
     private void Update()
     {
         // Despawn if below x axis
