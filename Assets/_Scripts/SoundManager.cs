@@ -48,8 +48,10 @@ public class SoundManager : MonoBehaviour
     {
         _musicSource2.DOFade(0, 3f);
         yield return new WaitForSeconds(3f);
-        _musicSource1.PlayOneShot(_backgroundMusic);
-        _musicSource2.PlayOneShot(_nervousMusic);
+        _musicSource1.clip = _backgroundMusic;
+        _musicSource2.clip = _nervousMusic;
+        _musicSource1.Play();
+        _musicSource2.Play();
         _musicSource1.DOFade(1, 3f);
         _musicSource2.DOFade(0, 0);
     }

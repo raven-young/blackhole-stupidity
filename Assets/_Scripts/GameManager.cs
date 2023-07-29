@@ -126,7 +126,6 @@ public class GameManager : MonoBehaviour
 
     public IEnumerator GameOver(bool victorious = false)
     {
-        Debug.Log("gameover");
         gameHasEnded = true;
         SoundManager.Instance.ChangeMusicVolume(0f);
         if (victorious)
