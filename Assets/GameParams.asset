@@ -40,4 +40,4 @@ MonoBehaviour:
   ShotAsteroidScore: 13
   CollectedItemScore: 17
   ScreenShakeDuration: 0.2
-  HighScore: 0
+  HighScore: 5014

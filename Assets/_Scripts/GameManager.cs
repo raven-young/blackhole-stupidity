@@ -37,7 +37,7 @@ public class GameManager : MonoBehaviour
     private float _dangerzoneTimer = 0f;
     public bool InDangerZone;
 
-    [SerializeField] private GameObject _replaybutton;
+    [SerializeField] private GameObject _replaybutton_paused;
     [SerializeField] private GameObject _replaybutton_gameover;
     [SerializeField] private GameObject _replaybutton_victory;
     private void Awake()
@@ -127,7 +127,7 @@ public class GameManager : MonoBehaviour
 
         var eventSystem = EventSystem.current;
 
-        CanvasManager.Instance.SwitchActionMap();
+        //CanvasManager.Instance.SwitchActionMap();
         
         GameHasEnded = true;
 
@@ -158,7 +158,10 @@ public class GameManager : MonoBehaviour
     {
         if (!CanPause)
             return;
-        CanvasManager.Instance.SwitchActionMap();
+
+        var eventSystem = EventSystem.current;
+        eventSystem.SetSelectedGameObject(_replaybutton_paused, new BaseEventData(eventSystem));
+
         CurrentTimeScale = Time.timeScale;
         Time.timeScale = 0;
         Cursor.visible = true;
@@ -167,14 +170,12 @@ public class GameManager : MonoBehaviour
             IsPaused = true;
             CanvasManager.Instance.RenderPauseScreen();
         }
-        var eventSystem = EventSystem.current;
-        eventSystem.SetSelectedGameObject(_replaybutton, new BaseEventData(eventSystem));
     }
     public void ResumeGame()
     {
         if (!CanPause)
             return;
-        CanvasManager.Instance.SwitchActionMap();
+
         IsPaused = false;
         Time.timeScale = CurrentTimeScale;
         Cursor.visible = false;
