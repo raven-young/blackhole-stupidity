@@ -15,8 +15,11 @@ public class CanvasManager : MonoBehaviour
     [SerializeField] private GameObject victoryScreen;
     [SerializeField] private GameObject pauseScreen;
     [SerializeField] private TMP_Text _scoreText, _distanceLoseText, _distanceWinText;
+    [SerializeField] private TMP_Text _scoreTextGameOver, _highscoreTextGameOver, _scoreTextVictory, _highscoreTextVictory;
 
     [SerializeField] private Slider _fuelSlider, _healthSlider;
+
+    private bool _newHighscore = false;
 
     private int _score = 0;
 
@@ -57,6 +60,11 @@ public class CanvasManager : MonoBehaviour
     {
         _score += amount;
         _scoreText.text = "Score: " + _score;
+        if (_score > _gameParams.HighScore)
+        {
+            _gameParams.HighScore = _score;
+            _newHighscore = true;
+        }
     }
 
     public void RenderPauseScreen()
@@ -76,6 +84,8 @@ public class CanvasManager : MonoBehaviour
     {
         if (victorious)
         {
+            _scoreTextVictory.text = _newHighscore ? "New Highscore: " + _score :  "Score: " + _score;
+            _highscoreTextVictory.text = "Highscore: " + _gameParams.HighScore;
             victoryScreen.SetActive(true);
             //GameObject ReplayButton = victoryScreen.transform.Find("Replay Button").gameObject;
             //var eventSystem = EventSystem.current;
@@ -83,6 +93,8 @@ public class CanvasManager : MonoBehaviour
         }
         else
         {
+            _scoreTextGameOver.text = "Score: " + _score;
+            _highscoreTextGameOver.text = "Highscore: " + _gameParams.HighScore;
             gameOverScreen.SetActive(true);
             //GameObject ReplayButton = gameOverScreen.transform.Find("Replay Button").gameObject;
             //var eventSystem = EventSystem.current;

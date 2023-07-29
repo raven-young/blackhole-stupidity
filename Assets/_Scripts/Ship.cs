@@ -75,7 +75,7 @@ public class Ship : MonoBehaviour
             return;
 
         // workaround due to broken triggers
-        if (ShipPositionRadius > _gameParams.WinRadius && !GameManager.Instance.gameHasEnded)
+        if ((ShipPositionRadius > _gameParams.WinRadius && !GameManager.Instance.gameHasEnded) || (CurrentFuel <= 0))
         {
             StartCoroutine(GameManager.Instance.GameOver(true));
         }

@@ -50,6 +50,7 @@ public class Asteroid : MonoBehaviour
 
         if (_currentHealth <= 0)
         {
+            CanvasManager.Instance.IncrementScore(_gameParams.ShotAsteroidScore);
             Die();
         }
     }
@@ -59,7 +60,7 @@ public class Asteroid : MonoBehaviour
         switch (collision.gameObject.layer)
         {
             case 6: // ship
-                ScreenShake.TriggerShake(_gameParams.ScreenShakeDuration    );
+                ScreenShake.TriggerShake(_gameParams.ScreenShakeDuration);
                 collision.gameObject.GetComponent<Ship>().TakeDamage(_gameParams.PlayerDamage);
                 OnAsteroidHit?.Invoke(AvatarReactions.ExpressionEvents.AsteroidHit);
                 Die();
@@ -78,7 +79,6 @@ public class Asteroid : MonoBehaviour
     private void Die()
     {
         SoundManager.Instance.PlaySound(_explosionClip, 0.5f);
-        CanvasManager.Instance.IncrementScore(_gameParams.ShotAsteroidScore);
         GameObject effect = Instantiate(_explosionEffect, transform.position, Quaternion.identity);
         Destroy(effect, 0.3f);
         Destroy(gameObject);

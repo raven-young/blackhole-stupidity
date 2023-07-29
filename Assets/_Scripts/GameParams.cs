@@ -60,4 +60,7 @@ public class GameParams : ScriptableObject
 
     [Header("Juice")]
     public float ScreenShakeDuration = 0.2f;
+
+    [Header("Misc")]
+    public int HighScore = 0;
 }
