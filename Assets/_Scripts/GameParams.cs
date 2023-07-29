@@ -57,4 +57,7 @@ public class GameParams : ScriptableObject
     public int CorrectAnswerScore = 1;
     public int ShotAsteroidScore = 1;
     public int CollectedItemScore = 1;
+
+    [Header("Juice")]
+    public float ScreenShakeDuration = 0.2f;
 }

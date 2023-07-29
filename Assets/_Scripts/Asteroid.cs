@@ -59,6 +59,7 @@ public class Asteroid : MonoBehaviour
         switch (collision.gameObject.layer)
         {
             case 6: // ship
+                ScreenShake.TriggerShake(_gameParams.ScreenShakeDuration);
                 collision.gameObject.GetComponent<Ship>().TakeDamage(_gameParams.PlayerDamage);
                 OnAsteroidHit?.Invoke(AvatarReactions.ExpressionEvents.AsteroidHit);
                 Die();
