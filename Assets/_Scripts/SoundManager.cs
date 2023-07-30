@@ -62,15 +62,8 @@ public class SoundManager : MonoBehaviour
     }
     public void ChangeMusicVolume(float volume, float fadeDuration = 0f)
     {
-        _musicSource1.DOFade(volume, fadeDuration);
-        _musicSource2.DOFade(volume, fadeDuration);
-    }
-
-    // ChangeMusicVolume bugged?
-    public void ChangeMusicVolumeInstant(float volume)
-    {
-        _musicSource1.volume = volume;
-        _musicSource2.volume = volume;
+        _musicSource1.DOFade(volume, fadeDuration).SetUpdate(true);
+        _musicSource2.DOFade(volume, fadeDuration).SetUpdate(true);
     }
 
     public void StopSFX()
@@ -99,12 +92,12 @@ public class SoundManager : MonoBehaviour
 
         if (oldMusicSourceNumber == MusicSourceID.MusicSource1)
         {
-            _musicSource1.DOFade(0, fadeDuration);
-            _musicSource2.DOFade(1, fadeDuration);
+            _musicSource1.DOFade(0, fadeDuration).SetUpdate(true);
+            _musicSource2.DOFade(1, fadeDuration).SetUpdate(true);
         } else if (oldMusicSourceNumber == MusicSourceID.MusicSource2)
         {
-            _musicSource1.DOFade(1, fadeDuration);
-            _musicSource2.DOFade(0, fadeDuration);
+            _musicSource1.DOFade(1, fadeDuration).SetUpdate(true);
+            _musicSource2.DOFade(0, fadeDuration).SetUpdate(true);
         }
     }
 

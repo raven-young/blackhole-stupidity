@@ -90,9 +90,12 @@ public class QuestionAsteroid : MonoBehaviour
         _questionAsteroid.SetActive(true);
         transform.position = _spawnPoint.position;
 
+        //int difficulty = (int)(5f*GameManager.Instance.DistanceToEventHorizon / (_gameParams.WinRadius - GameManager.Instance.EventHorizonRadius));
         int difficulty = (int)GameManager.Instance.DistanceToEventHorizon / 4;
-        var c = challenge.challenge(difficulty);
-        //Debug.Log("challenge level: " + difficulty);
+        //var c = challenge.SimpleArithemticChallenge(difficulty);
+        //var c = challenge.SimpleAlgebraChallenge(difficulty);
+        var c = challenge.SimpleArithemticChallenge(difficulty);
+        Debug.Log("challenge level: " + difficulty);
         _correctAnswer = c.Item5 + 1;
         _questionText.text = c.Item1;
         _answer1Text.text = c.Item2;

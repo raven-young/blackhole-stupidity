@@ -25,6 +25,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private AudioClip _deathClip, _victoryClip;
 
     public float DistanceToEventHorizon = 8f;
+    public float EventHorizonRadius;
     public float InitialDistanceToEventHorizon { get; private set; }
 
     public static event Action OnEnteredDangerZone;
@@ -61,7 +62,7 @@ public class GameManager : MonoBehaviour
         Cursor.visible = false;
         Time.timeScale = 1;
 
-        DistanceToEscapeHorizon();
+        GetDistanceToEventHorizon();
         InitialDistanceToEventHorizon = DistanceToEventHorizon;
         InDangerZone = DistanceToEventHorizon > _gameParams.DangerZoneDistance;
 
@@ -70,7 +71,7 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        DistanceToEscapeHorizon();
+        GetDistanceToEventHorizon();
         if (DistanceToEventHorizon < _gameParams.DangerZoneDistance && !InDangerZone)
         {
             InDangerZone = true;
@@ -112,10 +113,11 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    void DistanceToEscapeHorizon()
+    void GetDistanceToEventHorizon()
     {
         RaycastHit2D hit = Physics2D.Raycast(Ship.Instance.ShipPositionRadius * Vector2.up, -Vector2.up, 30, LayerMask.GetMask("BlackHole"));
         DistanceToEventHorizon = hit.distance;
+        EventHorizonRadius = Ship.Instance.ShipPositionRadius - DistanceToEventHorizon;
     }
 
     public IEnumerator GameOver(bool victorious = false)
@@ -127,7 +129,7 @@ public class GameManager : MonoBehaviour
         
         GameHasEnded = true;
 
-        SoundManager.Instance.ChangeMusicVolumeInstant(0f);
+        SoundManager.Instance.ChangeMusicVolume(0f);
         SoundManager.Instance.StopSFX();
 
         if (victorious)

@@ -16,7 +16,7 @@ MonoBehaviour:
   DangerZoneDistance: 4
   MaxHealth: 100
   AngularVelocity: 1
-  BurnRate: 1.8
+  BurnRate: 2
   VelocityScale: 0.06
   MaxTheta: 0.76
   FireRate: 0.1
@@ -25,19 +25,19 @@ MonoBehaviour:
   LaserDuration: 0.5
   BlackHoleGrowthRate: 1.005
   QuestionDelta: 1
-  SpawnAmount: 6
-  SpawnImpulse: 24.3
+  SpawnAmount: 8
+  SpawnImpulse: 27
   MaxSpawnAngle: 130
   QuestionAsteroidSpeed: 1
   PlayerDamage: 10
   AsteroidHealth: 5
-  ScrapValue: 6
-  FuelValue: 6
+  ScrapValue: 5
+  FuelValue: 5
   SpawnPeriod: 1
   RandomAsteroidImpulse: 10
   CorrectAnswerScore: 50
   ShotAsteroidScore: 13
   CollectedItemScore: 17
   ScreenShakeDuration: 0.2
-  HighScore: 5014
-  ScreenBounds: {x: 0, y: 0}
+  HighScore: 2437
+  ScreenBounds: {x: 35.41855, y: 19.930868}
