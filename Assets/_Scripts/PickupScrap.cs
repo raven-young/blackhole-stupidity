@@ -8,7 +8,7 @@ public class PickupScrap : Pickup
     {
         base.ApplyItem();
         Ship.Instance.CurrentHealth += _gameParams.ScrapValue;
-        Ship.Instance.CurrentHealth = Mathf.Max(_gameParams.MaxHealth, Ship.Instance.CurrentHealth);
+        Ship.Instance.CurrentHealth = Mathf.Min(_gameParams.MaxHealth, Ship.Instance.CurrentHealth);
         CanvasManager.Instance.UpdateHealth(Ship.Instance.CurrentHealth);
     }
 }
