@@ -40,7 +40,7 @@ public class Bullet : MonoBehaviour
         GameObject effect = Instantiate(hitEffect, transform.position, Quaternion.identity);
         Destroy(effect, effectDuration);
 
-        if (piercing < 0)
+        if (piercing <= 0)
         {
             _pool.Release(this);
         }

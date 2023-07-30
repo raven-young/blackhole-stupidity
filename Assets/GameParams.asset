@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 682973243c633894598bc19ce7526a77, type: 3}
   m_Name: GameParams
   m_EditorClassIdentifier: 
-  WinRadius: 18
+  WinRadius: 19
   DangerZoneDistance: 4
   MaxHealth: 100
   AngularVelocity: 1
@@ -40,3 +40,4 @@ MonoBehaviour:
   CollectedItemScore: 17
   ScreenShakeDuration: 0.2
   HighScore: 5014
+  ScreenBounds: {x: 0, y: 0}

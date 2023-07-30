@@ -71,8 +71,6 @@ public class SoundManager : MonoBehaviour
     {
         _musicSource1.volume = volume;
         _musicSource2.volume = volume;
-        Debug.Log(_musicSource1.volume);
-        Debug.Log(_musicSource2.volume);
     }
 
     public void StopSFX()

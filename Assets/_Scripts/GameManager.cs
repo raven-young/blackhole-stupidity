@@ -195,7 +195,6 @@ public class GameManager : MonoBehaviour
 
     public void OnDrawGizmos()
     {
-        if (!Application.isPlaying) return;
 
         //Gizmos.DrawWireCube(new Vector3(0, ScreenBounds.y/2, 0), new Vector3(2*ScreenBounds.x, ScreenBounds.y, 1));
 
@@ -210,7 +209,8 @@ public class GameManager : MonoBehaviour
         Gizmos.DrawWireSphere(Vector3.zero, _gameParams.WinRadius);
 
         // Danger zone
-        //Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(Vector3.zero, Ship.Instance.ShipPositionRadius - DistanceToEventHorizon + _gameParams.DangerZoneDistance);
+        Gizmos.color = Color.red;
+        if (Application.isPlaying)
+            Gizmos.DrawWireSphere(Vector3.zero, Ship.Instance.ShipPositionRadius - DistanceToEventHorizon + _gameParams.DangerZoneDistance);
     }
 }
