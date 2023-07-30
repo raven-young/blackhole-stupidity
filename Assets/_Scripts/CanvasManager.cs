@@ -81,7 +81,6 @@ public class CanvasManager : MonoBehaviour
         pauseScreen.SetActive(true);
         GameObject ResumeButton = pauseScreen.transform.Find("Resume Button").gameObject;
         var eventSystem = EventSystem.current;
-        Debug.Log("event",eventSystem);
         eventSystem.SetSelectedGameObject(ResumeButton, new BaseEventData(eventSystem));
     }
 

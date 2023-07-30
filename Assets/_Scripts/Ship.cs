@@ -160,6 +160,7 @@ public class Ship : MonoBehaviour
 
         CurrentHealth -= damage;
         CanvasManager.Instance.UpdateHealth(CurrentHealth);
+        StartCoroutine(ActivateInvincibility(0.2f));
     }
 
     IEnumerator ActivateInvincibility(float duration)

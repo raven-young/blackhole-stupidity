@@ -17,6 +17,13 @@ public class FakeAsteroidSpawner : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        // Wait until main menu camera has fetched screenbounds
+        StartCoroutine(GetScreenBounds());
+    }
+
+    IEnumerator GetScreenBounds()
+    {
+        yield return new WaitForEndOfFrame();
         _screenBoundsX = _gameParams.ScreenBounds.x;
         _screenBoundsY = _gameParams.ScreenBounds.y;
     }

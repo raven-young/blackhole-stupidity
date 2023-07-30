@@ -136,6 +136,7 @@ public class GameManager : MonoBehaviour
             SoundManager.Instance.PlaySound(_victoryClip);
             GameWasWon = true;
             OnVictory?.Invoke();
+            VictoryTransition.Instance.StartVictoryTransition();
         }
         else
         {
@@ -143,10 +144,8 @@ public class GameManager : MonoBehaviour
             SoundManager.Instance.PlaySound(_deathClip);
             GameWasWon = false;
             OnGameOver?.Invoke();
+            CanvasManager.Instance.RenderGameOverScreen(false);
         }
-
-        CanvasManager.Instance.RenderGameOverScreen(victorious);
-        
         PauseGame();
         yield return new WaitForSecondsRealtime(6f);
         SoundManager.Instance.StartMainGameMusic(4f);
