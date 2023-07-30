@@ -5,12 +5,16 @@ using UnityEngine.UI;
 using TMPro;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using DG.Tweening;
 
 // dumbest dialogue system imaginable due to lack of time
 public class CutsceneIntro : MonoBehaviour
 {
 
     private PlayerInputActions playerInputActions;
+
+    [SerializeField] private GameObject _character1Container;
+    [SerializeField] private GameObject _character2Container;
 
     [SerializeField] private GameObject _character1Panel;
     [SerializeField] private GameObject _character2Panel;
@@ -122,6 +126,9 @@ public class CutsceneIntro : MonoBehaviour
 
         if (dialogue.Speaker == Speakers.Racoon)
         {
+            _character1Container.transform.DOScale(1f, fadedAlpha);
+            _character2Container.transform.DOScale(0.95f, fadedAlpha);
+
             _character1Panel.GetComponent<Image>().CrossFadeAlpha(1f, fadeTime, true);
             _character2Panel.GetComponent<Image>().CrossFadeAlpha(fadedAlpha, fadeTime, true);
 
@@ -139,6 +146,9 @@ public class CutsceneIntro : MonoBehaviour
 
         } else
         {
+            _character2Container.transform.DOScale(1f, fadedAlpha);
+            _character1Container.transform.DOScale(0.95f, fadedAlpha);
+
             _character1Panel.GetComponent<Image>().CrossFadeAlpha(fadedAlpha, fadeTime, true);
             _character2Panel.GetComponent<Image>().CrossFadeAlpha(1f, fadeTime, true);
 
