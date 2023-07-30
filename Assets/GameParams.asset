@@ -17,14 +17,13 @@ MonoBehaviour:
   MaxHealth: 100
   AngularVelocity: 1
   BurnRate: 1.8
-  VelocityScale: 0.05
+  VelocityScale: 0.06
   MaxTheta: 0.76
   FireRate: 0.1
   BulletForce: 30
   BulletDamage: 1
   LaserDuration: 0.5
   BlackHoleGrowthRate: 1.005
-  QuestionDuration: 6
   QuestionDelta: 1
   SpawnAmount: 6
   SpawnImpulse: 24.3

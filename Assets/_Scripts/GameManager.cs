@@ -131,7 +131,8 @@ public class GameManager : MonoBehaviour
         
         GameHasEnded = true;
 
-        SoundManager.Instance.ChangeMusicVolume(0f);
+        SoundManager.Instance.ChangeMusicVolumeInstant(0f);
+        SoundManager.Instance.StopSFX();
 
         if (victorious)
         {
@@ -159,15 +160,14 @@ public class GameManager : MonoBehaviour
         if (!CanPause)
             return;
 
-        var eventSystem = EventSystem.current;
-        eventSystem.SetSelectedGameObject(_replaybutton_paused, new BaseEventData(eventSystem));
-
         CurrentTimeScale = Time.timeScale;
         Time.timeScale = 0;
         Cursor.visible = true;
         if (!GameHasEnded)
         {
             IsPaused = true;
+            var eventSystem = EventSystem.current;
+            eventSystem.SetSelectedGameObject(_replaybutton_paused, new BaseEventData(eventSystem));
             CanvasManager.Instance.RenderPauseScreen();
         }
     }

@@ -71,28 +71,21 @@ public class QuestionAsteroid : MonoBehaviour
                 SpawnQuestion();
             }
         }
+
         else
         {
-
-            _durationDelta += Time.deltaTime;
-
-            if (_durationDelta > _gameParams.QuestionDuration)
-            {
+            if (transform.position.y < 1.05*_gameParams.WinRadius)
                 Fail();
-            }
         }
-
-        //else
-        //{
-        //    if (transform.position.y < _gameParams.WinRadius)
-        //        Fail();
-        //}
     }
 
     void SpawnQuestion()
     {
+        if (GameManager.Instance.GameHasEnded)
+            return;
+
         OnProblemSpawned?.Invoke(AvatarReactions.ExpressionEvents.ProblemSpawned);
-        SoundManager.Instance.PlayMusic(_alertClip);
+        SoundManager.Instance.PlaySound(_alertClip);
         _deltaDelta = 0;
         _questionActive = true;
         _questionAsteroid.SetActive(true);
@@ -106,10 +99,6 @@ public class QuestionAsteroid : MonoBehaviour
         _answer1Text.text = c.Item2;
         _answer2Text.text = c.Item3;
         _answer3Text.text = c.Item4;
-
-        // dummy
-        //_correctAnswer = _correctAnswer == 1 ? 2 : (_correctAnswer == 2 ? 3 : 1);
-        //_questionText.text = "exp(0) * " + _correctAnswer + " =";
     }
 
     // Activate when correctly answering question
@@ -119,7 +108,7 @@ public class QuestionAsteroid : MonoBehaviour
         _questionActive = false;
         SpawnStuff(true);
         CanvasManager.Instance.IncrementScore(_gameParams.CorrectAnswerScore);
-        SoundManager.Instance.PlayMusic(_bigLaserClip);
+        SoundManager.Instance.PlaySound(_bigLaserClip);
         Debug.Log("Correct answer!");
 
         // spawn laser
@@ -130,11 +119,11 @@ public class QuestionAsteroid : MonoBehaviour
         _durationDelta = 0;
 
         _questionAsteroid.SetActive(false);
-        SoundManager.Instance.PlayMusic(_rightAnswerclip);
+        SoundManager.Instance.PlaySound(_rightAnswerclip);
         SoundManager.Instance.PlaySound(_explosionClip, 0.5f);
     }
 
-    // Activate when incorrectly ansering question or timer runs out
+    // Activate when incorrectly answering question or timer runs out
     void Fail()
     {
         OnProblemFailed?.Invoke(AvatarReactions.ExpressionEvents.ProblemFailed);

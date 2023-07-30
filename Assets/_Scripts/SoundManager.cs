@@ -66,6 +66,20 @@ public class SoundManager : MonoBehaviour
         _musicSource2.DOFade(volume, fadeDuration);
     }
 
+    // ChangeMusicVolume bugged?
+    public void ChangeMusicVolumeInstant(float volume)
+    {
+        _musicSource1.volume = volume;
+        _musicSource2.volume = volume;
+        Debug.Log(_musicSource1.volume);
+        Debug.Log(_musicSource2.volume);
+    }
+
+    public void StopSFX()
+    {
+        _effectsSource.Stop();
+    }
+
     public void ChangeMasterVolume(float volume)
     {
         AudioListener.volume = volume;
@@ -74,21 +88,14 @@ public class SoundManager : MonoBehaviour
     // Loop two music clips simultaneously, can then dynamiaclly switch between them
     private void StartMusicPair(AudioClip clip1, AudioClip clip2, float fadeinDuration = 0f)
     {
-        Debug.Log("start music pair");
         _musicSource1.clip = clip1;
         _musicSource2.clip = clip2;
         _musicSource1.Play();
         _musicSource2.Play();
         _musicSource1.DOFade(1, fadeinDuration).SetUpdate(true); // set update to make independent of time scale
         _musicSource2.DOFade(0, 0).SetUpdate(true);
-        StartCoroutine(dummy());
     }
-    IEnumerator dummy ()
-    {
-        yield return new WaitForSecondsRealtime(1.5f);
-        Debug.Log(_musicSource1.volume);
-        Debug.Log(_musicSource2.volume);
-    }
+
     public void ChangeMusicPairSource(MusicSourceID oldMusicSourceNumber, float fadeDuration = 0f)
     {
 

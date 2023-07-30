@@ -32,7 +32,7 @@ public class GameParams : ScriptableObject
     //public float BlackHoleRotationSpeed;
 
     [Header("Question Asteroid")]
-    public float QuestionDuration; // time to answer the question
+    //public float QuestionDuration; // time to answer the question
     public float QuestionDelta; // time until next question
     public int SpawnAmount; // how many things to spawn after answering question
     [Range(0, 100), Tooltip("Maximum impulse applied to spawned objects")]

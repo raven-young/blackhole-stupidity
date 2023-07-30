@@ -21,6 +21,9 @@ public class CutsceneIntro : MonoBehaviour
     [SerializeField] private TMP_Text _character1Text;
     [SerializeField] private TMP_Text _character2Text;
 
+    [SerializeField] private AudioClip _raccoonTalking1, _raccoonTalking2;
+    [SerializeField] private AudioClip _cowTalking1, _cowTalking2;
+
     //[SerializeField] private GameObject _sliders;
     //[SerializeField] private GameObject _scorePanel;
 
@@ -68,7 +71,7 @@ public class CutsceneIntro : MonoBehaviour
     void Start()
     {
         // Change from main menu theme to music source theme
-        SoundManager.Instance.ChangeMusicPairSource(SoundManager.MusicSourceID.MusicSource2);
+        SoundManager.Instance.ChangeMusicPairSource(SoundManager.MusicSourceID.MusicSource1);
         AdvanceDialogue();
     }
 
@@ -112,6 +115,11 @@ public class CutsceneIntro : MonoBehaviour
     private void DisplayNewDialogue(Dialogue dialogue, float fadeTime = 0.1f)
     {
         float fadedAlpha = 0.3f;
+        bool useClip1 = Random.Range(0f, 1f) < 0.5;
+
+        // Stop preveious character talking if player skips dialogue
+        SoundManager.Instance.StopSFX();
+
         if (dialogue.Speaker == Speakers.Racoon)
         {
             _character1Panel.GetComponent<Image>().CrossFadeAlpha(1f, fadeTime, true);
@@ -123,6 +131,12 @@ public class CutsceneIntro : MonoBehaviour
             _character1Text.text = dialogue.Text;
             _character1Text.CrossFadeAlpha(1f, fadeTime, true);
             _character2Text.CrossFadeAlpha(fadedAlpha, fadeTime, true);
+
+            if (useClip1) 
+                SoundManager.Instance.PlaySound(_raccoonTalking1);
+            else
+                SoundManager.Instance.PlaySound(_raccoonTalking2);
+
         } else
         {
             _character1Panel.GetComponent<Image>().CrossFadeAlpha(fadedAlpha, fadeTime, true);
@@ -134,6 +148,11 @@ public class CutsceneIntro : MonoBehaviour
             _character2Text.text = dialogue.Text;
             _character2Text.CrossFadeAlpha(1f, fadeTime, true);
             _character1Text.CrossFadeAlpha(fadedAlpha, fadeTime, true);
+
+            if (useClip1)
+                SoundManager.Instance.PlaySound(_cowTalking1);
+            else
+                SoundManager.Instance.PlaySound(_cowTalking2);
         }
     }
 
@@ -141,10 +160,8 @@ public class CutsceneIntro : MonoBehaviour
     {
         if (dialogueList.Count <= _dialogueIterator)
         {
-            SceneManager.LoadScene("BlackHole thomas");
-            //_sliders.SetActive(true);
-            //_scorePanel.SetActive(true);
-            gameObject.SetActive(false);
+            SoundManager.Instance.StopSFX();
+            SceneManager.LoadScene("BlackHole");
             return;
         }
 
