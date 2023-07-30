@@ -61,6 +61,7 @@ public class GameParams : ScriptableObject
     [Header("Juice")]
     public float ScreenShakeDuration = 0.2f;
 
-    [Header("Misc")]
+    [Header("Don't change in editor")]
     public int HighScore = 0;
+    public Vector2 ScreenBounds;
 }

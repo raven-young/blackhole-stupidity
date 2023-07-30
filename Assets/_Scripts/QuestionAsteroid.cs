@@ -30,7 +30,6 @@ public class QuestionAsteroid : MonoBehaviour
 
     private bool _questionActive = false;
     private int _correctAnswer; // 1,2,3
-    private float _durationDelta = 0;
     private float _deltaDelta = 0;
     private MathChallenge challenge;
 
@@ -116,7 +115,6 @@ public class QuestionAsteroid : MonoBehaviour
         StartCoroutine(Shooting.DisableShoot(_gameParams.LaserDuration));
         yield return new WaitForSeconds(_gameParams.LaserDuration);
         Explode();
-        _durationDelta = 0;
 
         _questionAsteroid.SetActive(false);
         SoundManager.Instance.PlaySound(_rightAnswerclip);
@@ -127,7 +125,6 @@ public class QuestionAsteroid : MonoBehaviour
     void Fail()
     {
         OnProblemFailed?.Invoke(AvatarReactions.ExpressionEvents.ProblemFailed);
-        _durationDelta = 0;
         _questionActive = false;
         _questionAsteroid.SetActive(false);
         SpawnStuff(false);
@@ -153,7 +150,7 @@ public class QuestionAsteroid : MonoBehaviour
 
         for (int i = 0; i < _gameParams.SpawnAmount; i++)
         {
-            float randomX = 0.1f * UnityEngine.Random.Range(-1f, 1f) * GameManager.Instance.ScreenBounds.x;
+            float randomX = 0.1f * UnityEngine.Random.Range(-1f, 1f) * _gameParams.ScreenBounds.x;
             Vector2 spawnPos = new Vector2(transform.position.x + randomX, transform.position.y);
             GameObject spawnedObject = Instantiate(UnityEngine.Random.Range(0f, 1f) < 0.5 ? prefab1 : prefab2,
                                                    spawnPos, Quaternion.identity);

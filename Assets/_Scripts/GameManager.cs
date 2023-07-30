@@ -18,7 +18,6 @@ public class GameManager : MonoBehaviour
     public bool CanPause = true;
     public float CurrentTimeScale = 1f;
 
-    public Vector2 ScreenBounds;
     private PlayerInputActions playerInputActions;
     [SerializeField] private Camera _cam;
 
@@ -61,9 +60,6 @@ public class GameManager : MonoBehaviour
     {
         Cursor.visible = false;
         Time.timeScale = 1;
-
-        // need to execute always
-        ScreenBounds = _cam.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, _cam.transform.position.z));
 
         DistanceToEscapeHorizon();
         InitialDistanceToEventHorizon = DistanceToEventHorizon;
