@@ -279,6 +279,17 @@
                 },
                 {
                     "name": "",
+                    "id": "46fe5cd5-9050-4835-b83b-05c8237335e7",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Fire",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "1e0f487a-8861-41da-99c4-5a868096a7ec",
                     "path": "<Gamepad>/rightStick",
                     "interactions": "",

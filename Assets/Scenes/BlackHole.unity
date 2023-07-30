@@ -1230,10 +1230,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Canvas
       objectReference: {fileID: 0}
-    - target: {fileID: 5934294967129092467, guid: 69f81f1888f1d8f469cfbb8a824abbeb, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 6982441083433400933, guid: 69f81f1888f1d8f469cfbb8a824abbeb, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -1568,12 +1564,68 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4757353607538094734, guid: cab30414fdac94247835ee4e16734d65, type: 3}
       propertyPath: m_Parameters.textureMode
-      value: 4
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4757353607538094734, guid: cab30414fdac94247835ee4e16734d65, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 259980924fe4df94da568107140fdd91, type: 2}
+      objectReference: {fileID: 2100000, guid: 85cd6e03cdcedb34599af45043a86b89, type: 2}
+    - target: {fileID: 4757353607538094734, guid: cab30414fdac94247835ee4e16734d65, type: 3}
+      propertyPath: m_Positions.Array.data[1].y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4757353607538094734, guid: cab30414fdac94247835ee4e16734d65, type: 3}
+      propertyPath: m_Parameters.widthMultiplier
+      value: 2.1250691
+      objectReference: {fileID: 0}
+    - target: {fileID: 4757353607538094734, guid: cab30414fdac94247835ee4e16734d65, type: 3}
+      propertyPath: m_Parameters.colorGradient.ctime1
+      value: 65535
+      objectReference: {fileID: 0}
+    - target: {fileID: 4757353607538094734, guid: cab30414fdac94247835ee4e16734d65, type: 3}
+      propertyPath: m_Parameters.colorGradient.ctime2
+      value: 65535
+      objectReference: {fileID: 0}
+    - target: {fileID: 4757353607538094734, guid: cab30414fdac94247835ee4e16734d65, type: 3}
+      propertyPath: m_Parameters.colorGradient.key0.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4757353607538094734, guid: cab30414fdac94247835ee4e16734d65, type: 3}
+      propertyPath: m_Parameters.colorGradient.key0.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4757353607538094734, guid: cab30414fdac94247835ee4e16734d65, type: 3}
+      propertyPath: m_Parameters.colorGradient.key0.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4757353607538094734, guid: cab30414fdac94247835ee4e16734d65, type: 3}
+      propertyPath: m_Parameters.colorGradient.key1.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4757353607538094734, guid: cab30414fdac94247835ee4e16734d65, type: 3}
+      propertyPath: m_Parameters.colorGradient.key1.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4757353607538094734, guid: cab30414fdac94247835ee4e16734d65, type: 3}
+      propertyPath: m_Parameters.colorGradient.key1.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4757353607538094734, guid: cab30414fdac94247835ee4e16734d65, type: 3}
+      propertyPath: m_Parameters.colorGradient.key2.b
+      value: 0.02058822
+      objectReference: {fileID: 0}
+    - target: {fileID: 4757353607538094734, guid: cab30414fdac94247835ee4e16734d65, type: 3}
+      propertyPath: m_Parameters.colorGradient.key2.g
+      value: 0.02058822
+      objectReference: {fileID: 0}
+    - target: {fileID: 4757353607538094734, guid: cab30414fdac94247835ee4e16734d65, type: 3}
+      propertyPath: m_Parameters.colorGradient.key2.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4757353607538094734, guid: cab30414fdac94247835ee4e16734d65, type: 3}
+      propertyPath: m_Parameters.colorGradient.m_NumColorKeys
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 5824402414709186228, guid: cab30414fdac94247835ee4e16734d65, type: 3}
       propertyPath: _target
       value: 

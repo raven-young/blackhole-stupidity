@@ -25,6 +25,9 @@ public class AvatarReactions : MonoBehaviour
     //private bool _reactionActive = false;
     //private bool _idleActive = true;
 
+    // The currently running coroutine.
+    private Coroutine _reactRoutine;
+
     public enum ExpressionEvents
     {
         ProblemSpawned,
@@ -76,22 +79,36 @@ public class AvatarReactions : MonoBehaviour
         switch (expEvent)
         {
             case ExpressionEvents.ProblemFailed:
-                StartCoroutine(React(_problemFailed));
+                React(_problemFailed);
                 break;
             case ExpressionEvents.ProblemSpawned:
-                StartCoroutine(React(_problemSpawned));
+                //React(_problemSpawned); // problems spawn too frequently, disable for now
                 break;
             case ExpressionEvents.ProblemSucceeded:
-                StartCoroutine(React(_problemSuccess));
+                React(_problemSuccess);
                 break;
             case ExpressionEvents.AsteroidHit:
-                StartCoroutine(React(_asteroidHit));
+                React(_asteroidHit);
                 break;
 
         }
     }
 
-    IEnumerator React(Sprite sprite)
+    public void React(Sprite sprite)
+    {
+        // If the routine is not null, then it is currently running.
+        if (_reactRoutine != null)
+        {
+            // In this case, we should stop it first.
+            // Multiple routines the same time would cause bugs.
+            StopCoroutine(_reactRoutine);
+        }
+
+        // Start the Coroutine, and store the reference for it.
+        _reactRoutine = StartCoroutine(ReactRoutine(sprite));
+    }
+
+    IEnumerator ReactRoutine(Sprite sprite)
     {
         _image.sprite = sprite;
         yield return new WaitForSeconds(2f);
@@ -130,7 +147,7 @@ public class AvatarReactions : MonoBehaviour
             return;
         }
 
-        if (GameManager.Instance.InDangerZone)
+        if (!GameManager.Instance.InDangerZone)
         {
             _image.sprite = _idleSafe;
             //_expressionTimer = 0f;

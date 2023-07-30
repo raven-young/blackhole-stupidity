@@ -141,13 +141,14 @@ public class GameManager : MonoBehaviour
         {
             eventSystem.SetSelectedGameObject(_replaybutton_gameover, new BaseEventData(eventSystem));
             SoundManager.Instance.PlaySound(_deathClip);
+            GameWasWon = false;
             OnGameOver?.Invoke();
         }
 
         CanvasManager.Instance.RenderGameOverScreen(victorious);
         
         PauseGame();
-        yield return new WaitForSecondsRealtime(7f);
+        yield return new WaitForSecondsRealtime(6f);
         SoundManager.Instance.StartMainGameMusic(4f);
     }
 
