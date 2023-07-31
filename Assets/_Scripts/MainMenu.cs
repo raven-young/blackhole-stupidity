@@ -12,6 +12,7 @@ public class MainMenu : MonoBehaviour
     [SerializeField] private GameObject _startButton, _quitButton;
     private void Start()
     {
+        SoundManager.Instance.StartMainMenuMusic();
         _gameParams.ScreenBounds = _cam.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, _cam.transform.position.z));
         float _buttonY = _startButton.transform.position.y;
         _startButton.transform.DOMoveY(_buttonY + 0.7f, 1f).SetEase(Ease.InOutSine).SetLoops(-1, LoopType.Yoyo);
@@ -20,6 +21,7 @@ public class MainMenu : MonoBehaviour
 
     public void StartGame()
     {
+        DOTween.KillAll();
         SceneManager.LoadScene("CutsceneIntro");
     }
     public void Quit()

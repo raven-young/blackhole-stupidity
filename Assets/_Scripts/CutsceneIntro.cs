@@ -171,6 +171,7 @@ public class CutsceneIntro : MonoBehaviour
         if (dialogueList.Count <= _dialogueIterator)
         {
             SoundManager.Instance.StopSFX();
+            DOTween.KillAll();
             SceneManager.LoadScene("BlackHole");
             return;
         }

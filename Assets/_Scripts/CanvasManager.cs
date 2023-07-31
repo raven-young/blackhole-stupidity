@@ -13,9 +13,10 @@ public class CanvasManager : MonoBehaviour
 
     public static CanvasManager Instance;
     [SerializeField] private GameParams _gameParams;
-    [SerializeField] private GameObject gameOverScreen;
-    [SerializeField] private GameObject victoryScreen;
-    [SerializeField] private GameObject pauseScreen;
+    [SerializeField] private GameObject _gameOverScreen;
+    [SerializeField] private GameObject _victoryScreen;
+    [SerializeField] private GameObject _pauseScreen;
+    [SerializeField] private GameObject _keyboardOverlay;
 
     [SerializeField] private TMP_Text _scoreText, _distanceLoseText, _distanceWinText;
     [SerializeField] private TMP_Text _scoreTextGameOver, _highscoreTextGameOver, _scoreTextVictory, _highscoreTextVictory;
@@ -98,17 +99,27 @@ public class CanvasManager : MonoBehaviour
         }
     }
 
+    public void ShowControlsPanel()
+    {
+        _keyboardOverlay.SetActive(true);
+    }
+
+    public void StartGame()
+    {
+        _keyboardOverlay.SetActive(false);
+    }
+
     public void RenderPauseScreen()
     {
-        pauseScreen.SetActive(true);
-        GameObject ResumeButton = pauseScreen.transform.Find("Resume Button").gameObject;
+        _pauseScreen.SetActive(true);
+        GameObject ResumeButton = _pauseScreen.transform.Find("Resume Button").gameObject;
         var eventSystem = EventSystem.current;
         eventSystem.SetSelectedGameObject(ResumeButton, new BaseEventData(eventSystem));
     }
 
     public void DisablePauseScreen()
     {
-        pauseScreen.SetActive(false);
+        _pauseScreen.SetActive(false);
     }
 
     public void RenderGameOverScreen(bool victorious)
@@ -117,8 +128,8 @@ public class CanvasManager : MonoBehaviour
         {
             _scoreTextVictory.text = _newHighscore ? "New Highscore: " + _score :  "Score: " + _score;
             _highscoreTextVictory.text = "Highscore: " + _gameParams.HighScore;
-            victoryScreen.SetActive(true);
-            GameObject ReplayButton = victoryScreen.transform.Find("Replay Button").gameObject;
+            _victoryScreen.SetActive(true);
+            GameObject ReplayButton = _victoryScreen.transform.Find("Replay Button").gameObject;
             var eventSystem = EventSystem.current;
             eventSystem.SetSelectedGameObject(ReplayButton, new BaseEventData(eventSystem));
         }
@@ -126,8 +137,8 @@ public class CanvasManager : MonoBehaviour
         {
             _scoreTextGameOver.text = "Score: " + _score;
             _highscoreTextGameOver.text = "Highscore: " + _gameParams.HighScore;
-            gameOverScreen.SetActive(true);
-            GameObject ReplayButton = gameOverScreen.transform.Find("Replay Button").gameObject;
+            _gameOverScreen.SetActive(true);
+            GameObject ReplayButton = _gameOverScreen.transform.Find("Replay Button").gameObject;
             var eventSystem = EventSystem.current;
             eventSystem.SetSelectedGameObject(ReplayButton, new BaseEventData(eventSystem));
         }

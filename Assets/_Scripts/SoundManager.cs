@@ -26,11 +26,6 @@ public class SoundManager : MonoBehaviour
 
     }
 
-    private void Start()
-    {
-        StartMusicPair(_mainMenuMusic, _dialogueMusic);
-    }
-
     private void OnEnable()
     {
         GameManager.OnEnteredDangerZone += DangerZoneCrossSwapMusic;
@@ -72,7 +67,11 @@ public class SoundManager : MonoBehaviour
     {
         _effectsSource.Stop();
     }
-
+    public void StopMusic()
+    {
+        _musicSource1.Stop();
+        _musicSource2.Stop();
+    }
     public void ChangeMasterVolume(float volume)
     {
         AudioListener.volume = volume;
@@ -103,8 +102,16 @@ public class SoundManager : MonoBehaviour
         }
     }
 
+    public void StartMainMenuMusic()
+    {
+        StopMusic();
+        StopSFX();
+        StartMusicPair(_mainMenuMusic, _dialogueMusic);
+    }
     public void StartMainGameMusic(float fadeinDuration = 0f)
     {
+        StopMusic();
+        StopSFX();
         StartMusicPair(_backgroundMusic, _nervousMusic, fadeinDuration);
     }
 

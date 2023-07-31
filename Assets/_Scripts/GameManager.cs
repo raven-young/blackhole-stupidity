@@ -60,13 +60,13 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         Cursor.visible = false;
-        Time.timeScale = 1;
+        Time.timeScale = 0;
 
         GetDistanceToEventHorizon();
         InitialDistanceToEventHorizon = DistanceToEventHorizon;
         InDangerZone = DistanceToEventHorizon > _gameParams.DangerZoneDistance;
 
-        StartGame();
+        StartCoroutine(StartGame());
     }
 
     private void Update()
@@ -91,9 +91,19 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void StartGame()
+    IEnumerator StartGame()
     {
         SoundManager.Instance.StartMainGameMusic();
+        CanvasManager.Instance.ShowControlsPanel();
+
+        while (true)
+        {
+            if (Input.anyKey)
+                break;
+            yield return null;
+        }
+ 
+        CanvasManager.Instance.StartGame();
         CanPause = true;
         Time.timeScale = 1;
     }
@@ -129,7 +139,7 @@ public class GameManager : MonoBehaviour
         
         GameHasEnded = true;
 
-        SoundManager.Instance.ChangeMusicVolume(0f);
+        SoundManager.Instance.StopMusic();
         SoundManager.Instance.StopSFX();
 
         if (victorious)

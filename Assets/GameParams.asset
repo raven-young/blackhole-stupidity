@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 682973243c633894598bc19ce7526a77, type: 3}
   m_Name: GameParams
   m_EditorClassIdentifier: 
-  WinRadius: 19
+  WinRadius: 18.91
   DangerZoneDistance: 4
   MaxHealth: 100
   AngularVelocity: 0.95
   BurnRate: 2
   VelocityScale: 0.06
-  MaxTheta: 0.76
+  MaxTheta: 0.793
   FireRate: 0.1
   BulletForce: 30
   BulletDamage: 1
@@ -39,5 +39,5 @@ MonoBehaviour:
   ShotAsteroidScore: 13
   CollectedItemScore: 17
   ScreenShakeDuration: 0.2
-  HighScore: 2437
+  HighScore: 3193
   ScreenBounds: {x: 35.432655, y: 19.930868}

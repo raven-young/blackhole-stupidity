@@ -31,6 +31,15 @@ public class ScreenShake : MonoBehaviour
     void OnEnable()
     {
         initialPosition = _transform.localPosition;
+
+        GameManager.OnGameOver += StopShake;
+        GameManager.OnVictory += StopShake;
+    }
+
+    private void OnDisable()
+    {
+        GameManager.OnGameOver -= StopShake;
+        GameManager.OnVictory -= StopShake;
     }
 
     void Update()
@@ -51,5 +60,11 @@ public class ScreenShake : MonoBehaviour
     public static void TriggerShake(float shakeDuration)
     {
         _shakeDuration = shakeDuration;
+    }
+
+    void StopShake()
+    {
+        _shakeDuration = 0f;
+        _transform.localPosition = initialPosition;
     }
 }

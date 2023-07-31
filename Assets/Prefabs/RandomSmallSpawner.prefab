@@ -16,7 +16,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &7454921866984921878
 Transform:
   m_ObjectHideFlags: 0
@@ -44,7 +44,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9865faf4fff24644ba045e8c79e7783, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _gameParams: {fileID: 11400000, guid: dd8a65e487f3ad244b57dea38948a9e4, type: 2}
   _asteroidPrefab: {fileID: 5598675613931354585, guid: fcd0cc99b6db638479cafd0c41992a82, type: 3}
-  _impulse: 4
-  _spawnPeriod: 1
   _cam: {fileID: 0}

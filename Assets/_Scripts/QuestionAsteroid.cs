@@ -73,7 +73,7 @@ public class QuestionAsteroid : MonoBehaviour
 
         else
         {
-            if (transform.position.y < 1.05*_gameParams.WinRadius)
+            if (transform.position.y < 1.03*_gameParams.WinRadius)
                 Fail();
         }
     }

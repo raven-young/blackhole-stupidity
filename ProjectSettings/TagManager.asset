@@ -66,9 +66,6 @@ TagManager:
   - name: Bullets
     uniqueID: 1268397013
     locked: 0
-  - name: Math asteroids
-    uniqueID: 4248922271
-    locked: 0
   - name: Black Hole layer mid
     uniqueID: 2994204851
     locked: 0
@@ -78,11 +75,14 @@ TagManager:
   - name: Black hole layer middle top
     uniqueID: 2564346913
     locked: 0
-  - name: Ship
-    uniqueID: 919231889
-    locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Math asteroids
+    uniqueID: 4248922271
+    locked: 0
+  - name: Ship
+    uniqueID: 919231889
     locked: 0
   - name: Black hole Layer top
     uniqueID: 460479845
