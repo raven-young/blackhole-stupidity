@@ -182,6 +182,7 @@ MonoBehaviour:
   _nervousMusic: {fileID: 8300000, guid: d2c2e07af6d4a2c468d01f6c2e8aa220, type: 3}
   _mainMenuMusic: {fileID: 8300000, guid: 1e4651de4893a97449ff4f4972f5dd07, type: 3}
   _dialogueMusic: {fileID: 8300000, guid: 0c8b51fb35cdc8f4394891d7567ed61e, type: 3}
+  _alertClip: {fileID: 8300000, guid: 5fcb2db3f0a45dd49a5f7be60a1cbdf2, type: 3}
 --- !u!1 &7697533690129528751
 GameObject:
   m_ObjectHideFlags: 0

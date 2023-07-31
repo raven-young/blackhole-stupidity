@@ -87,9 +87,26 @@ public class MathChallenge
         string equation = $"{a}x {sign} {b} = {c}";
 
         // Find two more fake solutions
-        int swapFake = Random.Range(0f, 1f) < 0.5f ? 1 : -1;
-        int xFake1 = x + swapFake*Random.Range(1, 3);
-        int xFake2 = x - swapFake*Random.Range(1, 3);
+        int maxIndex = Random.Range(0, 3); // which of the three solutions is the largest
+        int xFake1 = x;
+        int xFake2 = x;
+        switch (maxIndex)
+        {
+            case 0:
+                xFake1 += Random.Range(1, 3);
+                xFake2 += xFake1 + Random.Range(1, 3);
+                break;
+            case 1:
+                xFake1 -= Random.Range(1, 3);
+                xFake2 += Random.Range(1, 3);
+                break;
+            case 2:
+                xFake1 -= Random.Range(1, 3);
+                xFake2 -= xFake1 - Random.Range(1, 3);
+                break;
+        }
+
+        // Permute the three solutions
         int[] solutions = new int[3];
         int correctSolutionIndex = Random.Range(0, 3);
         solutions[correctSolutionIndex] = x;

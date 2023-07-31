@@ -10,6 +10,8 @@ public class SoundManager : MonoBehaviour
     [SerializeField] private AudioSource _musicSource1, _musicSource2, _effectsSource;
     [SerializeField] private AudioClip _backgroundMusic, _nervousMusic, _mainMenuMusic, _dialogueMusic;
 
+    [SerializeField] private AudioClip _alertClip;
+
     private void Awake()
     {
         if (Instance == null)
@@ -118,5 +120,20 @@ public class SoundManager : MonoBehaviour
         {
             ChangeMusicPairSource(MusicSourceID.MusicSource2, fadeDuration);
         }
+    }
+
+    public enum SFX
+    {
+        AlertSFX
+    }
+    public void PlaySFX(SFX sfx) 
+    {
+        switch (sfx)
+        {
+            case SFX.AlertSFX:
+                PlaySound(_alertClip);
+                break;
+        }
+        
     }
 }

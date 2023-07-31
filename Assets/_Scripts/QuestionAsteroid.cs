@@ -84,7 +84,7 @@ public class QuestionAsteroid : MonoBehaviour
             return;
 
         OnProblemSpawned?.Invoke(AvatarReactions.ExpressionEvents.ProblemSpawned);
-        SoundManager.Instance.PlaySound(_alertClip);
+        //SoundManager.Instance.PlaySound(_alertClip);
         _deltaDelta = 0;
         _questionActive = true;
         _questionAsteroid.SetActive(true);
@@ -108,7 +108,7 @@ public class QuestionAsteroid : MonoBehaviour
     {
         OnProblemSuccess?.Invoke(AvatarReactions.ExpressionEvents.ProblemSucceeded);
         _questionActive = false;
-        SpawnStuff(true);
+        
         CanvasManager.Instance.IncrementScore(_gameParams.CorrectAnswerScore);
         SoundManager.Instance.PlaySound(_bigLaserClip);
         Debug.Log("Correct answer!");
@@ -118,6 +118,7 @@ public class QuestionAsteroid : MonoBehaviour
         StartCoroutine(Shooting.DisableShoot(_gameParams.LaserDuration));
         yield return new WaitForSeconds(_gameParams.LaserDuration);
         Explode();
+        SpawnStuff(true);
 
         _questionAsteroid.SetActive(false);
         SoundManager.Instance.PlaySound(_rightAnswerclip);

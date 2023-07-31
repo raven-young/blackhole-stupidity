@@ -6,6 +6,7 @@ using TMPro;
 using System;
 using UnityEngine.InputSystem;
 using UnityEngine.EventSystems;
+using DG.Tweening;
 
 public class CanvasManager : MonoBehaviour
 {
@@ -15,10 +16,13 @@ public class CanvasManager : MonoBehaviour
     [SerializeField] private GameObject gameOverScreen;
     [SerializeField] private GameObject victoryScreen;
     [SerializeField] private GameObject pauseScreen;
+
     [SerializeField] private TMP_Text _scoreText, _distanceLoseText, _distanceWinText;
     [SerializeField] private TMP_Text _scoreTextGameOver, _highscoreTextGameOver, _scoreTextVictory, _highscoreTextVictory;
 
     [SerializeField] private Slider _fuelSlider, _healthSlider;
+    [SerializeField] private GameObject _alertIcon;
+    private bool _isLowOnStats = false;
 
     private bool _newHighscore = false;
 
@@ -49,20 +53,38 @@ public class CanvasManager : MonoBehaviour
         playerInput = playerController.GetComponent<PlayerInput>();
     }
 
-    private void Update()
-    {
-        _distanceLoseText.text = "Fail:"+ Math.Round(GameManager.Instance.DistanceToEventHorizon, 2);
-        _distanceWinText.text = "Win:" + Math.Round(_gameParams.WinRadius - Ship.Instance.ShipPositionRadius, 2);
-    }
+    //private void Update()
+    //{
+    //    _distanceLoseText.text = "Fail:"+ Math.Round(GameManager.Instance.DistanceToEventHorizon, 2);
+    //    _distanceWinText.text = "Win:" + Math.Round(_gameParams.WinRadius - Ship.Instance.ShipPositionRadius, 2);
+    //}
 
     public void UpdateHealth(float newValue)
     {
         _healthSlider.value = newValue;
+        CheckIfLowStatsAndAlert();
     }
 
     public void UpdateFuel(float newValue)
     {
         _fuelSlider.value = newValue;
+        CheckIfLowStatsAndAlert();
+    }
+
+    private void CheckIfLowStatsAndAlert()
+    {
+        if (!_isLowOnStats && (_fuelSlider.value < 0.25f*_fuelSlider.maxValue || _healthSlider.value < 0.25f * _healthSlider.maxValue))
+        {
+            _isLowOnStats = true;
+            _alertIcon.SetActive(true);
+            // to do: blink icon in sync with sfx
+            SoundManager.Instance.PlaySFX(SoundManager.SFX.AlertSFX);
+        } 
+        else if (_isLowOnStats && _fuelSlider.value > 0.25f * _fuelSlider.maxValue && _healthSlider.value > 0.25f * _healthSlider.maxValue)
+        {
+            _isLowOnStats = false;
+            _alertIcon.SetActive(false);
+        }
     }
 
     public void IncrementScore(int amount)
