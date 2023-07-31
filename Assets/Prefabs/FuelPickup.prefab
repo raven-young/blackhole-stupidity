@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 63071628402437241}
   - component: {fileID: 8155919843074624954}
   - component: {fileID: 2912817004085915062}
+  - component: {fileID: 4249493199884213961}
   m_Layer: 7
   m_Name: FuelPickup
   m_TagString: Untagged
@@ -100,8 +101,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -46045025
+  m_SortingLayer: 1
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: e4259a3ef238c2246af7655ebf5e1041, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -164,3 +165,19 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 3, y: 5}
   m_Direction: 0
+--- !u!114 &4249493199884213961
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6076754549465699595}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee158225ee1e59f4791627785501d950, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shaderTypes: 4
+  normalStrength: 5
+  normalSmoothing: 1
+  computingNormal: 0
