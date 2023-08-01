@@ -43,9 +43,10 @@ public class GameManager : MonoBehaviour
 
     public enum DifficultySetting
     {
-        Normal,
-        Hard,
-        Expert
+        Easy = 0,
+        Normal = 1,
+        Hard = 2,
+        Expert = 3
     }
 
     private void Awake()

@@ -19,8 +19,11 @@ public class MainMenu : MonoBehaviour
         _quitButton.transform.DOMoveY(_buttonY + 0.7f, 1f).SetEase(Ease.InOutSine).SetLoops(-1, LoopType.Yoyo);
     }
 
-    public void StartGame()
+    public void StartGame(int selectedDifficulty)
     {
+        _gameParams.SelectedDifficulty = (GameManager.DifficultySetting)selectedDifficulty;
+        Debug.Log("Starting game with difficulty: " + (GameManager.DifficultySetting)selectedDifficulty);
+
         DOTween.KillAll();
         SceneManager.LoadScene("CutsceneIntro");
     }

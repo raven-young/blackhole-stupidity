@@ -90,22 +90,24 @@ public class MathChallenge
         int maxIndex = Random.Range(0, 3); // which of the three solutions is the largest
         int xFake1 = x;
         int xFake2 = x;
+        int offset = Random.Range(1, 3);
         switch (maxIndex)
         {
             case 0:
-                xFake1 += Random.Range(1, 3);
-                xFake2 += xFake1 + Random.Range(1, 3);
+                xFake1 += offset;
+                xFake2 += offset + Random.Range(1, 3);
                 break;
             case 1:
-                xFake1 -= Random.Range(1, 3);
+                xFake1 -= offset;
                 xFake2 += Random.Range(1, 3);
                 break;
             case 2:
-                xFake1 -= Random.Range(1, 3);
-                xFake2 -= xFake1 - Random.Range(1, 3);
+                xFake1 -= offset;
+                xFake2 -= offset + Random.Range(1, 3);
                 break;
         }
 
+        Debug.Assert(x != xFake2 && x != xFake1);
         // Permute the three solutions
         int[] solutions = new int[3];
         int correctSolutionIndex = Random.Range(0, 3);

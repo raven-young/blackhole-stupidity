@@ -14,6 +14,7 @@ public class Asteroid : MonoBehaviour
     [SerializeField] private AudioClip _explosionClip;
 
     private int _currentHealth;
+    private int _playerDamage;
 
     public static event Action<AvatarReactions.ExpressionEvents> OnAsteroidHit;
 
@@ -27,6 +28,15 @@ public class Asteroid : MonoBehaviour
         var spin = UnityEngine.Random.Range(0f, 1f) < 0.5f ? 1 : -1;
         // random torque
         _rb.AddTorque(10f * spin, ForceMode2D.Impulse);
+
+        _playerDamage = _gameParams.PlayerDamage;
+        switch (_gameParams.SelectedDifficulty)
+        {
+            case GameManager.DifficultySetting.Hard:
+                _playerDamage += _gameParams.HardPlayerDamageBonus;
+                break;
+        }
+
     }
     private void Update()
     {
@@ -61,7 +71,7 @@ public class Asteroid : MonoBehaviour
         {
             case 6: // ship
                 ScreenShake.TriggerShake(_gameParams.ScreenShakeDuration);
-                collision.gameObject.GetComponent<Ship>().TakeDamage(_gameParams.PlayerDamage);
+                collision.gameObject.GetComponent<Ship>().TakeDamage(_playerDamage);
                 OnAsteroidHit?.Invoke(AvatarReactions.ExpressionEvents.AsteroidHit);
                 Die();
                 break;

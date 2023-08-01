@@ -61,7 +61,14 @@ public class GameParams : ScriptableObject
     [Header("Juice")]
     public float ScreenShakeDuration = 0.2f;
 
+    [Header("Difficulty Settings")]
+    [Tooltip("Multiply or divide certain parameters by this value to make it harder:\n" +
+        "Small asteroid spawn period")]
+    public float HardMultiplier = 1.2f;
+    public int HardPlayerDamageBonus = 2;
+
     [Header("Don't change in editor")]
+    public GameManager.DifficultySetting SelectedDifficulty;
     public int HighScore = 0;
     public Vector2 ScreenBounds;
 }

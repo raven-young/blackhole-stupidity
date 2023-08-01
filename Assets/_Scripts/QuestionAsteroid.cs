@@ -88,16 +88,22 @@ public class QuestionAsteroid : MonoBehaviour
 
         OnProblemSpawned?.Invoke(AvatarReactions.ExpressionEvents.ProblemSpawned);
         //SoundManager.Instance.PlaySound(_alertClip);
-        _deltaDelta = 0;
         _questionActive = true;
         _questionAsteroid.SetActive(true);
         transform.position = _spawnPoint.position;
 
         //int difficulty = (int)(5f*GameManager.Instance.DistanceToEventHorizon / (_gameParams.WinRadius - GameManager.Instance.EventHorizonRadius));
         int difficulty = (int)GameManager.Instance.DistanceToEventHorizon / 4;
-        //var c = challenge.SimpleArithemticChallenge(difficulty);
-        //var c = challenge.SimpleAlgebraChallenge(difficulty);
+
+        // refactor later
         var c = challenge.SimpleArithemticChallenge(difficulty);
+        switch (_gameParams.SelectedDifficulty)
+        {
+            case GameManager.DifficultySetting.Hard:
+                c = challenge.SimpleAlgebraChallenge(difficulty);
+                break;
+        }
+
         Debug.Log("challenge level: " + difficulty);
         _correctAnswer = c.Item5 + 1;
         _questionText.text = c.Item1;
@@ -109,8 +115,10 @@ public class QuestionAsteroid : MonoBehaviour
     // Activate when correctly answering question
     IEnumerator Success()
     {
-        OnProblemSuccess?.Invoke(AvatarReactions.ExpressionEvents.ProblemSucceeded);
         _questionActive = false;
+        _deltaDelta = 0;
+
+        OnProblemSuccess?.Invoke(AvatarReactions.ExpressionEvents.ProblemSucceeded);
 
         SoundManager.Instance.PlaySound(_bigLaserClip);
         Debug.Log("Correct answer!");
@@ -131,21 +139,25 @@ public class QuestionAsteroid : MonoBehaviour
         _questionAsteroid.SetActive(false);
         SoundManager.Instance.PlaySound(_rightAnswerclip);
         SoundManager.Instance.PlaySound(_explosionClip, 0.5f);
+        
     }
 
     // Activate when incorrectly answering question or timer runs out
     IEnumerator Fail()
     {
+        _questionActive = false;
+        _deltaDelta = 0;
+
         CanvasManager.Instance.ComboCount = 0;
         OnProblemFailed?.Invoke(AvatarReactions.ExpressionEvents.ProblemFailed);
         SoundManager.Instance.PlayMusic(_wrongAnswerclip);
         yield return new WaitForSeconds(_gameParams.LaserDuration);
-        _questionActive = false;
         _questionAsteroid.SetActive(false);
         SpawnStuff(false);
         Explode();
         SoundManager.Instance.PlaySound(_explosionClip, 0.5f);
         Debug.Log("Wrong answer!");
+        
     }
 
     void Explode()

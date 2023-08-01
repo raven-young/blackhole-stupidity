@@ -11,18 +11,28 @@ public class RandomSmallSpawner : MonoBehaviour
     [SerializeField] private Camera _cam;
     private float _screenBoundsX;
     private float _spawnTimer = 0;
+    private float _spawnPeriod;
     
     // Start is called before the first frame update
     void Start()
     {
         _screenBoundsX = _cam.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, _cam.transform.position.z)).x;
+
+        _spawnPeriod = _gameParams.SpawnPeriod;
+
+        switch (_gameParams.SelectedDifficulty)
+        {
+            case GameManager.DifficultySetting.Hard:
+                _spawnPeriod /= _gameParams.HardMultiplier;
+                break;
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
         _spawnTimer += Time.deltaTime;
-        if (_spawnTimer > _gameParams.SpawnPeriod)
+        if (_spawnTimer > _spawnPeriod)
         {
             Vector2 spawnPos =  new Vector2(0.6f*Random.Range(-_screenBoundsX, _screenBoundsX), transform.position.y);
             GameObject asteroid = Instantiate(_asteroidPrefab, spawnPos, Quaternion.identity);
