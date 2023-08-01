@@ -11,6 +11,10 @@ public class BlackHole : MonoBehaviour
 
     public static BlackHole Instance;
 
+    [SerializeField] private GameObject _eventHorizonGlow;
+    private Material _eventHorizonGlowMaterial;
+    [SerializeField] private float _initialGlow = 15f;
+
     private void Awake()
     {
         if (Instance != null)
@@ -27,11 +31,18 @@ public class BlackHole : MonoBehaviour
         // At the start of the game, BH force and ship fuel are balanced
         _initalForce = Ship.Instance.CurrentHealth;
         CurrentForce = _initalForce;
+
+        _eventHorizonGlowMaterial = _eventHorizonGlow.GetComponent<Renderer>().material;
+        _eventHorizonGlowMaterial.SetFloat("_Glow", _initialGlow);
+
     }
 
-    public void ChangeSize(float scaleMultiplier)
+    public void GrowBlackHole(float scaleMultiplier)
     {
         transform.localScale *= scaleMultiplier;
         CurrentForce *= scaleMultiplier;
+
+        float glow = _eventHorizonGlowMaterial.GetFloat("_Glow");
+        _eventHorizonGlowMaterial.SetFloat("_Glow", 1.02f * glow * scaleMultiplier);
     }
 }

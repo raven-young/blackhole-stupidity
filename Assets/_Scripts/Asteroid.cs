@@ -67,7 +67,7 @@ public class Asteroid : MonoBehaviour
                 break;
             case 10: // black hole
                 // increase BH
-                BlackHole.Instance.ChangeSize(_gameParams.BlackHoleGrowthRate);
+                BlackHole.Instance.GrowBlackHole(_gameParams.BlackHoleGrowthRate);
                 Die();
                 break;
             default:

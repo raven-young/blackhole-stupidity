@@ -16,7 +16,7 @@ MonoBehaviour:
   DangerZoneDistance: 4
   MaxHealth: 100
   AngularVelocity: 0.95
-  BurnRate: 2
+  BurnRate: 1.8
   VelocityScale: 0.06
   MaxTheta: 0.793
   FireRate: 0.1
@@ -32,12 +32,12 @@ MonoBehaviour:
   PlayerDamage: 10
   AsteroidHealth: 5
   ScrapValue: 3
-  FuelValue: 3
+  FuelValue: 4
   SpawnPeriod: 1
   RandomAsteroidImpulse: 10
   CorrectAnswerScore: 50
   ShotAsteroidScore: 13
   CollectedItemScore: 17
   ScreenShakeDuration: 0.2
-  HighScore: 3193
+  HighScore: 3508
   ScreenBounds: {x: 35.432655, y: 19.930868}
