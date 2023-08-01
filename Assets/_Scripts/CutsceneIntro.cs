@@ -31,6 +31,7 @@ public class CutsceneIntro : MonoBehaviour
     //[SerializeField] private GameObject _sliders;
     //[SerializeField] private GameObject _scorePanel;
 
+    float _fadedAlpha = 0.3f;
     private enum Speakers
     {
         Racoon, // Speaker 1
@@ -74,8 +75,16 @@ public class CutsceneIntro : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        // Change from main menu theme to music source theme
+        // Change from main menu theme to dialogue theme
         SoundManager.Instance.ChangeMusicPairSource(SoundManager.MusicSourceID.MusicSource1);
+
+        // Fade character 2
+        _character2Container.transform.DOScale(0.95f, 0);
+        _character2Panel.GetComponent<Image>().CrossFadeAlpha(_fadedAlpha, 0, true);
+        _character2Speechbubble.GetComponent<Image>().CrossFadeAlpha(_fadedAlpha, 0, true);
+        _character2Text.CrossFadeAlpha(_fadedAlpha, 0, true);
+
+        // Start dialogue
         AdvanceDialogue();
     }
 
@@ -92,6 +101,9 @@ public class CutsceneIntro : MonoBehaviour
     {
         playerInputActions.Player.Disable();
         playerInputActions.Player.Fire.performed -= AdvanceDialogueAction;
+        playerInputActions.Player.Answer1.performed -= SkipDialogue;
+        playerInputActions.Player.Answer2.performed -= SkipDialogue;
+        playerInputActions.Player.Answer3.performed -= SkipDialogue;
 
     }
 
@@ -118,7 +130,6 @@ public class CutsceneIntro : MonoBehaviour
 
     private void DisplayNewDialogue(Dialogue dialogue, float fadeTime = 0.1f)
     {
-        float fadedAlpha = 0.3f;
         bool useClip1 = Random.Range(0f, 1f) < 0.5;
 
         // Stop preveious character talking if player skips dialogue
@@ -126,18 +137,18 @@ public class CutsceneIntro : MonoBehaviour
 
         if (dialogue.Speaker == Speakers.Racoon)
         {
-            _character1Container.transform.DOScale(1f, fadedAlpha);
-            _character2Container.transform.DOScale(0.95f, fadedAlpha);
+            _character1Container.transform.DOScale(1f, fadeTime);
+            _character2Container.transform.DOScale(0.95f, fadeTime);
 
             _character1Panel.GetComponent<Image>().CrossFadeAlpha(1f, fadeTime, true);
-            _character2Panel.GetComponent<Image>().CrossFadeAlpha(fadedAlpha, fadeTime, true);
+            _character2Panel.GetComponent<Image>().CrossFadeAlpha(_fadedAlpha, fadeTime, true);
 
             _character1Speechbubble.GetComponent<Image>().CrossFadeAlpha(1f, fadeTime, true);
-            _character2Speechbubble.GetComponent<Image>().CrossFadeAlpha(fadedAlpha, fadeTime, true);
+            _character2Speechbubble.GetComponent<Image>().CrossFadeAlpha(_fadedAlpha, fadeTime, true);
 
             _character1Text.text = dialogue.Text;
             _character1Text.CrossFadeAlpha(1f, fadeTime, true);
-            _character2Text.CrossFadeAlpha(fadedAlpha, fadeTime, true);
+            _character2Text.CrossFadeAlpha(_fadedAlpha, fadeTime, true);
 
             if (useClip1) 
                 SoundManager.Instance.PlaySound(_raccoonTalking1);
@@ -146,18 +157,18 @@ public class CutsceneIntro : MonoBehaviour
 
         } else
         {
-            _character2Container.transform.DOScale(1f, fadedAlpha);
-            _character1Container.transform.DOScale(0.95f, fadedAlpha);
+            _character2Container.transform.DOScale(1f, fadeTime);
+            _character1Container.transform.DOScale(0.95f, fadeTime);
 
-            _character1Panel.GetComponent<Image>().CrossFadeAlpha(fadedAlpha, fadeTime, true);
+            _character1Panel.GetComponent<Image>().CrossFadeAlpha(_fadedAlpha, fadeTime, true);
             _character2Panel.GetComponent<Image>().CrossFadeAlpha(1f, fadeTime, true);
 
-            _character1Speechbubble.GetComponent<Image>().CrossFadeAlpha(fadedAlpha, fadeTime, true);
+            _character1Speechbubble.GetComponent<Image>().CrossFadeAlpha(_fadedAlpha, fadeTime, true);
             _character2Speechbubble.GetComponent<Image>().CrossFadeAlpha(1f, fadeTime, true);
 
             _character2Text.text = dialogue.Text;
             _character2Text.CrossFadeAlpha(1f, fadeTime, true);
-            _character1Text.CrossFadeAlpha(fadedAlpha, fadeTime, true);
+            _character1Text.CrossFadeAlpha(_fadedAlpha, fadeTime, true);
 
             if (useClip1)
                 SoundManager.Instance.PlaySound(_cowTalking1);
