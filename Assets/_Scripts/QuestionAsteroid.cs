@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using TMPro;
 using System;
+using DamageNumbersPro;
 
 public class QuestionAsteroid : MonoBehaviour
 {
@@ -34,6 +35,8 @@ public class QuestionAsteroid : MonoBehaviour
     private MathChallenge challenge;
 
     [SerializeField] private AudioClip _rightAnswerclip, _bigLaserClip, _wrongAnswerclip;
+
+    [SerializeField] private DamageNumber _comboDamageNumberPrefab;
 
     private void Awake()
     {
@@ -74,7 +77,7 @@ public class QuestionAsteroid : MonoBehaviour
         else
         {
             if (transform.position.y < 1.03*_gameParams.WinRadius)
-                Fail();
+                StartCoroutine(Fail());
         }
     }
 
@@ -108,8 +111,7 @@ public class QuestionAsteroid : MonoBehaviour
     {
         OnProblemSuccess?.Invoke(AvatarReactions.ExpressionEvents.ProblemSucceeded);
         _questionActive = false;
-        
-        CanvasManager.Instance.IncrementScore(_gameParams.CorrectAnswerScore);
+
         SoundManager.Instance.PlaySound(_bigLaserClip);
         Debug.Log("Correct answer!");
 
@@ -120,20 +122,28 @@ public class QuestionAsteroid : MonoBehaviour
         Explode();
         SpawnStuff(true);
 
+        CanvasManager.Instance.ComboCount++;
+        if (CanvasManager.Instance.ComboCount > 1)
+            _comboDamageNumberPrefab.Spawn(transform.position, CanvasManager.Instance.ComboCount);
+
+        CanvasManager.Instance.IncrementScore(_gameParams.CorrectAnswerScore);
+
         _questionAsteroid.SetActive(false);
         SoundManager.Instance.PlaySound(_rightAnswerclip);
         SoundManager.Instance.PlaySound(_explosionClip, 0.5f);
     }
 
     // Activate when incorrectly answering question or timer runs out
-    void Fail()
+    IEnumerator Fail()
     {
+        CanvasManager.Instance.ComboCount = 0;
         OnProblemFailed?.Invoke(AvatarReactions.ExpressionEvents.ProblemFailed);
+        SoundManager.Instance.PlayMusic(_wrongAnswerclip);
+        yield return new WaitForSeconds(_gameParams.LaserDuration);
         _questionActive = false;
         _questionAsteroid.SetActive(false);
         SpawnStuff(false);
         Explode();
-        SoundManager.Instance.PlayMusic(_wrongAnswerclip);
         SoundManager.Instance.PlaySound(_explosionClip, 0.5f);
         Debug.Log("Wrong answer!");
     }
@@ -178,7 +188,7 @@ public class QuestionAsteroid : MonoBehaviour
             if (_correctAnswer == 1)
                 StartCoroutine(Success());
             else
-                Fail();
+                StartCoroutine(Fail());
         }
     }
 
@@ -192,7 +202,7 @@ public class QuestionAsteroid : MonoBehaviour
             if (_correctAnswer == 2)
                 StartCoroutine(Success());
             else
-                Fail();
+                StartCoroutine(Fail());
         }
     }
 
@@ -206,7 +216,7 @@ public class QuestionAsteroid : MonoBehaviour
             if (_correctAnswer == 3)
                 StartCoroutine(Success());
             else
-                Fail();
+                StartCoroutine(Fail());
         }
     }
 }

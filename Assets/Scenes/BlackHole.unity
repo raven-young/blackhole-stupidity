@@ -3466,6 +3466,10 @@ PrefabInstance:
       propertyPath: _spawnPoint
       value: 
       objectReference: {fileID: 337301735}
+    - target: {fileID: 149209926670495141, guid: e9597025e6cd5ef40a5f78deb3c3734d, type: 3}
+      propertyPath: _comboDamageNumberPrefab
+      value: 
+      objectReference: {fileID: 1436340040063119826, guid: ae2ee5bff9167db47a94ca2f5413f342, type: 3}
     - target: {fileID: 3245433454325952308, guid: e9597025e6cd5ef40a5f78deb3c3734d, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

@@ -31,6 +31,7 @@ public class CanvasManager : MonoBehaviour
     Ship player;
     private PlayerInput playerInput;
     private GameObject playerController;
+    public int ComboCount = 0;
 
     private void Awake()
     {
@@ -90,7 +91,7 @@ public class CanvasManager : MonoBehaviour
 
     public void IncrementScore(int amount)
     {
-        _score += amount;
+        _score += Mathf.Max(1, ComboCount) * amount;
         _scoreText.text = "Score: " + _score;
         if (_score > _gameParams.HighScore)
         {

@@ -40,6 +40,14 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject _replaybutton_paused;
     [SerializeField] private GameObject _replaybutton_gameover;
     [SerializeField] private GameObject _replaybutton_victory;
+
+    public enum DifficultySetting
+    {
+        Normal,
+        Hard,
+        Expert
+    }
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
