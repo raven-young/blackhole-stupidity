@@ -32,6 +32,7 @@ public class QuestionAsteroid : MonoBehaviour
     private bool _questionActive = false;
     private int _correctAnswer; // 1,2,3
     private float _deltaDelta = 0;
+    private int _asteroidSpawnBonus;
     private MathChallenge challenge;
 
     [SerializeField] private AudioClip _rightAnswerclip, _bigLaserClip, _wrongAnswerclip;
@@ -52,6 +53,14 @@ public class QuestionAsteroid : MonoBehaviour
     {
         _questionAsteroid.SetActive(false);
         challenge = new MathChallenge();
+
+        _asteroidSpawnBonus = 0;
+        switch (_gameParams.SelectedDifficulty)
+        {
+            case GameManager.DifficultySetting.Hard:
+                _asteroidSpawnBonus += _gameParams.FailAsteroidSpawnBonus;
+                break;
+        }
     }
 
     private void OnDisable()
@@ -171,10 +180,14 @@ public class QuestionAsteroid : MonoBehaviour
         GameObject prefab1 = _scrapPrefab;
         GameObject prefab2 = _fuelPrefab;
 
+        int spawnAmount = _gameParams.SpawnAmount;
         if (!correctlyAnswered)
+        {
             prefab1 = prefab2 = _asteroidPrefab;
+            spawnAmount += _asteroidSpawnBonus;
+        }
 
-        for (int i = 0; i < _gameParams.SpawnAmount; i++)
+        for (int i = 0; i < spawnAmount; i++)
         {
             float randomX = 0.1f * UnityEngine.Random.Range(-1f, 1f) * _gameParams.ScreenBounds.x;
             Vector2 spawnPos = new Vector2(transform.position.x + randomX, transform.position.y);

@@ -39,5 +39,9 @@ MonoBehaviour:
   ShotAsteroidScore: 13
   CollectedItemScore: 17
   ScreenShakeDuration: 0.2
-  HighScore: 3508
+  HardMultiplier: 1.2
+  HardPlayerDamageBonus: 2
+  FailAsteroidSpawnBonus: 3
+  SelectedDifficulty: 2
+  HighScore: 1543
   ScreenBounds: {x: 35.432655, y: 19.930868}

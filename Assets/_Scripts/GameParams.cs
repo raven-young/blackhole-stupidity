@@ -66,8 +66,9 @@ public class GameParams : ScriptableObject
         "Small asteroid spawn period")]
     public float HardMultiplier = 1.2f;
     public int HardPlayerDamageBonus = 2;
+    public int FailAsteroidSpawnBonus = 2;
 
-    [Header("Don't change in editor")]
+[Header("Don't change in editor")]
     public GameManager.DifficultySetting SelectedDifficulty;
     public int HighScore = 0;
     public Vector2 ScreenBounds;
