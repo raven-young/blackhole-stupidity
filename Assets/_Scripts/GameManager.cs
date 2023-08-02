@@ -164,7 +164,7 @@ public class GameManager : MonoBehaviour
             StartCoroutine(GameOverTransition.Instance.StartGameOverTransition());
         }
 
-        yield return new WaitForSecondsRealtime(6f);
+        yield return new WaitForSecondsRealtime(9f);
         SoundManager.Instance.StartMainGameMusic(4f);
     }
 

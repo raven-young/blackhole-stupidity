@@ -174,12 +174,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 4
     m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
-    m_SelectOnLeft: {fileID: 0}
-    m_SelectOnRight: {fileID: 0}
+    m_SelectOnLeft: {fileID: 647177728}
+    m_SelectOnRight: {fileID: 647177728}
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
@@ -440,12 +440,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 4
     m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
-    m_SelectOnLeft: {fileID: 0}
-    m_SelectOnRight: {fileID: 0}
+    m_SelectOnLeft: {fileID: 305453184}
+    m_SelectOnRight: {fileID: 305453184}
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
@@ -482,6 +482,42 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 647177728}
+        m_TargetAssemblyTypeName: UnityEngine.UI.Selectable, UnityEngine.UI
+        m_MethodName: set_interactable
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 305453184}
+        m_TargetAssemblyTypeName: UnityEngine.UI.Selectable, UnityEngine.UI
+        m_MethodName: set_interactable
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1389669955}
+        m_TargetAssemblyTypeName: UnityEngine.EventSystems.EventSystem, UnityEngine.UI
+        m_MethodName: SetSelectedGameObject
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 968681744}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &647177729
 MonoBehaviour:
@@ -658,6 +694,11 @@ MonoBehaviour:
     mipBias: 0
     varianceClampScale: 0.9
     contrastAdaptiveSharpening: 0
+--- !u!1 &968681744 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8638061429333743316, guid: 52cddcd9e258cde44940bb26ebda2ae5, type: 3}
+  m_PrefabInstance: {fileID: 7507828882820409927}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &994927344
 GameObject:
   m_ObjectHideFlags: 0
@@ -5670,6 +5711,18 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3669585002736111165, guid: 52cddcd9e258cde44940bb26ebda2ae5, type: 3}
+      propertyPath: m_Navigation.m_Mode
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3669585002736111165, guid: 52cddcd9e258cde44940bb26ebda2ae5, type: 3}
+      propertyPath: m_Navigation.m_SelectOnUp
+      value: 
+      objectReference: {fileID: 1499606221}
+    - target: {fileID: 3669585002736111165, guid: 52cddcd9e258cde44940bb26ebda2ae5, type: 3}
+      propertyPath: m_Navigation.m_SelectOnDown
+      value: 
+      objectReference: {fileID: 1242123701}
+    - target: {fileID: 3669585002736111165, guid: 52cddcd9e258cde44940bb26ebda2ae5, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
       value: 0
       objectReference: {fileID: 0}
@@ -5727,6 +5780,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 2458898413329186724, guid: 52cddcd9e258cde44940bb26ebda2ae5, type: 3}
   m_PrefabInstance: {fileID: 7507828882820409927}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1242123701 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3669585002736111165, guid: 52cddcd9e258cde44940bb26ebda2ae5, type: 3}
+  m_PrefabInstance: {fileID: 7507828882820409927}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 968681744}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1389669953
 GameObject:
   m_ObjectHideFlags: 0
@@ -5898,6 +5962,18 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3669585002736111165, guid: 52cddcd9e258cde44940bb26ebda2ae5, type: 3}
+      propertyPath: m_Navigation.m_Mode
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3669585002736111165, guid: 52cddcd9e258cde44940bb26ebda2ae5, type: 3}
+      propertyPath: m_Navigation.m_SelectOnUp
+      value: 
+      objectReference: {fileID: 1242123701}
+    - target: {fileID: 3669585002736111165, guid: 52cddcd9e258cde44940bb26ebda2ae5, type: 3}
+      propertyPath: m_Navigation.m_SelectOnDown
+      value: 
+      objectReference: {fileID: 2114156612}
+    - target: {fileID: 3669585002736111165, guid: 52cddcd9e258cde44940bb26ebda2ae5, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
       value: 1
       objectReference: {fileID: 0}
@@ -5943,6 +6019,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 2458898413329186724, guid: 52cddcd9e258cde44940bb26ebda2ae5, type: 3}
   m_PrefabInstance: {fileID: 1499606219}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1499606221 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3669585002736111165, guid: 52cddcd9e258cde44940bb26ebda2ae5, type: 3}
+  m_PrefabInstance: {fileID: 1499606219}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1674371502
 GameObject:
   m_ObjectHideFlags: 0
@@ -6274,6 +6361,17 @@ MonoBehaviour:
   _cam: {fileID: 773265317}
   _startButton: {fileID: 647177726}
   _quitButton: {fileID: 305453182}
+--- !u!114 &2114156612 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3669585002736111165, guid: 52cddcd9e258cde44940bb26ebda2ae5, type: 3}
+  m_PrefabInstance: {fileID: 1112667625}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &858418051355994321
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6537,6 +6635,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3669585002736111165, guid: 52cddcd9e258cde44940bb26ebda2ae5, type: 3}
+      propertyPath: m_Navigation.m_Mode
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3669585002736111165, guid: 52cddcd9e258cde44940bb26ebda2ae5, type: 3}
+      propertyPath: m_Navigation.m_SelectOnUp
+      value: 
+      objectReference: {fileID: 2114156612}
+    - target: {fileID: 3669585002736111165, guid: 52cddcd9e258cde44940bb26ebda2ae5, type: 3}
+      propertyPath: m_Navigation.m_SelectOnDown
+      value: 
+      objectReference: {fileID: 1499606221}
     - target: {fileID: 3669585002736111165, guid: 52cddcd9e258cde44940bb26ebda2ae5, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
       value: 1
