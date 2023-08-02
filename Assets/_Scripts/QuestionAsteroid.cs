@@ -55,9 +55,9 @@ public class QuestionAsteroid : MonoBehaviour
         challenge = new MathChallenge();
 
         _asteroidSpawnBonus = 0;
-        switch (_gameParams.SelectedDifficulty)
+        switch (SettingsManager.Instance.SelectedDifficulty)
         {
-            case GameManager.DifficultySetting.Hard:
+            case SettingsManager.DifficultySetting.Hard:
                 _asteroidSpawnBonus += _gameParams.FailAsteroidSpawnBonus;
                 break;
         }
@@ -106,14 +106,14 @@ public class QuestionAsteroid : MonoBehaviour
 
         // refactor later
         var c = challenge.SimpleArithemticChallenge(difficulty);
-        switch (_gameParams.SelectedDifficulty)
+        switch (SettingsManager.Instance.SelectedDifficulty)
         {
-            case GameManager.DifficultySetting.Hard:
+            case SettingsManager.DifficultySetting.Hard:
                 c = challenge.SimpleAlgebraChallenge(difficulty);
                 break;
         }
 
-        Debug.Log("challenge level: " + difficulty);
+        Debug.Log("challenge level: " + SettingsManager.Instance.SelectedDifficulty + " " + difficulty);
         _correctAnswer = c.Item5 + 1;
         _questionText.text = c.Item1;
         _answer1Text.text = c.Item2;

@@ -1024,19 +1024,83 @@ PrefabInstance:
     m_TransformParent: {fileID: 98074547}
     m_Modifications:
     - target: {fileID: 678597381959986801, guid: 73d7a21a055109b4a975564b8eb52658, type: 3}
+      propertyPath: ShapeModule.type
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 678597381959986801, guid: 73d7a21a055109b4a975564b8eb52658, type: 3}
+      propertyPath: SizeModule.enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 678597381959986801, guid: 73d7a21a055109b4a975564b8eb52658, type: 3}
+      propertyPath: ColorModule.enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 678597381959986801, guid: 73d7a21a055109b4a975564b8eb52658, type: 3}
+      propertyPath: NoiseModule.enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 678597381959986801, guid: 73d7a21a055109b4a975564b8eb52658, type: 3}
+      propertyPath: ShapeModule.enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 678597381959986801, guid: 73d7a21a055109b4a975564b8eb52658, type: 3}
+      propertyPath: emitterVelocityMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 678597381959986801, guid: 73d7a21a055109b4a975564b8eb52658, type: 3}
+      propertyPath: EmissionModule.enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 678597381959986801, guid: 73d7a21a055109b4a975564b8eb52658, type: 3}
+      propertyPath: RotationModule.enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 678597381959986801, guid: 73d7a21a055109b4a975564b8eb52658, type: 3}
+      propertyPath: CollisionModule.enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 678597381959986801, guid: 73d7a21a055109b4a975564b8eb52658, type: 3}
       propertyPath: ClampVelocityModule.dampen
       value: 0.015
       objectReference: {fileID: 0}
     - target: {fileID: 678597381959986801, guid: 73d7a21a055109b4a975564b8eb52658, type: 3}
-      propertyPath: ExternalForcesModule.enabled
+      propertyPath: ClampVelocityModule.enabled
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 678597381959986801, guid: 73d7a21a055109b4a975564b8eb52658, type: 3}
+      propertyPath: ShapeModule.radiusThickness
+      value: 1.0000
+      objectReference: {fileID: 0}
+    - target: {fileID: 678597381959986801, guid: 73d7a21a055109b4a975564b8eb52658, type: 3}
+      propertyPath: ExternalForcesModule.enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 678597381959986801, guid: 73d7a21a055109b4a975564b8eb52658, type: 3}
+      propertyPath: InheritVelocityModule.enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 678597381959986801, guid: 73d7a21a055109b4a975564b8eb52658, type: 3}
+      propertyPath: RotationBySpeedModule.enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 678597381959986801, guid: 73d7a21a055109b4a975564b8eb52658, type: 3}
       propertyPath: ClampVelocityModule.drag.scalar
       value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 678597381959986801, guid: 73d7a21a055109b4a975564b8eb52658, type: 3}
+      propertyPath: InitialModule.startSpeed.scalar
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 678597381959986801, guid: 73d7a21a055109b4a975564b8eb52658, type: 3}
       propertyPath: ClampVelocityModule.separateAxis
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 678597381959986801, guid: 73d7a21a055109b4a975564b8eb52658, type: 3}
+      propertyPath: InitialModule.startLifetime.scalar
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 678597381959986801, guid: 73d7a21a055109b4a975564b8eb52658, type: 3}
+      propertyPath: InitialModule.startSpeed.minMaxState
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 678597381959986801, guid: 73d7a21a055109b4a975564b8eb52658, type: 3}
@@ -1046,6 +1110,14 @@ PrefabInstance:
     - target: {fileID: 678597381959986801, guid: 73d7a21a055109b4a975564b8eb52658, type: 3}
       propertyPath: ClampVelocityModule.multiplyDragByParticleVelocity
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 880264495043376736, guid: 73d7a21a055109b4a975564b8eb52658, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 880264495043376736, guid: 73d7a21a055109b4a975564b8eb52658, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 880264495043376736, guid: 73d7a21a055109b4a975564b8eb52658, type: 3}
       propertyPath: m_LocalScale.z
@@ -1094,6 +1166,22 @@ PrefabInstance:
     - target: {fileID: 2676568034502617918, guid: 73d7a21a055109b4a975564b8eb52658, type: 3}
       propertyPath: m_Name
       value: smoke particle system
+      objectReference: {fileID: 0}
+    - target: {fileID: 5317595818870082476, guid: 73d7a21a055109b4a975564b8eb52658, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5317595818870082476, guid: 73d7a21a055109b4a975564b8eb52658, type: 3}
+      propertyPath: m_RenderMode
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5317595818870082476, guid: 73d7a21a055109b4a975564b8eb52658, type: 3}
+      propertyPath: m_MeshDistribution
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5317595818870082476, guid: 73d7a21a055109b4a975564b8eb52658, type: 3}
+      propertyPath: m_EnableGPUInstancing
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5317595818870082476, guid: 73d7a21a055109b4a975564b8eb52658, type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -1914,6 +2002,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!198 &1534506704 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 678597381959986801, guid: 73d7a21a055109b4a975564b8eb52658, type: 3}
+  m_PrefabInstance: {fileID: 558691973}
+  m_PrefabAsset: {fileID: 0}
 --- !u!21 &1626240949
 Material:
   serializedVersion: 8
@@ -1926,10 +2019,7 @@ Material:
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
-  - BLUR_ON
-  - FISHEYE_ON
   - GLOW_ON
-  - MOTIONBLUR_ON
   m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -3373,9 +3463,21 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1357717747}
+    - target: {fileID: 3641076380167924338, guid: 69f81f1888f1d8f469cfbb8a824abbeb, type: 3}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4662283994338043256, guid: 69f81f1888f1d8f469cfbb8a824abbeb, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4964870553909739914, guid: 69f81f1888f1d8f469cfbb8a824abbeb, type: 3}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5205785978277880094, guid: 69f81f1888f1d8f469cfbb8a824abbeb, type: 3}
+      propertyPath: m_Color.a
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5934294967129092467, guid: 69f81f1888f1d8f469cfbb8a824abbeb, type: 3}
       propertyPath: m_Name
@@ -3773,6 +3875,10 @@ PrefabInstance:
       propertyPath: _gameParams
       value: 
       objectReference: {fileID: 11400000, guid: dd8a65e487f3ad244b57dea38948a9e4, type: 2}
+    - target: {fileID: 7733458184721155588, guid: cab30414fdac94247835ee4e16734d65, type: 3}
+      propertyPath: _exhaustParticles
+      value: 
+      objectReference: {fileID: 1534506704}
     - target: {fileID: 8050739704557048044, guid: cab30414fdac94247835ee4e16734d65, type: 3}
       propertyPath: m_Name
       value: ShipController

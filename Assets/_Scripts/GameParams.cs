@@ -68,8 +68,7 @@ public class GameParams : ScriptableObject
     public int HardPlayerDamageBonus = 2;
     public int FailAsteroidSpawnBonus = 2;
 
-[Header("Don't change in editor")]
-    public GameManager.DifficultySetting SelectedDifficulty;
+    [Header("Don't change in editor")]
     public int HighScore = 0;
     public Vector2 ScreenBounds;
 }

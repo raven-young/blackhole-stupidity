@@ -39,6 +39,9 @@ public class Ship : MonoBehaviour
     [SerializeField] private GameObject PlayerHitEffect;
     [SerializeField] private DamageNumber dodgePrefab;
     [SerializeField] protected FlashColor flashEffect;
+    [SerializeField] private ParticleSystem _exhaustParticles;
+    private float _exhaustEmissionRate;
+    private float _exhaustSpeed;
 
     [Header("Debug")]
     [SerializeField] private bool _gravityOn = false;
@@ -67,6 +70,9 @@ public class Ship : MonoBehaviour
     {
         screenBounds = _cam.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, _cam.transform.position.z));
         ShipPositionRadius = transform.position.y;
+
+        _exhaustEmissionRate = 1.5f*_exhaustParticles.emission.rateOverTime.constant;
+        _exhaustSpeed = 1.5f*_exhaustParticles.main.startSpeed.constant;
     }
 
     void Update()
@@ -79,16 +85,19 @@ public class Ship : MonoBehaviour
         {
             isDead = true;
             StartCoroutine(GameManager.Instance.GameOver(true));
+            return;
         }
 
-        if (CurrentFuel <= 0)
+        if (CurrentHealth <= 0)
         {
             isDead = true;
             StartCoroutine(GameManager.Instance.GameOver(false));
+            return;
         }
 
         CurrentFuel -= _gameParams.BurnRate * Time.deltaTime;
         CanvasManager.Instance.UpdateFuel(CurrentFuel);
+        UpdateExhaustParticles();
 
         /// Movement
         _movement = playerInputActions.Player.Move.ReadValue<Vector2>();
@@ -98,13 +107,7 @@ public class Ship : MonoBehaviour
 
         // calculate radius based on ship health and black hole mass
         var ratio = CurrentHealth / BlackHole.Instance.CurrentForce;
-        if (ratio <= 0)
-        {
-            StartCoroutine(GameManager.Instance.GameOver(false));
-            isDead = true;
-        }
-
-        var velocity = ratio > 1 ? ratio : ratio == 1 ? 0 : -1/ratio;
+        var velocity = CurrentFuel <= 0 ? -40 : ratio > 1 ? ratio : ratio == 1 ? 0 : -1 / ratio;
         ShipPositionRadius += _gameParams.VelocityScale * velocity * Time.deltaTime;
 
         // rotate ship
@@ -148,6 +151,14 @@ public class Ship : MonoBehaviour
     //    //viewPos.y = Mathf.Clamp(viewPos.y, -screenBounds.y + objectHeight, screenBounds.y - objectHeight);
     //    //transform.position = viewPos;
     //}
+
+    private void UpdateExhaustParticles()
+    {
+        var emission = _exhaustParticles.emission;
+        emission.rateOverTime = CurrentFuel <= 0 ? 0 : _exhaustEmissionRate * CurrentHealth / _gameParams.MaxHealth;
+        var main = _exhaustParticles.main;
+        main.startSpeed = _exhaustSpeed * CurrentHealth / _gameParams.MaxHealth;
+    }
 
     public void TakeDamage(int damage)
     {

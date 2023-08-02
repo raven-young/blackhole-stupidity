@@ -30,9 +30,9 @@ public class Asteroid : MonoBehaviour
         _rb.AddTorque(10f * spin, ForceMode2D.Impulse);
 
         _playerDamage = _gameParams.PlayerDamage;
-        switch (_gameParams.SelectedDifficulty)
+        switch (SettingsManager.Instance.SelectedDifficulty)
         {
-            case GameManager.DifficultySetting.Hard:
+            case SettingsManager.DifficultySetting.Hard:
                 _playerDamage += _gameParams.HardPlayerDamageBonus;
                 break;
         }

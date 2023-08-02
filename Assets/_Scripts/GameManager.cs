@@ -16,7 +16,6 @@ public class GameManager : MonoBehaviour
     public bool GameWasWon = false;
     public bool IsPaused = false;
     public bool CanPause = true;
-    public float CurrentTimeScale = 1f;
 
     private PlayerInputActions playerInputActions;
     [SerializeField] private Camera _cam;
@@ -177,7 +176,6 @@ public class GameManager : MonoBehaviour
         if (!CanPause)
             return;
 
-        CurrentTimeScale = Time.timeScale;
         Time.timeScale = 0;
         Cursor.visible = true;
         if (!GameHasEnded)
@@ -194,7 +192,7 @@ public class GameManager : MonoBehaviour
             return;
 
         IsPaused = false;
-        Time.timeScale = CurrentTimeScale;
+        Time.timeScale = 1;
         Cursor.visible = false;
         CanvasManager.Instance.DisablePauseScreen();
     }
