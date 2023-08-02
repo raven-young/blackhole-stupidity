@@ -12,7 +12,6 @@ public class AvatarReactions : MonoBehaviour
 
     [SerializeField] private Sprite _idleDanger;
     [SerializeField] private Sprite _idleSafe;
-    [SerializeField] private Sprite _gameOver;
     [SerializeField] private Sprite _victory;
     [SerializeField] private Sprite _problemSpawned;
     [SerializeField] private Sprite _asteroidHit;
@@ -96,6 +95,9 @@ public class AvatarReactions : MonoBehaviour
 
     public void React(Sprite sprite)
     {
+        if (GameManager.Instance.GameHasEnded)
+            return;
+
         // If the routine is not null, then it is currently running.
         if (_reactRoutine != null)
         {
@@ -135,7 +137,7 @@ public class AvatarReactions : MonoBehaviour
 
         if (GameManager.Instance.GameHasEnded)
         {
-            _image.sprite = GameManager.Instance.GameWasWon ? _victory : _gameOver;
+            _image.sprite = GameManager.Instance.GameWasWon ? _victory : _asteroidHit;
             //_expressionTimer = 0f;
             return;
         }

@@ -8,7 +8,7 @@ public class Bullet : MonoBehaviour
 {
     [SerializeField] private GameParams _gameParams;
     [SerializeField] private GameObject hitEffect;
-    [SerializeField] private float effectDuration = 0.2f;
+    //[SerializeField] private float effectDuration = 0.2f;
     [SerializeField] private float piercing = 0;
 
     private IObjectPool<Bullet> _pool;
@@ -37,8 +37,8 @@ public class Bullet : MonoBehaviour
 
     private void BulletExit(Collider2D collider)
     {
-        GameObject effect = Instantiate(hitEffect, transform.position, Quaternion.identity);
-        Destroy(effect, effectDuration);
+        //GameObject effect = Instantiate(hitEffect, transform.position, Quaternion.identity);
+        //Destroy(effect, effectDuration);
 
         if (piercing <= 0)
         {

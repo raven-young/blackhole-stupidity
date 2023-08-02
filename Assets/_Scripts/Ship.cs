@@ -31,7 +31,7 @@ public class Ship : MonoBehaviour
     public float CurrentHealth;
     public float CurrentFuel;
 
-    private bool isDead = false;
+    private bool cannotMove = false;
     private bool isInvincible = false;
 
     [Header("Effects")]
@@ -40,6 +40,7 @@ public class Ship : MonoBehaviour
     [SerializeField] private DamageNumber dodgePrefab;
     [SerializeField] protected FlashColor flashEffect;
     [SerializeField] private ParticleSystem _exhaustParticles;
+    [SerializeField] private AudioClip _explosionClip;
     private float _exhaustEmissionRate;
     private float _exhaustSpeed;
 
@@ -77,20 +78,20 @@ public class Ship : MonoBehaviour
 
     void Update()
     {
-        if (isDead)
+        if (cannotMove)
             return;
 
         // workaround due to broken triggers
         if (ShipPositionRadius > _gameParams.WinRadius && !GameManager.Instance.GameHasEnded)
         {
-            isDead = true;
+            cannotMove = true;
             StartCoroutine(GameManager.Instance.GameOver(true));
             return;
         }
 
         if (CurrentHealth <= 0)
         {
-            isDead = true;
+            cannotMove = true;
             StartCoroutine(GameManager.Instance.GameOver(false));
             return;
         }
@@ -118,7 +119,7 @@ public class Ship : MonoBehaviour
     // Executed on fixed frequency (default 50 Hz), good for physics as framerate is not const
     void FixedUpdate()
     {
-        if (isDead)
+        if (cannotMove)
             return;
 
         // old Movement
@@ -178,19 +179,41 @@ public class Ship : MonoBehaviour
     {
         isInvincible = true;
         yield return new WaitForSeconds(duration);
-        if (!isDead)
+        if (!cannotMove)
             isInvincible = false;
     }
 
-    void Die()
+    public IEnumerator Die()
     {
         // death animation
-        GameObject effect = Instantiate(deathEffect, transform.position, Quaternion.identity);
-        Destroy(effect, 1f);
-        gameObject.GetComponent<Renderer>().enabled = false;
-        isDead = true;
+        Vector3 explosionOffset = new(UnityEngine.Random.Range(-1.2f, 1.2f), UnityEngine.Random.Range(-1.2f, 1.2f), 0);
+        GameObject effect1 = Instantiate(deathEffect, transform.position + explosionOffset, Quaternion.identity);
+        Destroy(effect1, 2f);
+        SoundManager.Instance.PlaySound(_explosionClip, 0.5f);
+        yield return new WaitForSeconds(0.5f);
+
+        Vector3 explosionOffset2 = new(UnityEngine.Random.Range(-1.2f, 1.2f), UnityEngine.Random.Range(-1.2f, 1.2f), 0);
+        GameObject effect2 = Instantiate(deathEffect, transform.position + explosionOffset2, Quaternion.identity);
+        Destroy(effect2, 2f);
+        SoundManager.Instance.PlaySound(_explosionClip, 0.5f);
+        yield return new WaitForSeconds(0.6f);
+
+        Vector3 explosionOffset3 = new(UnityEngine.Random.Range(-1.2f, 1.2f), UnityEngine.Random.Range(-1.2f, 1.2f), 0);
+        GameObject effect3 = Instantiate(deathEffect, transform.position + explosionOffset3, Quaternion.identity);
+        Destroy(effect3, 1.5f);
+        SoundManager.Instance.PlaySound(_explosionClip, 0.5f);
+        yield return new WaitForSeconds(0.4f);
+
+        yield return new WaitForSeconds(1.5f);
+
+        cannotMove = true;
         isInvincible = true;
-        StartCoroutine(GameManager.Instance.GameOver());
+        gameObject.SetActive(false);
+        GameObject finaleffect = Instantiate(deathEffect, transform.position, Quaternion.identity);
+        finaleffect.transform.localScale *= 2f;
+        Destroy(finaleffect, 1f);
+        SoundManager.Instance.PlaySound(_explosionClip, 0.5f);
+        yield return new WaitForSeconds(1f);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -201,7 +224,7 @@ public class Ship : MonoBehaviour
 
         if (collision.gameObject.layer == 10) // black hole
         {
-            Die();
+            StartCoroutine(GameManager.Instance.GameOver(victorious: false));
         }
     }
 

@@ -10,6 +10,9 @@ public class VictoryTransition : MonoBehaviour
 
     [SerializeField] private Sprite _victorySprite;
     [SerializeField] private Image _raccoonImage;
+    [SerializeField] private AudioClip _victoryClip;
+    [SerializeField] private Transform _shipTransform;
+
 
     private void Awake()
     {
@@ -19,8 +22,20 @@ public class VictoryTransition : MonoBehaviour
             Instance = this;
     }
 
-    public void StartVictoryTransition()
+    public IEnumerator StartVictoryTransition()
     {
+        // Freeze game
+        Time.timeScale = 0;
+        yield return new WaitForSecondsRealtime(1f);
+        Time.timeScale = 1;
+
+        // Ship escapes
+        _shipTransform.DOMove(1.5f * _shipTransform.position, 0.5f).SetUpdate(true);
+        yield return new WaitForSecondsRealtime(1f);
+
+        GameManager.Instance.PauseGame();
+        // Victory screen
+        SoundManager.Instance.PlaySound(_victoryClip);
         CanvasManager.Instance.RenderGameOverScreen(true);
         StartCoroutine(RaccoonBlink());
     }

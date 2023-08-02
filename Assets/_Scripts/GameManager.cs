@@ -20,9 +20,6 @@ public class GameManager : MonoBehaviour
     private PlayerInputActions playerInputActions;
     [SerializeField] private Camera _cam;
 
-    [Header("Sounds")]
-    [SerializeField] private AudioClip _deathClip, _victoryClip;
-
     public float DistanceToEventHorizon = 8f;
     public float EventHorizonRadius;
     public float InitialDistanceToEventHorizon { get; private set; }
@@ -140,6 +137,8 @@ public class GameManager : MonoBehaviour
 
     public IEnumerator GameOver(bool victorious = false)
     {
+        if (GameHasEnded)
+            yield break;
 
         var eventSystem = EventSystem.current;
 
@@ -153,20 +152,18 @@ public class GameManager : MonoBehaviour
         if (victorious)
         {
             eventSystem.SetSelectedGameObject(_replaybutton_victory, new BaseEventData(eventSystem));
-            SoundManager.Instance.PlaySound(_victoryClip);
             GameWasWon = true;
             OnVictory?.Invoke();
-            VictoryTransition.Instance.StartVictoryTransition();
+            StartCoroutine(VictoryTransition.Instance.StartVictoryTransition());
         }
         else
         {
             eventSystem.SetSelectedGameObject(_replaybutton_gameover, new BaseEventData(eventSystem));
-            SoundManager.Instance.PlaySound(_deathClip);
             GameWasWon = false;
             OnGameOver?.Invoke();
-            CanvasManager.Instance.RenderGameOverScreen(false);
+            StartCoroutine(GameOverTransition.Instance.StartGameOverTransition());
         }
-        PauseGame();
+
         yield return new WaitForSecondsRealtime(6f);
         SoundManager.Instance.StartMainGameMusic(4f);
     }

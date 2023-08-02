@@ -42,6 +42,5 @@ MonoBehaviour:
   HardMultiplier: 1.2
   HardPlayerDamageBonus: 6
   FailAsteroidSpawnBonus: 3
-  SelectedDifficulty: 2
   HighScore: 21278
   ScreenBounds: {x: 35.432655, y: 19.930868}

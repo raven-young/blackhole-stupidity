@@ -77,4 +77,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _victorySprite: {fileID: 21300000, guid: 316951f05d1c9b74aab17c634a54c14c, type: 3}
-  _raccoonGameObject: {fileID: 0}
+  _raccoonImage: {fileID: 0}
+  _victoryClip: {fileID: 8300000, guid: fa9dcef2776e6fe40b5f14b611939c82, type: 3}
+  _shipTransform: {fileID: 0}
