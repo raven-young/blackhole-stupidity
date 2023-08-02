@@ -3,33 +3,73 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
+// by @kurtdekker - to make a Unity singleton that has some
+// prefab-stored, data associated with it, eg a music manager
+//
+// To use: access with SingletonViaPrefab.Instance
+//
+// To set up:
+//	- Copy this file (duplicate it)
+//	- rename class SingletonViaPrefab to your own classname
+//	- rename CS file too
+//	- create the prefab asset associated with this singleton
+//		NOTE: read docs on Resources.Load() for where it must exist!!
+//
+// DO NOT DRAG THE PREFAB INTO A SCENE! THIS CODE AUTO-INSTANTIATES IT!
+//
+// I do not recommend subclassing unless you really know what you're doing.
+
 public class SoundManager : MonoBehaviour
 {
-    public static SoundManager Instance;
+    // This is really the only blurb of code you need to implement a Unity singleton
+    private static SoundManager _Instance;
+    public static SoundManager Instance
+    {
+        get
+        {
+            if (!_Instance)
+            {
+                // NOTE: read docs to see directory requirements for Resources.Load!
+                var prefab = Resources.Load<GameObject>("_Prefabs/SoundManager");
+                // create the prefab in your scene
+                var inScene = Instantiate<GameObject>(prefab);
+                // try find the instance inside the prefab
+                _Instance = inScene.GetComponentInChildren<SoundManager>();
+                // guess there isn't one, add one
+                if (!_Instance) _Instance = inScene.AddComponent<SoundManager>();
+                // mark root as DontDestroyOnLoad();
+                DontDestroyOnLoad(_Instance.transform.root.gameObject);
+            }
+            return _Instance;
+        }
+    }
 
+    // NOTE: alternatively to a prefab, you could use a ScriptableObject derived asset,
+    // make a reference to it here, and populated that reference at the Resources.Load
+    // line above.
+
+    // implement your Awake, Start, Update, or other methods here... (optional)
+    
     [SerializeField] private AudioSource _musicSource1, _musicSource2, _effectsSource;
-    [SerializeField] private AudioClip _backgroundMusic, _nervousMusic, _mainMenuMusic, _dialogueMusic;
 
+    [Header("Music")]
+    [SerializeField] private AudioClip _backgroundMusic;
+    [SerializeField] private AudioClip _nervousMusic, _mainMenuMusic, _dialogueMusic;
+
+    [Header("SFX")]
     [SerializeField] private AudioClip _alertClip;
 
-    private void Awake()
-    {
-        if (Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-
-    }
+    [Header("UI")]
+    [SerializeField] private AudioClip _buttonPress;
+    [SerializeField] private AudioClip _failedButtonPress, _buttonSelect;
 
     private void OnEnable()
     {
         GameManager.OnEnteredDangerZone += DangerZoneCrossSwapMusic;
         GameManager.OnExitedDangerZone += DangerZoneCrossSwapMusic;
+
+        _effectsSource.enabled = true;
+        Debug.Log(_effectsSource.enabled);
     }
 
     private void OnDisable()
@@ -131,16 +171,29 @@ public class SoundManager : MonoBehaviour
 
     public enum SFX
     {
-        AlertSFX
+        AlertSFX,
+        ButtonPress
     }
     public void PlaySFX(SFX sfx) 
     {
         switch (sfx)
         {
-            case SFX.AlertSFX:
-                PlaySound(_alertClip);
-                break;
+            case SFX.AlertSFX: PlaySound(_alertClip); break;
+            case SFX.ButtonPress: PlaySound(_buttonPress); break;
         }
         
+    }
+
+    public void PlayButtonPress(bool failed = false)
+    {
+        if (failed)
+            PlaySound(_failedButtonPress);
+        else
+            PlaySound(_buttonPress);
+    }
+
+    public void PlayButtonSelect()
+    {
+        PlaySound(_buttonSelect);
     }
 }

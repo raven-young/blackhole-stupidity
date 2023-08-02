@@ -188,19 +188,19 @@ public class Ship : MonoBehaviour
         // death animation
         Vector3 explosionOffset = new(UnityEngine.Random.Range(-1.2f, 1.2f), UnityEngine.Random.Range(-1.2f, 1.2f), 0);
         GameObject effect1 = Instantiate(deathEffect, transform.position + explosionOffset, Quaternion.identity);
-        Destroy(effect1, 2f);
+        Destroy(effect1, 1f);
         SoundManager.Instance.PlaySound(_explosionClip, 0.5f);
         yield return new WaitForSeconds(0.5f);
 
         Vector3 explosionOffset2 = new(UnityEngine.Random.Range(-1.2f, 1.2f), UnityEngine.Random.Range(-1.2f, 1.2f), 0);
         GameObject effect2 = Instantiate(deathEffect, transform.position + explosionOffset2, Quaternion.identity);
-        Destroy(effect2, 2f);
+        Destroy(effect2, 1f);
         SoundManager.Instance.PlaySound(_explosionClip, 0.5f);
         yield return new WaitForSeconds(0.6f);
 
         Vector3 explosionOffset3 = new(UnityEngine.Random.Range(-1.2f, 1.2f), UnityEngine.Random.Range(-1.2f, 1.2f), 0);
         GameObject effect3 = Instantiate(deathEffect, transform.position + explosionOffset3, Quaternion.identity);
-        Destroy(effect3, 1.5f);
+        Destroy(effect3, 1f);
         SoundManager.Instance.PlaySound(_explosionClip, 0.5f);
         yield return new WaitForSeconds(0.4f);
 
@@ -213,7 +213,7 @@ public class Ship : MonoBehaviour
         finaleffect.transform.localScale *= 2f;
         Destroy(finaleffect, 1f);
         SoundManager.Instance.PlaySound(_explosionClip, 0.5f);
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(2f);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

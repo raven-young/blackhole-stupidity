@@ -17,6 +17,7 @@ public class QuestionAsteroid : MonoBehaviour
     [SerializeField] private GameObject _explosionEffect;
     [SerializeField] private Transform _spawnPoint;
     [SerializeField] private AudioClip _explosionClip, _alertClip;
+    [SerializeField] private LaserEffect _laserEffect;
 
     [Header("Question")]
     [SerializeField] private GameObject _questionAsteroid;
@@ -133,7 +134,7 @@ public class QuestionAsteroid : MonoBehaviour
         Debug.Log("Correct answer!");
 
         // spawn laser
-        StartCoroutine(LaserEffect.Instance.ActivateLaser(_gameParams.LaserDuration));
+        StartCoroutine(_laserEffect.ActivateLaser(_gameParams.LaserDuration));
         StartCoroutine(Shooting.DisableShoot(_gameParams.LaserDuration));
         yield return new WaitForSeconds(_gameParams.LaserDuration);
         Explode();

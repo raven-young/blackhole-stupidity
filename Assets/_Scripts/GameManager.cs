@@ -107,7 +107,8 @@ public class GameManager : MonoBehaviour
                 break;
             yield return null;
         }
- 
+
+        SoundManager.Instance.PlayButtonPress(failed: false);
         CanvasManager.Instance.StartGame();
         CanPause = true;
         Time.timeScale = 1;

@@ -11,6 +11,8 @@ TagManager:
   - GameManager
   - Music
   - Grazebox
+  - Bullet
+  - SoundManager
   layers:
   - Default
   - TransparentFX
