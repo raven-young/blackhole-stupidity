@@ -129,7 +129,7 @@ public class QuestionAsteroid : MonoBehaviour
         _deltaDelta = 0;
 
         OnProblemSuccess?.Invoke(AvatarReactions.ExpressionEvents.ProblemSucceeded);
-
+        Debug.Log("big laser");
         SoundManager.Instance.PlaySound(_bigLaserClip);
         Debug.Log("Correct answer!");
 

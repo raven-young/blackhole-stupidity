@@ -67,9 +67,7 @@ public class SoundManager : MonoBehaviour
     {
         GameManager.OnEnteredDangerZone += DangerZoneCrossSwapMusic;
         GameManager.OnExitedDangerZone += DangerZoneCrossSwapMusic;
-
         _effectsSource.enabled = true;
-        Debug.Log(_effectsSource.enabled);
     }
 
     private void OnDisable()

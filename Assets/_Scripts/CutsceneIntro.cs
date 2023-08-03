@@ -28,6 +28,8 @@ public class CutsceneIntro : MonoBehaviour
     [SerializeField] private AudioClip _raccoonTalking1, _raccoonTalking2;
     [SerializeField] private AudioClip _cowTalking1, _cowTalking2;
 
+    [SerializeField] private Image _blackPanel;
+
     //[SerializeField] private GameObject _sliders;
     //[SerializeField] private GameObject _scorePanel;
 
@@ -75,14 +77,22 @@ public class CutsceneIntro : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        // Change from main menu theme to dialogue theme
-        SoundManager.Instance.ChangeMusicPairSource(SoundManager.MusicSourceID.MusicSource1);
+        StartCoroutine(StartIntro());
+    }
 
+    IEnumerator StartIntro()
+    {
         // Fade character 2
         _character2Container.transform.DOScale(0.95f, 0);
         _character2Panel.GetComponent<Image>().CrossFadeAlpha(_fadedAlpha, 0, true);
         _character2Speechbubble.GetComponent<Image>().CrossFadeAlpha(_fadedAlpha, 0, true);
         _character2Text.CrossFadeAlpha(_fadedAlpha, 0, true);
+
+        _blackPanel.DOFade(0f, 1f);
+        yield return new WaitForSecondsRealtime(1f);
+
+        // Change from main menu theme to dialogue theme
+        SoundManager.Instance.ChangeMusicPairSource(SoundManager.MusicSourceID.MusicSource1);
 
         // Start dialogue
         AdvanceDialogue();
