@@ -18,7 +18,6 @@ public class GameManager : MonoBehaviour
     public bool CanPause = true;
 
     private PlayerInputActions playerInputActions;
-    [SerializeField] private Camera _cam;
 
     public float DistanceToEventHorizon = 8f;
     public float EventHorizonRadius;
@@ -197,11 +196,13 @@ public class GameManager : MonoBehaviour
 
     public void Restart()
     {
+        DOTween.KillAll();
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     public static void QuitToMenu()
     {
+        DOTween.KillAll();
         SceneManager.LoadScene("MainMenu");
     }
 

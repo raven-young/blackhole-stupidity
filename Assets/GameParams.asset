@@ -17,7 +17,7 @@ MonoBehaviour:
   MaxHealth: 100
   AngularVelocity: 0.95
   BurnRate: 1.8
-  VelocityScale: 0.06
+  VelocityScale: 6
   MaxTheta: 0.793
   FireRate: 0.1
   BulletForce: 30

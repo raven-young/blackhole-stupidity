@@ -10,7 +10,7 @@ public class GameOverTransition : MonoBehaviour
 
     [SerializeField] private AudioClip _gameOverClip;
     [SerializeField] private Transform _shipTransform;
-
+    [SerializeField] private Camera _cam;
 
     private void Awake()
     {
@@ -24,21 +24,31 @@ public class GameOverTransition : MonoBehaviour
     {
         // Freeze game
         Time.timeScale = 0;
-        yield return new WaitForSecondsRealtime(0.5f);
+        yield return new WaitForSecondsRealtime(0f);
         Time.timeScale = 1;
+
+        SoundManager.Instance.PlaySFX(SoundManager.SFX.AlertSFX);
 
         if (Ship.Instance.CurrentHealth <= 0)
         {
             // Explode ship
             StartCoroutine(Ship.Instance.Die());
+            yield return new WaitForSecondsRealtime(4f);
         } 
         else
         {
             // Ship falls into BH
             _shipTransform.DOMove(Vector3.zero, 1f).SetUpdate(true);
-        }
 
-        yield return new WaitForSecondsRealtime(5f);
+            // Camera zooms into BH
+            Sequence mySequence = DOTween.Sequence();
+            // Add a movement tween at the beginning
+            mySequence.Append(_cam.transform.DOMoveY(3.5f, 2f).SetUpdate(true));
+            mySequence.Append(_cam.transform.DOMoveY(3.4f, 9f).SetUpdate(true)); // camera teleports back after first tween so use this hacky workaround
+
+            _cam.DOOrthoSize(1.8f, 2f).SetUpdate(true);
+            yield return new WaitForSecondsRealtime(3f);
+        }
 
         GameManager.Instance.PauseGame();
         // Game over screen

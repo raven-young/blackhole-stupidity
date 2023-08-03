@@ -75,10 +75,10 @@ public class MathChallenge
         return returnvalue;
     }
 
-    // Challenge: Linear equation of the form a*x +/- b = c or a*x^2 +/-b = c
-    public (string, string, string, string, int) SimpleAlgebraChallenge(int level, bool quadartic = false)
+    // Challenge: Equation of the form a*x +/- b = c or a*x^2 +/-b = c
+    public (string, string, string, string, int) SimpleAlgebraChallenge(int level, bool quadratic = false)
     {
-        int a = Random.Range(1+level, 9 + level);
+        int a = quadratic ? Random.Range(2, 4) : Random.Range(1 + level, 9 + level);
         int x = Random.Range(1 + level, 9 + level);
         int b = Random.Range(1 + level, 9 + level);
         int constantSign = Random.Range(0f, 1f) < 0.5f ? 1 : -1;
@@ -86,7 +86,7 @@ public class MathChallenge
 
         string equation;
         int c;
-        if (quadartic)
+        if (quadratic)
         {
             c = constantSign > 0 ? a * x * x + b : a * x * x - b;
             equation = $"{a}x^2 {sign} {b} = {c}";

@@ -9,8 +9,8 @@ using UnityEngine.UI;
 public class Ship : MonoBehaviour
 {
     [SerializeField] private GameParams _gameParams;
-    [SerializeField] private Camera _cam;
-    private PlayerInputActions playerInputActions;
+    //[SerializeField] private Camera _cam;
+    private PlayerInputActions _playerInputActions;
     public static Ship Instance;
 
     [Header("Movement")]
@@ -23,7 +23,7 @@ public class Ship : MonoBehaviour
     public float ShipPositionRadius; // distance from black hole
 
     [Header("Screen")]
-    private Vector2 screenBounds;
+    //private Vector2 screenBounds;
     [SerializeField] private float objectBoundsScale;
 
     [Header("Logic")]
@@ -53,24 +53,24 @@ public class Ship : MonoBehaviour
     private void Awake()
     {
         Instance = this;
-        playerInputActions = new PlayerInputActions();
+        _playerInputActions = new PlayerInputActions();
         CurrentHealth = _gameParams.MaxHealth/2;
         CurrentFuel = InitialFuel;
     }
 
     private void OnEnable()
     {
-        playerInputActions.Player.Enable();
+        _playerInputActions.Player.Enable();
     }
 
     void OnDisable()
     {
-        playerInputActions.Player.Disable();
+        _playerInputActions.Player.Disable();
     }
 
     private void Start()
     {
-        screenBounds = _cam.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, _cam.transform.position.z));
+        //screenBounds = _cam.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, _cam.transform.position.z));
         ShipPositionRadius = transform.position.y;
         _burnRate = _gameParams.BurnRate;
 
@@ -110,7 +110,7 @@ public class Ship : MonoBehaviour
         UpdateExhaustParticles();
 
         /// Movement
-        _movement = playerInputActions.Player.Move.ReadValue<Vector2>();
+        _movement = _playerInputActions.Player.Move.ReadValue<Vector2>();
 
         if (_gravityOn)
             ShipPositionRadius -= _gravityScale * Time.deltaTime;
@@ -221,6 +221,10 @@ public class Ship : MonoBehaviour
         GameObject finaleffect = Instantiate(deathEffect, transform.position, Quaternion.identity);
         finaleffect.transform.localScale *= 2f;
         Destroy(finaleffect, 1f);
+        SoundManager.Instance.PlaySound(_explosionClip, 0.5f);
+        yield return new WaitForSeconds(0.3f);
+        SoundManager.Instance.PlaySound(_explosionClip, 0.5f);
+        yield return new WaitForSeconds(0.3f);
         SoundManager.Instance.PlaySound(_explosionClip, 0.5f);
         yield return new WaitForSeconds(2f);
     }

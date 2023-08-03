@@ -25,6 +25,7 @@ public class QuestionAsteroid : MonoBehaviour
     [SerializeField] private TMP_Text _answer1Text;
     [SerializeField] private TMP_Text _answer2Text;
     [SerializeField] private TMP_Text _answer3Text;
+    [SerializeField] private SpriteRenderer _answer1Highlight, _answer2Highlight, _answer3Highlight;
 
     public static event Action<AvatarReactions.ExpressionEvents> OnProblemSpawned;
     public static event Action<AvatarReactions.ExpressionEvents> OnProblemFailed;
@@ -113,6 +114,10 @@ public class QuestionAsteroid : MonoBehaviour
     {
         if (GameManager.Instance.GameHasEnded)
             return;
+
+        _answer1Highlight.gameObject.SetActive(false);
+        _answer2Highlight.gameObject.SetActive(false);
+        _answer3Highlight.gameObject.SetActive(false);
 
         OnProblemSpawned?.Invoke(AvatarReactions.ExpressionEvents.ProblemSpawned);
         //SoundManager.Instance.PlaySound(_alertClip);
@@ -250,10 +255,18 @@ public class QuestionAsteroid : MonoBehaviour
 
         if (context.performed)
         {
+            _answer1Highlight.gameObject.SetActive(true);
+
             if (_correctAnswer == 1)
+            {
+                _answer1Highlight.color = Color.green;
                 StartCoroutine(Success());
+            }
             else
+            {
+                _answer1Highlight.color = Color.red;
                 StartCoroutine(Fail());
+            }
         }
     }
 
@@ -264,10 +277,18 @@ public class QuestionAsteroid : MonoBehaviour
 
         if (context.performed)
         {
+            _answer2Highlight.gameObject.SetActive(true);
+
             if (_correctAnswer == 2)
+            {
+                _answer2Highlight.color = Color.green;
                 StartCoroutine(Success());
+            }
             else
+            {
+                _answer2Highlight.color = Color.red;
                 StartCoroutine(Fail());
+            }
         }
     }
 
@@ -278,10 +299,18 @@ public class QuestionAsteroid : MonoBehaviour
 
         if (context.performed)
         {
+            _answer3Highlight.gameObject.SetActive(true);
+
             if (_correctAnswer == 3)
-                StartCoroutine(Success());
+            {
+                _answer3Highlight.color = Color.green;
+                StartCoroutine(Success());  
+            }
             else
+            {
+                _answer3Highlight.color = Color.red;
                 StartCoroutine(Fail());
+            }
         }
     }
 }
