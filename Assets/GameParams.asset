@@ -14,13 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   WinRadius: 18.91
   DangerZoneDistance: 4
+  MaxTheta: 0.793
   MaxHealth: 100
   AngularVelocity: 0.95
   BurnRate: 1.8
-  VelocityScale: 0.06
-  MaxTheta: 0.793
+  RadialVelocityScale: 0.06
   FireRate: 0.1
-  BulletForce: 30
+  BulletVelocity: 10
   BulletDamage: 1
   LaserDuration: 0.5
   BlackHoleGrowthRate: 1.005

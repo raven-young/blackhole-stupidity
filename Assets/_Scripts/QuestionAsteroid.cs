@@ -139,7 +139,7 @@ public class QuestionAsteroid : MonoBehaviour
                 bool spawnQuadratic = UnityEngine.Random.Range(0f, 1f) < 0.1f;
                 if (spawnQuadratic)
                 {
-                    _speedModifier = 0.25f;
+                    _speedModifier = 0.35f;
                     _itemSpawnBonus = 4;
                 }
                 c = challenge.SimpleAlgebraChallenge(difficulty, spawnQuadratic);

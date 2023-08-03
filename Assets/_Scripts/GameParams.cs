@@ -9,20 +9,23 @@ public class GameParams : ScriptableObject
     [Header("Base Params")]
     [SerializeField, Range(10, 30),Tooltip("Escape horizon distance from origin (workaround)")] 
     public float WinRadius = 18f;
-    [Range(0,20f), Tooltip("Critical distance to event horizon")]
+    [Range(0,20f), Tooltip("Critical distance to event horizon (change music etc.)")]
     public float DangerZoneDistance = 4f;
+    [Range(0, Mathf.PI / 2), Tooltip("Cone spread in radians")]
+    public float MaxTheta;
 
     [Header("Ship")]
     public int MaxHealth = 100;
     public float AngularVelocity = 1f;
-    public float BurnRate = 2f; // multiplier that determines rate of fuel consumption
-    public float VelocityScale = 2f; // modify ship velocity
-    [Range(0, Mathf.PI/2), Tooltip("Cone spread in radians")]
-    public float MaxTheta;
+    [Tooltip("Rate of fuel consumption. Higher means fuel is consumed more quickly")]
+    public float BurnRate = 2f;
+    [Tooltip("Multiply ship's radial velocity by this value.")]
+    public float RadialVelocityScale = 0.06f;
+
 
     [Header("Shooting")]
     public float FireRate = 1f;
-    public float BulletForce = 10f;
+    public float BulletVelocity = 10f;
     public int BulletDamage = 1;
     public float LaserDuration = 0.5f;
 

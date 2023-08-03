@@ -41,8 +41,10 @@ public class GameOverTransition : MonoBehaviour
             _shipTransform.DOMove(Vector3.zero, 1f).SetUpdate(true);
 
             // Camera zooms into BH
-            Sequence mySequence = DOTween.Sequence();
+
             // Add a movement tween at the beginning
+            Sequence mySequence = DOTween.Sequence();
+
             mySequence.Append(_cam.transform.DOMoveY(3.5f, 2f).SetUpdate(true));
             mySequence.Append(_cam.transform.DOMoveY(3.4f, 9f).SetUpdate(true)); // camera teleports back after first tween so use this hacky workaround
 

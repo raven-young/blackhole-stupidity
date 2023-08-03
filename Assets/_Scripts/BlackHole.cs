@@ -51,7 +51,7 @@ public class BlackHole : MonoBehaviour
                 _blackHoleHardLayer.SetActive(false);
                 break;
         }
-
+            
     }
 
     public void GrowBlackHole(float scaleMultiplier)

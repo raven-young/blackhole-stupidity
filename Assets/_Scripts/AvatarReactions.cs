@@ -13,7 +13,7 @@ public class AvatarReactions : MonoBehaviour
 
     [SerializeField] private Sprite _idleDanger;
     [SerializeField] private Sprite _idleSafe;
-    [SerializeField] private Sprite _victory;
+    [SerializeField] private Sprite _victory, _defeat;
     [SerializeField] private Sprite _problemSpawned;
     [SerializeField] private Sprite _asteroidHit;
     [SerializeField] private Sprite _problemFailed;
@@ -27,6 +27,8 @@ public class AvatarReactions : MonoBehaviour
 
     // The currently running coroutine.
     private Coroutine _reactRoutine;
+
+    private Material _raccoonMaterial;
 
     public enum ExpressionEvents
     {
@@ -46,6 +48,7 @@ public class AvatarReactions : MonoBehaviour
     {
         _image = gameObject.GetComponent<Image>();
         _image.sprite = _idleSafe;
+        _raccoonMaterial = gameObject.GetComponent<Image>().material;
     }
 
     private void OnEnable()
@@ -115,7 +118,7 @@ public class AvatarReactions : MonoBehaviour
     {
         _image.transform.DOScale(1.05f * _image.transform.localScale, 0.2f).SetLoops(2, LoopType.Yoyo);
         _image.sprite = sprite;
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(0.4f);
         SwapExpression();
     }
 
@@ -137,10 +140,16 @@ public class AvatarReactions : MonoBehaviour
         //if (_reactionActive)
         //    return;
 
-        if (GameManager.Instance.GameHasEnded)
+        if (GameManager.Instance.GameWasWon)
         {
-            _image.sprite = GameManager.Instance.GameWasWon ? _victory : _asteroidHit;
-            //_expressionTimer = 0f;
+            _image.sprite = _victory;
+            return;
+        }
+
+        if (GameManager.Instance.GameHasEnded && !GameManager.Instance.GameWasWon)
+        {
+            _image.sprite = _defeat;
+            _raccoonMaterial.DOFloat(2, "_RoundWaveStrength", 4f).SetDelay(0.8f);
             return;
         }
 

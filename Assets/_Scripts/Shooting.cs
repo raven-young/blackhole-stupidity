@@ -129,7 +129,7 @@ public class Shooting : MonoBehaviour
             var firePoint = i % 2 == 0 ? firePointLeft : firePointRight;
             bullet.transform.SetPositionAndRotation(firePoint.position, spreadAngle);
             Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
-            rb.velocity = (direction * _gameParams.BulletForce);
+            rb.velocity = (direction * _gameParams.BulletVelocity);
         }
     }
 }
