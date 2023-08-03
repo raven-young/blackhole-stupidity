@@ -15,6 +15,7 @@ public class BlackHole : MonoBehaviour
     private Material _eventHorizonGlowMaterial;
     [SerializeField] private float _initialGlow = 15f;
 
+    [SerializeField] private GameObject _blackHoleNormalLayer;
     [SerializeField] private GameObject _blackHoleHardLayer;
 
     private void Awake()
@@ -39,10 +40,14 @@ public class BlackHole : MonoBehaviour
 
         switch (SettingsManager.Instance.SelectedDifficulty)
         {
+            case SettingsManager.DifficultySetting.Normal:
+                _blackHoleNormalLayer.SetActive(true);
+                break;
             case SettingsManager.DifficultySetting.Hard:
                 _blackHoleHardLayer.SetActive(true);
                 break;
             default:
+                _blackHoleNormalLayer.SetActive(false);
                 _blackHoleHardLayer.SetActive(false);
                 break;
         }

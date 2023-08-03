@@ -1991,11 +1991,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a298d4d3124f5b40affd6d0b1923b4b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &1030531498 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4562808637573773291, guid: 3e904b9919c1c2f48aaf85ed11ecd8b5, type: 3}
-  m_PrefabInstance: {fileID: 542708584756108523}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1047784228 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7584025533130694370, guid: 69f81f1888f1d8f469cfbb8a824abbeb, type: 3}
@@ -3511,42 +3506,10 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 509713990}
-    - target: {fileID: 2257728229725127128, guid: 3e904b9919c1c2f48aaf85ed11ecd8b5, type: 3}
-      propertyPath: _blackHoleHardLayer
-      value: 
-      objectReference: {fileID: 1030531498}
-    - target: {fileID: 2338669928787441268, guid: 3e904b9919c1c2f48aaf85ed11ecd8b5, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3336183828981977191, guid: 3e904b9919c1c2f48aaf85ed11ecd8b5, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3624420179858119306, guid: 3e904b9919c1c2f48aaf85ed11ecd8b5, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 4009896572425935535, guid: 3e904b9919c1c2f48aaf85ed11ecd8b5, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 143707251}
-    - target: {fileID: 4562808637573773291, guid: 3e904b9919c1c2f48aaf85ed11ecd8b5, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4616321285265269648, guid: 3e904b9919c1c2f48aaf85ed11ecd8b5, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.96999997
-      objectReference: {fileID: 0}
-    - target: {fileID: 4616321285265269648, guid: 3e904b9919c1c2f48aaf85ed11ecd8b5, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.96999997
-      objectReference: {fileID: 0}
-    - target: {fileID: 4616321285265269648, guid: 3e904b9919c1c2f48aaf85ed11ecd8b5, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.96999997
-      objectReference: {fileID: 0}
     - target: {fileID: 5032703328603220991, guid: 3e904b9919c1c2f48aaf85ed11ecd8b5, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -3610,10 +3573,6 @@ PrefabInstance:
     - target: {fileID: 8379681182849646069, guid: 3e904b9919c1c2f48aaf85ed11ecd8b5, type: 3}
       propertyPath: m_Name
       value: BlackHole
-      objectReference: {fileID: 0}
-    - target: {fileID: 8638492421582651548, guid: 3e904b9919c1c2f48aaf85ed11ecd8b5, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3882,6 +3841,12 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 2037686589495987851, guid: 69f81f1888f1d8f469cfbb8a824abbeb, type: 3}
+      propertyPath: m_text
+      value: 'Score: 0
+
+        Accuracy: 100%'
+      objectReference: {fileID: 0}
     - target: {fileID: 2042477270457319921, guid: 69f81f1888f1d8f469cfbb8a824abbeb, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
       value: 2
@@ -4030,6 +3995,18 @@ PrefabInstance:
       propertyPath: m_Color.a
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4514827455402784348, guid: 69f81f1888f1d8f469cfbb8a824abbeb, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.58
+      objectReference: {fileID: 0}
+    - target: {fileID: 4514827455402784348, guid: 69f81f1888f1d8f469cfbb8a824abbeb, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.58
+      objectReference: {fileID: 0}
+    - target: {fileID: 4514827455402784348, guid: 69f81f1888f1d8f469cfbb8a824abbeb, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.58
+      objectReference: {fileID: 0}
     - target: {fileID: 4662283994338043256, guid: 69f81f1888f1d8f469cfbb8a824abbeb, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -4170,6 +4147,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 8829001538225206859, guid: 69f81f1888f1d8f469cfbb8a824abbeb, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4278,7 +4259,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3245433454325952308, guid: e9597025e6cd5ef40a5f78deb3c3734d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 25.48
+      value: 24.5
       objectReference: {fileID: 0}
     - target: {fileID: 3245433454325952308, guid: e9597025e6cd5ef40a5f78deb3c3734d, type: 3}
       propertyPath: m_LocalPosition.z

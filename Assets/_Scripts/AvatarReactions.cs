@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 
 // crap code because no time
 public class AvatarReactions : MonoBehaviour
@@ -112,6 +113,7 @@ public class AvatarReactions : MonoBehaviour
 
     IEnumerator ReactRoutine(Sprite sprite)
     {
+        _image.transform.DOScale(1.05f * _image.transform.localScale, 0.2f).SetLoops(2, LoopType.Yoyo);
         _image.sprite = sprite;
         yield return new WaitForSeconds(2f);
         SwapExpression();

@@ -22,6 +22,10 @@ public class RandomSmallSpawner : MonoBehaviour
 
         switch (SettingsManager.Instance.SelectedDifficulty)
         {
+            case SettingsManager.DifficultySetting.Easy:
+                _spawnPeriod /= _gameParams.EasyMultiplier;
+                break;
+
             case SettingsManager.DifficultySetting.Hard:
                 _spawnPeriod /= _gameParams.HardMultiplier;
                 break;

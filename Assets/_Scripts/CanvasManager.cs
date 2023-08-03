@@ -28,7 +28,6 @@ public class CanvasManager : MonoBehaviour
     private bool _newHighscore = false;
 
     private int _score = 0;
-    Ship player;
     private PlayerInput playerInput;
     private GameObject playerController;
     public int ComboCount = 0;
@@ -51,7 +50,6 @@ public class CanvasManager : MonoBehaviour
 
         
         playerController = GameObject.Find("ShipController");
-        player = playerController.transform.Find("Ship").GetComponent<Ship>();
         playerInput = playerController.GetComponent<PlayerInput>();
     }
 
@@ -127,7 +125,8 @@ public class CanvasManager : MonoBehaviour
     {
         if (victorious)
         {
-            _scoreTextVictory.text = _newHighscore ? "New Highscore: " + _score :  "Score: " + _score;
+            string acc = "\nAccuracy: " + Math.Round(100*QuestionAsteroid.Instance.GetAccuracy()) + "%";
+            _scoreTextVictory.text = _newHighscore ? "New Highscore: " + _score + acc :  "Score: " + _score + acc;
             _highscoreTextVictory.text = "Highscore: " + _gameParams.HighScore;
             _victoryScreen.SetActive(true);
             GameObject ReplayButton = _victoryScreen.transform.Find("Replay Button").gameObject;
@@ -136,7 +135,7 @@ public class CanvasManager : MonoBehaviour
         }
         else
         {
-            _scoreTextGameOver.text = "Score: " + _score;
+            _scoreTextGameOver.text = "Score: " + _score + "\nAccuracy: " + Math.Round(100*QuestionAsteroid.Instance.GetAccuracy()) + "%";
             _highscoreTextGameOver.text = "Highscore: " + _gameParams.HighScore;
             _gameOverScreen.SetActive(true);
             GameObject ReplayButton = _gameOverScreen.transform.Find("Replay Button").gameObject;

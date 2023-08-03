@@ -64,6 +64,9 @@ public class GameParams : ScriptableObject
     [Header("Difficulty Settings")]
     [Tooltip("Multiply or divide certain parameters by this value to make it harder:\n" +
         "Small asteroid spawn period")]
+
+    public float EasyMultiplier = 0.7f;
+
     public float HardMultiplier = 1.2f;
     public int HardPlayerDamageBonus = 2;
     public int FailAsteroidSpawnBonus = 2;

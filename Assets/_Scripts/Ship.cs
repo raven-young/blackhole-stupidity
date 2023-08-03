@@ -30,6 +30,7 @@ public class Ship : MonoBehaviour
     [SerializeField] public float InitialFuel = 100;
     public float CurrentHealth;
     public float CurrentFuel;
+    private float _burnRate;
 
     private bool cannotMove = false;
     private bool isInvincible = false;
@@ -71,9 +72,17 @@ public class Ship : MonoBehaviour
     {
         screenBounds = _cam.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, _cam.transform.position.z));
         ShipPositionRadius = transform.position.y;
+        _burnRate = _gameParams.BurnRate;
 
         _exhaustEmissionRate = 1.5f*_exhaustParticles.emission.rateOverTime.constant;
         _exhaustSpeed = 1.5f*_exhaustParticles.main.startSpeed.constant;
+
+        switch (SettingsManager.Instance.SelectedDifficulty)
+        {
+            case SettingsManager.DifficultySetting.Easy:
+                _burnRate *= _gameParams.EasyMultiplier;
+                break;
+        }
     }
 
     void Update()
@@ -96,7 +105,7 @@ public class Ship : MonoBehaviour
             return;
         }
 
-        CurrentFuel -= _gameParams.BurnRate * Time.deltaTime;
+        CurrentFuel -= _burnRate * Time.deltaTime;
         CanvasManager.Instance.UpdateFuel(CurrentFuel);
         UpdateExhaustParticles();
 

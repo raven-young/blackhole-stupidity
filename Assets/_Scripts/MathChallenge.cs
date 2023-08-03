@@ -75,16 +75,27 @@ public class MathChallenge
         return returnvalue;
     }
 
-    // Challenge: Linear equation of the form a*x +/- b = c
-    public (string, string, string, string, int) SimpleAlgebraChallenge(int level)
+    // Challenge: Linear equation of the form a*x +/- b = c or a*x^2 +/-b = c
+    public (string, string, string, string, int) SimpleAlgebraChallenge(int level, bool quadartic = false)
     {
         int a = Random.Range(1+level, 9 + level);
         int x = Random.Range(1 + level, 9 + level);
         int b = Random.Range(1 + level, 9 + level);
         int constantSign = Random.Range(0f, 1f) < 0.5f ? 1 : -1;
-        int c = constantSign > 0 ? a * x + b : a * x - b;
         char sign = constantSign > 0 ? '+' : '-';
-        string equation = $"{a}x {sign} {b} = {c}";
+
+        string equation;
+        int c;
+        if (quadartic)
+        {
+            c = constantSign > 0 ? a * x * x + b : a * x * x - b;
+            equation = $"{a}x^2 {sign} {b} = {c}";
+        }
+        else
+        {
+            c = constantSign > 0 ? a * x + b : a * x - b;
+            equation = $"{a}x {sign} {b} = {c}";
+        }
 
         // Find two more fake solutions
         int maxIndex = Random.Range(0, 3); // which of the three solutions is the largest

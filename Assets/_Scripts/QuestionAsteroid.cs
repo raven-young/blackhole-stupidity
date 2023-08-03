@@ -34,14 +34,28 @@ public class QuestionAsteroid : MonoBehaviour
     private int _correctAnswer; // 1,2,3
     private float _deltaDelta = 0;
     private int _asteroidSpawnBonus;
+    private float _speedModifier = 1f; // temporarily modify speed for special asteroids, e.g. ultra-hard question
+    private int _itemSpawnBonus = 0;
+    private float _questionAsteroidSpeed;
     private MathChallenge challenge;
 
     [SerializeField] private AudioClip _rightAnswerclip, _bigLaserClip, _wrongAnswerclip;
 
     [SerializeField] private DamageNumber _comboDamageNumberPrefab;
 
+    private int _totalSpawned = 0;
+    private int _correctlyAnswered = 0;
+    public float Accuracy; // fraction of correctly answered questions
+
+    public static QuestionAsteroid Instance;
+
     private void Awake()
     {
+        if (Instance != null && Instance != this)
+            Destroy(gameObject);
+        else
+            Instance = this;
+
         playerInputActions = new PlayerInputActions();
         playerInputActions.Player.Enable();
         playerInputActions.Player.Answer1.performed += Answer1;
@@ -54,10 +68,14 @@ public class QuestionAsteroid : MonoBehaviour
     {
         _questionAsteroid.SetActive(false);
         challenge = new MathChallenge();
+        _questionAsteroidSpeed = _gameParams.QuestionAsteroidSpeed;
 
         _asteroidSpawnBonus = 0;
         switch (SettingsManager.Instance.SelectedDifficulty)
         {
+            case SettingsManager.DifficultySetting.Easy:
+                _questionAsteroidSpeed *= _gameParams.EasyMultiplier;
+                break;
             case SettingsManager.DifficultySetting.Hard:
                 _asteroidSpawnBonus += _gameParams.FailAsteroidSpawnBonus;
                 break;
@@ -72,7 +90,7 @@ public class QuestionAsteroid : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.position = Vector3.MoveTowards(transform.position, Vector3.zero, Time.deltaTime * _gameParams.QuestionAsteroidSpeed);
+        transform.position = Vector3.MoveTowards(transform.position, Vector3.zero, Time.deltaTime * _questionAsteroidSpeed * _speedModifier);
 
         if (!_questionActive)
         {
@@ -101,6 +119,8 @@ public class QuestionAsteroid : MonoBehaviour
         _questionActive = true;
         _questionAsteroid.SetActive(true);
         transform.position = _spawnPoint.position;
+        _speedModifier = 1f;
+        _itemSpawnBonus = 0;
 
         //int difficulty = (int)(5f*GameManager.Instance.DistanceToEventHorizon / (_gameParams.WinRadius - GameManager.Instance.EventHorizonRadius));
         int difficulty = (int)GameManager.Instance.DistanceToEventHorizon / 4;
@@ -110,11 +130,18 @@ public class QuestionAsteroid : MonoBehaviour
         switch (SettingsManager.Instance.SelectedDifficulty)
         {
             case SettingsManager.DifficultySetting.Hard:
-                c = challenge.SimpleAlgebraChallenge(difficulty);
+                // 90% chance of spawning linear equation, 10% chance of spawning quadratic equation
+                bool spawnQuadratic = UnityEngine.Random.Range(0f, 1f) < 0.1f;
+                if (spawnQuadratic)
+                {
+                    _speedModifier = 0.25f;
+                    _itemSpawnBonus = 4;
+                }
+                c = challenge.SimpleAlgebraChallenge(difficulty, spawnQuadratic);
                 break;
         }
 
-        Debug.Log("challenge level: " + SettingsManager.Instance.SelectedDifficulty + " " + difficulty);
+        //Debug.Log("challenge level: " + SettingsManager.Instance.SelectedDifficulty + " " + difficulty);
         _correctAnswer = c.Item5 + 1;
         _questionText.text = c.Item1;
         _answer1Text.text = c.Item2;
@@ -127,6 +154,8 @@ public class QuestionAsteroid : MonoBehaviour
     {
         _questionActive = false;
         _deltaDelta = 0;
+        _totalSpawned++;  // don't move to spawned else penalty for asteroinds spawned right before win
+        _correctlyAnswered++;
 
         OnProblemSuccess?.Invoke(AvatarReactions.ExpressionEvents.ProblemSucceeded);
         Debug.Log("big laser");
@@ -157,6 +186,7 @@ public class QuestionAsteroid : MonoBehaviour
     {
         _questionActive = false;
         _deltaDelta = 0;
+        _totalSpawned++; // don't move to spawned else penalty for asteroinds spawned right before win
 
         CanvasManager.Instance.ComboCount = 0;
         OnProblemFailed?.Invoke(AvatarReactions.ExpressionEvents.ProblemFailed);
@@ -189,7 +219,7 @@ public class QuestionAsteroid : MonoBehaviour
             spawnAmount += _asteroidSpawnBonus;
         }
 
-        for (int i = 0; i < spawnAmount; i++)
+        for (int i = 0; i < spawnAmount + _itemSpawnBonus; i++)
         {
             float randomX = 0.1f * UnityEngine.Random.Range(-1f, 1f) * _gameParams.ScreenBounds.x;
             Vector2 spawnPos = new Vector2(transform.position.x + randomX, transform.position.y);
@@ -202,6 +232,14 @@ public class QuestionAsteroid : MonoBehaviour
             spawnedObject.GetComponent<Rigidbody2D>().AddForce(-UnityEngine.Random.Range(0.5f, 1f) * _gameParams.SpawnImpulse * direction,
                                                                ForceMode2D.Impulse);
         }
+    }
+
+    public float GetAccuracy()
+    {
+        if (_totalSpawned == 0)
+            return 0;
+
+        return (float)_correctlyAnswered / _totalSpawned;
     }
 
     // refactor this later

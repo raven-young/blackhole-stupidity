@@ -499,7 +499,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.96999997, y: 0.96999997, z: 0.96999997}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 9093716552795147453}
@@ -817,6 +817,8 @@ MonoBehaviour:
   CurrentForce: 0
   _eventHorizonGlow: {fileID: 3912012577542974116}
   _initialGlow: 15
+  _blackHoleNormalLayer: {fileID: 2338669928787441268}
+  _blackHoleHardLayer: {fileID: 4562808637573773291}
 --- !u!1 &8638492421582651548
 GameObject:
   m_ObjectHideFlags: 0
