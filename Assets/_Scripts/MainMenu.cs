@@ -12,7 +12,7 @@ public class MainMenu : MonoBehaviour
 
     [SerializeField] private GameParams _gameParams;
     [SerializeField] private Camera _cam;
-    [SerializeField] private GameObject _startButton, _quitButton, _normalDifficultyButton;
+    [SerializeField] private GameObject _startButton, _quitButton, _normalDifficultyButton, _basicShipButton;
     [SerializeField] private SpriteRenderer _blackPanel;
 
     [SerializeField] private GameObject _difficultyPanel, _shipPanel;
@@ -43,6 +43,20 @@ public class MainMenu : MonoBehaviour
         float _buttonY = _startButton.transform.position.y;
         _startButton.transform.DOMoveY(_buttonY + 0.7f, 1f).SetEase(Ease.InOutSine).SetLoops(-1, LoopType.Yoyo);
         _quitButton.transform.DOMoveY(_buttonY + 0.7f, 1f).SetEase(Ease.InOutSine).SetLoops(-1, LoopType.Yoyo).SetDelay(0.2f);
+    }
+
+    private void Update()
+    {
+        // when clicking with mouse, controller cannot be used anymore, hence set selected gameobject
+        if (EventSystem.current.currentSelectedGameObject == null)
+        {
+            if (_activePanel == _startButton)
+                EventSystem.current.SetSelectedGameObject(_startButton, new BaseEventData(EventSystem.current));
+            else if (_activePanel == _difficultyPanel)
+                EventSystem.current.SetSelectedGameObject(_normalDifficultyButton, new BaseEventData(EventSystem.current));
+            else if (_activePanel == _shipPanel)
+                EventSystem.current.SetSelectedGameObject(_basicShipButton, new BaseEventData(EventSystem.current));
+        }
     }
 
     public void ActivateDifficultyPanel()
