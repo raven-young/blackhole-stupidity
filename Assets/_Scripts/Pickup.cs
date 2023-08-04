@@ -10,6 +10,8 @@ public class Pickup : MonoBehaviour
 
     [SerializeField] private AudioClip _pickupClip;
 
+    private bool _collected = false;
+
     private void Start()
     {
         // random flip
@@ -28,6 +30,12 @@ public class Pickup : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (_collected)
+        {
+            transform.position = Vector2.MoveTowards(transform.position, Ship.Instance.transform.position, 10 * Time.deltaTime);
+            return;
+        }
+
         // force in direction of black hole
         float force = BlackHole.Instance.CurrentForce;
         _rb.AddForce(-transform.position * force * Time.fixedDeltaTime, ForceMode2D.Force);
@@ -35,11 +43,27 @@ public class Pickup : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+
+        if (collision.gameObject.layer == 9) // ship's collector
+        {
+            _collected = true;
+            Debug.Log("collected trigger");
+        }
+
         if (collision.gameObject.layer == 6) // ship
         {
             ApplyItem();
             CanvasManager.Instance.IncrementScore(_gameParams.CollectedItemScore);
             Destroy(gameObject);
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.layer == 9) // ship's collector
+        {
+            _collected = true;
+            Debug.Log("collected collision");
         }
     }
 

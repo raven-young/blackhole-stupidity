@@ -52,22 +52,36 @@ public class CutsceneIntro : MonoBehaviour
         public string Text { get; }
     }
 
-    private static List<Dialogue> dialogueList = new List<Dialogue>()
+    private static List<Dialogue> dialogueListEasyNormal = new List<Dialogue>()
     {
 	new Dialogue(Speakers.Racoon, "This is Captain Rockey, requesting immediate assistance!"),
     new Dialogue(Speakers.Cow, "Vachette speaking, what is it, Captain?"),
     new Dialogue(Speakers.Racoon, "Our ship flew too close to this black hole, we're gonna be sucked in!"),
 	new Dialogue(Speakers.Cow, "Remember your training!"),
 	new Dialogue(Speakers.Cow, "You can escape by blasting incoming asteroids..."),
-	new Dialogue(Speakers.Cow, "And picking up any spare fuel reserves you can find."),
+	new Dialogue(Speakers.Cow, "And picking up any scrap reserves you can find."),
 	new Dialogue(Speakers.Cow, "Big asteroids need a big blast, use the Mega-Laser!"),
 	new Dialogue(Speakers.Racoon, "It's encoded, we don't know how to use it!"),
 	new Dialogue(Speakers.Cow, "Solve the math problems, they can decipher the controls."),
 	new Dialogue(Speakers.Cow, "Good luck captain.")
     };
 
+    // to do
+    private static List<Dialogue> dialogueListHard = new List<Dialogue>()
+    {
+    new Dialogue(Speakers.Racoon, "This is Captain Rockey, requesting immediate assistance!"),
+    new Dialogue(Speakers.Cow, "Vachette speaking, don't tell me you're trapped in a black hole AGAIN?"),
+    new Dialogue(Speakers.Racoon, "Yes we are! And this time it's a scary looking one!"),
+    new Dialogue(Speakers.Cow, "Oh no, this sounds like a supermassive black hole."),
+    new Dialogue(Speakers.Cow, "Its immense gravity wil drain your fuel reserves more quickly."),
+    new Dialogue(Speakers.Cow, "Pick up any spare fuel reserves you can find or you'll be spaghettified!"),
+    new Dialogue(Speakers.Racoon, "What? I'm too young to die! Oh God help me please I want to go home *cries*"),
+    new Dialogue(Speakers.Cow, "Good luck captain. You'll need it!")
+    };
+
     private int _dialogueIterator = 0;
     private bool _dialogueSkipped = false;
+    private List<Dialogue> _selectedDialogue;
 
     private void Awake()
     {
@@ -78,6 +92,19 @@ public class CutsceneIntro : MonoBehaviour
     void Start()
     {
         StartCoroutine(StartIntro());
+
+        switch (SettingsManager.Instance.SelectedDifficulty)
+        {
+            case SettingsManager.DifficultySetting.Easy:
+                _selectedDialogue = dialogueListEasyNormal;
+                break;
+            case SettingsManager.DifficultySetting.Normal:
+                _selectedDialogue = dialogueListEasyNormal;
+                break;
+            case SettingsManager.DifficultySetting.Hard:
+                _selectedDialogue = dialogueListHard;
+                break;
+        }
     }
 
     IEnumerator StartIntro()
@@ -129,7 +156,7 @@ public class CutsceneIntro : MonoBehaviour
     {
         if (context.performed && !_dialogueSkipped)
         {
-            for (int i = _dialogueIterator; i <= dialogueList.Count; i++)
+            for (int i = _dialogueIterator; i <= dialogueListEasyNormal.Count; i++)
             {
                 AdvanceDialogue(0.2f);
             }
@@ -189,7 +216,7 @@ public class CutsceneIntro : MonoBehaviour
 
     private void AdvanceDialogue(float fadeTime = 0.2f)
     {
-        if (dialogueList.Count <= _dialogueIterator)
+        if (_selectedDialogue.Count <= _dialogueIterator)
         {
             SoundManager.Instance.StopSFX();
             DOTween.KillAll();
@@ -197,7 +224,7 @@ public class CutsceneIntro : MonoBehaviour
             return;
         }
 
-        var next = dialogueList[_dialogueIterator];
+        var next = _selectedDialogue[_dialogueIterator];
         DisplayNewDialogue(next, fadeTime);
         _dialogueIterator++;
     }
