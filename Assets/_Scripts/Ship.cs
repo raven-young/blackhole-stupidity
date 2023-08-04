@@ -80,7 +80,15 @@ public class Ship : MonoBehaviour
         switch (SettingsManager.Instance.SelectedDifficulty)
         {
             case SettingsManager.DifficultySetting.Easy:
-                _burnRate *= _gameParams.EasyMultiplier;
+                _burnRate = 0;
+                CanvasManager.Instance.ToggleFuelSlider(false);
+                break;
+            case SettingsManager.DifficultySetting.Normal:
+                _burnRate = 0;
+                CanvasManager.Instance.ToggleFuelSlider(false);
+                break;
+            case SettingsManager.DifficultySetting.Hard:
+                CanvasManager.Instance.ToggleFuelSlider(true);
                 break;
         }
     }

@@ -163,7 +163,6 @@ public class QuestionAsteroid : MonoBehaviour
         _correctlyAnswered++;
 
         OnProblemSuccess?.Invoke(AvatarReactions.ExpressionEvents.ProblemSucceeded);
-        Debug.Log("big laser");
         SoundManager.Instance.PlaySound(_bigLaserClip);
         Debug.Log("Correct answer!");
 
@@ -215,7 +214,10 @@ public class QuestionAsteroid : MonoBehaviour
     void SpawnStuff(bool correctlyAnswered)
     {
         GameObject prefab1 = _scrapPrefab;
-        GameObject prefab2 = _fuelPrefab;
+        GameObject prefab2 = _scrapPrefab;
+
+        if (SettingsManager.Instance.SelectedDifficulty > SettingsManager.DifficultySetting.Normal)
+            prefab2 = _fuelPrefab;
 
         int spawnAmount = _gameParams.SpawnAmount;
         if (!correctlyAnswered)

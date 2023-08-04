@@ -71,6 +71,11 @@ public class CanvasManager : MonoBehaviour
         CheckIfLowStatsAndAlert();
     }
 
+    public void ToggleFuelSlider(bool sliderOn)
+    {
+        _fuelSlider.gameObject.SetActive(sliderOn);
+    }
+
     private void CheckIfLowStatsAndAlert()
     {
         if (!_isLowOnStats && (_fuelSlider.value < 0.25f*_fuelSlider.maxValue || _healthSlider.value < 0.25f * _healthSlider.maxValue))
