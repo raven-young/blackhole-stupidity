@@ -47,7 +47,6 @@ public class Pickup : MonoBehaviour
         if (collision.gameObject.layer == 9) // ship's collector
         {
             _collected = true;
-            Debug.Log("collected trigger");
         }
 
         if (collision.gameObject.layer == 6) // ship
@@ -55,15 +54,6 @@ public class Pickup : MonoBehaviour
             ApplyItem();
             CanvasManager.Instance.IncrementScore(_gameParams.CollectedItemScore);
             Destroy(gameObject);
-        }
-    }
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.layer == 9) // ship's collector
-        {
-            _collected = true;
-            Debug.Log("collected collision");
         }
     }
 
