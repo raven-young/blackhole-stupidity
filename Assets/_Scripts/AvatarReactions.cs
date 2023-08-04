@@ -28,8 +28,6 @@ public class AvatarReactions : MonoBehaviour
     // The currently running coroutine.
     private Coroutine _reactRoutine;
 
-    private Material _raccoonMaterial;
-
     public enum ExpressionEvents
     {
         ProblemSpawned,
@@ -48,7 +46,6 @@ public class AvatarReactions : MonoBehaviour
     {
         _image = gameObject.GetComponent<Image>();
         _image.sprite = _idleSafe;
-        _raccoonMaterial = gameObject.GetComponent<Image>().material;
     }
 
     private void OnEnable()
@@ -149,7 +146,6 @@ public class AvatarReactions : MonoBehaviour
         if (GameManager.Instance.GameHasEnded && !GameManager.Instance.GameWasWon)
         {
             _image.sprite = _defeat;
-            _raccoonMaterial.DOFloat(2, "_RoundWaveStrength", 4f).SetDelay(0.8f);
             return;
         }
 

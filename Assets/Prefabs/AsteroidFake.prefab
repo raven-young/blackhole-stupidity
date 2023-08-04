@@ -10,7 +10,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5598675613931354584, guid: fcd0cc99b6db638479cafd0c41992a82, type: 3}
       propertyPath: m_SortingLayer
-      value: 6
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 5598675613931354584, guid: fcd0cc99b6db638479cafd0c41992a82, type: 3}
       propertyPath: m_SortingOrder
@@ -115,3 +115,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _gameParams: {fileID: 11400000, guid: dd8a65e487f3ad244b57dea38948a9e4, type: 2}
   _rb: {fileID: 3389226978271209169}
+  _vachette: {fileID: 21300000, guid: b7d98f55c77358c488fc8b0829f60700, type: 3}

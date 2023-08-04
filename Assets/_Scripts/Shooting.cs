@@ -11,24 +11,25 @@ public class Shooting : MonoBehaviour
 {
 
     [SerializeField] private GameParams _gameParams;
-    [SerializeField] private Transform firePointLeft;
-    [SerializeField] private Transform firePointRight;
-    [SerializeField] private Bullet bulletPrefab;
+    [SerializeField] private Transform _firePointLeft;
+    [SerializeField] private Transform _firePointRight;
+    [SerializeField] private Transform _firePointMiddle;
+    [SerializeField] private Bullet _bulletPrefab;
 
-    private Quaternion spreadAngle = Quaternion.identity;
+    private Quaternion _spawnAngle = Quaternion.identity;
 
-    private PlayerInputActions playerInputActions;
+    private PlayerInputActions _playerInputActions;
 
     private static bool _canShoot = true;
     private bool _isAutomatic = true;
     private bool _isShooting = false;
-    [SerializeField] private int _projectileNumber = 1;
-    //[SerializeField] private float _projectileSpread = 30f;
     private float _shootCooldown;
 
     private static IObjectPool<Bullet> _pool;
-    private static Shooting Instance;
+    public static Shooting Instance;
 
+    delegate void Shoot();
+    Shoot shoot;
 
     [SerializeField] private AudioClip _smallLaserClip;
 
@@ -41,14 +42,14 @@ public class Shooting : MonoBehaviour
         }
         Instance = this;
 
-        playerInputActions = new PlayerInputActions();
-        playerInputActions.Player.Enable();
-        playerInputActions.Player.Fire.performed += ShootAction;
-        playerInputActions.Player.Fire.canceled += ShootAction;
+        _playerInputActions = new PlayerInputActions();
+        _playerInputActions.Player.Enable();
+        _playerInputActions.Player.Fire.performed += ShootAction;
+        _playerInputActions.Player.Fire.canceled += ShootAction;
 
         _pool = new ObjectPool<Bullet>(() =>
         {
-            Bullet bullet = Instantiate(bulletPrefab);
+            Bullet bullet = Instantiate(_bulletPrefab);
             bullet.SetPool(_pool);
             return bullet;
         }, bullet =>
@@ -64,11 +65,17 @@ public class Shooting : MonoBehaviour
         );
     }
 
+    private void Start()
+    {
+        bool tripleShoot = SettingsManager.Instance.SelectedShipType == SettingsManager.ShipType.Destroyer;
+        shoot = tripleShoot ? TripleShoot : DoubleShoot;
+    }
+
     private void OnDisable()
     {
-        playerInputActions.Player.Fire.performed -= ShootAction;
-        playerInputActions.Player.Fire.canceled -= ShootAction;
-        playerInputActions.Player.Disable();
+        _playerInputActions.Player.Fire.performed -= ShootAction;
+        _playerInputActions.Player.Fire.canceled -= ShootAction;
+        _playerInputActions.Player.Disable();
     }
 
     private void Update()
@@ -108,26 +115,59 @@ public class Shooting : MonoBehaviour
     {
         if (_canShoot && _isShooting)
         {
-            Shoot();
+            shoot();
             _canShoot = false;
             _isShooting = _isAutomatic;
         }
 
     }
 
-    public void Shoot()
+    public void DoubleShoot()
     {
         SoundManager.Instance.PlaySound(_smallLaserClip);
         float angle = Ship.Instance.transform.localRotation.eulerAngles.z;
         Vector2 direction = Vector2.up.Rotate(angle);
 
-        for (int i = 0; i < 2*_projectileNumber; i++)
+        for (int i = 0; i < 2; i++)
         {
-            //Quaternion.AngleAxis((i - 0.5f * (_projectileNumber - 1)) * _projectileSpread, Vector3.forward) * firePoint.right;
-            spreadAngle.eulerAngles = new Vector3(0, 0, -90 + Mathf.Rad2Deg * Mathf.Atan2(direction.y, direction.x));
+            _spawnAngle.eulerAngles = new Vector3(0, 0, angle);
             Bullet bullet = _pool.Get();
-            var firePoint = i % 2 == 0 ? firePointLeft : firePointRight;
-            bullet.transform.SetPositionAndRotation(firePoint.position, spreadAngle);
+            var firePoint = i % 2 == 0 ? _firePointLeft : _firePointRight;
+            bullet.transform.SetPositionAndRotation(firePoint.position, _spawnAngle);
+            Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
+            rb.velocity = (direction * _gameParams.BulletVelocity);
+        }
+    }
+
+    public void TripleShoot()
+    {
+        SoundManager.Instance.PlaySound(_smallLaserClip);
+        float angle = Ship.Instance.transform.localRotation.eulerAngles.z;
+
+        for (int i = 0; i < 3; i++)
+        {
+            Bullet bullet = _pool.Get();
+            Transform firePoint;
+            Vector2 direction;
+            switch (i)
+            {
+                case 0:
+                    firePoint = _firePointLeft;
+                    direction = Vector2.up.Rotate(angle + 10);
+                    _spawnAngle.eulerAngles = new Vector3(0, 0, angle + 10f);
+                    break;
+                case 1:
+                    firePoint = _firePointMiddle;
+                    _spawnAngle.eulerAngles = new Vector3(0, 0, angle);
+                    direction = Vector2.up.Rotate(angle);
+                    break;
+                default:
+                    firePoint = _firePointRight;
+                    direction = Vector2.up.Rotate(angle - 10);
+                    _spawnAngle.eulerAngles = new Vector3(0, 0, angle - 10f);
+                    break;
+            }
+            bullet.transform.SetPositionAndRotation(firePoint.position, _spawnAngle);
             Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
             rb.velocity = (direction * _gameParams.BulletVelocity);
         }

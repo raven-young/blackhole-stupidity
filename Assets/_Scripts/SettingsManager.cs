@@ -36,7 +36,13 @@ public class SettingsManager : MonoBehaviour
         else
         {
             Destroy(gameObject);
+            return;
         }
+
+        // Needed when directly starting game in edit mode (in real scenario, set by player in main menu)
+        SelectedDifficulty = DifficultySetting.Normal;
+        SelectedShipType = ShipType.Basic;
+        CalculateGameParams();
 
     }
 
@@ -71,6 +77,7 @@ public class SettingsManager : MonoBehaviour
         {
             case ShipType.Collector: MagnetScale *= _gameParams.CollectorMagnetScaleMultiplier; break;
             case ShipType.Basic: MagnetScale *= _gameParams.BasicShipMultiplier; break;
+            case ShipType.Destroyer: MagnetScale *= _gameParams.DestroyerMagnetScaleMultiplier; break;
         }
     }
 }

@@ -31,8 +31,9 @@ public class GameParams : ScriptableObject
     public float CollectorMagnetScaleMultiplier = 1.5f;
     [Header("DestroyerShip")]
     public int DestroyerBulletDamageBonus = 1;
-    [Header("TankShip")]
-    public int TankHealthBonus = 50;
+    public float DestroyerMagnetScaleMultiplier = 0.8f;
+    //[Header("TankShip")]
+    //public int TankHealthBonus = 50;
 
 
     [Header("Shooting")]
