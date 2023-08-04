@@ -137,7 +137,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1380279683474783610, guid: 89248b8a163a5b248bcdc1ffb32e35b4, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
-      value: 6
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1380279683474783610, guid: 89248b8a163a5b248bcdc1ffb32e35b4, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Mode
@@ -154,7 +154,7 @@ PrefabInstance:
     - target: {fileID: 1380279683474783610, guid: 89248b8a163a5b248bcdc1ffb32e35b4, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
-      objectReference: {fileID: 994927344}
+      objectReference: {fileID: 2068254304}
     - target: {fileID: 1380279683474783610, guid: 89248b8a163a5b248bcdc1ffb32e35b4, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Target
       value: 
@@ -185,7 +185,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1380279683474783610, guid: 89248b8a163a5b248bcdc1ffb32e35b4, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: SetActive
+      value: ActivateDifficultyPanel
       objectReference: {fileID: 0}
     - target: {fileID: 1380279683474783610, guid: 89248b8a163a5b248bcdc1ffb32e35b4, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
@@ -201,7 +201,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1380279683474783610, guid: 89248b8a163a5b248bcdc1ffb32e35b4, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
-      value: UnityEngine.GameObject, UnityEngine
+      value: MainMenu, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 1380279683474783610, guid: 89248b8a163a5b248bcdc1ffb32e35b4, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_TargetAssemblyTypeName
@@ -8172,6 +8172,7 @@ MonoBehaviour:
   _cam: {fileID: 773265317}
   _startButton: {fileID: 983466391}
   _quitButton: {fileID: 720503352}
+  _normalDifficultyButton: {fileID: 554320044}
   _blackPanel: {fileID: 1222433875}
   _difficultyPanel: {fileID: 994927344}
   _shipPanel: {fileID: 1885515374}

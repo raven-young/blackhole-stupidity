@@ -4,16 +4,36 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using DG.Tweening;
 using UnityEngine.UI;
+using UnityEngine.InputSystem;
+using UnityEngine.EventSystems;
 
 public class MainMenu : MonoBehaviour
 {
 
     [SerializeField] private GameParams _gameParams;
     [SerializeField] private Camera _cam;
-    [SerializeField] private GameObject _startButton, _quitButton;
+    [SerializeField] private GameObject _startButton, _quitButton, _normalDifficultyButton;
     [SerializeField] private SpriteRenderer _blackPanel;
 
     [SerializeField] private GameObject _difficultyPanel, _shipPanel;
+    private GameObject _activePanel;
+
+    private PlayerInputActions playerInputActions;
+
+    private void Awake()
+    {
+        playerInputActions = new PlayerInputActions();
+        playerInputActions.Enable();
+        playerInputActions.Player.EscapeAction.performed += EscapeAction;
+        playerInputActions.Player.Answer3.performed += EscapeAction;
+    }
+
+    private void OnDisable()
+    {
+        playerInputActions.Disable();
+        playerInputActions.Player.EscapeAction.performed -= EscapeAction;
+        playerInputActions.Player.Answer3.performed -= EscapeAction;
+    }
 
     private void Start()
     {
@@ -25,12 +45,19 @@ public class MainMenu : MonoBehaviour
         _quitButton.transform.DOMoveY(_buttonY + 0.7f, 1f).SetEase(Ease.InOutSine).SetLoops(-1, LoopType.Yoyo).SetDelay(0.2f);
     }
 
+    public void ActivateDifficultyPanel()
+    {
+        _difficultyPanel.gameObject.SetActive(true);
+        _activePanel = _difficultyPanel;
+    }
+
     // Wrapper for button
     public void SetDifficulty(int selectedDifficulty)
     {
         SettingsManager.Instance.SelectedDifficulty = (SettingsManager.DifficultySetting)selectedDifficulty;
         _difficultyPanel.gameObject.SetActive(false);
         _shipPanel.gameObject.SetActive(true);
+        _activePanel = _shipPanel;
     }
 
     public void SetShipAndStart(int selectedShip)
@@ -50,5 +77,35 @@ public class MainMenu : MonoBehaviour
     public void Quit()
     {
         Application.Quit();
+    }
+
+    // horrible
+    private void EscapeAction(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            _startButton.GetComponent<Button>().PlayPressed();
+            var eventSystem = EventSystem.current;
+
+            if (_activePanel == _difficultyPanel)
+            {
+                _startButton.GetComponent<UnityEngine.UI.Button>().interactable = true;
+                _quitButton.GetComponent<UnityEngine.UI.Button>().interactable = true;
+                _difficultyPanel.gameObject.SetActive(false);
+                _activePanel = _startButton; // terrible
+                eventSystem.SetSelectedGameObject(_startButton, new BaseEventData(eventSystem));
+            }
+
+            else if (_activePanel == _shipPanel)
+            {
+                _difficultyPanel.gameObject.SetActive(true);
+                _shipPanel.gameObject.SetActive(false);
+                _activePanel = _difficultyPanel;
+                eventSystem.SetSelectedGameObject(_normalDifficultyButton, new BaseEventData(eventSystem));
+            }
+
+            else if (_activePanel == _startButton)
+                return;
+        }
     }
 }
