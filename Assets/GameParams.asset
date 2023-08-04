@@ -22,9 +22,10 @@ MonoBehaviour:
   MagnetScale: 10
   BasicShipMultiplier: 1.05
   CollectorMagnetScaleMultiplier: 1.7
+  CollectorFirePeriodMultiplier: 1.5
   DestroyerBulletDamageBonus: 1
-  TankHealthBonus: 50
-  FireRate: 0.1
+  DestroyerMagnetScaleMultiplier: 0.8
+  FirePeriod: 0.1
   BulletVelocity: 10
   BulletDamage: 1
   LaserDuration: 0.5

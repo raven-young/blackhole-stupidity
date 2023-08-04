@@ -82,7 +82,7 @@ public class Shooting : MonoBehaviour
     {
 
         _shootCooldown += Time.deltaTime;
-        if (_shootCooldown > _gameParams.FireRate)
+        if (_shootCooldown > SettingsManager.FirePeriod)
         {
             _canShoot = true;
             _shootCooldown = 0f;

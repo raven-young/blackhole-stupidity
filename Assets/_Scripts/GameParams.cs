@@ -29,6 +29,7 @@ public class GameParams : ScriptableObject
 
     [Header("CollectorShip")]
     public float CollectorMagnetScaleMultiplier = 1.5f;
+    public float CollectorFirePeriodMultiplier = 0.8f;
     [Header("DestroyerShip")]
     public int DestroyerBulletDamageBonus = 1;
     public float DestroyerMagnetScaleMultiplier = 0.8f;
@@ -37,7 +38,7 @@ public class GameParams : ScriptableObject
 
 
     [Header("Shooting")]
-    public float FireRate = 1f;
+    public float FirePeriod = 1f;
     public float BulletVelocity = 10f;
     public int BulletDamage = 1;
     public float LaserDuration = 0.5f;

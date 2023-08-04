@@ -49,6 +49,7 @@ public class SettingsManager : MonoBehaviour
     // GAME PARAMETERS
     public static int BulletDamage;
     public static float BurnRate;
+    public static float FirePeriod;
     public static float MagnetScale;
 
     // Calculate game params based on difficulty and ship selected
@@ -69,6 +70,13 @@ public class SettingsManager : MonoBehaviour
         switch (SelectedShipType)
         {
             case ShipType.Basic: BurnRate /= _gameParams.BasicShipMultiplier; break;
+        }
+
+        // FIRE RATE
+        FirePeriod = _gameParams.FirePeriod;
+        switch (SelectedShipType)
+        {
+            case ShipType.Collector: FirePeriod *= _gameParams.CollectorFirePeriodMultiplier; break;
         }
 
         // MAGNET SCALE
