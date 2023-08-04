@@ -30,7 +30,7 @@ public class Bullet : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collider)
     {
         Asteroid target = collider.GetComponent<Asteroid>();
-        target.TakeDamage(_gameParams.BulletDamage);
+        target.TakeDamage(SettingsManager.BulletDamage);
 
         BulletExit(collider);
     }

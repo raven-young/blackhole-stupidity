@@ -130,7 +130,7 @@ public class CanvasManager : MonoBehaviour
     {
         if (victorious)
         {
-            string acc = "\nAccuracy: " + Math.Round(100*QuestionAsteroid.Instance.GetAccuracy()) + "%";
+            string acc = "\nSolved: " + Math.Round(100*QuestionAsteroid.Instance.GetAccuracy()) + "%";
             _scoreTextVictory.text = _newHighscore ? "New Highscore: " + _score + acc :  "Score: " + _score + acc;
             _highscoreTextVictory.text = "Highscore: " + _gameParams.HighScore;
             _victoryScreen.SetActive(true);
@@ -140,7 +140,7 @@ public class CanvasManager : MonoBehaviour
         }
         else
         {
-            _scoreTextGameOver.text = "Score: " + _score + "\nAccuracy: " + Math.Round(100*QuestionAsteroid.Instance.GetAccuracy()) + "%";
+            _scoreTextGameOver.text = "Score: " + _score + "\nSolved: " + Math.Round(100*QuestionAsteroid.Instance.GetAccuracy()) + "%";
             _highscoreTextGameOver.text = "Highscore: " + _gameParams.HighScore;
             _gameOverScreen.SetActive(true);
             GameObject ReplayButton = _gameOverScreen.transform.Find("Replay Button").gameObject;

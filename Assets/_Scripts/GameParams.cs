@@ -5,7 +5,6 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "GameParams", menuName = "ScriptableObject/GameParams")]
 public class GameParams : ScriptableObject
 {
-
     [Header("Base Params")]
     [SerializeField, Range(10, 30),Tooltip("Escape horizon distance from origin (workaround)")] 
     public float WinRadius = 18f;
@@ -21,6 +20,19 @@ public class GameParams : ScriptableObject
     public float BurnRate = 2f;
     [Tooltip("Multiply ship's radial velocity by this value.")]
     public float RadialVelocityScale = 0.06f;
+    [Tooltip("Determines the item magnet size")]
+    public float MagnetScale = 15f;
+
+    [Header("BasicShip")]
+    [Tooltip("For the basic ship, multiply stats by small value to make it balanced wrt to the specialized ships")]
+    public float BasicShipMultiplier = 1.05f;
+
+    [Header("CollectorShip")]
+    public float CollectorMagnetScaleMultiplier = 1.5f;
+    [Header("DestroyerShip")]
+    public int DestroyerBulletDamageBonus = 1;
+    [Header("TankShip")]
+    public int TankHealthBonus = 50;
 
 
     [Header("Shooting")]

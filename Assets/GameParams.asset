@@ -19,6 +19,11 @@ MonoBehaviour:
   AngularVelocity: 0.95
   BurnRate: 1.8
   RadialVelocityScale: 0.06
+  MagnetScale: 10
+  BasicShipMultiplier: 1.05
+  CollectorMagnetScaleMultiplier: 1.7
+  DestroyerBulletDamageBonus: 1
+  TankHealthBonus: 50
   FireRate: 0.1
   BulletVelocity: 10
   BulletDamage: 1

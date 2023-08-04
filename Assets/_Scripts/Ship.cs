@@ -27,6 +27,7 @@ public class Ship : MonoBehaviour
     [SerializeField] private float objectBoundsScale;
 
     [Header("Logic")]
+    [SerializeField] private GameObject _itemMagnet;
     [SerializeField] public float InitialFuel = 100;
     public float CurrentHealth;
     public float CurrentFuel;
@@ -72,19 +73,19 @@ public class Ship : MonoBehaviour
     {
         //screenBounds = _cam.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, _cam.transform.position.z));
         ShipPositionRadius = transform.position.y;
-        _burnRate = _gameParams.BurnRate;
+        _burnRate = SettingsManager.BurnRate;
 
         _exhaustEmissionRate = 1.5f*_exhaustParticles.emission.rateOverTime.constant;
         _exhaustSpeed = 1.5f*_exhaustParticles.main.startSpeed.constant;
 
+        _itemMagnet.transform.localScale = new Vector3(SettingsManager.MagnetScale, SettingsManager.MagnetScale, SettingsManager.MagnetScale);
+
         switch (SettingsManager.Instance.SelectedDifficulty)
         {
             case SettingsManager.DifficultySetting.Easy:
-                _burnRate = 0;
                 CanvasManager.Instance.ToggleFuelSlider(false);
                 break;
             case SettingsManager.DifficultySetting.Normal:
-                _burnRate = 0;
                 CanvasManager.Instance.ToggleFuelSlider(false);
                 break;
             case SettingsManager.DifficultySetting.Hard:
