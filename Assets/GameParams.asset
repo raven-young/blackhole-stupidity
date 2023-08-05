@@ -24,7 +24,7 @@ MonoBehaviour:
   CollectorMagnetScaleMultiplier: 1.7
   CollectorFirePeriodMultiplier: 1.5
   DestroyerBulletDamageBonus: 1
-  DestroyerMagnetScaleMultiplier: 0.8
+  DestroyerMagnetScaleMultiplier: 0.7
   FirePeriod: 0.1
   BulletVelocity: 10
   BulletDamage: 1
@@ -45,7 +45,7 @@ MonoBehaviour:
   ShotAsteroidScore: 13
   CollectedItemScore: 17
   ScreenShakeDuration: 0.2
-  EasyMultiplier: 0.65
+  EasyMultiplier: 0.6
   HardMultiplier: 1.2
   HardPlayerDamageBonus: 6
   FailAsteroidSpawnBonus: 3
