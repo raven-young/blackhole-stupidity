@@ -71,5 +71,8 @@ public class GameOverTransition : MonoBehaviour
         // Game over screen
         SoundManager.Instance.PlaySound(_gameOverClip);
         CanvasManager.Instance.RenderGameOverScreen(false);
+
+        yield return new WaitForSecondsRealtime(7f);
+        SoundManager.Instance.StartMainGameMusic(4f);
     }
 }

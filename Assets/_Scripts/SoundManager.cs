@@ -57,7 +57,7 @@ public class SoundManager : MonoBehaviour
     [SerializeField] private AudioClip _nervousMusic, _mainMenuMusic, _dialogueMusic;
 
     [Header("SFX")]
-    [SerializeField] private AudioClip _alertClip;
+    [SerializeField] private AudioClip _alertClip, _victoryFanfare, _powerup;
 
     [Header("UI")]
     [SerializeField] private AudioClip _buttonPress;
@@ -170,7 +170,9 @@ public class SoundManager : MonoBehaviour
     public enum SFX
     {
         AlertSFX,
-        ButtonPress
+        ButtonPress,
+        VictoryFanfare,
+        Powerup
     }
     public void PlaySFX(SFX sfx) 
     {
@@ -178,6 +180,8 @@ public class SoundManager : MonoBehaviour
         {
             case SFX.AlertSFX: PlaySound(_alertClip); break;
             case SFX.ButtonPress: PlaySound(_buttonPress); break;
+            case SFX.VictoryFanfare: PlaySound(_victoryFanfare); break;
+            case SFX.Powerup: PlaySound(_powerup); break;
         }
         
     }

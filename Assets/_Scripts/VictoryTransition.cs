@@ -13,6 +13,8 @@ public class VictoryTransition : MonoBehaviour
     [SerializeField] private AudioClip _victoryClip;
     [SerializeField] private Transform _shipTransform;
 
+    private Material _shipMaterial;
+
 
     private void Awake()
     {
@@ -22,22 +24,37 @@ public class VictoryTransition : MonoBehaviour
             Instance = this;
     }
 
+    private void Start()
+    {
+        _shipMaterial = _shipTransform.gameObject.GetComponent<SpriteRenderer>().material;
+        //_shipMaterial = _shipTransform.transform.Find("ItemMagnet").GetComponent<SpriteRenderer>().material;
+    }
+
     public IEnumerator StartVictoryTransition()
     {
         // Freeze game
-        Time.timeScale = 0;
-        yield return new WaitForSecondsRealtime(0f);
-        Time.timeScale = 1;
+        //Time.timeScale = 0;
+        Ship.Instance.CannotMove = true;
+        Ship.Instance.IsInvincible = true;
+        _shipMaterial.DOFloat(1, "_HologramBlend", 4f).SetDelay(0f);
+        SoundManager.Instance.PlaySFX(SoundManager.SFX.Powerup);
+        yield return new WaitForSecondsRealtime(1f);
+        SoundManager.Instance.PlaySFX(SoundManager.SFX.VictoryFanfare);
+        yield return new WaitForSecondsRealtime(5f);
+        //DOTween.To(() => Time.timeScale, x => Time.timeScale = x, 1, 0.5f).SetEase(Ease.InQuad).SetUpdate(true);
 
         // Ship escapes
         _shipTransform.DOMove(1.5f * _shipTransform.position, 0.5f).SetUpdate(true);
-        yield return new WaitForSecondsRealtime(1f);
+        yield return new WaitForSecondsRealtime(2.5f);
 
         GameManager.Instance.PauseGame();
         // Victory screen
         SoundManager.Instance.PlaySound(_victoryClip);
         CanvasManager.Instance.RenderGameOverScreen(true);
         StartCoroutine(RaccoonBlink());
+
+        yield return new WaitForSecondsRealtime(7f);
+        SoundManager.Instance.StartMainGameMusic(4f);
     }
 
     IEnumerator RaccoonBlink()

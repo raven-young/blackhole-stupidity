@@ -33,8 +33,8 @@ public class Ship : MonoBehaviour
     public float CurrentFuel;
     private float _burnRate;
 
-    private bool cannotMove = false;
-    private bool isInvincible = false;
+    public bool CannotMove = false;
+    public bool IsInvincible = false;
 
     [Header("Effects")]
     [SerializeField] private GameObject deathEffect;
@@ -96,20 +96,20 @@ public class Ship : MonoBehaviour
 
     void Update()
     {
-        if (cannotMove)
+        if (CannotMove)
             return;
 
         // workaround due to broken triggers
         if (ShipPositionRadius > _gameParams.WinRadius && !GameManager.Instance.GameHasEnded)
         {
-            cannotMove = true;
+            CannotMove = true;
             StartCoroutine(GameManager.Instance.GameOver(true));
             return;
         }
 
         if (CurrentHealth <= 0)
         {
-            cannotMove = true;
+            CannotMove = true;
             StartCoroutine(GameManager.Instance.GameOver(false));
             return;
         }
@@ -137,7 +137,7 @@ public class Ship : MonoBehaviour
     // Executed on fixed frequency (default 50 Hz), good for physics as framerate is not const
     void FixedUpdate()
     {
-        if (cannotMove)
+        if (CannotMove)
             return;
 
         // old Movement
@@ -181,7 +181,7 @@ public class Ship : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
-        if (isInvincible)
+        if (IsInvincible)
         {
             return;
         }
@@ -195,10 +195,10 @@ public class Ship : MonoBehaviour
 
     IEnumerator ActivateInvincibility(float duration)
     {
-        isInvincible = true;
+        IsInvincible = true;
         yield return new WaitForSeconds(duration);
-        if (!cannotMove)
-            isInvincible = false;
+        if (!CannotMove)
+            IsInvincible = false;
     }
 
     public IEnumerator Die()
@@ -224,8 +224,8 @@ public class Ship : MonoBehaviour
 
         yield return new WaitForSeconds(1.5f);
 
-        cannotMove = true;
-        isInvincible = true;
+        CannotMove = true;
+        IsInvincible = true;
         gameObject.SetActive(false);
         GameObject finaleffect = Instantiate(deathEffect, transform.position, Quaternion.identity);
         finaleffect.transform.localScale *= 2f;
