@@ -17,7 +17,10 @@ public class LaserEffect : MonoBehaviour
     private void Update()
     {
         if (GameManager.Instance.GameHasEnded)
+        {
             _laserAimLineRenderer.GetComponent<LineRenderer>().enabled = false;
+            return;
+        }
 
         _laserPositions[0] = transform.position;
         _laserPositions[1] = _target.position;

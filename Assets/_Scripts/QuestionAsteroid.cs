@@ -93,7 +93,16 @@ public class QuestionAsteroid : MonoBehaviour
     {
 
         if (GameManager.Instance.GameHasEnded)
+        {
+            if (!_questionAsteroid.activeSelf)
+                return;
+
+            Explode();
+            SoundManager.Instance.PlaySound(_explosionClip, 0.5f);
+            _questionAsteroid.SetActive(false);
             return;
+        }
+            
 
         transform.position = Vector3.MoveTowards(transform.position, Vector3.zero, Time.deltaTime * _questionAsteroidSpeed * _speedModifier);
 
@@ -140,7 +149,7 @@ public class QuestionAsteroid : MonoBehaviour
         {
             case SettingsManager.DifficultySetting.Hard:
                 // 90% chance of spawning linear equation, 10% chance of spawning quadratic equation
-                bool spawnQuadratic = UnityEngine.Random.Range(0f, 1f) < 0.1f;
+                bool spawnQuadratic = false;// UnityEngine.Random.Range(0f, 1f) < 0.1f;
                 if (spawnQuadratic)
                 {
                     _speedModifier = 0.35f;

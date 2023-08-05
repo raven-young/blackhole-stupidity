@@ -623,9 +623,9 @@ Material:
   - BLUR_ON
   - DISTORT_ON
   - FADE_ON
-  - FLICKER_ON
   - GRADIENT_ON
   - HSV_ON
+  - ZOOMUV_ON
   m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -821,7 +821,7 @@ Material:
     - _WaveY: 0.5
     - _ZTestMode: 4
     - _ZWrite: 0
-    - _ZoomUvAmount: 0.5
+    - _ZoomUvAmount: 1.19
     m_Colors:
     - _AlphaOutlineColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
@@ -1071,6 +1071,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 356228179}
   m_CullTransparentMesh: 1
+--- !u!1 &467272733 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3336183828981977191, guid: 3e904b9919c1c2f48aaf85ed11ecd8b5, type: 3}
+  m_PrefabInstance: {fileID: 542708584756108523}
+  m_PrefabAsset: {fileID: 0}
 --- !u!21 &509713990
 Material:
   serializedVersion: 8
@@ -1086,7 +1091,6 @@ Material:
   - DISTORT_ON
   - FISHEYE_ON
   - PINCH_ON
-  - SHAKEUV_ON
   m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -3676,17 +3680,33 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1146786447960465424, guid: 3e904b9919c1c2f48aaf85ed11ecd8b5, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1146786447960465424, guid: 3e904b9919c1c2f48aaf85ed11ecd8b5, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1146786447960465424, guid: 3e904b9919c1c2f48aaf85ed11ecd8b5, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2053870404401778554, guid: 3e904b9919c1c2f48aaf85ed11ecd8b5, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 509713990}
+    - target: {fileID: 2257728229725127128, guid: 3e904b9919c1c2f48aaf85ed11ecd8b5, type: 3}
+      propertyPath: _blackHoleNormalLayer2
+      value: 
+      objectReference: {fileID: 467272733}
     - target: {fileID: 2338669928787441268, guid: 3e904b9919c1c2f48aaf85ed11ecd8b5, type: 3}
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3336183828981977191, guid: 3e904b9919c1c2f48aaf85ed11ecd8b5, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3624420179858119306, guid: 3e904b9919c1c2f48aaf85ed11ecd8b5, type: 3}
       propertyPath: m_IsActive
@@ -3740,6 +3760,18 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 1765380251}
+    - target: {fileID: 8170323525790532215, guid: 3e904b9919c1c2f48aaf85ed11ecd8b5, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 7.88
+      objectReference: {fileID: 0}
+    - target: {fileID: 8170323525790532215, guid: 3e904b9919c1c2f48aaf85ed11ecd8b5, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 7.88
+      objectReference: {fileID: 0}
+    - target: {fileID: 8170323525790532215, guid: 3e904b9919c1c2f48aaf85ed11ecd8b5, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 7.88
+      objectReference: {fileID: 0}
     - target: {fileID: 8170323525790532215, guid: 3e904b9919c1c2f48aaf85ed11ecd8b5, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

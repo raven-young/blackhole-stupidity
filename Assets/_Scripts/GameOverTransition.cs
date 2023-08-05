@@ -29,10 +29,8 @@ public class GameOverTransition : MonoBehaviour
 
     public IEnumerator StartGameOverTransition()
     {
-        // Freeze game
-        Time.timeScale = 0;
-        yield return new WaitForSecondsRealtime(0f);
-        Time.timeScale = 1;
+        Ship.Instance.CannotMove = true;
+        Ship.Instance.IsInvincible = true;
 
         SoundManager.Instance.PlaySFX(SoundManager.SFX.AlertSFX);
 

@@ -33,8 +33,6 @@ public class VictoryTransition : MonoBehaviour
 
     public IEnumerator StartVictoryTransition()
     {
-        // Freeze game
-        //Time.timeScale = 0;
         Ship.Instance.CannotMove = true;
         Ship.Instance.IsInvincible = true;
         _shipMaterial.DOFloat(1, "_HologramBlend", 4f).SetDelay(0f);
@@ -51,7 +49,6 @@ public class VictoryTransition : MonoBehaviour
         yield return new WaitForSecondsRealtime(1f);
         SoundManager.Instance.PlaySFX(SoundManager.SFX.VictoryFanfare);
         yield return new WaitForSecondsRealtime(5f);
-        //DOTween.To(() => Time.timeScale, x => Time.timeScale = x, 1, 0.5f).SetEase(Ease.InQuad).SetUpdate(true);
 
         // Ship escapes
         _shipTransform.DOMove(2.2f * _shipTransform.position, 0.5f).SetUpdate(true);
