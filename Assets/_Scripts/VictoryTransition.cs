@@ -12,6 +12,7 @@ public class VictoryTransition : MonoBehaviour
     [SerializeField] private Image _raccoonImage;
     [SerializeField] private AudioClip _victoryClip;
     [SerializeField] private Transform _shipTransform;
+    [SerializeField] private ParticleSystem _exhaustParticles;
 
     private Material _shipMaterial;
 
@@ -37,6 +38,15 @@ public class VictoryTransition : MonoBehaviour
         Ship.Instance.CannotMove = true;
         Ship.Instance.IsInvincible = true;
         _shipMaterial.DOFloat(1, "_HologramBlend", 4f).SetDelay(0f);
+        _shipMaterial.DOFloat(18, "_ShakeUvSpeed", 4f).SetDelay(0f);
+        _shipMaterial.DOFloat(4, "_ShakeUvX", 4f).SetDelay(0f);
+        _shipMaterial.DOFloat(4, "_ShakeUvY", 4f).SetDelay(0f);
+
+        var emission = _exhaustParticles.emission;
+        emission.rateOverTime = 3* _exhaustParticles.emission.rateOverTime.constant;
+        var main = _exhaustParticles.main;
+        main.startSpeed = 3f * _exhaustParticles.main.startSpeed.constant;
+
         SoundManager.Instance.PlaySFX(SoundManager.SFX.Powerup);
         yield return new WaitForSecondsRealtime(1f);
         SoundManager.Instance.PlaySFX(SoundManager.SFX.VictoryFanfare);
@@ -44,8 +54,8 @@ public class VictoryTransition : MonoBehaviour
         //DOTween.To(() => Time.timeScale, x => Time.timeScale = x, 1, 0.5f).SetEase(Ease.InQuad).SetUpdate(true);
 
         // Ship escapes
-        _shipTransform.DOMove(1.5f * _shipTransform.position, 0.5f).SetUpdate(true);
-        yield return new WaitForSecondsRealtime(2.5f);
+        _shipTransform.DOMove(2.2f * _shipTransform.position, 0.5f).SetUpdate(true);
+        yield return new WaitForSecondsRealtime(2.7f);
 
         GameManager.Instance.PauseGame();
         // Victory screen

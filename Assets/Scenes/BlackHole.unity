@@ -136,6 +136,7 @@ Material:
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
   - HOLOGRAM_ON
+  - SHAKEUV_ON
   m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -311,9 +312,9 @@ Material:
     - _ShadowAlpha: 0.5
     - _ShadowX: 0.1
     - _ShadowY: -0.05
-    - _ShakeUvSpeed: 2.5
-    - _ShakeUvX: 1.5
-    - _ShakeUvY: 1
+    - _ShakeUvSpeed: 0
+    - _ShakeUvX: 0
+    - _ShakeUvY: 0
     - _ShineGlow: 1
     - _ShineLocation: 0.5
     - _ShineRotate: 0
@@ -2160,6 +2161,11 @@ Material:
     - _ShadowColor: {r: 0, g: 0, b: 0, a: 1}
     - _ShineColor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
+--- !u!198 &1077088999 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 8098951721159310692, guid: cab30414fdac94247835ee4e16734d65, type: 3}
+  m_PrefabInstance: {fileID: 4537425705427404040}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1309954571 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6068167619240253332, guid: 69f81f1888f1d8f469cfbb8a824abbeb, type: 3}
@@ -2202,8 +2208,7 @@ Material:
   m_Shader: {fileID: 4800000, guid: a36b7719ff0465b42ab1407d67672c5f, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
-  m_ValidKeywords:
-  - GLOW_ON
+  m_ValidKeywords: []
   m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -2295,7 +2300,7 @@ Material:
     - _ColorSwapRedLuminosity: 0.5
     - _Contrast: 1
     - _CullingOption: 0
-    - _DistortAmount: 0.5
+    - _DistortAmount: 0.95
     - _DistortTexXSpeed: 5
     - _DistortTexYSpeed: 5
     - _EditorDrawers: 6
@@ -4470,6 +4475,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 66767057}
     - target: {fileID: 3514065748812863673, guid: cab30414fdac94247835ee4e16734d65, type: 3}
+      propertyPath: m_RenderMode
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3514065748812863673, guid: cab30414fdac94247835ee4e16734d65, type: 3}
       propertyPath: m_SortingLayer
       value: 2
       objectReference: {fileID: 0}
@@ -4500,6 +4509,26 @@ PrefabInstance:
     - target: {fileID: 8050739704557048044, guid: cab30414fdac94247835ee4e16734d65, type: 3}
       propertyPath: m_Name
       value: ShipController
+      objectReference: {fileID: 0}
+    - target: {fileID: 8098951721159310692, guid: cab30414fdac94247835ee4e16734d65, type: 3}
+      propertyPath: NoiseModule.scrollSpeed.scalar
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8098951721159310692, guid: cab30414fdac94247835ee4e16734d65, type: 3}
+      propertyPath: EmissionModule.rateOverTime.scalar
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 8098951721159310692, guid: cab30414fdac94247835ee4e16734d65, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8098951721159310692, guid: cab30414fdac94247835ee4e16734d65, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8098951721159310692, guid: cab30414fdac94247835ee4e16734d65, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.r
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8708556452647656273, guid: cab30414fdac94247835ee4e16734d65, type: 3}
       propertyPath: _bulletPrefab
@@ -4559,6 +4588,10 @@ PrefabInstance:
       propertyPath: _shipTransform
       value: 
       objectReference: {fileID: 98074547}
+    - target: {fileID: 5250514850475456303, guid: 74b3a98a9efba3d45b004cb237d0a224, type: 3}
+      propertyPath: _exhaustParticles
+      value: 
+      objectReference: {fileID: 1077088999}
     - target: {fileID: 6012237719579283759, guid: 74b3a98a9efba3d45b004cb237d0a224, type: 3}
       propertyPath: m_Name
       value: Transitions
