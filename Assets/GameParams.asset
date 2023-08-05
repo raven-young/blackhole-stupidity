@@ -23,7 +23,7 @@ MonoBehaviour:
   BasicShipMultiplier: 1.05
   CollectorMagnetScaleMultiplier: 1.7
   CollectorFirePeriodMultiplier: 1.5
-  DestroyerBulletDamageBonus: 1
+  DestroyerBulletDamageBonus: 0
   DestroyerMagnetScaleMultiplier: 0.7
   FirePeriod: 0.1
   BulletVelocity: 10

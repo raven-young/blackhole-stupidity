@@ -9,7 +9,7 @@ public class AsteroidFake : MonoBehaviour
 
     [SerializeField] private GameParams _gameParams;
     [SerializeField] private Rigidbody2D _rb;
-    [SerializeField] private Sprite _vachette; // easter egg
+    [SerializeField] private Sprite _vachette, _raccoon; // easter egg
 
     private void Start()
     {
@@ -19,9 +19,10 @@ public class AsteroidFake : MonoBehaviour
         var spin = UnityEngine.Random.Range(0f, 1f) < 0.5f ? 1 : -1;
         float torque = UnityEngine.Random.Range(5f, 20f);
 
-        if (UnityEngine.Random.Range(0f, 1f) < 0.02f)
+        if (UnityEngine.Random.Range(0f, 1f) < 0.06f)
         {
-            gameObject.GetComponent<SpriteRenderer>().sprite = _vachette;
+            gameObject.GetComponent<SpriteRenderer>().sprite = UnityEngine.Random.Range(0f, 1f) < 0.5f ? _vachette : _raccoon;
+            if (gameObject.GetComponent<SpriteRenderer>().sprite == _raccoon) transform.localScale = new Vector3(0.6f, 0.6f, 0.6f);
             torque *= 0.3f;
         }
         // random torque

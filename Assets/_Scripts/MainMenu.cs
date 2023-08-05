@@ -43,6 +43,7 @@ public class MainMenu : MonoBehaviour
         float _buttonY = _startButton.transform.position.y;
         _startButton.transform.DOMoveY(_buttonY + 0.7f, 1f).SetEase(Ease.InOutSine).SetLoops(-1, LoopType.Yoyo);
         _quitButton.transform.DOMoveY(_buttonY + 0.7f, 1f).SetEase(Ease.InOutSine).SetLoops(-1, LoopType.Yoyo).SetDelay(0.2f);
+        _activePanel = _startButton;
     }
 
     private void Update()
