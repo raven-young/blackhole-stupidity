@@ -195,7 +195,7 @@ public class QuestionAsteroid : MonoBehaviour
         CanvasManager.Instance.ComboCount = 0;
         OnProblemFailed?.Invoke(AvatarReactions.ExpressionEvents.ProblemFailed);
         if (!GameManager.Instance.GameHasEnded)
-            SoundManager.Instance.PlayMusic(_wrongAnswerclip);
+            SoundManager.Instance.PlaySound(_wrongAnswerclip);
         yield return new WaitForSeconds(_gameParams.LaserDuration);
         _questionAsteroid.SetActive(false);
         SpawnStuff(false);

@@ -16,7 +16,7 @@ public class CanvasManager : MonoBehaviour
     [SerializeField] private GameObject _gameOverScreen;
     [SerializeField] private GameObject _victoryScreen;
     [SerializeField] private GameObject _pauseScreen;
-    [SerializeField] private GameObject _keyboardOverlay;
+    [SerializeField] private GameObject _inputPopup;
 
     [SerializeField] private TMP_Text _scoreText, _distanceLoseText, _distanceWinText;
     [SerializeField] private TMP_Text _scoreTextGameOver, _highscoreTextGameOver, _scoreTextVictory, _highscoreTextVictory;
@@ -51,7 +51,16 @@ public class CanvasManager : MonoBehaviour
         
         playerController = GameObject.Find("ShipController");
         playerInput = playerController.GetComponent<PlayerInput>();
+
+        //playerInput.onControlsChanged += OnDeviceChange;
     }
+
+    
+    //public void OnDeviceChange(PlayerInput playerInput)
+    //{
+    //    Debug.Log(playerInput.currentControlScheme);
+    //        //.currentControlScheme.Equals("Gamepad");
+    //}
 
     //private void Update()
     //{
@@ -105,12 +114,23 @@ public class CanvasManager : MonoBehaviour
 
     public void ShowControlsPanel()
     {
-        _keyboardOverlay.SetActive(true);
+        _inputPopup.SetActive(true);
+
+        if (Gamepad.current != null)
+            _inputPopup.transform.Find("Gamepad").gameObject.SetActive(true);
+        else
+            _inputPopup.transform.Find("Keyboard").gameObject.SetActive(true);
+
+        // doesnt work
+        //if (playerInput.currentControlScheme == "Gamepad")
+        //    _inputPopup.transform.Find("Gamepad").gameObject.SetActive(true);
+        //else if (playerInput.currentControlScheme == "KeyboardMouse")
+        //    _inputPopup.transform.Find("Keyboard").gameObject.SetActive(true);
     }
 
     public void StartGame()
     {
-        _keyboardOverlay.SetActive(false);
+        _inputPopup.SetActive(false);
     }
 
     public void RenderPauseScreen()

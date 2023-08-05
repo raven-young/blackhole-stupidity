@@ -754,7 +754,6 @@ Material:
   - FISHEYE_ON
   - PINCH_ON
   - SHAKEUV_ON
-  - TWISTUV_ON
   m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -3078,6 +3077,14 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 509713990}
+    - target: {fileID: 2338669928787441268, guid: 3e904b9919c1c2f48aaf85ed11ecd8b5, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3336183828981977191, guid: 3e904b9919c1c2f48aaf85ed11ecd8b5, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3624420179858119306, guid: 3e904b9919c1c2f48aaf85ed11ecd8b5, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -3840,6 +3847,14 @@ PrefabInstance:
     - target: {fileID: 841615761430351483, guid: cab30414fdac94247835ee4e16734d65, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3514065748812863673, guid: cab30414fdac94247835ee4e16734d65, type: 3}
+      propertyPath: m_SortingLayer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3514065748812863673, guid: cab30414fdac94247835ee4e16734d65, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 919231889
       objectReference: {fileID: 0}
     - target: {fileID: 3514065748812863673, guid: cab30414fdac94247835ee4e16734d65, type: 3}
       propertyPath: m_Materials.Array.data[0]
