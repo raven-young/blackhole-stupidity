@@ -17,7 +17,7 @@ MonoBehaviour:
   MaxTheta: 0.793
   MaxHealth: 100
   AngularVelocity: 0.94
-  RadialVelocityScale: 0.06
+  RadialVelocityScale: 6
   FuelBurnRate: 2
   MagnetScale: 10
   BasicShipMultiplier: 1.05
@@ -51,4 +51,4 @@ MonoBehaviour:
   HardMultiplier: 1.2
   HardPlayerDamageBonus: 6
   FailAsteroidSpawnBonus: 3
-  ScreenBounds: {x: 35.43009, y: 19.930868}
+  ScreenBounds: {x: 35.432655, y: 19.930868}

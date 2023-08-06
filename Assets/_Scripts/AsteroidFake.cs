@@ -19,7 +19,7 @@ public class AsteroidFake : MonoBehaviour
         var spin = UnityEngine.Random.Range(0f, 1f) < 0.5f ? 1 : -1;
         float torque = UnityEngine.Random.Range(5f, 20f);
 
-        if (UnityEngine.Random.Range(0f, 1f) < 0.06f)
+        if (UnityEngine.Random.Range(0f, 1f) < 0.02f)
         {
             gameObject.GetComponent<SpriteRenderer>().sprite = UnityEngine.Random.Range(0f, 1f) < 0.5f ? _vachette : _raccoon;
             if (gameObject.GetComponent<SpriteRenderer>().sprite == _raccoon) transform.localScale = new Vector3(0.6f, 0.6f, 0.6f);

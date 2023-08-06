@@ -18,9 +18,10 @@ public class CanvasManager : MonoBehaviour
     [SerializeField] private GameObject _victoryScreen;
     [SerializeField] private GameObject _pauseScreen;
     [SerializeField] private GameObject _inputPopup;
+    [SerializeField] private RectTransform _achievementPanel;
 
-    [SerializeField] private TMP_Text _scoreText, _distanceLoseText, _distanceWinText;
-    [SerializeField] private TMP_Text _scoreTextGameOver, _highscoreTextGameOver, _scoreTextVictory, _highscoreTextVictory;
+    [SerializeField] private TMP_Text _achievementText, _scoreText;
+    [SerializeField] private TMP_Text _scoreTextGameOver, _highscoreTextGameOver, _scoreTextVictory, _highscoreTextVictory;   
 
     [SerializeField] private Slider _fuelSlider, _healthSlider;
     [SerializeField] private GameObject _alertIcon;
@@ -33,6 +34,8 @@ public class CanvasManager : MonoBehaviour
     public int ComboCount = 0;
 
     public static event Action<int> OnScored;
+
+    private Queue<AchievementsManager.Achievement> _newAchievementsQueue = new();
 
     private void Awake()
     {
@@ -56,18 +59,16 @@ public class CanvasManager : MonoBehaviour
         //playerInput.onControlsChanged += OnDeviceChange;
     }
 
-    
-    //public void OnDeviceChange(PlayerInput playerInput)
-    //{
-    //    Debug.Log(playerInput.currentControlScheme);
-    //        //.currentControlScheme.Equals("Gamepad");
-    //}
 
-    //private void Update()
-    //{
-    //    _distanceLoseText.text = "Fail:"+ Math.Round(GameManager.Instance.DistanceToEventHorizon, 2);
-    //    _distanceWinText.text = "Win:" + Math.Round(_gameParams.WinRadius - Ship.Instance.ShipPositionRadius, 2);
-    //}
+    private void OnEnable()
+    {
+        AchievementsManager.OnAchievementUnlocked += QueueAchievement;
+    }
+
+    private void OnDisable()
+    {
+        AchievementsManager.OnAchievementUnlocked -= QueueAchievement;
+    }
 
     public void UpdateHealth(float newValue)
     {
@@ -150,6 +151,12 @@ public class CanvasManager : MonoBehaviour
 
     public void RenderGameOverScreen(bool victorious)
     {
+
+        if (_newAchievementsQueue.Count > 0)
+        {
+            StartCoroutine(DisplayAchievementNotification());
+        }
+
         if (victorious)
         {
             string acc = "\nSolved: " + Math.Round(100*QuestionAsteroid.Instance.GetAccuracy()) + "%";
@@ -168,6 +175,39 @@ public class CanvasManager : MonoBehaviour
             GameObject ReplayButton = _gameOverScreen.transform.Find("Replay Button").gameObject;
             var eventSystem = EventSystem.current;
             eventSystem.SetSelectedGameObject(ReplayButton, new BaseEventData(eventSystem));
+        }
+    }
+
+    private void QueueAchievement(AchievementsManager.Achievement achievement)
+    {
+        _newAchievementsQueue.Enqueue(achievement);
+    }
+
+    private IEnumerator DisplayAchievementNotification()
+    {
+        
+        float oldPanelPosY = _achievementPanel.anchoredPosition.y;
+        float newPanelPosY = oldPanelPosY + 300f;
+
+        foreach (AchievementsManager.Achievement achievement in _newAchievementsQueue)
+        {  
+            Debug.Log("achievement notification: " + achievement.Name);
+            _achievementText.text = "Achievement:\n" + achievement.Name;
+
+            // Display
+            _achievementPanel.DOAnchorPosY(newPanelPosY, 0.4f).SetEase(Ease.OutCubic).SetUpdate(true);
+            yield return new WaitForSecondsRealtime(4f);
+
+            // Fade
+            _achievementPanel.DOAnchorPosY(1.4f*newPanelPosY, 0.4f).SetEase(Ease.OutCubic).SetUpdate(true);
+            _achievementPanel.GetComponent<Image>().DOFade(0f, 0.4f).SetUpdate(true);
+            _achievementText.DOFade(0f, 0.4f).SetUpdate(true);
+            yield return new WaitForSecondsRealtime(0.5f);
+
+            // Reset
+            _achievementPanel.DOAnchorPosY(oldPanelPosY, 0f).SetUpdate(true);
+            _achievementPanel.GetComponent<Image>().DOFade(1f, 0f).SetUpdate(true);
+            _achievementText.DOFade(1f, 0f).SetUpdate(true);
         }
     }
 

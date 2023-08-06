@@ -7,7 +7,7 @@ using System.Reflection;
 [CreateAssetMenu(fileName = "AchievementsManager", menuName = "ScriptableObject/AchievementsManager")]
 public class AchievementsManager : ScriptableObject
 {
-    public event Action<Achievement> OnAchievementUnlocked;
+    public static event Action<Achievement> OnAchievementUnlocked;
 
     [Serializable]
     public class Achievement
@@ -29,6 +29,7 @@ public class AchievementsManager : ScriptableObject
     [SerializeField] private Achievement _victoryHard;
     [SerializeField] private Achievement _victoryExpert;
 
+    [SerializeField] private Achievement _score420; // testing
     [SerializeField] private Achievement _score10k;
     [SerializeField] private Achievement _score50k;
 
@@ -76,6 +77,11 @@ public class AchievementsManager : ScriptableObject
 
     private void UnlockScoringAchievements(int score)
     {
+        if (score > 1 && !_score420.Unlocked)
+        {
+            _score420.Unlocked = true;
+            OnAchievementUnlocked?.Invoke(_score420);
+        }
         if (score > 10000 && !_score10k.Unlocked)
         {
             _score10k.Unlocked = true;
@@ -106,6 +112,16 @@ public class AchievementsManager : ScriptableObject
         }
 
         
+    }
+
+    public void ResetAchievements()
+    {
+        List<object> achievements = new(GetNestedFieldValuesOfType<Achievement>());
+
+        foreach (Achievement field in achievements)
+        {
+            field.Unlocked = false;
+        }
     }
 
     // code below from chatgpt
