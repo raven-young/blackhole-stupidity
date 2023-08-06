@@ -78,6 +78,12 @@ public class GameParams : ScriptableObject
     public int CorrectAnswerScore = 1;
     public int ShotAsteroidScore = 1;
     public int CollectedItemScore = 1;
+    public float EasyScoreMultiplier = 0.75f;
+    public float NormalScoreMultiplier = 1f;
+    public float HardScoreMultiplier = 1.5f;
+    public float ExpertScoreMultiplier = 2f;
+    public float VictoryMultiplier = 1.5f;
+    public float GameOverMultiplier = 0.75f;
 
     [Header("Juice")]
     public float ScreenShakeDuration = 0.2f;

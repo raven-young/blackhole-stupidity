@@ -186,11 +186,11 @@ public class QuestionAsteroid : MonoBehaviour
 
         SpawnStuff(true);
 
-        CanvasManager.Instance.ComboCount++;
-        if (CanvasManager.Instance.ComboCount > 1)
-            _comboDamageNumberPrefab.Spawn(transform.position, CanvasManager.Instance.ComboCount);
+        Scoring.Instance.ComboCount++;
+        if (Scoring.Instance.ComboCount > 1)
+            _comboDamageNumberPrefab.Spawn(transform.position, Scoring.Instance.ComboCount);
 
-        CanvasManager.Instance.IncrementScore(_gameParams.CorrectAnswerScore);
+        Scoring.Instance.IncrementScore(_gameParams.CorrectAnswerScore);
 
         SoundManager.Instance.PlaySound(_rightAnswerclip);
         AnswerExit();
@@ -203,7 +203,7 @@ public class QuestionAsteroid : MonoBehaviour
         _deltaDelta = 0;
         _totalSpawned++; // don't move to spawned else penalty for asteroinds spawned right before win
 
-        CanvasManager.Instance.ComboCount = 0;
+        Scoring.Instance.ComboCount = 0;
         OnProblemFailed?.Invoke(AvatarReactions.ExpressionEvents.ProblemFailed);
         if (!GameManager.Instance.GameHasEnded)
             SoundManager.Instance.PlaySound(_wrongAnswerclip);

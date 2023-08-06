@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using System;
 using UnityEngine.InputSystem;
 using UnityEngine.EventSystems;
 using DG.Tweening;
@@ -27,13 +26,8 @@ public class CanvasManager : MonoBehaviour
     [SerializeField] private GameObject _alertIcon;
     private bool _isLowOnStats = false;
 
-    private bool _newHighscore = false;
-    private int _score = 0;
     private PlayerInput playerInput;
     private GameObject playerController;
-    public int ComboCount = 0;
-
-    public static event Action<int> OnScored;
 
     private Queue<AchievementsManager.Achievement> _newAchievementsQueue = new();
 
@@ -76,12 +70,6 @@ public class CanvasManager : MonoBehaviour
         AchievementsManager.OnAchievementUnlocked -= QueueAchievement;
     }
 
-    public void UpdateAchievementsText()
-    {
-        // Debug
-        _achievementsListText.text = AchievementsManager.Instance.GetAchievementsString();
-    }
-
     public void UpdateHealth(float newValue)
     {
         _healthSlider.value = newValue;
@@ -112,18 +100,6 @@ public class CanvasManager : MonoBehaviour
         {
             _isLowOnStats = false;
             _alertIcon.SetActive(false);
-        }
-    }
-
-    public void IncrementScore(int amount)
-    {
-        _score += Mathf.Max(1, ComboCount) * amount;
-        _scoreText.text = "Score: " + _score;
-        OnScored?.Invoke(_score);
-        if (_score > _playerStats.GetHighscore())
-        {
-            _playerStats.SetHighscore(_score);
-            _newHighscore = true;
         }
     }
 
@@ -164,16 +140,17 @@ public class CanvasManager : MonoBehaviour
     public void RenderGameOverScreen(bool victorious)
     {
 
+        Scoring.Instance.DisplayFinalScore(victorious);
+
         if (_newAchievementsQueue.Count > 0)
         {
             StartCoroutine(DisplayAchievementNotification());
         }
 
+        string difficulty = SettingsManager.Instance.SelectedDifficulty.ToString();
         if (victorious)
         {
-            string acc = "\nSolved: " + Math.Round(100*QuestionAsteroid.Instance.GetAccuracy()) + "%";
-            _scoreTextVictory.text = _newHighscore ? "New Highscore: " + _score + acc :  "Score: " + _score + acc;
-            _highscoreTextVictory.text = "Highscore: " + _playerStats.GetHighscore();
+            _highscoreTextVictory.text = difficulty + " Highscore: " + _playerStats.GetHighscore();
             _victoryScreen.SetActive(true);
             GameObject ReplayButton = _victoryScreen.transform.Find("Replay Button").gameObject;
             var eventSystem = EventSystem.current;
@@ -181,8 +158,7 @@ public class CanvasManager : MonoBehaviour
         }
         else
         {
-            _scoreTextGameOver.text = "Score: " + _score + "\nSolved: " + Math.Round(100*QuestionAsteroid.Instance.GetAccuracy()) + "%";
-            _highscoreTextGameOver.text = "Highscore: " + _playerStats.GetHighscore();
+            _highscoreTextGameOver.text = difficulty + " Highscore: " + _playerStats.GetHighscore();
             _gameOverScreen.SetActive(true);
             GameObject ReplayButton = _gameOverScreen.transform.Find("Replay Button").gameObject;
             var eventSystem = EventSystem.current;
@@ -193,6 +169,12 @@ public class CanvasManager : MonoBehaviour
     private void QueueAchievement(AchievementsManager.Achievement achievement)
     {
         _newAchievementsQueue.Enqueue(achievement);
+    }
+
+    public void UpdateAchievementsText()
+    {
+        // Debug
+        _achievementsListText.text = AchievementsManager.Instance.GetAchievementsString();
     }
 
     private IEnumerator DisplayAchievementNotification()
@@ -223,20 +205,20 @@ public class CanvasManager : MonoBehaviour
         }
     }
 
-    public void SwitchActionMap()
-    {
-        Debug.Log(playerInput.currentActionMap.ToString());
-        if (playerInput.currentActionMap.ToString() == "PlayerInputActions (UnityEngine.InputSystem.InputActionAsset):Player")
-        {
-            Debug.Log("swtiching to UI");
-            playerInput.SwitchCurrentActionMap("UI");
-        }
+    //public void SwitchActionMap()
+    //{
+    //    Debug.Log(playerInput.currentActionMap.ToString());
+    //    if (playerInput.currentActionMap.ToString() == "PlayerInputActions (UnityEngine.InputSystem.InputActionAsset):Player")
+    //    {
+    //        Debug.Log("swtiching to UI");
+    //        playerInput.SwitchCurrentActionMap("UI");
+    //    }
 
-        else if (playerInput.currentActionMap.ToString() == "PlayerInputActions (UnityEngine.InputSystem.InputActionAsset):UI")
-        {
-            Debug.Log("swtiching to player");
-            playerInput.SwitchCurrentActionMap("Player");
-        }
-        else Debug.LogWarning("Unknown action map");
-    }
+    //    else if (playerInput.currentActionMap.ToString() == "PlayerInputActions (UnityEngine.InputSystem.InputActionAsset):UI")
+    //    {
+    //        Debug.Log("swtiching to player");
+    //        playerInput.SwitchCurrentActionMap("Player");
+    //    }
+    //    else Debug.LogWarning("Unknown action map");
+    //}
 }

@@ -52,7 +52,7 @@ public class Pickup : MonoBehaviour
         if (collision.gameObject.layer == 6) // ship
         {
             ApplyItem();
-            CanvasManager.Instance.IncrementScore(_gameParams.CollectedItemScore);
+            Scoring.Instance.IncrementScore(_gameParams.CollectedItemScore);
             Destroy(gameObject);
         }
     }

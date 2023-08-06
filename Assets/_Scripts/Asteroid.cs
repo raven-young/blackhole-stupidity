@@ -60,7 +60,7 @@ public class Asteroid : MonoBehaviour
 
         if (_currentHealth <= 0)
         {
-            CanvasManager.Instance.IncrementScore(_gameParams.ShotAsteroidScore);
+            Scoring.Instance.IncrementScore(_gameParams.ShotAsteroidScore);
             Die();
         }
     }

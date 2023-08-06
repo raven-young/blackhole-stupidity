@@ -102,7 +102,7 @@ public class AchievementsManager : ScriptableObject
         GameManager.OnNoDamageVictory += UnlockNoDamageVictoryAchievement;
         GameManager.On100PercentVictory += Unlock100PercentVictoryAchievement;
         GameManager.OnFlawlessVictory += UnlockFlawlessAchievement;
-        CanvasManager.OnScored += UnlockScoringAchievements;
+        Scoring.OnScored += UnlockScoringAchievements;
         OnAchievementUnlocked += NotifyAchievementUnlocked;
     }
 
@@ -112,7 +112,7 @@ public class AchievementsManager : ScriptableObject
         GameManager.OnNoDamageVictory -= UnlockNoDamageVictoryAchievement;
         GameManager.On100PercentVictory -= Unlock100PercentVictoryAchievement;
         GameManager.OnFlawlessVictory -= UnlockFlawlessAchievement;
-        CanvasManager.OnScored -= UnlockScoringAchievements;
+        Scoring.OnScored -= UnlockScoringAchievements;
         OnAchievementUnlocked -= NotifyAchievementUnlocked;
     }
 
