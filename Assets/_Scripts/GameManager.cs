@@ -177,7 +177,7 @@ public class GameManager : MonoBehaviour
             StartCoroutine(GameOverTransition.Instance.StartGameOverTransition());
         }
 
-        AchievementsManager.Instance.SaveAchievements();
+        SaveGame.SaveGameNow();
     }
 
     public void PauseGame()
@@ -220,6 +220,7 @@ public class GameManager : MonoBehaviour
 
     public void Quit()
     {
+        SaveGame.SaveGameNow();
         Application.Quit();
     }
 

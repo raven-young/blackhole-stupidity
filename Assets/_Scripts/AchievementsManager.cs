@@ -38,18 +38,6 @@ public class AchievementsManager : ScriptableObject
                 }
             }
 
-            // If the instance doesn't exist, load it from Resources
-            //if (instance == null)
-            //{
-            //    instance = Resources.Load<AchievementsManager>("_ScriptableObjects/AchievementsManager");
-
-            //    // If the asset doesn't exist in Resources, create a new instance
-            //    if (instance == null)
-            //    {
-            //        instance = CreateInstance<AchievementsManager>();
-            //    }
-            //}
-
             return instance;
         }
     }
@@ -97,6 +85,16 @@ public class AchievementsManager : ScriptableObject
 
     private void OnEnable()
     {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else if (instance != this)
+        {
+            Debug.Log("redundant instance");
+            // Destroy any duplicate instances created during runtime
+            Destroy(this);
+        }
 
         Debug.Log("AM asset instance: " + instance);
 
@@ -290,10 +288,5 @@ public class AchievementsManager : ScriptableObject
         }
 
         return values;
-    }
-
-    public void SaveAchievements()
-    {
-        ES3.Save("AchievementsManager", Instance);
     }
 }

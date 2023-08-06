@@ -51,12 +51,13 @@ public class VictoryTransition : MonoBehaviour
         yield return new WaitForSecondsRealtime(5f);
 
         // Ship escapes
+        ScreenShake.TriggerShake(0.3f);
         SoundManager.Instance.PlaySFX(SoundManager.SFX.ShipTakeoff);
         _shipTransform.DOMove(3f * _shipTransform.position, 1f).SetUpdate(true);
         yield return new WaitForSecondsRealtime(2.7f);
 
-        GameManager.Instance.PauseGame();
         // Victory screen
+        GameManager.Instance.PauseGame();
         SoundManager.Instance.PlaySound(_victoryClip);
         CanvasManager.Instance.RenderGameOverScreen(true);
         StartCoroutine(RaccoonBlink());

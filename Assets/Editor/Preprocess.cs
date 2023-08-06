@@ -11,7 +11,8 @@ class Preprocess : IPreprocessBuildWithReport
     public int callbackOrder { get { return 0; } }
     public void OnPreprocessBuild(BuildReport report)
     {
-        _achievementsSO = (AchievementsManager)Resources.Load("_ScriptableObjects/AchievementsManager");
+        ES3.DeleteFile("SaveFile.es3");
+        _achievementsSO = AchievementsManager.Instance; //(AchievementsManager)Resources.Load("_ScriptableObjects/AchievementsManager");
         _achievementsSO.ResetAchievements();
     }
 }

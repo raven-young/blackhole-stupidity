@@ -17,7 +17,6 @@ public class FakeAsteroidSpawner : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Debug.Log("Spawning fake asteroids");
         // Wait until main menu camera has fetched screenbounds
         StartCoroutine(GetScreenBounds());
     }
