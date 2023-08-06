@@ -21,7 +21,6 @@ public class Scoring : MonoBehaviour
     public int ComboCount = 0;
     private bool _newHighscore = false;
     private TMP_Text _activeText;
-    bool _startTweening = false;
 
     private void Awake()
     {
@@ -72,18 +71,32 @@ public class Scoring : MonoBehaviour
 
     private IEnumerator UpdateScore()
     {
+        // to do: handle special cases
         float duration = 4f; // display score changing to finalscore in this many seconds
-        float updateFreq = 0.1f;
+        float updateFreq = 0.05f;
         int updateSteps = (int)(duration / updateFreq);
-        int delta = (int)((_finalScore-_score)/ updateSteps);
 
-        while (_score < _finalScore)
+        // refactor later too tired to think
+        if (_finalScore >= _score)
         {
-            _score += delta;
-            _activeText.text = _newHighscore ? "New Highscore: " + _score + _finalAccuracy : "Score: " + _score + _finalAccuracy;
-            yield return new WaitForSecondsRealtime(updateFreq);
+            int delta = Mathf.Max(1, ((_finalScore - _score) / updateSteps));
+            while (_score < _finalScore)
+            {
+                _score += delta;
+                _activeText.text = _newHighscore ? "New Highscore: " + _score + _finalAccuracy : "Score: " + _score + _finalAccuracy;
+                yield return new WaitForSecondsRealtime(updateFreq);
+            }
         }
-
+        else
+        {
+            int delta = Mathf.Min(-1, ((_finalScore - _score) / updateSteps));
+            while (_score > _finalScore)
+            {
+                _score += delta;
+                _activeText.text = _newHighscore ? "New Highscore: " + _score + _finalAccuracy : "Score: " + _score + _finalAccuracy;
+                yield return new WaitForSecondsRealtime(updateFreq);
+            }
+        }
         _score = _finalScore;
         _activeText.text = _newHighscore ? "New Highscore: " + _score + _finalAccuracy : "Score: " + _score + _finalAccuracy;
     }

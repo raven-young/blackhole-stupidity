@@ -82,6 +82,8 @@ public class AchievementsManager : ScriptableObject
     [SerializeField] private Achievement _score10k;
     [SerializeField] private Achievement _score50k;
     [SerializeField] private Achievement _score100k;
+    [SerializeField] private Achievement _score150k;
+    [SerializeField] private Achievement _score200k;
 
     private void OnEnable()
     {
@@ -239,6 +241,16 @@ public class AchievementsManager : ScriptableObject
         {
             _score100k.Unlocked = true;
             OnAchievementUnlocked?.Invoke(_score100k);
+        }
+        if (score > 150000 && !_score150k.Unlocked)
+        {
+            _score150k.Unlocked = true;
+            OnAchievementUnlocked?.Invoke(_score150k);
+        }
+        if (score > 200000 && !_score200k.Unlocked)
+        {
+            _score200k.Unlocked = true;
+            OnAchievementUnlocked?.Invoke(_score200k);
         }
     }
 
