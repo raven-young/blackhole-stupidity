@@ -64,7 +64,7 @@ public class SettingsManager : MonoBehaviour
         }
         
         // BURN RATE
-        BurnRate = _gameParams.BurnRate;
+        BurnRate = _gameParams.FuelBurnRate;
         if (SelectedDifficulty < DifficultySetting.Hard)
             BurnRate = 0;
         switch (SelectedShipType)

@@ -313,6 +313,7 @@ MonoBehaviour:
   _alertClip: {fileID: 8300000, guid: 5fcb2db3f0a45dd49a5f7be60a1cbdf2, type: 3}
   _victoryFanfare: {fileID: 8300000, guid: f3f921dbe29711546b077e9fa671f122, type: 3}
   _powerup: {fileID: 8300000, guid: c5ddb427dcfc04e4086b9885c70e1af4, type: 3}
+  _shipTakeoff: {fileID: 8300000, guid: 532235d0fde699d46b95ce79f0733be5, type: 3}
   _buttonPress: {fileID: 8300000, guid: 17d75296bcd41904d9122a44f4bb444a, type: 3}
   _failedButtonPress: {fileID: 8300000, guid: 3b92775ccaa84f54fbab325dbdf1d934, type: 3}
   _buttonSelect: {fileID: 8300000, guid: eef6199541910d047960f7f36b500352, type: 3}

@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 471e2fbce59dd7f419ed39270fdadcfc, type: 3}
+  m_Name: AchievementsManager
+  m_EditorClassIdentifier: 
+  _victoryEasy:
+    Unlocked: 0
+    Name: babbys first number
+    Description: Win the game on easy
+  _victoryNormal:
+    Unlocked: 1
+    Name: look mom i can math
+    Description: Win the game on normal
+  _victoryHard:
+    Unlocked: 1
+    Name: Prof. Dr. PhD
+    Description: Win the game on hard
+  _victoryExpert:
+    Unlocked: 0
+    Name: The Next Einstein
+    Description: Win the game on expert
+  _score10k:
+    Unlocked: 1
+    Name: Adept Scorer
+    Description: Score 10'000 points
+  _score50k:
+    Unlocked: 1
+    Name: Expert Scorer
+    Description: Score 50'000 points

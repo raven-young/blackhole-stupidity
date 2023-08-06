@@ -57,7 +57,8 @@ public class SoundManager : MonoBehaviour
     [SerializeField] private AudioClip _nervousMusic, _mainMenuMusic, _dialogueMusic;
 
     [Header("SFX")]
-    [SerializeField] private AudioClip _alertClip, _victoryFanfare, _powerup;
+    [SerializeField] private AudioClip _alertClip;
+    [SerializeField] private AudioClip _victoryFanfare, _powerup, _shipTakeoff;
 
     [Header("UI")]
     [SerializeField] private AudioClip _buttonPress;
@@ -172,7 +173,8 @@ public class SoundManager : MonoBehaviour
         AlertSFX,
         ButtonPress,
         VictoryFanfare,
-        Powerup
+        Powerup,
+        ShipTakeoff
     }
     public void PlaySFX(SFX sfx) 
     {
@@ -182,6 +184,7 @@ public class SoundManager : MonoBehaviour
             case SFX.ButtonPress: PlaySound(_buttonPress); break;
             case SFX.VictoryFanfare: PlaySound(_victoryFanfare); break;
             case SFX.Powerup: PlaySound(_powerup); break;
+            case SFX.ShipTakeoff: PlaySound(_shipTakeoff); break;
         }
         
     }

@@ -13,6 +13,7 @@ public class CanvasManager : MonoBehaviour
 
     public static CanvasManager Instance;
     [SerializeField] private GameParams _gameParams;
+    [SerializeField] private PlayerStats _playerStats;
     [SerializeField] private GameObject _gameOverScreen;
     [SerializeField] private GameObject _victoryScreen;
     [SerializeField] private GameObject _pauseScreen;
@@ -26,11 +27,12 @@ public class CanvasManager : MonoBehaviour
     private bool _isLowOnStats = false;
 
     private bool _newHighscore = false;
-
     private int _score = 0;
     private PlayerInput playerInput;
     private GameObject playerController;
     public int ComboCount = 0;
+
+    public static event Action<int> OnScored;
 
     private void Awake()
     {
@@ -51,7 +53,6 @@ public class CanvasManager : MonoBehaviour
         
         playerController = GameObject.Find("ShipController");
         playerInput = playerController.GetComponent<PlayerInput>();
-
         //playerInput.onControlsChanged += OnDeviceChange;
     }
 
@@ -105,9 +106,10 @@ public class CanvasManager : MonoBehaviour
     {
         _score += Mathf.Max(1, ComboCount) * amount;
         _scoreText.text = "Score: " + _score;
-        if (_score > _gameParams.HighScore)
+        OnScored?.Invoke(_score);
+        if (_score > _playerStats.GetHighscore())
         {
-            _gameParams.HighScore = _score;
+            _playerStats.SetHighscore(_score);
             _newHighscore = true;
         }
     }
@@ -152,7 +154,7 @@ public class CanvasManager : MonoBehaviour
         {
             string acc = "\nSolved: " + Math.Round(100*QuestionAsteroid.Instance.GetAccuracy()) + "%";
             _scoreTextVictory.text = _newHighscore ? "New Highscore: " + _score + acc :  "Score: " + _score + acc;
-            _highscoreTextVictory.text = "Highscore: " + _gameParams.HighScore;
+            _highscoreTextVictory.text = "Highscore: " + _playerStats.GetHighscore();
             _victoryScreen.SetActive(true);
             GameObject ReplayButton = _victoryScreen.transform.Find("Replay Button").gameObject;
             var eventSystem = EventSystem.current;
@@ -161,7 +163,7 @@ public class CanvasManager : MonoBehaviour
         else
         {
             _scoreTextGameOver.text = "Score: " + _score + "\nSolved: " + Math.Round(100*QuestionAsteroid.Instance.GetAccuracy()) + "%";
-            _highscoreTextGameOver.text = "Highscore: " + _gameParams.HighScore;
+            _highscoreTextGameOver.text = "Highscore: " + _playerStats.GetHighscore();
             _gameOverScreen.SetActive(true);
             GameObject ReplayButton = _gameOverScreen.transform.Find("Replay Button").gameObject;
             var eventSystem = EventSystem.current;

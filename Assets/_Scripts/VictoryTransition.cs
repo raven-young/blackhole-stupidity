@@ -51,7 +51,8 @@ public class VictoryTransition : MonoBehaviour
         yield return new WaitForSecondsRealtime(5f);
 
         // Ship escapes
-        _shipTransform.DOMove(2.2f * _shipTransform.position, 0.5f).SetUpdate(true);
+        SoundManager.Instance.PlaySFX(SoundManager.SFX.ShipTakeoff);
+        _shipTransform.DOMove(3f * _shipTransform.position, 1f).SetUpdate(true);
         yield return new WaitForSecondsRealtime(2.7f);
 
         GameManager.Instance.PauseGame();

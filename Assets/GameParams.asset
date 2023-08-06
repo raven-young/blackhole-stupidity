@@ -16,9 +16,9 @@ MonoBehaviour:
   DangerZoneDistance: 4
   MaxTheta: 0.793
   MaxHealth: 100
-  AngularVelocity: 0.95
-  BurnRate: 1.8
+  AngularVelocity: 0.94
   RadialVelocityScale: 0.06
+  FuelBurnRate: 2
   MagnetScale: 10
   BasicShipMultiplier: 1.05
   CollectorMagnetScaleMultiplier: 1.7
@@ -35,12 +35,14 @@ MonoBehaviour:
   SpawnImpulse: 27
   MaxSpawnAngle: 130
   QuestionAsteroidSpeed: 1
+  QuestionAsteroidAcceleration: 1.0291
   PlayerDamage: 10
   AsteroidHealth: 5
   ScrapValue: 3
   FuelValue: 4
-  SpawnPeriod: 1
+  SpawnPeriod: 1.2
   RandomAsteroidImpulse: 10
+  SpawnAcceleration: 0.995
   CorrectAnswerScore: 50
   ShotAsteroidScore: 13
   CollectedItemScore: 17
@@ -49,5 +51,4 @@ MonoBehaviour:
   HardMultiplier: 1.2
   HardPlayerDamageBonus: 6
   FailAsteroidSpawnBonus: 3
-  HighScore: 21278
-  ScreenBounds: {x: 35.432655, y: 19.930868}
+  ScreenBounds: {x: 35.43009, y: 19.930868}

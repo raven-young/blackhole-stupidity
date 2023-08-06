@@ -45,6 +45,9 @@ public class RandomSmallSpawner : MonoBehaviour
             float randomImpulse = Random.Range(0.5f, 1f);
             asteroid.GetComponent<Rigidbody2D>().AddForce(-randomImpulse*_gameParams.RandomAsteroidImpulse * direction, ForceMode2D.Impulse);
             _spawnTimer = 0;
+
+            _spawnPeriod *= _gameParams.SpawnAcceleration;
+            _spawnPeriod = Mathf.Max(_spawnPeriod, 0.05f);
         }
     }
 

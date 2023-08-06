@@ -183,7 +183,7 @@ public class QuestionAsteroid : MonoBehaviour
         StartCoroutine(_laserEffect.ActivateLaser(_gameParams.LaserDuration));
         StartCoroutine(Shooting.DisableShoot(_gameParams.LaserDuration));
         yield return new WaitForSeconds(_gameParams.LaserDuration);
-        Explode();
+
         SpawnStuff(true);
 
         CanvasManager.Instance.ComboCount++;
@@ -192,10 +192,8 @@ public class QuestionAsteroid : MonoBehaviour
 
         CanvasManager.Instance.IncrementScore(_gameParams.CorrectAnswerScore);
 
-        _questionAsteroid.SetActive(false);
         SoundManager.Instance.PlaySound(_rightAnswerclip);
-        SoundManager.Instance.PlaySound(_explosionClip, 0.5f);
-        
+        AnswerExit();
     }
 
     // Activate when incorrectly answering question or timer runs out
@@ -210,16 +208,21 @@ public class QuestionAsteroid : MonoBehaviour
         if (!GameManager.Instance.GameHasEnded)
             SoundManager.Instance.PlaySound(_wrongAnswerclip);
         yield return new WaitForSeconds(_gameParams.LaserDuration);
-        _questionAsteroid.SetActive(false);
         SpawnStuff(false);
-        Explode();
-        SoundManager.Instance.PlaySound(_explosionClip, 0.5f);
         Debug.Log("Wrong answer!");
-        
+        AnswerExit();
+    }
+
+    void AnswerExit()
+    {
+        _questionAsteroid.SetActive(false);
+        _questionAsteroidSpeed *= _gameParams.QuestionAsteroidAcceleration;
+        Explode();
     }
 
     void Explode()
     {
+        SoundManager.Instance.PlaySound(_explosionClip, 0.5f);
         GameObject effect = Instantiate(_explosionEffect, transform.position, Quaternion.identity);
         Destroy(effect, 0.3f);
     }

@@ -27,6 +27,7 @@ public class AvatarReactions : MonoBehaviour
 
     // The currently running coroutine.
     private Coroutine _reactRoutine;
+    private Vector3 _originalImageScale;
 
     public enum ExpressionEvents
     {
@@ -46,6 +47,7 @@ public class AvatarReactions : MonoBehaviour
     {
         _image = gameObject.GetComponent<Image>();
         _image.sprite = _idleSafe;
+        _originalImageScale = _image.transform.localScale;
     }
 
     private void OnEnable()
@@ -113,6 +115,9 @@ public class AvatarReactions : MonoBehaviour
 
     IEnumerator ReactRoutine(Sprite sprite)
     {
+        // tweens will stack when new routine starts before old finished, hence reset
+        _image.transform.localScale = _originalImageScale;
+
         _image.transform.DOScale(1.05f * _image.transform.localScale, 0.2f).SetLoops(2, LoopType.Yoyo);
         _image.sprite = sprite;
         yield return new WaitForSeconds(0.4f);

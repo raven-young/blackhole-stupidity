@@ -16,10 +16,10 @@ public class GameParams : ScriptableObject
     [Header("Ship")]
     public int MaxHealth = 100;
     public float AngularVelocity = 1f;
-    [Tooltip("Rate of fuel consumption. Higher means fuel is consumed more quickly")]
-    public float BurnRate = 2f;
     [Tooltip("Multiply ship's radial velocity by this value.")]
     public float RadialVelocityScale = 0.06f;
+    [Tooltip("Rate of fuel consumption. Higher means fuel is consumed more quickly")]
+    public float FuelBurnRate = 2f;
     [Tooltip("Determines the item magnet size")]
     public float MagnetScale = 15f;
 
@@ -57,6 +57,8 @@ public class GameParams : ScriptableObject
     [Range(0, 360), Tooltip("Maximum angle applied to spawned objects")]
     public float MaxSpawnAngle;
     public float QuestionAsteroidSpeed = 1f;
+    [Tooltip("Every cycle, multiply speed by this value"), Range(1f, 1.07f)]
+    public float QuestionAsteroidAcceleration = 1f;
 
     [Header("Asteroid")]
     public int PlayerDamage = 3;
@@ -69,6 +71,8 @@ public class GameParams : ScriptableObject
     [Header("Random Astroid Spawner")]
     public float SpawnPeriod = 3f;
     public float RandomAsteroidImpulse = 10f;
+    [Tooltip("Every cycle, multiply period by this value"),Range(0.98f,1f)]
+    public float SpawnAcceleration = 0.995f;
 
     [Header("Scoring")]
     public int CorrectAnswerScore = 1;
@@ -89,6 +93,6 @@ public class GameParams : ScriptableObject
     public int FailAsteroidSpawnBonus = 2;
 
     [Header("Don't change in editor")]
-    public int HighScore = 0;
+    //public int HighScore = 0;
     public Vector2 ScreenBounds;
 }
