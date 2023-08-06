@@ -39,7 +39,7 @@ public class CanvasManager : MonoBehaviour
 
     [Header("Debug")]
     [SerializeField] private TMP_Text _achievementsListText;
-    [SerializeField] private AchievementsManager _achievementsScriptableObject;
+    //[SerializeField] private AchievementsManager _achievementsScriptableObject;
 
     private void Awake()
     {
@@ -79,7 +79,7 @@ public class CanvasManager : MonoBehaviour
     public void UpdateAchievementsText()
     {
         // Debug
-        _achievementsListText.text = _achievementsScriptableObject.GetAchievementsString();
+        _achievementsListText.text = AchievementsManager.Instance.GetAchievementsString();
     }
 
     public void UpdateHealth(float newValue)
@@ -203,12 +203,12 @@ public class CanvasManager : MonoBehaviour
 
         foreach (AchievementsManager.Achievement achievement in _newAchievementsQueue)
         {  
-            Debug.Log("achievement notification: " + achievement.Name);
             _achievementText.text = "Achievement:\n" + achievement.Name;
 
             // Display
             _achievementPanel.DOAnchorPosY(newPanelPosY, 0.4f).SetEase(Ease.OutCubic).SetUpdate(true);
-            yield return new WaitForSecondsRealtime(4f);
+            SoundManager.Instance.PlaySFX(SoundManager.SFX.ButtonPress);
+            yield return new WaitForSecondsRealtime(3.3f);
 
             // Fade
             _achievementPanel.DOAnchorPosY(1.4f*newPanelPosY, 0.4f).SetEase(Ease.OutCubic).SetUpdate(true);

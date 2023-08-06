@@ -7,6 +7,53 @@ using System.Reflection;
 [CreateAssetMenu(fileName = "AchievementsManager", menuName = "ScriptableObject/AchievementsManager")]
 public class AchievementsManager : ScriptableObject
 {
+
+    // The Singleton instance
+    private static AchievementsManager instance;
+
+    // Property to access the Singleton instance
+    public static AchievementsManager Instance
+    {
+        get
+        {
+            if (instance == null)
+            {
+                if (!ES3.KeyExists("AchievementsManager"))
+                {
+                    
+                    instance = Resources.Load<AchievementsManager>("_ScriptableObjects/AchievementsManager");
+
+                    // If the asset doesn't exist in Resources, create a new instance
+                    if (instance == null)
+                    {
+                        instance = CreateInstance<AchievementsManager>();
+                    }
+                    ES3.Save("AchievementsManager", instance);
+                    Debug.Log("saved non-existent achievements manager key: " + instance);
+                } 
+                else
+                {
+                    instance = ES3.Load<AchievementsManager>("AchievementsManager");
+                    Debug.Log("loaded AM asset: " + instance);
+                }
+            }
+
+            // If the instance doesn't exist, load it from Resources
+            //if (instance == null)
+            //{
+            //    instance = Resources.Load<AchievementsManager>("_ScriptableObjects/AchievementsManager");
+
+            //    // If the asset doesn't exist in Resources, create a new instance
+            //    if (instance == null)
+            //    {
+            //        instance = CreateInstance<AchievementsManager>();
+            //    }
+            //}
+
+            return instance;
+        }
+    }
+
     public static event Action<Achievement> OnAchievementUnlocked;
 
     [Serializable]
@@ -50,6 +97,9 @@ public class AchievementsManager : ScriptableObject
 
     private void OnEnable()
     {
+
+        Debug.Log("AM asset instance: " + instance);
+
         GameManager.OnVictory += UnlockVictoryAchievement;
         GameManager.OnNoDamageVictory += UnlockNoDamageVictoryAchievement;
         GameManager.On100PercentVictory += Unlock100PercentVictoryAchievement;
@@ -240,5 +290,10 @@ public class AchievementsManager : ScriptableObject
         }
 
         return values;
+    }
+
+    public void SaveAchievements()
+    {
+        ES3.Save("AchievementsManager", Instance);
     }
 }

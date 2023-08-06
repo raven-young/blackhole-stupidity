@@ -11,7 +11,7 @@ using TMPro;
 public class MainMenu : MonoBehaviour
 {
     [SerializeField] private GameParams _gameParams;
-    [SerializeField] private AchievementsManager _achievementsScriptableObject;
+    //[SerializeField] private AchievementsManager _achievementsScriptableObject;
     [SerializeField] private TMP_Text _achievementsListText;
     [SerializeField] private Camera _cam;
     [SerializeField] private GameObject _startButton, _quitButton, _extrasButton, _normalDifficultyButton, _basicShipButton, _achievementsButton;
@@ -94,7 +94,7 @@ public class MainMenu : MonoBehaviour
 
     public void UpdateAchievementsText()
     {
-        _achievementsListText.text = _achievementsScriptableObject.GetAchievementsString();
+        _achievementsListText.text = AchievementsManager.Instance.GetAchievementsString();
         _activePanel = _achievementsPanel;
     }
 

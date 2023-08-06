@@ -176,6 +176,8 @@ public class GameManager : MonoBehaviour
             OnGameOver?.Invoke();
             StartCoroutine(GameOverTransition.Instance.StartGameOverTransition());
         }
+
+        AchievementsManager.Instance.SaveAchievements();
     }
 
     public void PauseGame()

@@ -51,6 +51,7 @@ public class Ship : MonoBehaviour
     [SerializeField] private bool _gravityOn = false;
     [Range(-5, 5)]
     [SerializeField] private float _gravityScale;
+    private static bool _debugVelocityMultiplierOn = false;
 
     private void Awake()
     {
@@ -128,7 +129,12 @@ public class Ship : MonoBehaviour
         // calculate radius based on ship health and black hole mass
         var ratio = CurrentHealth / BlackHole.Instance.CurrentForce;
         var velocity = CurrentFuel <= 0 ? -40 : ratio > 1 ? ratio : ratio == 1 ? 0 : -1 / ratio;
+        if (_debugVelocityMultiplierOn)
+            velocity *= 100;
+
         ShipPositionRadius += _gameParams.RadialVelocityScale * velocity * Time.deltaTime;
+
+        
 
         // rotate ship
         transform.rotation = Quaternion.Euler(0, 0, _theta*Mathf.Rad2Deg-90);
@@ -171,6 +177,11 @@ public class Ship : MonoBehaviour
     //    //viewPos.y = Mathf.Clamp(viewPos.y, -screenBounds.y + objectHeight, screenBounds.y - objectHeight);
     //    //transform.position = viewPos;
     //}
+
+    public static void ToggleDebugVelocity()
+    {
+        _debugVelocityMultiplierOn = !_debugVelocityMultiplierOn;
+    }
 
     private void UpdateExhaustParticles()
     {

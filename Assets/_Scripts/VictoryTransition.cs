@@ -38,7 +38,7 @@ public class VictoryTransition : MonoBehaviour
         _shipMaterial.DOFloat(1, "_HologramBlend", 4f).SetDelay(0f);
         _shipMaterial.DOFloat(18, "_ShakeUvSpeed", 4f).SetDelay(0f);
         _shipMaterial.DOFloat(4, "_ShakeUvX", 4f).SetDelay(0f);
-        _shipMaterial.DOFloat(4, "_ShakeUvY", 4f).SetDelay(0f);
+        _shipMaterial.DOFloat(4, "_ShakeUvY", 4f).SetDelay(0.1f);
 
         var emission = _exhaustParticles.emission;
         emission.rateOverTime = 3* _exhaustParticles.emission.rateOverTime.constant;

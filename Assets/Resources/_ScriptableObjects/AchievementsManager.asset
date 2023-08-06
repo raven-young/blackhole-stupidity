@@ -14,19 +14,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _victoryEasy:
     Unlocked: 0
-    Name: babbys first number
+    Name: Easy Victory
     Description: Win the game on easy
   _victoryNormal:
     Unlocked: 0
-    Name: look mom i can math
+    Name: Normal Victory
     Description: Win the game on normal
   _victoryHard:
     Unlocked: 0
-    Name: Prof. Dr. PhD
+    Name: Hard Victory
     Description: Win the game on hard
   _victoryExpert:
     Unlocked: 0
-    Name: The Next Einstein
+    Name: Expert Victory
     Description: Win the game on expert
   _victoryNoDamageEasy:
     Unlocked: 0
