@@ -19,6 +19,8 @@ public class BlackHole : MonoBehaviour
     [SerializeField] private GameObject _blackHoleNormalHardLayer;
     [SerializeField] private GameObject _blackHoleHardLayer;
 
+    public bool HasGrown = false; // for achievements
+
     private void Awake()
     {
         if (Instance != null)
@@ -59,6 +61,8 @@ public class BlackHole : MonoBehaviour
 
     public void GrowBlackHole(float scaleMultiplier)
     {
+        HasGrown = true;
+
         transform.localScale *= scaleMultiplier;
         CurrentForce *= scaleMultiplier;
 

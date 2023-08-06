@@ -29,13 +29,31 @@ public class AchievementsManager : ScriptableObject
     [SerializeField] private Achievement _victoryHard;
     [SerializeField] private Achievement _victoryExpert;
 
-    [SerializeField] private Achievement _score420; // testing
+    [SerializeField] private Achievement _victoryNoDamageEasy;
+    [SerializeField] private Achievement _victoryNoDamageNormal;
+    [SerializeField] private Achievement _victoryNoDamageHard;
+    [SerializeField] private Achievement _victoryNoDamageExpert;
+
+    [SerializeField] private Achievement _victory100PercentEasy;
+    [SerializeField] private Achievement _victory100PercentNormal;
+    [SerializeField] private Achievement _victory100PercentHard;
+    [SerializeField] private Achievement _victory100PercentExpert;
+
+    [SerializeField] private Achievement _victoryFlawlessEasy;
+    [SerializeField] private Achievement _victoryFlawlessNormal;
+    [SerializeField] private Achievement _victoryFlawlessHard;
+    [SerializeField] private Achievement _victoryFlawlessExpert;
+
     [SerializeField] private Achievement _score10k;
     [SerializeField] private Achievement _score50k;
+    [SerializeField] private Achievement _score100k;
 
     private void OnEnable()
     {
         GameManager.OnVictory += UnlockVictoryAchievement;
+        GameManager.OnNoDamageVictory += UnlockNoDamageVictoryAchievement;
+        GameManager.On100PercentVictory += Unlock100PercentVictoryAchievement;
+        GameManager.OnFlawlessVictory += UnlockFlawlessAchievement;
         CanvasManager.OnScored += UnlockScoringAchievements;
         OnAchievementUnlocked += NotifyAchievementUnlocked;
     }
@@ -43,6 +61,9 @@ public class AchievementsManager : ScriptableObject
     private void OnDisable()
     {
         GameManager.OnVictory -= UnlockVictoryAchievement;
+        GameManager.OnNoDamageVictory -= UnlockNoDamageVictoryAchievement;
+        GameManager.On100PercentVictory -= Unlock100PercentVictoryAchievement;
+        GameManager.OnFlawlessVictory -= UnlockFlawlessAchievement;
         CanvasManager.OnScored -= UnlockScoringAchievements;
         OnAchievementUnlocked -= NotifyAchievementUnlocked;
     }
@@ -72,16 +93,90 @@ public class AchievementsManager : ScriptableObject
                 OnAchievementUnlocked?.Invoke(_victoryExpert);
                 break;
         }
-        
+    }
+
+    private void UnlockNoDamageVictoryAchievement()
+    {
+        switch (SettingsManager.Instance.SelectedDifficulty)
+        {
+            case SettingsManager.DifficultySetting.Easy:
+                if (_victoryNoDamageEasy.Unlocked) return;
+                _victoryNoDamageEasy.Unlocked = true;
+                OnAchievementUnlocked?.Invoke(_victoryNoDamageEasy);
+                break;
+            case SettingsManager.DifficultySetting.Normal:
+                if (_victoryNoDamageNormal.Unlocked) return;
+                _victoryNoDamageNormal.Unlocked = true;
+                OnAchievementUnlocked?.Invoke(_victoryNoDamageNormal);
+                break;
+            case SettingsManager.DifficultySetting.Hard:
+                if (_victoryNoDamageHard.Unlocked) return;
+                _victoryNoDamageHard.Unlocked = true;
+                OnAchievementUnlocked?.Invoke(_victoryNoDamageHard);
+                break;
+            case SettingsManager.DifficultySetting.Expert:
+                if (_victoryNoDamageExpert.Unlocked) return;
+                _victoryNoDamageExpert.Unlocked = true;
+                OnAchievementUnlocked?.Invoke(_victoryNoDamageExpert);
+                break;
+        }
+    }
+
+    private void Unlock100PercentVictoryAchievement()
+    {
+        switch (SettingsManager.Instance.SelectedDifficulty)
+        {
+            case SettingsManager.DifficultySetting.Easy:
+                if (_victory100PercentEasy.Unlocked) return;
+                _victory100PercentEasy.Unlocked = true;
+                OnAchievementUnlocked?.Invoke(_victory100PercentEasy);
+                break;
+            case SettingsManager.DifficultySetting.Normal:
+                if (_victory100PercentNormal.Unlocked) return;
+                _victory100PercentNormal.Unlocked = true;
+                OnAchievementUnlocked?.Invoke(_victory100PercentNormal);
+                break;
+            case SettingsManager.DifficultySetting.Hard:
+                if (_victory100PercentHard.Unlocked) return;
+                _victory100PercentHard.Unlocked = true;
+                OnAchievementUnlocked?.Invoke(_victory100PercentHard);
+                break;
+            case SettingsManager.DifficultySetting.Expert:
+                if (_victory100PercentExpert.Unlocked) return;
+                _victory100PercentExpert.Unlocked = true;
+                OnAchievementUnlocked?.Invoke(_victory100PercentExpert);
+                break;
+        }
+    }
+    private void UnlockFlawlessAchievement()
+    {
+        switch (SettingsManager.Instance.SelectedDifficulty)
+        {
+            case SettingsManager.DifficultySetting.Easy:
+                if (_victoryFlawlessEasy.Unlocked) return;
+                _victoryFlawlessEasy.Unlocked = true;
+                OnAchievementUnlocked?.Invoke(_victoryFlawlessEasy);
+                break;
+            case SettingsManager.DifficultySetting.Normal:
+                if (_victoryFlawlessNormal.Unlocked) return;
+                _victoryFlawlessNormal.Unlocked = true;
+                OnAchievementUnlocked?.Invoke(_victoryFlawlessNormal);
+                break;
+            case SettingsManager.DifficultySetting.Hard:
+                if (_victoryFlawlessHard.Unlocked) return;
+                _victoryFlawlessHard.Unlocked = true;
+                OnAchievementUnlocked?.Invoke(_victoryFlawlessHard);
+                break;
+            case SettingsManager.DifficultySetting.Expert:
+                if (_victoryFlawlessExpert.Unlocked) return;
+                _victoryFlawlessExpert.Unlocked = true;
+                OnAchievementUnlocked?.Invoke(_victoryFlawlessExpert);
+                break;
+        }
     }
 
     private void UnlockScoringAchievements(int score)
     {
-        if (score > 1 && !_score420.Unlocked)
-        {
-            _score420.Unlocked = true;
-            OnAchievementUnlocked?.Invoke(_score420);
-        }
         if (score > 10000 && !_score10k.Unlocked)
         {
             _score10k.Unlocked = true;
@@ -92,26 +187,28 @@ public class AchievementsManager : ScriptableObject
             _score50k.Unlocked = true;
             OnAchievementUnlocked?.Invoke(_score50k);
         }
+        if (score > 100000 && !_score100k.Unlocked)
+        {
+            _score100k.Unlocked = true;
+            OnAchievementUnlocked?.Invoke(_score100k);
+        }
     }
 
     public void NotifyAchievementUnlocked(Achievement achievement)
     {
         Debug.Log("Achievement unlocked: " + achievement.Name);
-        //PrintAchievements();
     }
 
-    public void PrintAchievements()
+    public string GetAchievementsString()
     {
-
+        string outstring = "";
         List<object> achievements = new(GetNestedFieldValuesOfType<Achievement>());
 
         foreach (Achievement field in achievements)
         {
-            if (field.Unlocked)
-                Debug.Log("Unlocked: " + field.Name);
+            outstring += field.Name + ": " + field.Unlocked + "\n";
         }
-
-        
+        return outstring;
     }
 
     public void ResetAchievements()

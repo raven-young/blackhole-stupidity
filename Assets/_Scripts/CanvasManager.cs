@@ -37,6 +37,10 @@ public class CanvasManager : MonoBehaviour
 
     private Queue<AchievementsManager.Achievement> _newAchievementsQueue = new();
 
+    [Header("Debug")]
+    [SerializeField] private TMP_Text _achievementsListText;
+    [SerializeField] private AchievementsManager _achievementsScriptableObject;
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -57,6 +61,8 @@ public class CanvasManager : MonoBehaviour
         playerController = GameObject.Find("ShipController");
         playerInput = playerController.GetComponent<PlayerInput>();
         //playerInput.onControlsChanged += OnDeviceChange;
+
+        UpdateAchievementsText();
     }
 
 
@@ -68,6 +74,12 @@ public class CanvasManager : MonoBehaviour
     private void OnDisable()
     {
         AchievementsManager.OnAchievementUnlocked -= QueueAchievement;
+    }
+
+    public void UpdateAchievementsText()
+    {
+        // Debug
+        _achievementsListText.text = _achievementsScriptableObject.GetAchievementsString();
     }
 
     public void UpdateHealth(float newValue)

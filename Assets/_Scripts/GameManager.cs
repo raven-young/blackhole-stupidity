@@ -27,6 +27,9 @@ public class GameManager : MonoBehaviour
     public static event Action OnExitedDangerZone;
     public static event Action OnGameOver;
     public static event Action OnVictory;
+    public static event Action OnNoDamageVictory;
+    public static event Action On100PercentVictory; // 100% correctly solved
+    public static event Action OnFlawlessVictory;
 
     private float _dangerZoneMinTime = 6f; // danger zone theme active for at least this long
     private float _dangerzoneTimer = 0f;
@@ -153,7 +156,17 @@ public class GameManager : MonoBehaviour
         {
             eventSystem.SetSelectedGameObject(_replaybutton_victory, new BaseEventData(eventSystem));
             GameWasWon = true;
+
+            // Achievements
             OnVictory?.Invoke();
+            if (!Ship.Instance.TakenDamage)
+                OnNoDamageVictory?.Invoke();
+            if (QuestionAsteroid.Instance.GetAccuracy() == 1)
+                On100PercentVictory?.Invoke();
+            if (QuestionAsteroid.Instance.GetAccuracy() == 1 && !Ship.Instance.TakenDamage && !BlackHole.Instance.HasGrown)
+                OnFlawlessVictory?.Invoke();
+
+            // Transition
             StartCoroutine(VictoryTransition.Instance.StartVictoryTransition());
         }
         else

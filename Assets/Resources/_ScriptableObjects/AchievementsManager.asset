@@ -17,7 +17,7 @@ MonoBehaviour:
     Name: babbys first number
     Description: Win the game on easy
   _victoryNormal:
-    Unlocked: 1
+    Unlocked: 0
     Name: look mom i can math
     Description: Win the game on normal
   _victoryHard:
@@ -28,10 +28,54 @@ MonoBehaviour:
     Unlocked: 0
     Name: The Next Einstein
     Description: Win the game on expert
-  _score420:
-    Unlocked: 1
-    Name: Unity
-    Description: Score your first point
+  _victoryNoDamageEasy:
+    Unlocked: 0
+    Name: No Damage Easy
+    Description: Win the game on easy without taking any damage
+  _victoryNoDamageNormal:
+    Unlocked: 0
+    Name: No Damage Normal
+    Description: Win the game on normal without taking any damage
+  _victoryNoDamageHard:
+    Unlocked: 0
+    Name: No Damage Hard
+    Description: Win the game on hard without taking any damage
+  _victoryNoDamageExpert:
+    Unlocked: 0
+    Name: No Damage Expert
+    Description: Win the game on expert without taking any damage
+  _victory100PercentEasy:
+    Unlocked: 0
+    Name: 100% Easy
+    Description: Win the game and achieve 100% accuracy on easy
+  _victory100PercentNormal:
+    Unlocked: 0
+    Name: 100% Normal
+    Description: Win the game and achieve 100% accuracy on normal
+  _victory100PercentHard:
+    Unlocked: 0
+    Name: 100% Hard
+    Description: Win the game and achieve 100% accuracy on hard
+  _victory100PercentExpert:
+    Unlocked: 0
+    Name: 100% Expert
+    Description: Win the game and achieve 100% accuracy on expert
+  _victoryFlawlessEasy:
+    Unlocked: 0
+    Name: Flawless Easy
+    Description: Achieve a flawless victory on easy
+  _victoryFlawlessNormal:
+    Unlocked: 0
+    Name: Flawless Normal
+    Description: Achieve a flawless victory on normal
+  _victoryFlawlessHard:
+    Unlocked: 0
+    Name: Flawless Hard
+    Description: Achieve a flawless victory on hard
+  _victoryFlawlessExpert:
+    Unlocked: 0
+    Name: Flawless Expert
+    Description: Achieve a flawless victory on expert
   _score10k:
     Unlocked: 0
     Name: Adept Scorer
@@ -40,3 +84,7 @@ MonoBehaviour:
     Unlocked: 0
     Name: Expert Scorer
     Description: Score 50'000 points
+  _score100k:
+    Unlocked: 0
+    Name: Master Scorer
+    Description: Score 100'000 points

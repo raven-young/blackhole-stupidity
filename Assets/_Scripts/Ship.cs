@@ -32,6 +32,7 @@ public class Ship : MonoBehaviour
     public float CurrentHealth;
     public float CurrentFuel;
     private float _burnRate;
+    public bool TakenDamage = false; // for no damage taken achievement
 
     public bool CannotMove = false;
     public bool IsInvincible = false;
@@ -185,6 +186,8 @@ public class Ship : MonoBehaviour
         {
             return;
         }
+
+        TakenDamage = true;
 
         flashEffect.Flash();
 
