@@ -6,16 +6,18 @@ using DG.Tweening;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
 using UnityEngine.EventSystems;
+using TMPro;
 
 public class MainMenu : MonoBehaviour
 {
-
     [SerializeField] private GameParams _gameParams;
+    [SerializeField] private AchievementsManager _achievementsScriptableObject;
+    [SerializeField] private TMP_Text _achievementsListText;
     [SerializeField] private Camera _cam;
-    [SerializeField] private GameObject _startButton, _quitButton, _normalDifficultyButton, _basicShipButton;
+    [SerializeField] private GameObject _startButton, _quitButton, _extrasButton, _normalDifficultyButton, _basicShipButton, _achievementsButton;
     [SerializeField] private SpriteRenderer _blackPanel;
 
-    [SerializeField] private GameObject _difficultyPanel, _shipPanel;
+    [SerializeField] private GameObject _difficultyPanel, _shipPanel, _extrasPanel, _achievementsPanel;
     private GameObject _activePanel;
 
     private PlayerInputActions playerInputActions;
@@ -43,6 +45,7 @@ public class MainMenu : MonoBehaviour
         float _buttonY = _startButton.transform.position.y;
         _startButton.transform.DOMoveY(_buttonY + 0.7f, 1f).SetEase(Ease.InOutSine).SetLoops(-1, LoopType.Yoyo);
         _quitButton.transform.DOMoveY(_buttonY + 0.7f, 1f).SetEase(Ease.InOutSine).SetLoops(-1, LoopType.Yoyo).SetDelay(0.2f);
+        _extrasButton.transform.DOMoveY(_extrasButton.transform.position.y + 0.7f, 1f).SetEase(Ease.InOutSine).SetLoops(-1, LoopType.Yoyo).SetDelay(0.4f);
         _activePanel = _startButton;
     }
 
@@ -57,6 +60,8 @@ public class MainMenu : MonoBehaviour
                 EventSystem.current.SetSelectedGameObject(_normalDifficultyButton, new BaseEventData(EventSystem.current));
             else if (_activePanel == _shipPanel)
                 EventSystem.current.SetSelectedGameObject(_basicShipButton, new BaseEventData(EventSystem.current));
+            else if (_activePanel == _extrasPanel)
+                EventSystem.current.SetSelectedGameObject(_achievementsButton, new BaseEventData(EventSystem.current));
         }
     }
 
@@ -79,6 +84,18 @@ public class MainMenu : MonoBehaviour
     {
         SettingsManager.Instance.SelectedShipType = (SettingsManager.ShipType)selectedShip;
         StartCoroutine(StartGameRoutine());
+    }
+
+    public void ActivateExtrasPanel()
+    {
+        _extrasPanel.gameObject.SetActive(true);
+        _activePanel = _extrasPanel;
+    }
+
+    public void UpdateAchievementsText()
+    {
+        _achievementsListText.text = _achievementsScriptableObject.GetAchievementsString();
+        _activePanel = _achievementsPanel;
     }
 
     private IEnumerator StartGameRoutine()
@@ -106,6 +123,7 @@ public class MainMenu : MonoBehaviour
             {
                 _startButton.GetComponent<UnityEngine.UI.Button>().interactable = true;
                 _quitButton.GetComponent<UnityEngine.UI.Button>().interactable = true;
+                _extrasButton.GetComponent<UnityEngine.UI.Button>().interactable = true;
                 _difficultyPanel.gameObject.SetActive(false);
                 _activePanel = _startButton; // terrible
                 eventSystem.SetSelectedGameObject(_startButton, new BaseEventData(eventSystem));
@@ -117,6 +135,24 @@ public class MainMenu : MonoBehaviour
                 _shipPanel.gameObject.SetActive(false);
                 _activePanel = _difficultyPanel;
                 eventSystem.SetSelectedGameObject(_normalDifficultyButton, new BaseEventData(eventSystem));
+            }
+
+            else if (_activePanel == _achievementsPanel)
+            {
+                _extrasPanel.gameObject.SetActive(true);
+                _achievementsPanel.gameObject.SetActive(false);
+                _activePanel = _extrasPanel;
+                eventSystem.SetSelectedGameObject(_achievementsButton, new BaseEventData(eventSystem));
+            }
+
+            else if (_activePanel == _extrasPanel)
+            {
+                _extrasPanel.gameObject.SetActive(false);
+                _activePanel = _startButton;
+                eventSystem.SetSelectedGameObject(_startButton, new BaseEventData(eventSystem));
+                _startButton.GetComponent<UnityEngine.UI.Button>().interactable = true;
+                _quitButton.GetComponent<UnityEngine.UI.Button>().interactable = true;
+                _extrasButton.GetComponent<UnityEngine.UI.Button>().interactable = true;
             }
 
             else if (_activePanel == _startButton)
