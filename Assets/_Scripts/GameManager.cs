@@ -73,6 +73,7 @@ public class GameManager : MonoBehaviour
         InitialDistanceToEventHorizon = DistanceToEventHorizon;
         InDangerZone = DistanceToEventHorizon > _gameParams.DangerZoneDistance;
 
+        SettingsManager.Instance.PrepareGame();
         StartCoroutine(StartGame());
     }
 

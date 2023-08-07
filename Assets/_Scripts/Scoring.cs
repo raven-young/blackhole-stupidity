@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using System;
+using DamageNumbersPro;
+
 public class Scoring : MonoBehaviour
 {
     public static Scoring Instance;
@@ -11,7 +13,8 @@ public class Scoring : MonoBehaviour
     [SerializeField] private PlayerStats _playerStats;
 
     [SerializeField] private TMP_Text _scoreTextGameplay, _scoreTextVictory, _scoreTextGameOver;
-    [SerializeField] private GameObject _multiplierDamageNumberPrefab;
+    [SerializeField] private DamageNumberGUI _multiplierDamageNumberPrefab;
+    [SerializeField] private Transform _multiplierSpawnPoint;
 
     public static event Action<int> OnScored;
 
@@ -67,6 +70,7 @@ public class Scoring : MonoBehaviour
         _activeText.text = _newHighscore ? "New Highscore: " + _score + _finalAccuracy :  "Score: " + _score + _finalAccuracy;
 
         StartCoroutine(UpdateScore());
+        StartCoroutine(SpawnScoreMultipliers());
     }
 
     private IEnumerator UpdateScore()
@@ -99,5 +103,18 @@ public class Scoring : MonoBehaviour
         }
         _score = _finalScore;
         _activeText.text = _newHighscore ? "New Highscore: " + _score + _finalAccuracy : "Score: " + _score + _finalAccuracy;
+    }
+
+    private IEnumerator SpawnScoreMultipliers()
+    {
+        yield return new WaitForSecondsRealtime(0.3f);
+        float gameResult = GameManager.Instance.GameWasWon ?  _gameParams.VictoryMultiplier : _gameParams.GameOverMultiplier;
+        DamageNumber d = _multiplierDamageNumberPrefab.Spawn(Vector3.zero, gameResult);
+        d.SetAnchoredPosition(_multiplierSpawnPoint, _multiplierSpawnPoint, Vector2.zero);
+        d.leftText = GameManager.Instance.GameWasWon ? "Victory x" : "Defeat x";
+        yield return new WaitForSecondsRealtime(1.5f);
+        DamageNumber d2 = _multiplierDamageNumberPrefab.Spawn(Vector3.zero, SettingsManager.DifficultyScoreMultiplier);
+        d2.SetAnchoredPosition(_multiplierSpawnPoint, _multiplierSpawnPoint, Vector2.zero);
+        d2.leftText = SettingsManager.Instance.SelectedDifficulty.ToString() + " x";
     }
 }

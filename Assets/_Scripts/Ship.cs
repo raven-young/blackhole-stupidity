@@ -81,19 +81,6 @@ public class Ship : MonoBehaviour
         _exhaustSpeed = 1.5f*_exhaustParticles.main.startSpeed.constant;
 
         _itemMagnet.transform.localScale = new Vector3(SettingsManager.MagnetScale, SettingsManager.MagnetScale, SettingsManager.MagnetScale);
-
-        switch (SettingsManager.Instance.SelectedDifficulty)
-        {
-            case SettingsManager.DifficultySetting.Easy:
-                CanvasManager.Instance.ToggleFuelSlider(false);
-                break;
-            case SettingsManager.DifficultySetting.Normal:
-                CanvasManager.Instance.ToggleFuelSlider(false);
-                break;
-            case SettingsManager.DifficultySetting.Hard:
-                CanvasManager.Instance.ToggleFuelSlider(true);
-                break;
-        }
     }
 
     void Update()

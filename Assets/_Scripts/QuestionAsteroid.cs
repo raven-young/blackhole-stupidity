@@ -44,6 +44,7 @@ public class QuestionAsteroid : MonoBehaviour
 
     [SerializeField] private DamageNumber _comboDamageNumberPrefab;
 
+    private int _currentProblemDifficulty; // difficulty of current math problem, higher levels yield higher score
     private int _totalSpawned = 0;
     private int _correctlyAnswered = 0;
     public float Accuracy; // fraction of correctly answered questions
@@ -141,10 +142,10 @@ public class QuestionAsteroid : MonoBehaviour
         _itemSpawnBonus = 0;
 
         //int difficulty = (int)(5f*GameManager.Instance.DistanceToEventHorizon / (_gameParams.WinRadius - GameManager.Instance.EventHorizonRadius));
-        int difficulty = (int)GameManager.Instance.DistanceToEventHorizon / 4;
+        _currentProblemDifficulty = (int)GameManager.Instance.DistanceToEventHorizon / 4;
 
         // refactor later
-        var c = challenge.SimpleArithemticChallenge(difficulty);
+        var c = challenge.SimpleArithemticChallenge(_currentProblemDifficulty);
         switch (SettingsManager.Instance.SelectedDifficulty)
         {
             case SettingsManager.DifficultySetting.Hard:
@@ -155,7 +156,7 @@ public class QuestionAsteroid : MonoBehaviour
                     _speedModifier = 0.35f;
                     _itemSpawnBonus = 4;
                 }
-                c = challenge.SimpleAlgebraChallenge(difficulty, spawnQuadratic);
+                c = challenge.SimpleAlgebraChallenge(_currentProblemDifficulty, spawnQuadratic);
                 break;
         }
 
@@ -190,7 +191,7 @@ public class QuestionAsteroid : MonoBehaviour
         if (Scoring.Instance.ComboCount > 1)
             _comboDamageNumberPrefab.Spawn(transform.position, Scoring.Instance.ComboCount);
 
-        Scoring.Instance.IncrementScore(_gameParams.CorrectAnswerScore);
+        Scoring.Instance.IncrementScore(_gameParams.CorrectAnswerScore * (1+ _currentProblemDifficulty));
 
         SoundManager.Instance.PlaySound(_rightAnswerclip);
         AnswerExit();

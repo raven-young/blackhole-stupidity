@@ -86,53 +86,57 @@ public class MathChallenge
         return returnvalue;
     }
 
-        private (string,string,string,string,int) multiplicationchallenge(int level){
-            
-            //Build a complete challenge
-            term[0] = Random.Range((level)*multiplicationLevelMultiplier,(level+1)*multiplicationLevelMultiplier);
-            term[1] = Random.Range((level)*multiplicationLevelMultiplier,(level+1)*multiplicationLevelMultiplier);
-            term[2] = term[0] * term[1];
-            //Select on of those elements (our result) and build an equation with the other two.
-            resultindex = (int) Random.Range(1,3); //Select between a term and the result > As many multiplications as divisions
-            switch (resultindex ){
-                //case 0: equation = $"{term[2]} / {term[1]}"; break; //Conseqeuntially not necessary
-                case 1: equation = $"{term[2]} / {term[0]}"; break; 
-                case 2: 
-                    switch((int) Random.Range(0,2)){
-                        case 0: equation = $"{term[0]} * {term[1]}";break;
-                        case 1: equation = $"{term[1]} * {term[0]}";break;
-                    }
-                    break; 
-            }
-            //Find two more possible results different from the one we have.
-            //The fake results should be missleading.
-            //A bigger and a smaller one? Tow bigger ones? Two smaller ones?
-            //+/- 10
-            switch (resultindex){
-                case 1: 
-                    solution[0] = term[1] - (int) Random.Range(1,3); 
-                    solution[1] = term[1] + (int) Random.Range(1,3);;
-                    break;
-                case 2: 
-                    solution[0] = term[2] - (int) Random.Range(1,3); 
-                    solution[1] = term[2] + (int) Random.Range(1,3);;
-                    break;
-            }
-            solution[2]=term[resultindex]; //Complete the array 
-            //Reorder the solutions randomly
-            neworder = Random.Range(0,6);
-            for(int i = 0; i<3; i++){
-                finalsolution[i] = solution[order[neworder,i]];
-                if(order[neworder,i]==2) newposition = i;
-            }
+    private (string,string,string,string,int) multiplicationchallenge(int level)
+    {     
+        //Build a complete challenge
+        term[0] = Random.Range((level)*multiplicationLevelMultiplier,(level+1)*multiplicationLevelMultiplier);
 
-            returnvalue = (equation,finalsolution[0].ToString(),finalsolution[1].ToString(),finalsolution[2].ToString(),newposition);
-            //return $"{level}: {equation}: {term[0]},{term[1]},{term[2]}";
-            return returnvalue;
+        // avoid division by zero
+        term[0] = term[0] == 0 ? 1 : term[0];
 
+        term[1] = Random.Range((level)*multiplicationLevelMultiplier,(level+1)*multiplicationLevelMultiplier);
+        term[2] = term[0] * term[1];
+        //Select on of those elements (our result) and build an equation with the other two.
+        resultindex = (int) Random.Range(1,3); //Select between a term and the result > As many multiplications as divisions
+        switch (resultindex ){
+            //case 0: equation = $"{term[2]} / {term[1]}"; break; //Conseqeuntially not necessary
+            case 1: equation = $"{term[2]} / {term[0]}"; break; 
+            case 2: 
+                switch((int) Random.Range(0,2)){
+                    case 0: equation = $"{term[0]} * {term[1]}";break;
+                    case 1: equation = $"{term[1]} * {term[0]}";break;
+                }
+                break; 
+        }
+        //Find two more possible results different from the one we have.
+        //The fake results should be misleading.
+        //A bigger and a smaller one? Two bigger ones? Two smaller ones?
+        //+/- 10
+        switch (resultindex){
+            case 1: 
+                solution[0] = term[1] - (int) Random.Range(1,3); 
+                solution[1] = term[1] + (int) Random.Range(1,3);;
+                break;
+            case 2: 
+                solution[0] = term[2] - (int) Random.Range(1,3); 
+                solution[1] = term[2] + (int) Random.Range(1,3);;
+                break;
+        }
+        solution[2]=term[resultindex]; //Complete the array 
+        //Reorder the solutions randomly
+        neworder = Random.Range(0,6);
+        for(int i = 0; i<3; i++){
+            finalsolution[i] = solution[order[neworder,i]];
+            if(order[neworder,i]==2) newposition = i;
         }
 
-    // Challenge: Equation of the form a*x +/- b = c or a*x^2 +/-b = c
+        returnvalue = (equation,finalsolution[0].ToString(),finalsolution[1].ToString(),finalsolution[2].ToString(),newposition);
+        //return $"{level}: {equation}: {term[0]},{term[1]},{term[2]}";
+        return returnvalue;
+
+    }
+
+    // Challenge: Equation of the form a*x +/- b = c or a*x^2 +/- b = c
     public (string, string, string, string, int) SimpleAlgebraChallenge(int level, bool quadratic = false)
     {
         int a = quadratic ? Random.Range(2, 4) : Random.Range(1 + level, 9 + level);

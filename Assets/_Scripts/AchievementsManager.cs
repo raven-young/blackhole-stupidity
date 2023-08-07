@@ -29,12 +29,12 @@ public class AchievementsManager : ScriptableObject
                         instance = CreateInstance<AchievementsManager>();
                     }
                     ES3.Save("AchievementsManager", instance);
-                    Debug.Log("saved non-existent achievements manager key: " + instance);
+                    Debug.Log("Saved non-existent AchievementsManager key: " + instance);
                 } 
                 else
                 {
                     instance = ES3.Load<AchievementsManager>("AchievementsManager");
-                    Debug.Log("loaded AM asset: " + instance);
+                    Debug.Log("Loaded AchievementsManager asset: " + instance);
                 }
             }
 
@@ -82,8 +82,8 @@ public class AchievementsManager : ScriptableObject
     [SerializeField] private Achievement _score10k;
     [SerializeField] private Achievement _score50k;
     [SerializeField] private Achievement _score100k;
-    [SerializeField] private Achievement _score150k;
-    [SerializeField] private Achievement _score200k;
+    [SerializeField] private Achievement _score250k;
+    [SerializeField] private Achievement _score500k;
 
     private void OnEnable()
     {
@@ -93,12 +93,9 @@ public class AchievementsManager : ScriptableObject
         }
         else if (instance != this)
         {
-            Debug.Log("redundant instance");
-            // Destroy any duplicate instances created during runtime
+            Debug.Log("Redundant AchievementsManager instance");
             Destroy(this);
         }
-
-        Debug.Log("AM asset instance: " + instance);
 
         GameManager.OnVictory += UnlockVictoryAchievement;
         GameManager.OnNoDamageVictory += UnlockNoDamageVictoryAchievement;
@@ -242,15 +239,15 @@ public class AchievementsManager : ScriptableObject
             _score100k.Unlocked = true;
             OnAchievementUnlocked?.Invoke(_score100k);
         }
-        if (score > 150000 && !_score150k.Unlocked)
+        if (score > 250000 && !_score250k.Unlocked)
         {
-            _score150k.Unlocked = true;
-            OnAchievementUnlocked?.Invoke(_score150k);
+            _score250k.Unlocked = true;
+            OnAchievementUnlocked?.Invoke(_score250k);
         }
-        if (score > 200000 && !_score200k.Unlocked)
+        if (score > 500000 && !_score500k.Unlocked)
         {
-            _score200k.Unlocked = true;
-            OnAchievementUnlocked?.Invoke(_score200k);
+            _score500k.Unlocked = true;
+            OnAchievementUnlocked?.Invoke(_score500k);
         }
     }
 

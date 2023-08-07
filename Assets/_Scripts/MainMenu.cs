@@ -100,7 +100,6 @@ public class MainMenu : MonoBehaviour
 
     private IEnumerator StartGameRoutine()
     {
-        SettingsManager.Instance.CalculateGameParams();
         _blackPanel.DOFade(1f, 1f);
         yield return new WaitForSecondsRealtime(1f);
         DOTween.KillAll();

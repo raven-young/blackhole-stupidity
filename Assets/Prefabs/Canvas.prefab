@@ -1031,7 +1031,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 41, y: -24}
+  m_AnchoredPosition: {x: 41, y: -37}
   m_SizeDelta: {x: -1511.9485, y: -636.41077}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8220682699240384498
@@ -3525,7 +3525,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 9, y: -61}
+  m_AnchoredPosition: {x: 9, y: -74}
   m_SizeDelta: {x: -1511.9485, y: -636.41077}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8246658751672687607
@@ -4077,7 +4077,6 @@ MonoBehaviour:
   _fuelSlider: {fileID: 2773099236092990658}
   _healthSlider: {fileID: 8056232210407815718}
   _alertIcon: {fileID: 6276568462064900348}
-  ComboCount: 0
   _achievementsListText: {fileID: 3657523810080043881}
 --- !u!1 &6068167619240253332
 GameObject:
@@ -4690,6 +4689,7 @@ GameObject:
   - component: {fileID: 7913739098868725976}
   - component: {fileID: 4355735043408138035}
   - component: {fileID: 5388920097234734527}
+  - component: {fileID: 8332616851320264801}
   m_Layer: 5
   m_Name: ScorePanel
   m_TagString: Untagged
@@ -4755,6 +4755,26 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &8332616851320264801
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7343121384514264473}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5573b396f1e024a4a89ab3fa31bf6cf2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _gameParams: {fileID: 11400000, guid: dd8a65e487f3ad244b57dea38948a9e4, type: 2}
+  _playerStats: {fileID: 11400000, guid: 42f054a91392e5243a4f390209487cb4, type: 2}
+  _scoreTextGameplay: {fileID: 1620022891089617867}
+  _scoreTextVictory: {fileID: 2037686589495987851}
+  _scoreTextGameOver: {fileID: 2172310315836300642}
+  _multiplierDamageNumberPrefab: {fileID: 2121139711047777747, guid: 2e7384ad964ad0247a9fbb1175a654e2, type: 3}
+  _canvasRect: {fileID: 3013899941558136859}
+  ComboCount: 0
 --- !u!1 &7584025533130694370
 GameObject:
   m_ObjectHideFlags: 0

@@ -9,6 +9,14 @@ public class SettingsManager : MonoBehaviour
     public DifficultySetting SelectedDifficulty;
     public ShipType SelectedShipType;
 
+    // GAME PARAMETERS
+    public static int BulletDamage;
+    public static float BurnRate;
+    public static float FirePeriod;
+    public static float MagnetScale;
+
+    public static float DifficultyScoreMultiplier;
+
     public enum DifficultySetting
     {
         Easy = 0,
@@ -38,19 +46,15 @@ public class SettingsManager : MonoBehaviour
             Destroy(gameObject);
             return;
         }
+    }
 
+    private void Start()
+    {
         // Needed when directly starting game in edit mode (in real scenario, set by player in main menu)
         SelectedDifficulty = DifficultySetting.Normal;
         SelectedShipType = ShipType.Basic;
-        CalculateGameParams();
-
+        PrepareGame();
     }
-
-    // GAME PARAMETERS
-    public static int BulletDamage;
-    public static float BurnRate;
-    public static float FirePeriod;
-    public static float MagnetScale;
 
     // Calculate game params based on difficulty and ship selected
     public void CalculateGameParams()
@@ -86,6 +90,31 @@ public class SettingsManager : MonoBehaviour
             case ShipType.Collector: MagnetScale *= _gameParams.CollectorMagnetScaleMultiplier; break;
             case ShipType.Basic: MagnetScale *= _gameParams.BasicShipMultiplier; break;
             case ShipType.Destroyer: MagnetScale *= _gameParams.DestroyerMagnetScaleMultiplier; break;
+        }
+    }
+
+    public void PrepareGame()
+    {
+        CalculateGameParams();
+
+        switch (SelectedDifficulty)
+        {
+            case DifficultySetting.Easy:
+                CanvasManager.Instance.ToggleFuelSlider(false);
+                DifficultyScoreMultiplier = _gameParams.EasyScoreMultiplier;
+                break;
+            case DifficultySetting.Normal:
+                CanvasManager.Instance.ToggleFuelSlider(false);
+                DifficultyScoreMultiplier = _gameParams.NormalScoreMultiplier;
+                break;
+            case DifficultySetting.Hard:
+                CanvasManager.Instance.ToggleFuelSlider(true);
+                DifficultyScoreMultiplier = _gameParams.HardScoreMultiplier;
+                break;
+            case DifficultySetting.Expert:
+                CanvasManager.Instance.ToggleFuelSlider(true);
+                DifficultyScoreMultiplier = _gameParams.ExpertScoreMultiplier;
+                break;
         }
     }
 }

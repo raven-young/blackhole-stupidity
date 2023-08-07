@@ -88,11 +88,11 @@ MonoBehaviour:
     Unlocked: 0
     Name: Expert Scorer
     Description: Score 100'000 points
-  _score150k:
+  _score250k:
     Unlocked: 0
     Name: Master Scorer
-    Description: Score 150'000 points
-  _score200k:
+    Description: Score 250'000 points
+  _score500k:
     Unlocked: 0
     Name: Legendary Scorer
-    Description: Score 200'000 points
+    Description: Score 500'000 points
