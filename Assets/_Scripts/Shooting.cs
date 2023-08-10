@@ -28,8 +28,8 @@ public class Shooting : MonoBehaviour
     private static IObjectPool<Bullet> _pool;
     public static Shooting Instance;
 
-    delegate void Shoot();
-    Shoot shoot;
+    private delegate void Shoot();
+    Shoot _shoot;
 
     [SerializeField] private AudioClip _smallLaserClip;
 
@@ -68,7 +68,7 @@ public class Shooting : MonoBehaviour
     private void Start()
     {
         bool tripleShoot = SettingsManager.Instance.SelectedShipType == SettingsManager.ShipType.Destroyer;
-        shoot = tripleShoot ? TripleShoot : DoubleShoot;
+        _shoot = tripleShoot ? TripleShoot : DoubleShoot;
     }
 
     private void OnDisable()
@@ -115,7 +115,7 @@ public class Shooting : MonoBehaviour
     {
         if (_canShoot && _isShooting)
         {
-            shoot();
+            _shoot();
             _canShoot = false;
             _isShooting = _isAutomatic;
         }

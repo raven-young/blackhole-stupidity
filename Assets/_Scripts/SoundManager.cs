@@ -141,6 +141,12 @@ public class SoundManager : MonoBehaviour
         }
     }
 
+    public void ChangeMusicSourcePitch(float newPitch, float fadeDuration = 0f)
+    {
+        _musicSource1.DOPitch(newPitch, fadeDuration);
+        _musicSource2.DOPitch(newPitch, fadeDuration);
+    }
+
     public void StartMainMenuMusic()
     {
         StopMusic();

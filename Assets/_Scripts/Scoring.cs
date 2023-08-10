@@ -35,7 +35,7 @@ public class Scoring : MonoBehaviour
 
     public void IncrementScore(int amount)
     {
-        _score += Mathf.Max(1, ComboCount) * amount;
+        _score += (int)(Mathf.Max(1, ComboCount) * amount * (Ship.Instance.IsOverdriveActive ? _gameParams.OverdriveScoreMultiplier : 1));
         _scoreTextGameplay.text = "Score: " + _score;
     }
 
@@ -109,10 +109,12 @@ public class Scoring : MonoBehaviour
     {
         yield return new WaitForSecondsRealtime(0.3f);
         float gameResult = GameManager.Instance.GameWasWon ?  _gameParams.VictoryMultiplier : _gameParams.GameOverMultiplier;
+        SoundManager.Instance.PlaySFX(SoundManager.SFX.Powerup);
         DamageNumber d = _multiplierDamageNumberPrefab.Spawn(Vector3.zero, gameResult);
         d.SetAnchoredPosition(_multiplierSpawnPoint, _multiplierSpawnPoint, Vector2.zero);
         d.leftText = GameManager.Instance.GameWasWon ? "Victory x" : "Defeat x";
         yield return new WaitForSecondsRealtime(1.5f);
+        SoundManager.Instance.PlaySFX(SoundManager.SFX.Powerup);
         DamageNumber d2 = _multiplierDamageNumberPrefab.Spawn(Vector3.zero, SettingsManager.DifficultyScoreMultiplier);
         d2.SetAnchoredPosition(_multiplierSpawnPoint, _multiplierSpawnPoint, Vector2.zero);
         d2.leftText = SettingsManager.Instance.SelectedDifficulty.ToString() + " x";

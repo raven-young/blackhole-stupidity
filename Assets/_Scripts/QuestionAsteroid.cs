@@ -142,7 +142,7 @@ public class QuestionAsteroid : MonoBehaviour
         _itemSpawnBonus = 0;
 
         //int difficulty = (int)(5f*GameManager.Instance.DistanceToEventHorizon / (_gameParams.WinRadius - GameManager.Instance.EventHorizonRadius));
-        _currentProblemDifficulty = (int)GameManager.Instance.DistanceToEventHorizon / 4;
+        _currentProblemDifficulty = Mathf.Max(1, (int)(GameManager.Instance.DistanceToEventHorizon / 2.7f));
 
         // refactor later
         var c = challenge.SimpleArithemticChallenge(_currentProblemDifficulty);
@@ -191,7 +191,8 @@ public class QuestionAsteroid : MonoBehaviour
         if (Scoring.Instance.ComboCount > 1)
             _comboDamageNumberPrefab.Spawn(transform.position, Scoring.Instance.ComboCount);
 
-        Scoring.Instance.IncrementScore(_gameParams.CorrectAnswerScore * (1+ _currentProblemDifficulty));
+        Debug.Log("diff " + _currentProblemDifficulty + " score: " + _gameParams.CorrectAnswerScore * _currentProblemDifficulty);
+        Scoring.Instance.IncrementScore(_gameParams.CorrectAnswerScore * _currentProblemDifficulty);
 
         SoundManager.Instance.PlaySound(_rightAnswerclip);
         AnswerExit();

@@ -38,7 +38,7 @@ MonoBehaviour:
   QuestionAsteroidAcceleration: 1.0291
   PlayerDamage: 10
   AsteroidHealth: 5
-  ScrapValue: 3
+  ScrapValue: 2
   FuelValue: 4
   SpawnPeriod: 1.2
   RandomAsteroidImpulse: 10
@@ -46,9 +46,19 @@ MonoBehaviour:
   CorrectAnswerScore: 50
   ShotAsteroidScore: 13
   CollectedItemScore: 17
-  ScreenShakeDuration: 0.2
+  EasyScoreMultiplier: 0.75
+  NormalScoreMultiplier: 1
+  HardScoreMultiplier: 1.5
+  ExpertScoreMultiplier: 2
+  VictoryMultiplier: 1.5
+  GameOverMultiplier: 0.75
+  ScreenShakeDuration: 0.15
+  OverdriveDuration: 10
+  OverdriveScoreMultiplier: 2
+  OverdriveBulletDamageBonus: 1
+  OverdriveMagnetScale: 1.5
   EasyMultiplier: 0.6
   HardMultiplier: 1.2
   HardPlayerDamageBonus: 6
   FailAsteroidSpawnBonus: 3
-  ScreenBounds: {x: 35.432655, y: 19.930868}
+  ScreenBounds: {x: 35.422886, y: 19.930868}

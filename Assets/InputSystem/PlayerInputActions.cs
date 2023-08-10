@@ -98,6 +98,15 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Special"",
+                    ""type"": ""Button"",
+                    ""id"": ""513bfe8c-57b5-4ad6-b4aa-80a2f8984c0b"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -439,6 +448,28 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
                     ""action"": ""Answer3"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f16fb0df-4506-49fd-809c-407c18824750"",
+                    ""path"": ""<Keyboard>/shift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KeyboardMouse"",
+                    ""action"": ""Special"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6ce8fc36-b7c3-4c93-9c88-763f9de30803"",
+                    ""path"": ""<Gamepad>/leftTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Special"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1034,6 +1065,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_Player_Answer2 = m_Player.FindAction("Answer2", throwIfNotFound: true);
         m_Player_Answer3 = m_Player.FindAction("Answer3", throwIfNotFound: true);
         m_Player_DevTools = m_Player.FindAction("DevTools", throwIfNotFound: true);
+        m_Player_Special = m_Player.FindAction("Special", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1115,6 +1147,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Answer2;
     private readonly InputAction m_Player_Answer3;
     private readonly InputAction m_Player_DevTools;
+    private readonly InputAction m_Player_Special;
     public struct PlayerActions
     {
         private @PlayerInputActions m_Wrapper;
@@ -1127,6 +1160,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         public InputAction @Answer2 => m_Wrapper.m_Player_Answer2;
         public InputAction @Answer3 => m_Wrapper.m_Player_Answer3;
         public InputAction @DevTools => m_Wrapper.m_Player_DevTools;
+        public InputAction @Special => m_Wrapper.m_Player_Special;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1160,6 +1194,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @DevTools.started += instance.OnDevTools;
             @DevTools.performed += instance.OnDevTools;
             @DevTools.canceled += instance.OnDevTools;
+            @Special.started += instance.OnSpecial;
+            @Special.performed += instance.OnSpecial;
+            @Special.canceled += instance.OnSpecial;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -1188,6 +1225,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @DevTools.started -= instance.OnDevTools;
             @DevTools.performed -= instance.OnDevTools;
             @DevTools.canceled -= instance.OnDevTools;
+            @Special.started -= instance.OnSpecial;
+            @Special.performed -= instance.OnSpecial;
+            @Special.canceled -= instance.OnSpecial;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -1378,6 +1418,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         void OnAnswer2(InputAction.CallbackContext context);
         void OnAnswer3(InputAction.CallbackContext context);
         void OnDevTools(InputAction.CallbackContext context);
+        void OnSpecial(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

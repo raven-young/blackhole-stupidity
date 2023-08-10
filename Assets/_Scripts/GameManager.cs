@@ -39,14 +39,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject _replaybutton_gameover;
     [SerializeField] private GameObject _replaybutton_victory;
 
-    public enum DifficultySetting
-    {
-        Easy = 0,
-        Normal = 1,
-        Hard = 2,
-        Expert = 3
-    }
-
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -73,8 +65,7 @@ public class GameManager : MonoBehaviour
         InitialDistanceToEventHorizon = DistanceToEventHorizon;
         InDangerZone = DistanceToEventHorizon > _gameParams.DangerZoneDistance;
 
-        SettingsManager.Instance.PrepareGame();
-        StartCoroutine(StartGame());
+        InitializeGame();
     }
 
     private void Update()
@@ -97,6 +88,13 @@ public class GameManager : MonoBehaviour
                 _dangerzoneTimer = 0;
             }
         }
+    }
+
+    private void InitializeGame()
+    {
+        SettingsManager.Instance.PrepareGame();
+        Ship.Instance.InitializeShip();
+        StartCoroutine(StartGame());
     }
 
     IEnumerator StartGame()

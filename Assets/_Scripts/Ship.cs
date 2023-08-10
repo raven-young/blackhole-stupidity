@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using DamageNumbersPro;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class Ship : MonoBehaviour
 {
@@ -24,10 +25,11 @@ public class Ship : MonoBehaviour
 
     [Header("Screen")]
     //private Vector2 screenBounds;
-    [SerializeField] private float objectBoundsScale;
+    [SerializeField] private float _objectBoundsScale;
 
     [Header("Logic")]
     [SerializeField] private GameObject _itemMagnet;
+    private Material _itemMagnetMaterial;
     [SerializeField] public float InitialFuel = 100;
     public float CurrentHealth;
     public float CurrentFuel;
@@ -36,6 +38,7 @@ public class Ship : MonoBehaviour
 
     public bool CannotMove = false;
     public bool IsInvincible = false;
+    public bool IsOverdriveActive = false;
 
     [Header("Effects")]
     [SerializeField] private GameObject deathEffect;
@@ -46,6 +49,7 @@ public class Ship : MonoBehaviour
     [SerializeField] private AudioClip _explosionClip;
     private float _exhaustEmissionRate;
     private float _exhaustSpeed;
+
 
     [Header("Debug")]
     [SerializeField] private bool _gravityOn = false;
@@ -64,14 +68,16 @@ public class Ship : MonoBehaviour
     private void OnEnable()
     {
         _playerInputActions.Player.Enable();
+        _playerInputActions.Player.Special.performed += ActivateOverdrive;
     }
 
     void OnDisable()
     {
         _playerInputActions.Player.Disable();
+        _playerInputActions.Player.Special.performed -= ActivateOverdrive;
     }
 
-    private void Start()
+    public void InitializeShip()
     {
         //screenBounds = _cam.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, _cam.transform.position.z));
         ShipPositionRadius = transform.position.y;
@@ -81,6 +87,7 @@ public class Ship : MonoBehaviour
         _exhaustSpeed = 1.5f*_exhaustParticles.main.startSpeed.constant;
 
         _itemMagnet.transform.localScale = new Vector3(SettingsManager.MagnetScale, SettingsManager.MagnetScale, SettingsManager.MagnetScale);
+        _itemMagnetMaterial = _itemMagnet.transform.GetComponent<SpriteRenderer>().material;
     }
 
     void Update()
@@ -238,6 +245,39 @@ public class Ship : MonoBehaviour
         SoundManager.Instance.PlaySound(_explosionClip, 0.5f);
         yield return new WaitForSeconds(2f);
     }
+
+    private void ActivateOverdrive(InputAction.CallbackContext context)
+    {
+
+        if (context.performed && CurrentHealth >= _gameParams.MaxHealth && !IsOverdriveActive)
+        {
+            SoundManager.Instance.PlayButtonPress(failed: false);
+            StartCoroutine(OverDrive());
+        }
+        else
+        {
+            SoundManager.Instance.PlayButtonPress(failed: true);
+        }    
+    }
+
+    private IEnumerator OverDrive()
+    {
+        TakeDamage((int)(0.8f * CurrentHealth));
+        IsOverdriveActive = true;
+        _itemMagnet.transform.localScale *= _gameParams.OverdriveMagnetScale;
+        _itemMagnetMaterial.DOFloat(1, "_HologramBlend", 1f);
+        _itemMagnetMaterial.DOFloat(8, "_Glow", 1f);
+        //SoundManager.Instance.ChangeMusicSourcePitch(1.01f, 1f);
+        ActivateInvincibility(_gameParams.OverdriveDuration);
+        yield return new WaitForSecondsRealtime(_gameParams.OverdriveDuration);
+        IsOverdriveActive = false;
+        _itemMagnet.transform.localScale /= _gameParams.OverdriveMagnetScale;
+        _itemMagnetMaterial.DOFloat(0, "_HologramBlend", 1f);
+        _itemMagnetMaterial.DOFloat(0, "_Glow", 1f);
+        SoundManager.Instance.ChangeMusicSourcePitch(1f, 1f);
+    }
+
+
 
     private void OnTriggerEnter2D(Collider2D collision)
     {

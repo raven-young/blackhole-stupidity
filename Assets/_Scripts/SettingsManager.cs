@@ -95,6 +95,8 @@ public class SettingsManager : MonoBehaviour
 
     public void PrepareGame()
     {
+        //Debug.Log("Preparing game with difficulty " + SelectedDifficulty);
+
         CalculateGameParams();
 
         switch (SelectedDifficulty)

@@ -7,9 +7,9 @@ using DamageNumbersPro;
 public class Bullet : MonoBehaviour
 {
     [SerializeField] private GameParams _gameParams;
-    [SerializeField] private GameObject hitEffect;
-    //[SerializeField] private float effectDuration = 0.2f;
-    [SerializeField] private float piercing = 0;
+    //[SerializeField] private GameObject _hitEffect;
+    //[SerializeField] private float _effectDuration = 0.2f;
+    [SerializeField] private float _piercing = 0;
 
     private IObjectPool<Bullet> _pool;
     [SerializeField] private DamageNumber critprefab;
@@ -30,17 +30,17 @@ public class Bullet : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collider)
     {
         Asteroid target = collider.GetComponent<Asteroid>();
-        target.TakeDamage(SettingsManager.BulletDamage);
+        target.TakeDamage(SettingsManager.BulletDamage + (Ship.Instance.IsOverdriveActive ? _gameParams.OverdriveBulletDamageBonus : 0));
 
         BulletExit(collider);
     }
 
     private void BulletExit(Collider2D collider)
     {
-        //GameObject effect = Instantiate(hitEffect, transform.position, Quaternion.identity);
-        //Destroy(effect, effectDuration);
+        //GameObject effect = Instantiate(_hitEffect, transform.position, Quaternion.identity);
+        //Destroy(effect, _effectDuration);
 
-        if (piercing <= 0)
+        if (_piercing <= 0)
         {
             _pool.Release(this);
         }
