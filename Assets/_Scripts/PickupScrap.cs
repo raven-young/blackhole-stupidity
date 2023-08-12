@@ -2,13 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PickupScrap : Pickup
+namespace BlackHole
 {
-    protected override void ApplyItem()
+    public class PickupScrap : Pickup
     {
-        base.ApplyItem();
-        Ship.Instance.CurrentHealth += _gameParams.ScrapValue;
-        Ship.Instance.CurrentHealth = Mathf.Min(_gameParams.MaxHealth, Ship.Instance.CurrentHealth);
-        CanvasManager.Instance.UpdateHealth(Ship.Instance.CurrentHealth);
+        protected override void ApplyItem()
+        {
+            base.ApplyItem();
+            Ship.Instance.CurrentHealth += _gameParams.ScrapValue;
+            Ship.Instance.CurrentHealth = Mathf.Min(_gameParams.MaxHealth, Ship.Instance.CurrentHealth);
+            CanvasManager.Instance.UpdateHealth(Ship.Instance.CurrentHealth);
+        }
     }
 }

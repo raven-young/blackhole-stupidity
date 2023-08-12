@@ -11,26 +11,29 @@ using UnityEngine;
 ///  5. I get "cannot play from a disabled audio source" warning, even though the audio source is enabled
 ///  6. Ergo, make this silly wrapper gameobject
 /// </summary>
-public class SoundManagerWrapper : MonoBehaviour
+namespace BlackHole
 {
-
-    private SoundManager _soundManager;
-
-    private void Start()
+    public class SoundManagerWrapper : MonoBehaviour
     {
-        // Instantiate the sound manager by calling the getter from singleton instance
-        var dummy = SoundManager.Instance.name;
 
-        _soundManager = GameObject.FindWithTag("SoundManager").GetComponent<SoundManager>();
-    }
+        private SoundManager _soundManager;
 
-    public void PlayButtonPress(bool failed = false)
-    {
-        _soundManager.PlayButtonPress(failed);
-    }
+        private void Start()
+        {
+            // Instantiate the sound manager by calling the getter from singleton instance
+            var dummy = SoundManager.Instance.name;
 
-    public void PlayButtonSelect()
-    {
-        _soundManager.PlayButtonSelect();
+            _soundManager = GameObject.FindWithTag("SoundManager").GetComponent<SoundManager>();
+        }
+
+        public void PlayButtonPress(bool failed = false)
+        {
+            _soundManager.PlayButtonPress(failed);
+        }
+
+        public void PlayButtonSelect()
+        {
+            _soundManager.PlayButtonSelect();
+        }
     }
 }

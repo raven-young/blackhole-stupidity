@@ -2,11 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PickupFuel : Pickup
+namespace BlackHole
 {
-    protected override void ApplyItem()
+    public class PickupFuel : Pickup
     {
-        base.ApplyItem();
-        Ship.Instance.CurrentFuel += _gameParams.FuelValue;
+        protected override void ApplyItem()
+        {
+            base.ApplyItem();
+            Ship.Instance.CurrentFuel += _gameParams.FuelValue;
+        }
     }
 }

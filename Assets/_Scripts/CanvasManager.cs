@@ -7,218 +7,221 @@ using UnityEngine.InputSystem;
 using UnityEngine.EventSystems;
 using DG.Tweening;
 
-public class CanvasManager : MonoBehaviour
+namespace BlackHole
 {
-
-    public static CanvasManager Instance;
-    [SerializeField] private GameParams _gameParams;
-    [SerializeField] private PlayerStats _playerStats;
-    [SerializeField] private GameObject _gameOverScreen;
-    [SerializeField] private GameObject _victoryScreen;
-    [SerializeField] private GameObject _pauseScreen;
-    [SerializeField] private GameObject _inputPopup;
-    [SerializeField] private RectTransform _achievementPanel;
-
-    [SerializeField] private TMP_Text _achievementText, _scoreText;
-    [SerializeField] private TMP_Text _scoreTextGameOver, _highscoreTextGameOver, _scoreTextVictory, _highscoreTextVictory;   
-
-    [SerializeField] private Slider _fuelSlider, _healthSlider;
-    [SerializeField] private GameObject _alertIcon;
-    private bool _isLowOnStats = false;
-
-    private PlayerInput playerInput;
-    private GameObject playerController;
-
-    private Queue<AchievementsManager.Achievement> _newAchievementsQueue = new();
-
-    [Header("Debug")]
-    [SerializeField] private TMP_Text _achievementsListText;
-    //[SerializeField] private AchievementsManager _achievementsScriptableObject;
-
-    private void Awake()
+    public class CanvasManager : MonoBehaviour
     {
-        if (Instance != null && Instance != this)
-            Destroy(gameObject);
-        else
-            Instance = this;
-    }
-    // Start is called before the first frame update
-    void Start()
-    {
-        _fuelSlider.maxValue = Ship.Instance.InitialFuel;
-        _fuelSlider.value = Ship.Instance.InitialFuel;
-        _healthSlider.maxValue = _gameParams.MaxHealth;
-        _healthSlider.minValue = 0;
-        _healthSlider.value = _gameParams.MaxHealth / 2;
 
-        
-        playerController = GameObject.Find("ShipController");
-        playerInput = playerController.GetComponent<PlayerInput>();
-        //playerInput.onControlsChanged += OnDeviceChange;
+        public static CanvasManager Instance;
+        [SerializeField] private GameParams _gameParams;
+        [SerializeField] private PlayerStats _playerStats;
+        [SerializeField] private GameObject _gameOverScreen;
+        [SerializeField] private GameObject _victoryScreen;
+        [SerializeField] private GameObject _pauseScreen;
+        [SerializeField] private GameObject _inputPopup;
+        [SerializeField] private RectTransform _achievementPanel;
 
-        UpdateAchievementsText();
-    }
+        [SerializeField] private TMP_Text _achievementText, _scoreText;
+        [SerializeField] private TMP_Text _scoreTextGameOver, _highscoreTextGameOver, _scoreTextVictory, _highscoreTextVictory;
 
+        [SerializeField] private Slider _fuelSlider, _healthSlider;
+        [SerializeField] private GameObject _alertIcon;
+        private bool _isLowOnStats = false;
 
-    private void OnEnable()
-    {
-        AchievementsManager.OnAchievementUnlocked += QueueAchievement;
-    }
+        private PlayerInput playerInput;
+        private GameObject playerController;
 
-    private void OnDisable()
-    {
-        AchievementsManager.OnAchievementUnlocked -= QueueAchievement;
-    }
+        private Queue<AchievementsManager.Achievement> _newAchievementsQueue = new();
 
-    public void UpdateHealth(float newValue)
-    {
-        _healthSlider.value = newValue;
-        CheckIfLowStatsAndAlert();
-    }
+        [Header("Debug")]
+        [SerializeField] private TMP_Text _achievementsListText;
+        //[SerializeField] private AchievementsManager _achievementsScriptableObject;
 
-    public void UpdateFuel(float newValue)
-    {
-        _fuelSlider.value = newValue;
-        CheckIfLowStatsAndAlert();
-    }
-
-    public void ToggleFuelSlider(bool sliderOn)
-    {
-        _fuelSlider.gameObject.SetActive(sliderOn);
-    }
-
-    private void CheckIfLowStatsAndAlert()
-    {
-        if (!_isLowOnStats && (_fuelSlider.value < 0.25f*_fuelSlider.maxValue || _healthSlider.value < 0.25f * _healthSlider.maxValue))
+        private void Awake()
         {
-            _isLowOnStats = true;
-            _alertIcon.SetActive(true);
-            // to do: blink icon in sync with sfx
-            SoundManager.Instance.PlaySFX(SoundManager.SFX.AlertSFX);
-        } 
-        else if (_isLowOnStats && _fuelSlider.value > 0.25f * _fuelSlider.maxValue && _healthSlider.value > 0.25f * _healthSlider.maxValue)
-        {
-            _isLowOnStats = false;
-            _alertIcon.SetActive(false);
+            if (Instance != null && Instance != this)
+                Destroy(gameObject);
+            else
+                Instance = this;
         }
-    }
-
-    public void ShowControlsPanel()
-    {
-        _inputPopup.SetActive(true);
-
-        if (Gamepad.current != null)
-            _inputPopup.transform.Find("Gamepad").gameObject.SetActive(true);
-        else
-            _inputPopup.transform.Find("Keyboard").gameObject.SetActive(true);
-
-        // doesnt work
-        //if (playerInput.currentControlScheme == "Gamepad")
-        //    _inputPopup.transform.Find("Gamepad").gameObject.SetActive(true);
-        //else if (playerInput.currentControlScheme == "KeyboardMouse")
-        //    _inputPopup.transform.Find("Keyboard").gameObject.SetActive(true);
-    }
-
-    public void StartGame()
-    {
-        _inputPopup.SetActive(false);
-    }
-
-    public void RenderPauseScreen()
-    {
-        _pauseScreen.SetActive(true);
-        GameObject ResumeButton = _pauseScreen.transform.Find("Resume Button").gameObject;
-        var eventSystem = EventSystem.current;
-        eventSystem.SetSelectedGameObject(ResumeButton, new BaseEventData(eventSystem));
-    }
-
-    public void DisablePauseScreen()
-    {
-        _pauseScreen.SetActive(false);
-    }
-
-    public void RenderGameOverScreen(bool victorious)
-    {
-
-        Scoring.Instance.DisplayFinalScore(victorious);
-
-        if (_newAchievementsQueue.Count > 0)
+        // Start is called before the first frame update
+        void Start()
         {
-            StartCoroutine(DisplayAchievementNotification());
+            _fuelSlider.maxValue = Ship.Instance.InitialFuel;
+            _fuelSlider.value = Ship.Instance.InitialFuel;
+            _healthSlider.maxValue = _gameParams.MaxHealth;
+            _healthSlider.minValue = 0;
+            _healthSlider.value = _gameParams.MaxHealth / 2;
+
+
+            playerController = GameObject.Find("ShipController");
+            playerInput = playerController.GetComponent<PlayerInput>();
+            //playerInput.onControlsChanged += OnDeviceChange;
+
+            UpdateAchievementsText();
         }
 
-        string difficulty = SettingsManager.Instance.SelectedDifficulty.ToString();
-        if (victorious)
+
+        private void OnEnable()
         {
-            _highscoreTextVictory.text = difficulty + " Highscore: " + _playerStats.GetHighscore();
-            _victoryScreen.SetActive(true);
-            GameObject ReplayButton = _victoryScreen.transform.Find("Replay Button").gameObject;
+            AchievementsManager.OnAchievementUnlocked += QueueAchievement;
+        }
+
+        private void OnDisable()
+        {
+            AchievementsManager.OnAchievementUnlocked -= QueueAchievement;
+        }
+
+        public void UpdateHealth(float newValue)
+        {
+            _healthSlider.value = newValue;
+            CheckIfLowStatsAndAlert();
+        }
+
+        public void UpdateFuel(float newValue)
+        {
+            _fuelSlider.value = newValue;
+            CheckIfLowStatsAndAlert();
+        }
+
+        public void ToggleFuelSlider(bool sliderOn)
+        {
+            _fuelSlider.gameObject.SetActive(sliderOn);
+        }
+
+        private void CheckIfLowStatsAndAlert()
+        {
+            if (!_isLowOnStats && (_fuelSlider.value < 0.25f * _fuelSlider.maxValue || _healthSlider.value < 0.25f * _healthSlider.maxValue))
+            {
+                _isLowOnStats = true;
+                _alertIcon.SetActive(true);
+                // to do: blink icon in sync with sfx
+                SoundManager.Instance.PlaySFX(SoundManager.SFX.AlertSFX);
+            }
+            else if (_isLowOnStats && _fuelSlider.value > 0.25f * _fuelSlider.maxValue && _healthSlider.value > 0.25f * _healthSlider.maxValue)
+            {
+                _isLowOnStats = false;
+                _alertIcon.SetActive(false);
+            }
+        }
+
+        public void ShowControlsPanel()
+        {
+            _inputPopup.SetActive(true);
+
+            if (Gamepad.current != null)
+                _inputPopup.transform.Find("Gamepad").gameObject.SetActive(true);
+            else
+                _inputPopup.transform.Find("Keyboard").gameObject.SetActive(true);
+
+            // doesnt work
+            //if (playerInput.currentControlScheme == "Gamepad")
+            //    _inputPopup.transform.Find("Gamepad").gameObject.SetActive(true);
+            //else if (playerInput.currentControlScheme == "KeyboardMouse")
+            //    _inputPopup.transform.Find("Keyboard").gameObject.SetActive(true);
+        }
+
+        public void StartGame()
+        {
+            _inputPopup.SetActive(false);
+        }
+
+        public void RenderPauseScreen()
+        {
+            _pauseScreen.SetActive(true);
+            GameObject ResumeButton = _pauseScreen.transform.Find("Resume Button").gameObject;
             var eventSystem = EventSystem.current;
-            eventSystem.SetSelectedGameObject(ReplayButton, new BaseEventData(eventSystem));
+            eventSystem.SetSelectedGameObject(ResumeButton, new BaseEventData(eventSystem));
         }
-        else
+
+        public void DisablePauseScreen()
         {
-            _highscoreTextGameOver.text = difficulty + " Highscore: " + _playerStats.GetHighscore();
-            _gameOverScreen.SetActive(true);
-            GameObject ReplayButton = _gameOverScreen.transform.Find("Replay Button").gameObject;
-            var eventSystem = EventSystem.current;
-            eventSystem.SetSelectedGameObject(ReplayButton, new BaseEventData(eventSystem));
+            _pauseScreen.SetActive(false);
         }
-    }
 
-    private void QueueAchievement(AchievementsManager.Achievement achievement)
-    {
-        _newAchievementsQueue.Enqueue(achievement);
-    }
+        public void RenderGameOverScreen(bool victorious)
+        {
 
-    public void UpdateAchievementsText()
-    {
-        // Debug
-        _achievementsListText.text = AchievementsManager.Instance.GetAchievementsString();
-    }
+            Scoring.Instance.DisplayFinalScore(victorious);
 
-    private IEnumerator DisplayAchievementNotification()
-    {
-        
-        float oldPanelPosY = _achievementPanel.anchoredPosition.y;
-        float newPanelPosY = oldPanelPosY + 300f;
+            if (_newAchievementsQueue.Count > 0)
+            {
+                StartCoroutine(DisplayAchievementNotification());
+            }
 
-        foreach (AchievementsManager.Achievement achievement in _newAchievementsQueue)
-        {  
-            _achievementText.text = "Achievement:\n" + achievement.Name;
-
-            // Display
-            _achievementPanel.DOAnchorPosY(newPanelPosY, 0.4f).SetEase(Ease.OutCubic).SetUpdate(true);
-            SoundManager.Instance.PlaySFX(SoundManager.SFX.ButtonPress);
-            yield return new WaitForSecondsRealtime(3.3f);
-
-            // Fade
-            _achievementPanel.DOAnchorPosY(1.4f*newPanelPosY, 0.4f).SetEase(Ease.OutCubic).SetUpdate(true);
-            _achievementPanel.GetComponent<Image>().DOFade(0f, 0.4f).SetUpdate(true);
-            _achievementText.DOFade(0f, 0.4f).SetUpdate(true);
-            yield return new WaitForSecondsRealtime(0.5f);
-
-            // Reset
-            _achievementPanel.DOAnchorPosY(oldPanelPosY, 0f).SetUpdate(true);
-            _achievementPanel.GetComponent<Image>().DOFade(1f, 0f).SetUpdate(true);
-            _achievementText.DOFade(1f, 0f).SetUpdate(true);
+            string difficulty = SettingsManager.Instance.SelectedDifficulty.ToString();
+            if (victorious)
+            {
+                _highscoreTextVictory.text = difficulty + " Highscore: " + _playerStats.GetHighscore();
+                _victoryScreen.SetActive(true);
+                GameObject ReplayButton = _victoryScreen.transform.Find("Replay Button").gameObject;
+                var eventSystem = EventSystem.current;
+                eventSystem.SetSelectedGameObject(ReplayButton, new BaseEventData(eventSystem));
+            }
+            else
+            {
+                _highscoreTextGameOver.text = difficulty + " Highscore: " + _playerStats.GetHighscore();
+                _gameOverScreen.SetActive(true);
+                GameObject ReplayButton = _gameOverScreen.transform.Find("Replay Button").gameObject;
+                var eventSystem = EventSystem.current;
+                eventSystem.SetSelectedGameObject(ReplayButton, new BaseEventData(eventSystem));
+            }
         }
+
+        private void QueueAchievement(AchievementsManager.Achievement achievement)
+        {
+            _newAchievementsQueue.Enqueue(achievement);
+        }
+
+        public void UpdateAchievementsText()
+        {
+            // Debug
+            _achievementsListText.text = AchievementsManager.Instance.GetAchievementsString();
+        }
+
+        private IEnumerator DisplayAchievementNotification()
+        {
+
+            float oldPanelPosY = _achievementPanel.anchoredPosition.y;
+            float newPanelPosY = oldPanelPosY + 300f;
+
+            foreach (AchievementsManager.Achievement achievement in _newAchievementsQueue)
+            {
+                _achievementText.text = "Achievement:\n" + achievement.Name;
+
+                // Display
+                _achievementPanel.DOAnchorPosY(newPanelPosY, 0.4f).SetEase(Ease.OutCubic).SetUpdate(true);
+                SoundManager.Instance.PlaySFX(SoundManager.SFX.ButtonPress);
+                yield return new WaitForSecondsRealtime(3.3f);
+
+                // Fade
+                _achievementPanel.DOAnchorPosY(1.4f * newPanelPosY, 0.4f).SetEase(Ease.OutCubic).SetUpdate(true);
+                _achievementPanel.GetComponent<Image>().DOFade(0f, 0.4f).SetUpdate(true);
+                _achievementText.DOFade(0f, 0.4f).SetUpdate(true);
+                yield return new WaitForSecondsRealtime(0.5f);
+
+                // Reset
+                _achievementPanel.DOAnchorPosY(oldPanelPosY, 0f).SetUpdate(true);
+                _achievementPanel.GetComponent<Image>().DOFade(1f, 0f).SetUpdate(true);
+                _achievementText.DOFade(1f, 0f).SetUpdate(true);
+            }
+        }
+
+        //public void SwitchActionMap()
+        //{
+        //    Debug.Log(playerInput.currentActionMap.ToString());
+        //    if (playerInput.currentActionMap.ToString() == "PlayerInputActions (UnityEngine.InputSystem.InputActionAsset):Player")
+        //    {
+        //        Debug.Log("swtiching to UI");
+        //        playerInput.SwitchCurrentActionMap("UI");
+        //    }
+
+        //    else if (playerInput.currentActionMap.ToString() == "PlayerInputActions (UnityEngine.InputSystem.InputActionAsset):UI")
+        //    {
+        //        Debug.Log("swtiching to player");
+        //        playerInput.SwitchCurrentActionMap("Player");
+        //    }
+        //    else Debug.LogWarning("Unknown action map");
+        //}
     }
-
-    //public void SwitchActionMap()
-    //{
-    //    Debug.Log(playerInput.currentActionMap.ToString());
-    //    if (playerInput.currentActionMap.ToString() == "PlayerInputActions (UnityEngine.InputSystem.InputActionAsset):Player")
-    //    {
-    //        Debug.Log("swtiching to UI");
-    //        playerInput.SwitchCurrentActionMap("UI");
-    //    }
-
-    //    else if (playerInput.currentActionMap.ToString() == "PlayerInputActions (UnityEngine.InputSystem.InputActionAsset):UI")
-    //    {
-    //        Debug.Log("swtiching to player");
-    //        playerInput.SwitchCurrentActionMap("Player");
-    //    }
-    //    else Debug.LogWarning("Unknown action map");
-    //}
 }

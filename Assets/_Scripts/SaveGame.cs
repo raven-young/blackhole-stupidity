@@ -2,13 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SaveGame : MonoBehaviour
+namespace BlackHole
 {
-
-    public static void SaveGameNow()
+    public class SaveGame : MonoBehaviour
     {
-        Debug.Log("Saving game...");
 
-        ES3.Save("AchievementsManager", AchievementsManager.Instance);
+        public static void SaveGameNow()
+        {
+            Debug.Log("Saving game...");
+
+            ES3.Save("AchievementsManager", AchievementsManager.Instance);
+        }
     }
 }
