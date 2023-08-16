@@ -206,6 +206,7 @@ namespace BlackHole
         {
             SettingsManager.Instance.PrepareGame();
             Ship.Instance.InitializeShip();
+            BlackHoleObject.Instance.InitializeBlackHole();
             StartCoroutine(StartGame());
         }
         IEnumerator StartGame()

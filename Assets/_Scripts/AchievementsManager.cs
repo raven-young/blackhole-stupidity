@@ -265,7 +265,14 @@ namespace BlackHole
 
             foreach (Achievement field in achievements)
             {
-                outstring += field.Name + ": " + field.Unlocked + "\n";
+                if (field.Unlocked)
+                {
+                    outstring += field.Name + ": <color=\"green\">Unlocked</color>\n";
+                }
+                else
+                {
+                    outstring += field.Name + ": <color=\"red\">Locked</color>\n";
+                }
             }
             return outstring;
         }

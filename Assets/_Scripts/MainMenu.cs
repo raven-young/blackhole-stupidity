@@ -112,53 +112,57 @@ namespace BlackHole
             Application.Quit();
         }
 
-        // horrible
         private void EscapeAction(InputAction.CallbackContext context)
         {
             if (context.performed)
             {
-                _startButton.GetComponent<Button>().PlayPressed();
-                var eventSystem = EventSystem.current;
-
-                if (_activePanel == _difficultyPanel)
-                {
-                    _startButton.GetComponent<UnityEngine.UI.Button>().interactable = true;
-                    _quitButton.GetComponent<UnityEngine.UI.Button>().interactable = true;
-                    _extrasButton.GetComponent<UnityEngine.UI.Button>().interactable = true;
-                    _difficultyPanel.gameObject.SetActive(false);
-                    _activePanel = _startButton; // terrible
-                    eventSystem.SetSelectedGameObject(_startButton, new BaseEventData(eventSystem));
-                }
-
-                else if (_activePanel == _shipPanel)
-                {
-                    _difficultyPanel.gameObject.SetActive(true);
-                    _shipPanel.gameObject.SetActive(false);
-                    _activePanel = _difficultyPanel;
-                    eventSystem.SetSelectedGameObject(_normalDifficultyButton, new BaseEventData(eventSystem));
-                }
-
-                else if (_activePanel == _achievementsPanel)
-                {
-                    _extrasPanel.gameObject.SetActive(true);
-                    _achievementsPanel.gameObject.SetActive(false);
-                    _activePanel = _extrasPanel;
-                    eventSystem.SetSelectedGameObject(_achievementsButton, new BaseEventData(eventSystem));
-                }
-
-                else if (_activePanel == _extrasPanel)
-                {
-                    _extrasPanel.gameObject.SetActive(false);
-                    _activePanel = _startButton;
-                    eventSystem.SetSelectedGameObject(_startButton, new BaseEventData(eventSystem));
-                    _startButton.GetComponent<UnityEngine.UI.Button>().interactable = true;
-                    _quitButton.GetComponent<UnityEngine.UI.Button>().interactable = true;
-                    _extrasButton.GetComponent<UnityEngine.UI.Button>().interactable = true;
-                }
-
-                else if (_activePanel == _startButton)
-                    return;
+                Escape();
             }
+        }
+
+        public void Escape()
+        {
+            _startButton.GetComponent<Button>().PlayPressed();
+            var eventSystem = EventSystem.current;
+
+            if (_activePanel == _difficultyPanel)
+            {
+                _startButton.GetComponent<UnityEngine.UI.Button>().interactable = true;
+                _quitButton.GetComponent<UnityEngine.UI.Button>().interactable = true;
+                _extrasButton.GetComponent<UnityEngine.UI.Button>().interactable = true;
+                _difficultyPanel.SetActive(false);
+                _activePanel = _startButton; // terrible
+                eventSystem.SetSelectedGameObject(_startButton, new BaseEventData(eventSystem));
+            }
+
+            else if (_activePanel == _shipPanel)
+            {
+                _difficultyPanel.SetActive(true);
+                _shipPanel.SetActive(false);
+                _activePanel = _difficultyPanel;
+                eventSystem.SetSelectedGameObject(_normalDifficultyButton, new BaseEventData(eventSystem));
+            }
+
+            else if (_activePanel == _achievementsPanel)
+            {
+                _extrasPanel.SetActive(true);
+                _achievementsPanel.SetActive(false);
+                _activePanel = _extrasPanel;
+                eventSystem.SetSelectedGameObject(_achievementsButton, new BaseEventData(eventSystem));
+            }
+
+            else if (_activePanel == _extrasPanel)
+            {
+                _extrasPanel.SetActive(false);
+                _activePanel = _startButton;
+                eventSystem.SetSelectedGameObject(_startButton, new BaseEventData(eventSystem));
+                _startButton.GetComponent<UnityEngine.UI.Button>().interactable = true;
+                _quitButton.GetComponent<UnityEngine.UI.Button>().interactable = true;
+                _extrasButton.GetComponent<UnityEngine.UI.Button>().interactable = true;
+            }
+
+            else if (_activePanel == _startButton)
+                return;
         }
     }
 }

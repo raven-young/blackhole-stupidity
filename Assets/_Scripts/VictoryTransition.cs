@@ -56,7 +56,10 @@ namespace BlackHole
             ScreenShake.TriggerShake(0.3f);
             SoundManager.Instance.PlaySFX(SoundManager.SFX.ShipTakeoff);
             _shipTransform.DOMove(3f * _shipTransform.position, 1f).SetUpdate(true);
-            yield return new WaitForSecondsRealtime(2.7f);
+
+            yield return new WaitForSecondsRealtime(1f);
+            emission.rateOverTime = 0;
+            yield return new WaitForSecondsRealtime(1.7f);
 
             // Victory screen
             GameManager.Instance.PauseGame();

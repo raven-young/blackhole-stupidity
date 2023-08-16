@@ -30,11 +30,9 @@ namespace BlackHole
                 Destroy(gameObject);
             }
             Instance = this;
-
-
         }
-        // Start is called before the first frame update
-        void Start()
+
+        public void InitializeBlackHole()
         {
             // At the start of the game, BH force and ship fuel are balanced
             _initalForce = Ship.Instance.CurrentHealth;

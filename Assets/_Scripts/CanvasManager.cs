@@ -61,7 +61,6 @@ namespace BlackHole
             UpdateAchievementsText();
         }
 
-
         private void OnEnable()
         {
             AchievementsManager.OnAchievementUnlocked += QueueAchievement;

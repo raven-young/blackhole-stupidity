@@ -35,6 +35,14 @@ MonoBehaviour:
     - Assembly-CSharp-firstpass
     - Cinemachine
     - DamageNumbersPro
+    - MoreMountains.Feedbacks
+    - MoreMountains.Feedbacks.Authorizations
+    - MoreMountains.Feedbacks.Cinemachine
+    - MoreMountains.Feedbacks.MMTools
+    - MoreMountains.Feedbacks.PostProcessing
+    - MoreMountains.Feedbacks.TextMeshPro
+    - MoreMountains.Feedbacks.URP
+    - MoreMountains.Tools
     showAdvancedSettings: 0
   addMgrToSceneAutomatically: 0
   autoUpdateReferences: 1
