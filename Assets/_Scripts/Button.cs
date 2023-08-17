@@ -34,6 +34,6 @@ public class Button : MonoBehaviour
 
     public void DecreaseScale()
     {
-        gameObject.transform.localScale = _baseScale / 1.1f;
+        gameObject.transform.localScale = _baseScale;
     }
 }

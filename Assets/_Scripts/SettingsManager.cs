@@ -10,6 +10,8 @@ namespace BlackHole
         public DifficultySetting SelectedDifficulty;
         public ShipType SelectedShipType;
 
+        public static bool IsMobileGame = false;
+
         // GAME PARAMETERS
         public static int BulletDamage;
         public static float BurnRate;
@@ -47,6 +49,8 @@ namespace BlackHole
                 Destroy(gameObject);
                 return;
             }
+
+            ToggleTouchControls(Application.platform == RuntimePlatform.Android || Application.platform == RuntimePlatform.IPhonePlayer);
         }
 
         private void Start()
@@ -122,6 +126,11 @@ namespace BlackHole
                     DifficultyScoreMultiplier = _gameParams.ExpertScoreMultiplier;
                     break;
             }
+        }
+
+        public static void ToggleTouchControls(bool touchActive)
+        {
+            IsMobileGame = touchActive;
         }
     }
 }

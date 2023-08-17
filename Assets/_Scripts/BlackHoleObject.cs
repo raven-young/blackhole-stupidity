@@ -21,6 +21,9 @@ namespace BlackHole
         [SerializeField] private GameObject _blackHoleNormalHardLayer;
         [SerializeField] private GameObject _blackHoleHardLayer;
 
+        [SerializeField] private GameObject _eventHorizonDesktop;
+        [SerializeField] private GameObject _eventHorizonMobile;
+
         public bool HasGrown = false; // for achievements
 
         private void Awake()
@@ -38,20 +41,31 @@ namespace BlackHole
             _initalForce = Ship.Instance.CurrentHealth;
             CurrentForce = _initalForce;
 
-            _eventHorizonGlowMaterial = _eventHorizonGlow.GetComponent<Renderer>().material;
-            _eventHorizonGlowMaterial.SetFloat("_Glow", _initialGlow);
+            if (SettingsManager.IsMobileGame)
+            {
+                _eventHorizonMobile.SetActive(true);
+                _eventHorizonDesktop.SetActive(false);
+            }
+            else
+            {
+                _eventHorizonGlowMaterial = _eventHorizonGlow.GetComponent<Renderer>().material;
+                _eventHorizonGlowMaterial.SetFloat("_Glow", _initialGlow);
+            }
 
             switch (SettingsManager.Instance.SelectedDifficulty)
             {
                 case SettingsManager.DifficultySetting.Normal:
+                    if (SettingsManager.IsMobileGame) break;
                     _blackHoleNormalLayer.SetActive(true);
                     _blackHoleNormalHardLayer.SetActive(true);
                     break;
                 case SettingsManager.DifficultySetting.Hard:
+                    if (SettingsManager.IsMobileGame) break;
                     _blackHoleHardLayer.SetActive(true);
                     _blackHoleNormalHardLayer.SetActive(true);
                     break;
                 default:
+                    if (SettingsManager.IsMobileGame) break;
                     _blackHoleNormalLayer.SetActive(false);
                     _blackHoleHardLayer.SetActive(false);
                     break;
@@ -66,8 +80,11 @@ namespace BlackHole
             transform.localScale *= scaleMultiplier;
             CurrentForce *= scaleMultiplier;
 
-            float glow = _eventHorizonGlowMaterial.GetFloat("_Glow");
-            _eventHorizonGlowMaterial.SetFloat("_Glow", 1.02f * glow * scaleMultiplier);
+            if (!SettingsManager.IsMobileGame)
+            {
+                float glow = _eventHorizonGlowMaterial.GetFloat("_Glow");
+                _eventHorizonGlowMaterial.SetFloat("_Glow", 1.02f * glow * scaleMultiplier);
+            }
         }
     }
 }

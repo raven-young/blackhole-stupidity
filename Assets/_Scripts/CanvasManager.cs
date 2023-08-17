@@ -20,6 +20,7 @@ namespace BlackHole
         [SerializeField] private GameObject _pauseScreen;
         [SerializeField] private GameObject _inputPopup;
         [SerializeField] private RectTransform _achievementPanel;
+        [SerializeField] private GameObject _touchControls;
 
         [SerializeField] private TMP_Text _achievementText, _scoreText;
         [SerializeField] private TMP_Text _scoreTextGameOver, _highscoreTextGameOver, _scoreTextVictory, _highscoreTextVictory;
@@ -59,6 +60,8 @@ namespace BlackHole
             //playerInput.onControlsChanged += OnDeviceChange;
 
             UpdateAchievementsText();
+
+            ToggleTouchControls(SettingsManager.IsMobileGame);
         }
 
         private void OnEnable()
@@ -127,6 +130,7 @@ namespace BlackHole
 
         public void RenderPauseScreen()
         {
+            ToggleTouchControls(false);
             _pauseScreen.SetActive(true);
             GameObject ResumeButton = _pauseScreen.transform.Find("Resume Button").gameObject;
             var eventSystem = EventSystem.current;
@@ -135,12 +139,21 @@ namespace BlackHole
 
         public void DisablePauseScreen()
         {
+            ToggleTouchControls(SettingsManager.IsMobileGame);
             _pauseScreen.SetActive(false);
+        }
+
+        public void ToggleTouchControls(bool touchActive)
+        {
+            if (touchActive && GameManager.Instance.IsPaused)
+                return;
+
+            _touchControls.SetActive(touchActive && SettingsManager.IsMobileGame);
         }
 
         public void RenderGameOverScreen(bool victorious)
         {
-
+            ToggleTouchControls(false);
             Scoring.Instance.DisplayFinalScore(victorious);
 
             if (_newAchievementsQueue.Count > 0)
