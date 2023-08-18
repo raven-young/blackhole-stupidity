@@ -19,7 +19,7 @@ namespace BlackHole
         [SerializeField] private GameObject _startButton, _quitButton, _extrasButton, _normalDifficultyButton, _basicShipButton, _achievementsButton;
         [SerializeField] private Image _blackPanel;
 
-        [SerializeField] private GameObject _difficultyPanel, _shipPanel, _extrasPanel, _achievementsPanel;
+        [SerializeField] private GameObject _difficultyPanel, _upgradePanel, _extrasPanel, _achievementsPanel;
         private GameObject _activePanel;
 
         private PlayerInputActions playerInputActions;
@@ -49,6 +49,9 @@ namespace BlackHole
             _quitButton.transform.DOMoveY(_buttonY + 0.7f, 1f).SetEase(Ease.InOutSine).SetLoops(-1, LoopType.Yoyo).SetDelay(0.2f);
             _extrasButton.transform.DOMoveY(_extrasButton.transform.position.y + 0.7f, 1f).SetEase(Ease.InOutSine).SetLoops(-1, LoopType.Yoyo).SetDelay(0.4f);
             _activePanel = _startButton;
+
+            UpgradeManager.Instance.Init();
+            UpgradeManager.Instance.InitializeUpgrades();  
         }
 
         private void Update()
@@ -60,7 +63,7 @@ namespace BlackHole
                     EventSystem.current.SetSelectedGameObject(_startButton, new BaseEventData(EventSystem.current));
                 else if (_activePanel == _difficultyPanel)
                     EventSystem.current.SetSelectedGameObject(_normalDifficultyButton, new BaseEventData(EventSystem.current));
-                else if (_activePanel == _shipPanel)
+                else if (_activePanel == _upgradePanel)
                     EventSystem.current.SetSelectedGameObject(_basicShipButton, new BaseEventData(EventSystem.current));
                 else if (_activePanel == _extrasPanel)
                     EventSystem.current.SetSelectedGameObject(_achievementsButton, new BaseEventData(EventSystem.current));
@@ -78,8 +81,8 @@ namespace BlackHole
         {
             SettingsManager.Instance.SelectedDifficulty = (SettingsManager.DifficultySetting)selectedDifficulty;
             _difficultyPanel.SetActive(false);
-            _shipPanel.SetActive(true);
-            _activePanel = _shipPanel;
+            _upgradePanel.SetActive(true);
+            _activePanel = _upgradePanel;
         }
 
         public void SetShipAndStart(int selectedShip)
@@ -135,10 +138,10 @@ namespace BlackHole
                 eventSystem.SetSelectedGameObject(_startButton, new BaseEventData(eventSystem));
             }
 
-            else if (_activePanel == _shipPanel)
+            else if (_activePanel == _upgradePanel)
             {
                 _difficultyPanel.SetActive(true);
-                _shipPanel.SetActive(false);
+                _upgradePanel.SetActive(false);
                 _activePanel = _difficultyPanel;
                 eventSystem.SetSelectedGameObject(_normalDifficultyButton, new BaseEventData(eventSystem));
             }

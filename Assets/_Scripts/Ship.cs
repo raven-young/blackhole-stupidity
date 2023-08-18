@@ -196,9 +196,9 @@ namespace BlackHole
             _rb.MovePosition(newpos);
         }
 
-        public static void ToggleDebugVelocity()
+        public static void ToggleDebugVelocity(bool debugvelocityOn)
         {
-            _debugVelocityMultiplierOn = !_debugVelocityMultiplierOn;
+            _debugVelocityMultiplierOn = debugvelocityOn;
         }
 
         private void UpdateExhaustParticles()

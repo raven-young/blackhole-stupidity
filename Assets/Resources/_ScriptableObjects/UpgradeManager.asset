@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0baaf89f1ca04dc499f6078615a5269d, type: 3}
+  m_Name: UpgradeManager
+  m_EditorClassIdentifier: 
+  AvailableCurrency: 10000
+  MagnetUpgrade:
+    Name: Magnet I
+    Description: Magnet radius +100%
+    UnlockCost: 1000
+    Unlocked: 1
+    Equipped: 1
+  FirerateUpgrade:
+    Name: Firerate I
+    Description: Firerate +25%
+    UnlockCost: 1000
+    Unlocked: 1
+    Equipped: 0
+  TripleshotUpgrade:
+    Name: Triple Shot
+    Description: Cannons +1
+    UnlockCost: 3000
+    Unlocked: 1
+    Equipped: 0

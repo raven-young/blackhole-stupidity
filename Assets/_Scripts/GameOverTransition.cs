@@ -33,6 +33,7 @@ namespace BlackHole
         {
             Ship.Instance.CannotMove = true;
             Ship.Instance.IsInvincible = true;
+            Shooting.Instance.ToggleAutoshoot(false);
 
             SoundManager.Instance.PlaySFX(SoundManager.SFX.AlertSFX);
 

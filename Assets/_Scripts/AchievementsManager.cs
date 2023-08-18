@@ -261,7 +261,7 @@ namespace BlackHole
         public string GetAchievementsString()
         {
             string outstring = "";
-            List<object> achievements = new(GetNestedFieldValuesOfType<Achievement>());
+            List<object> achievements = new(this.GetNestedFieldValuesOfType<Achievement>());
 
             foreach (Achievement field in achievements)
             {
@@ -279,7 +279,7 @@ namespace BlackHole
 
         public void ResetAchievements()
         {
-            List<object> achievements = new(GetNestedFieldValuesOfType<Achievement>());
+            List<object> achievements = new(this.GetNestedFieldValuesOfType<Achievement>());
 
             foreach (Achievement field in achievements)
             {
@@ -288,24 +288,24 @@ namespace BlackHole
         }
 
         // code below from chatgpt
-        public List<object> GetNestedFieldValuesOfType<T>()
-        {
-            List<object> values = new List<object>();
-            Type type = typeof(T);
+        //public List<object> GetNestedFieldValuesOfType<T>()
+        //{
+        //    List<object> values = new List<object>();
+        //    Type type = typeof(T);
 
-            // Use BindingFlags to include both public and non-public instance fields
-            FieldInfo[] fields = this.GetType().GetFields(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
+        //    // Use BindingFlags to include both public and non-public instance fields
+        //    FieldInfo[] fields = this.GetType().GetFields(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
 
-            foreach (FieldInfo field in fields)
-            {
-                if (field.FieldType == type)
-                {
-                    object fieldValue = field.GetValue(this);
-                    values.Add(fieldValue);
-                }
-            }
+        //    foreach (FieldInfo field in fields)
+        //    {
+        //        if (field.FieldType == type)
+        //        {
+        //            object fieldValue = field.GetValue(this);
+        //            values.Add(fieldValue);
+        //        }
+        //    }
 
-            return values;
-        }
+        //    return values;
+        //}
     }
 }

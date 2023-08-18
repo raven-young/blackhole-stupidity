@@ -13,6 +13,7 @@ TagManager:
   - Grazebox
   - Bullet
   - SoundManager
+  - Canvas
   layers:
   - Default
   - TransparentFX

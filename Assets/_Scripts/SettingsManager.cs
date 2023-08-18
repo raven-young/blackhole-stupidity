@@ -17,6 +17,7 @@ namespace BlackHole
         public static float BurnRate;
         public static float FirePeriod;
         public static float MagnetScale;
+        public static bool TripleShotActive = false;
 
         public static float DifficultyScoreMultiplier;
 
@@ -51,6 +52,11 @@ namespace BlackHole
             }
 
             ToggleMobile(Application.platform == RuntimePlatform.Android || Application.platform == RuntimePlatform.IPhonePlayer);
+
+            BulletDamage = _gameParams.BulletDamage;
+            BurnRate = _gameParams.FuelBurnRate;
+            FirePeriod = _gameParams.FirePeriod;
+            MagnetScale = _gameParams.MagnetScale;
         }
 
         private void Start()
@@ -69,14 +75,12 @@ namespace BlackHole
         {
 
             // BULLET DAMAGE
-            BulletDamage = _gameParams.BulletDamage;
             switch (SelectedShipType)
             {
                 case ShipType.Destroyer: BulletDamage += _gameParams.DestroyerBulletDamageBonus; break;
             }
 
             // BURN RATE
-            BurnRate = _gameParams.FuelBurnRate;
             if (SelectedDifficulty < DifficultySetting.Hard)
                 BurnRate = 0;
             switch (SelectedShipType)
@@ -85,14 +89,12 @@ namespace BlackHole
             }
 
             // FIRE RATE
-            FirePeriod = _gameParams.FirePeriod;
             switch (SelectedShipType)
             {
                 case ShipType.Collector: FirePeriod *= _gameParams.CollectorFirePeriodMultiplier; break;
             }
 
             // MAGNET SCALE
-            MagnetScale = _gameParams.MagnetScale;
             switch (SelectedShipType)
             {
                 case ShipType.Collector: MagnetScale *= _gameParams.CollectorMagnetScaleMultiplier; break;

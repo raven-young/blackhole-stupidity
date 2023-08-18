@@ -11,7 +11,6 @@ namespace BlackHole
 {
     public class Shooting : MonoBehaviour
     {
-
         [SerializeField] private GameParams _gameParams;
         [SerializeField] private Transform _firePointLeft;
         [SerializeField] private Transform _firePointRight;
@@ -23,7 +22,6 @@ namespace BlackHole
         private PlayerInputActions _playerInputActions;
 
         private static bool _canShoot = true;
-        private bool _isAutomatic = true;
         private bool _isShooting = false;
         private bool _isAutoshooting = false;
         private float _shootCooldown;
@@ -31,8 +29,8 @@ namespace BlackHole
         private static IObjectPool<Bullet> _pool;
         public static Shooting Instance;
 
-        private delegate void Shoot();
-        Shoot _shoot;
+        private delegate void GenericShoot();
+        private GenericShoot Shoot;
 
         [SerializeField] private AudioClip _smallLaserClip;
 
@@ -70,10 +68,8 @@ namespace BlackHole
 
         private void Start()
         {
-            bool tripleShoot = SettingsManager.Instance.SelectedShipType == SettingsManager.ShipType.Destroyer;
-            _shoot = tripleShoot ? TripleShoot : DoubleShoot;
+            Shoot = SettingsManager.TripleShotActive ? TripleShoot : DoubleShoot;
             _isAutoshooting = SettingsManager.IsMobileGame;
-            _isAutoshooting = true;
         }
 
         private void OnDisable()
@@ -83,16 +79,23 @@ namespace BlackHole
             _playerInputActions.Player.Disable();
         }
 
+        private void FixedUpdate()
+        {
+            if (_canShoot && (_isShooting || _isAutoshooting))
+            {
+                Shoot();
+                _canShoot = false;
+            }
+        }
+
         private void Update()
         {
-
             _shootCooldown += Time.deltaTime;
             if (_shootCooldown > SettingsManager.FirePeriod)
             {
                 _canShoot = true;
                 _shootCooldown = 0f;
             }
-
         }
 
         public void ShootAction(InputAction.CallbackContext context)
@@ -114,17 +117,6 @@ namespace BlackHole
             _canShoot = false;
             yield return new WaitForSeconds(duration);
             _canShoot = true;
-        }
-
-        private void FixedUpdate()
-        {
-            if (_canShoot && (_isShooting || _isAutoshooting))
-            {
-                _shoot();
-                _canShoot = false;
-                _isShooting = _isAutomatic;
-            }
-
         }
 
         public void DoubleShoot()
