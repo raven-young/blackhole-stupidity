@@ -17,7 +17,7 @@ namespace BlackHole
         [SerializeField] private TMP_Text _achievementsListText;
         [SerializeField] private Camera _cam;
         [SerializeField] private GameObject _startButton, _quitButton, _extrasButton, _normalDifficultyButton, _basicShipButton, _achievementsButton;
-        [SerializeField] private SpriteRenderer _blackPanel;
+        [SerializeField] private Image _blackPanel;
 
         [SerializeField] private GameObject _difficultyPanel, _shipPanel, _extrasPanel, _achievementsPanel;
         private GameObject _activePanel;

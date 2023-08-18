@@ -107,6 +107,15 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Touch"",
+                    ""type"": ""Value"",
+                    ""id"": ""2f028f7c-b92f-4132-968f-2b3901aa91e9"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -321,6 +330,17 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""6456376d-0505-4d7f-870b-25e23a1314a0"",
+                    ""path"": ""<Touchscreen>/Press"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Touch"",
+                    ""action"": ""Fire"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""1e0f487a-8861-41da-99c4-5a868096a7ec"",
                     ""path"": ""<Gamepad>/rightStick"",
                     ""interactions"": """",
@@ -470,6 +490,17 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
                     ""action"": ""Special"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1b35f2d4-644a-4b62-9cc8-3d4e26b94a56"",
+                    ""path"": ""<Touchscreen>/position"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Touch"",
+                    ""action"": ""Touch"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1066,6 +1097,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_Player_Answer3 = m_Player.FindAction("Answer3", throwIfNotFound: true);
         m_Player_DevTools = m_Player.FindAction("DevTools", throwIfNotFound: true);
         m_Player_Special = m_Player.FindAction("Special", throwIfNotFound: true);
+        m_Player_Touch = m_Player.FindAction("Touch", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1148,6 +1180,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Answer3;
     private readonly InputAction m_Player_DevTools;
     private readonly InputAction m_Player_Special;
+    private readonly InputAction m_Player_Touch;
     public struct PlayerActions
     {
         private @PlayerInputActions m_Wrapper;
@@ -1161,6 +1194,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         public InputAction @Answer3 => m_Wrapper.m_Player_Answer3;
         public InputAction @DevTools => m_Wrapper.m_Player_DevTools;
         public InputAction @Special => m_Wrapper.m_Player_Special;
+        public InputAction @Touch => m_Wrapper.m_Player_Touch;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1197,6 +1231,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Special.started += instance.OnSpecial;
             @Special.performed += instance.OnSpecial;
             @Special.canceled += instance.OnSpecial;
+            @Touch.started += instance.OnTouch;
+            @Touch.performed += instance.OnTouch;
+            @Touch.canceled += instance.OnTouch;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -1228,6 +1265,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Special.started -= instance.OnSpecial;
             @Special.performed -= instance.OnSpecial;
             @Special.canceled -= instance.OnSpecial;
+            @Touch.started -= instance.OnTouch;
+            @Touch.performed -= instance.OnTouch;
+            @Touch.canceled -= instance.OnTouch;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -1419,6 +1459,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         void OnAnswer3(InputAction.CallbackContext context);
         void OnDevTools(InputAction.CallbackContext context);
         void OnSpecial(InputAction.CallbackContext context);
+        void OnTouch(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

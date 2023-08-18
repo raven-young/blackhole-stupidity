@@ -16,11 +16,16 @@ namespace BlackHole
         public static Ship Instance;
 
         [Header("Movement")]
-        private Vector2 _movement;
+        private float _movementX;
         [SerializeField] private Rigidbody2D _rb;
 
         private float _theta = Mathf.PI / 2;
         public float ShipPositionRadius; // distance from black hole
+        private float _angularVelocity;
+        private float _dragAngularVelocityMultiplier = 2f;
+        private delegate void HandleMovement();
+        private HandleMovement _handleMovement;
+        [SerializeField] private Camera _cam;
 
         [Header("Logic")]
         [SerializeField] private GameObject _itemMagnet;
@@ -82,6 +87,9 @@ namespace BlackHole
 
             _itemMagnet.transform.localScale = new Vector3(SettingsManager.MagnetScale, SettingsManager.MagnetScale, SettingsManager.MagnetScale);
             _itemMagnetMaterial = _itemMagnet.transform.GetComponent<SpriteRenderer>().material;
+
+            _handleMovement = HanldeMovementStickOrKeyboard;
+            _angularVelocity = _gameParams.AngularVelocity;
         }
 
         private void Update()
@@ -105,10 +113,12 @@ namespace BlackHole
 
             CurrentFuel -= _burnRate * Time.deltaTime;
             CanvasManager.Instance.UpdateFuel(CurrentFuel);
-            UpdateExhaustParticles();
+            UpdateExhaustParticles(); // to do: update at lower framerate using invokerepeating
 
             /// Movement
-            _movement = _playerInputActions.Player.Move.ReadValue<Vector2>();
+            //_movementX = _playerInputActions.Player.Move.ReadValue<Vector2>().x;
+            _handleMovement();
+            //Debug.Log(_movementX);
 
             if (_gravityOn)
                 ShipPositionRadius -= _gravityScale * Time.deltaTime;
@@ -126,11 +136,54 @@ namespace BlackHole
 
         }
 
+        private void HanldeMovementStickOrKeyboard()
+        {
+            _movementX = _playerInputActions.Player.Move.ReadValue<Vector2>().x;
+        }
+
+        private void HandleMovementTouchDrag()
+        {
+            Vector2 pos = _playerInputActions.Player.Touch.ReadValue<Vector2>();
+
+            // if touch position at bottom of screen, ignore
+            if (pos.y < 0.2f * Screen.height)
+            {
+                _movementX = 0;
+                return;
+            }
+
+            Vector3 pos3 = _cam.ScreenToWorldPoint(new Vector3(pos.x, pos.y, 0));
+            float theta = Mathf.Atan2(pos3.y, pos3.x);
+
+            // prevent ship stuttering around last recorded touch position
+            if (Mathf.Abs(theta - _theta) < 0.04) 
+            { 
+                _movementX = 0; 
+                return; 
+            }
+
+            _movementX = theta > _theta ? -1 : 1;
+        }
+
+        public void ToggleDragMovement(bool activateDrag)
+        {
+            if (activateDrag)
+            {
+                _angularVelocity *= _dragAngularVelocityMultiplier;
+                _handleMovement = HandleMovementTouchDrag;
+            }
+            else
+            {
+                _angularVelocity /= _dragAngularVelocityMultiplier;
+                _handleMovement = HanldeMovementStickOrKeyboard;
+            }
+        }
+
         private void FixedUpdate()
         {
             if (CannotMove) { return; }
 
-            _theta -= Time.fixedDeltaTime * _gameParams.AngularVelocity * _movement.x;
+            _theta -= Time.fixedDeltaTime * _angularVelocity * _movementX;
 
             // clamp angle to screen bounds
             // if using flexible aspect ratio: max angle depends on radius and screenbounds:

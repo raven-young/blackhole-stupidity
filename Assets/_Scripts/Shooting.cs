@@ -25,6 +25,7 @@ namespace BlackHole
         private static bool _canShoot = true;
         private bool _isAutomatic = true;
         private bool _isShooting = false;
+        private bool _isAutoshooting = false;
         private float _shootCooldown;
 
         private static IObjectPool<Bullet> _pool;
@@ -71,6 +72,8 @@ namespace BlackHole
         {
             bool tripleShoot = SettingsManager.Instance.SelectedShipType == SettingsManager.ShipType.Destroyer;
             _shoot = tripleShoot ? TripleShoot : DoubleShoot;
+            _isAutoshooting = SettingsManager.IsMobileGame;
+            _isAutoshooting = true;
         }
 
         private void OnDisable()
@@ -115,7 +118,7 @@ namespace BlackHole
 
         private void FixedUpdate()
         {
-            if (_canShoot && _isShooting)
+            if (_canShoot && (_isShooting || _isAutoshooting))
             {
                 _shoot();
                 _canShoot = false;
@@ -173,6 +176,11 @@ namespace BlackHole
                 Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
                 rb.velocity = (direction * _gameParams.BulletVelocity);
             }
+        }
+
+        public void ToggleAutoshoot(bool autoshootOn)
+        {
+            _isAutoshooting = autoshootOn;
         }
     }
 }

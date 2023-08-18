@@ -50,7 +50,7 @@ namespace BlackHole
                 return;
             }
 
-            ToggleTouchControls(Application.platform == RuntimePlatform.Android || Application.platform == RuntimePlatform.IPhonePlayer);
+            ToggleMobile(Application.platform == RuntimePlatform.Android || Application.platform == RuntimePlatform.IPhonePlayer);
         }
 
         private void Start()
@@ -128,9 +128,9 @@ namespace BlackHole
             }
         }
 
-        public static void ToggleTouchControls(bool touchActive)
+        public static void ToggleMobile(bool isMobile)
         {
-            IsMobileGame = touchActive;
+            IsMobileGame = isMobile;
         }
     }
 }
