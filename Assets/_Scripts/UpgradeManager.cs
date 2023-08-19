@@ -81,7 +81,7 @@ namespace BlackHole
         }
 
         #region Upgrades
-        public Upgrade MagnetUpgrade = new("Magnet I", "Magnet radius +100%", 1000, ActivateMagnetUpgrade);
+        public Upgrade MagnetUpgrade = new("Super Magnet", "Magnet radius +100%", 1000, ActivateMagnetUpgrade);
         private static void ActivateMagnetUpgrade(bool activate = true)
         {
             Debug.Log("pre magnet scale " + SettingsManager.MagnetScale);
@@ -97,7 +97,7 @@ namespace BlackHole
             Debug.Log("post magnet scale " + SettingsManager.MagnetScale);
         }
 
-        public Upgrade FirerateUpgrade = new("Firerate I", "Firerate +25%", 1000, ActivateFirerateUpgrade);
+        public Upgrade FirerateUpgrade = new("Quickshot", "Firerate +25%", 1000, ActivateFirerateUpgrade);
         private static void ActivateFirerateUpgrade(bool activate = true)
         {
             if (activate)
@@ -133,6 +133,45 @@ namespace BlackHole
             else
             {
                 SettingsManager.ShieldEnabled = false;
+            }
+        }
+
+        public Upgrade ComboSaverUpgrade = new("Combo Saver", "Prevents combo loss once", 2000, ActivateComboSaverUpgrade);
+        private static void ActivateComboSaverUpgrade(bool activate = true)
+        {
+            if (activate)
+            {
+                SettingsManager.ComboSaverEnabled = true;
+            }
+            else
+            {
+                SettingsManager.ComboSaverEnabled = false;
+            }
+        }
+
+        public Upgrade ItemSpawnBonusUpgrade = new("Scavenger", "Dropped items +3", 1500, ActivateItemSpawnBonusUpgrade);
+        private static void ActivateItemSpawnBonusUpgrade(bool activate = true)
+        {
+            if (activate)
+            {
+                SettingsManager.ItemSpawnBonus += 3;
+            }
+            else
+            {
+                SettingsManager.ItemSpawnBonus -= 3;
+            }
+        }
+
+        public Upgrade AsteroidSlowUpgrade = new("Slow Beam", "Math asteroid speed -20%", 1500, ActivateAsteroidSlowUpgrade);
+        private static void ActivateAsteroidSlowUpgrade(bool activate = true)
+        {
+            if (activate)
+            {
+                SettingsManager.AsteroidSpeedModifier *= 0.8f;
+            }
+            else
+            {
+                SettingsManager.AsteroidSpeedModifier /= 0.8f;
             }
         }
 

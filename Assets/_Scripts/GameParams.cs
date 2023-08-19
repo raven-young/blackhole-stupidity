@@ -23,20 +23,6 @@ public class GameParams : ScriptableObject
     [Tooltip("Determines the item magnet size")]
     public float MagnetScale = 15f;
 
-    [Header("BasicShip")]
-    [Tooltip("For the basic ship, multiply stats by small value to make it balanced wrt to the specialized ships")]
-    public float BasicShipMultiplier = 1.05f;
-
-    [Header("CollectorShip")]
-    public float CollectorMagnetScaleMultiplier = 1.5f;
-    public float CollectorFirePeriodMultiplier = 0.8f;
-    [Header("DestroyerShip")]
-    public int DestroyerBulletDamageBonus = 1;
-    public float DestroyerMagnetScaleMultiplier = 0.8f;
-    //[Header("TankShip")]
-    //public int TankHealthBonus = 50;
-
-
     [Header("Shooting")]
     public float FirePeriod = 1f;
     public float BulletVelocity = 10f;

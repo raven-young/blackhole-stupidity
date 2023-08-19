@@ -17,8 +17,13 @@ namespace BlackHole
         public static float BurnRate;
         public static float FirePeriod;
         public static float MagnetScale;
+        public static int ItemSpawnBonus;
+
+        // Upgrades
         public static bool TripleShotEnabled = false;
         public static bool ShieldEnabled = false;
+        public static bool ComboSaverEnabled = false;
+        public static float AsteroidSpeedModifier = 1f;
 
         public static float DifficultyScoreMultiplier;
 
@@ -74,6 +79,8 @@ namespace BlackHole
             BurnRate = _gameParams.FuelBurnRate;
             FirePeriod = _gameParams.FirePeriod;
             MagnetScale = _gameParams.MagnetScale;
+            ItemSpawnBonus = 0;
+            AsteroidSpeedModifier = 1f;
         }
 
         // Calculate game params based on difficulty and ship selected

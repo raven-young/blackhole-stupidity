@@ -82,6 +82,8 @@ namespace BlackHole
                     _asteroidSpawnBonus += _gameParams.FailAsteroidSpawnBonus;
                     break;
             }
+
+            _questionAsteroidSpeed *= SettingsManager.AsteroidSpeedModifier;
         }
 
         private void OnDisable()
@@ -206,7 +208,15 @@ namespace BlackHole
             _deltaDelta = 0;
             _totalSpawned++; // don't move to spawned else penalty for asteroinds spawned right before win
 
-            Scoring.Instance.ComboCount = 0;
+            if (SettingsManager.ComboSaverEnabled)
+            {
+                SettingsManager.ComboSaverEnabled = false;
+            }
+            else
+            {
+                Scoring.Instance.ComboCount = 0;
+            }
+
             OnProblemFailed?.Invoke(AvatarReactions.ExpressionEvents.ProblemFailed);
             if (!GameManager.Instance.GameHasEnded)
             {
@@ -247,6 +257,10 @@ namespace BlackHole
             {
                 prefab1 = prefab2 = _asteroidPrefab;
                 spawnAmount += _asteroidSpawnBonus;
+            } 
+            else
+            {
+                spawnAmount += SettingsManager.ItemSpawnBonus;
             }
 
             for (int i = 0; i < spawnAmount + _itemSpawnBonus; i++)

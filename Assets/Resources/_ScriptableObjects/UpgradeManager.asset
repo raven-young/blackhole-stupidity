@@ -12,15 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0baaf89f1ca04dc499f6078615a5269d, type: 3}
   m_Name: UpgradeManager
   m_EditorClassIdentifier: 
-  AvailableCurrency: 10000
   MagnetUpgrade:
-    Name: Magnet I
+    Name: Super Magnet
     Description: Magnet radius +100%
     UnlockCost: 1000
     Unlocked: 1
-    Equipped: 1
+    Equipped: 0
   FirerateUpgrade:
-    Name: Firerate I
+    Name: Quickshot
     Description: Firerate +25%
     UnlockCost: 1000
     Unlocked: 1
@@ -29,5 +28,29 @@ MonoBehaviour:
     Name: Triple Shot
     Description: Cannons +1
     UnlockCost: 3000
+    Unlocked: 1
+    Equipped: 0
+  ShieldUpgrade:
+    Name: Shield
+    Description: Absorbs damage, regenerates after 10s
+    UnlockCost: 2000
+    Unlocked: 0
+    Equipped: 0
+  ComboSaverUpgrade:
+    Name: Combo Saver
+    Description: Prevents combo loss once
+    UnlockCost: 2000
+    Unlocked: 0
+    Equipped: 0
+  ItemSpawnBonusUpgrade:
+    Name: Scavenger
+    Description: Dropped items +3
+    UnlockCost: 1500
+    Unlocked: 0
+    Equipped: 0
+  AsteroidSlowUpgrade:
+    Name: Slow Beam
+    Description: Math asteroid speed -25%
+    UnlockCost: 1500
     Unlocked: 1
     Equipped: 0
