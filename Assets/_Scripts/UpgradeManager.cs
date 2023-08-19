@@ -78,7 +78,7 @@ namespace BlackHole
             }
             else if (instance != this)
             {
-                Debug.Log("Redundant AchievementsManager instance");
+                Debug.Log("Redundant UpgradeManager instance");
                 Destroy(this);
             }
         }
@@ -126,11 +126,24 @@ namespace BlackHole
         {
             if (activate)
             {
-                SettingsManager.TripleShotActive = true;
+                SettingsManager.TripleShotEnabled = true;
             }
             else
             {
-                SettingsManager.TripleShotActive = false;
+                SettingsManager.TripleShotEnabled = false;
+            }
+        }
+
+        public Upgrade ShieldUpgrade = new("Shield", "Absorbs asteroid damage\nRegenerates after 10s", 2000, ActivateShieldUpgrade);
+        private static void ActivateShieldUpgrade(bool activate = true)
+        {
+            if (activate)
+            {
+                SettingsManager.ShieldEnabled = true;
+            }
+            else
+            {
+                SettingsManager.ShieldEnabled = false;
             }
         }
 

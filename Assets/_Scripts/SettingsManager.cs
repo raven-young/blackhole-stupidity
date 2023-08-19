@@ -17,7 +17,8 @@ namespace BlackHole
         public static float BurnRate;
         public static float FirePeriod;
         public static float MagnetScale;
-        public static bool TripleShotActive = false;
+        public static bool TripleShotEnabled = false;
+        public static bool ShieldEnabled = false;
 
         public static float DifficultyScoreMultiplier;
 

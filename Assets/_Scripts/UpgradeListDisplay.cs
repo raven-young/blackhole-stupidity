@@ -136,7 +136,7 @@ namespace BlackHole
             _buyCandidate = u;
             _buyPanel.SetActive(true);
             _isBuying = true;
-
+            _buyPanel.transform.GetComponentInChildren<TMP_Text>().text = "Buy for $" + _buyCandidate.UnlockCost + "?";
             yield return new WaitWhile(() => _isBuying);
 
             _buyPanel.SetActive(false);
@@ -144,7 +144,6 @@ namespace BlackHole
 
         public void FinishBuy(bool doBuy)
         {
-            _buyPanel.transform.GetComponentInChildren<TMP_Text>().text = "Buy for $" + _buyCandidate.UnlockCost + "?";
             if (doBuy)
             {
                 UpgradeManager.Instance.UnlockUpgrade(_buyCandidate);

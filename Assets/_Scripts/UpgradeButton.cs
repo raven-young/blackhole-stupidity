@@ -46,7 +46,7 @@ namespace BlackHole {
             Equipped = u.Equipped;
             _name.text = u.Name;
             _description.text = u.Description;
-            _cost.text = u.Unlocked ? "Unlocked!" : u.UnlockCost.ToString();
+            _cost.text = u.Unlocked ? "Unlocked!" : "$" + u.UnlockCost.ToString();
             _image.color = u.Equipped ? Color.green : u.Unlocked ? _unlockedColor : Color.grey;
         }
 

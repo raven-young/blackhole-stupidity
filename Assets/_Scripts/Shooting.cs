@@ -68,7 +68,7 @@ namespace BlackHole
 
         private void Start()
         {
-            Shoot = SettingsManager.TripleShotActive ? TripleShoot : DoubleShoot;
+            Shoot = SettingsManager.TripleShotEnabled ? TripleShoot : DoubleShoot;
             _isAutoshooting = SettingsManager.IsMobileGame;
         }
 

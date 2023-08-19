@@ -82,6 +82,13 @@ namespace BlackHole
                     BlackHoleObject.Instance.GrowBlackHole(_gameParams.BlackHoleGrowthRate);
                     Die();
                     break;
+                case 12: // shield
+                    if (Shield.Instance.ShieldActive)
+                    {
+                        Shield.Instance.DisableShield();
+                        Die();
+                    }
+                    break;
                 default:
                     break;
             }
