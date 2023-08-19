@@ -2,10 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 using TMPro;
 
 namespace BlackHole {
-    public class UpgradeButton : MonoBehaviour
+    public class UpgradeButton : MonoBehaviour, ISelectHandler, IDeselectHandler
     {
         public UpgradeManager.Upgrade Upgrade;
         public bool Equipped;
@@ -90,6 +91,16 @@ namespace BlackHole {
             EquippedSlot = null;
             Debug.Log("unequip: " + u + " " + u.Name + " " + u.Unlocked);
             _image.color = u.Unlocked ? _unlockedColor : Color.grey;
+        }
+
+        public void OnSelect(BaseEventData eventData)
+        {
+            transform.localScale *= 1.1f;
+        }
+
+        public void OnDeselect(BaseEventData eventData)
+        {
+            transform.localScale /= 1.1f;
         }
     }
 }

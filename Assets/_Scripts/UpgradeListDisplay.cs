@@ -11,7 +11,7 @@ namespace BlackHole
     {
         public static UpgradeListDisplay Instance;
 
-        [SerializeField] private GameObject _viewport;
+        [SerializeField] private GameObject _viewPortContent;
         private List<UpgradeManager.Upgrade> _allUpgrades;
         [SerializeField] private GameObject _upgradeButtonPrefab;
 
@@ -57,7 +57,7 @@ namespace BlackHole
             Debug.Log("unequipping all upgrades and resetting to base game params");
             foreach (UpgradeManager.Upgrade u in _allUpgrades)
             {
-                GameObject button = Instantiate(_upgradeButtonPrefab, _viewport.transform);
+                GameObject button = Instantiate(_upgradeButtonPrefab, _viewPortContent.transform);
 
                 if (u.Equipped)
                 {
@@ -119,9 +119,11 @@ namespace BlackHole
                 if (!u.Unlocked) { return; } 
             }
 
-            
-            // if already equipped, unequip the upgrade
-            if (u.Equipped)
+            // to do: if equipped to different slot, unequip there and equip here; for now, return
+            if (u.Equipped && _selectedUpgradeSlot.ActiveUpgrade != u) { return; }
+
+            // if already equipped to this slot, unequip the upgrade
+            if (u.Equipped && _selectedUpgradeSlot.ActiveUpgrade == u)
             {
                 UpgradeManager.Instance.UnequipUpgrade(u);
                 //_selectedUpgradeSlot.ResetSlot();
