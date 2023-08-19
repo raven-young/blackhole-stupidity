@@ -25,9 +25,39 @@ namespace BlackHole
             }
         }
 
+        private void OnEnable()
+        {
+            UpgradeListDisplay.OnUpgradeEquipped += Equip;
+            UpgradeListDisplay.OnUpgradeUnequipped += Unequip;
+        }
+
+        private void OnDisable()
+        {
+            UpgradeListDisplay.OnUpgradeEquipped -= Equip;
+            UpgradeListDisplay.OnUpgradeUnequipped -= Unequip;
+        }
+
+        public void Equip(UpgradeManager.Upgrade u, UpgradeSlot s, GameObject button)
+        {
+            if (s != this) { return; }
+
+            ActiveUpgrade = u;
+            ActiveUpgradeButton = button;
+            _slotText.text = u.Name;
+            EventSystem.current.SetSelectedGameObject(gameObject, new BaseEventData(EventSystem.current));
+        }
+
+        public void Unequip(UpgradeManager.Upgrade u, UpgradeSlot s)
+        {
+            if (s != this) { return; }
+            ResetSlot();
+        }
+
         public void ResetSlot()
         {
             _slotText.text = "Upgrade";
+            ActiveUpgrade = null;
+            ActiveUpgradeButton = null;
         }
 
         public void EquipSlot(UpgradeManager.Upgrade u, GameObject button)

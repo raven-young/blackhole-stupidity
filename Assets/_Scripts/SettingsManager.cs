@@ -53,10 +53,7 @@ namespace BlackHole
 
             ToggleMobile(Application.platform == RuntimePlatform.Android || Application.platform == RuntimePlatform.IPhonePlayer);
 
-            BulletDamage = _gameParams.BulletDamage;
-            BurnRate = _gameParams.FuelBurnRate;
-            FirePeriod = _gameParams.FirePeriod;
-            MagnetScale = _gameParams.MagnetScale;
+            ResetGameParams();
         }
 
         private void Start()
@@ -70,36 +67,21 @@ namespace BlackHole
             }
         }
 
+        public void ResetGameParams()
+        {
+            BulletDamage = _gameParams.BulletDamage;
+            BurnRate = _gameParams.FuelBurnRate;
+            FirePeriod = _gameParams.FirePeriod;
+            MagnetScale = _gameParams.MagnetScale;
+        }
+
         // Calculate game params based on difficulty and ship selected
         public void CalculateGameParams()
-        {
-
-            // BULLET DAMAGE
-            switch (SelectedShipType)
-            {
-                case ShipType.Destroyer: BulletDamage += _gameParams.DestroyerBulletDamageBonus; break;
-            }
-
+        { 
             // BURN RATE
             if (SelectedDifficulty < DifficultySetting.Hard)
+            {
                 BurnRate = 0;
-            switch (SelectedShipType)
-            {
-                case ShipType.Basic: BurnRate /= _gameParams.BasicShipMultiplier; break;
-            }
-
-            // FIRE RATE
-            switch (SelectedShipType)
-            {
-                case ShipType.Collector: FirePeriod *= _gameParams.CollectorFirePeriodMultiplier; break;
-            }
-
-            // MAGNET SCALE
-            switch (SelectedShipType)
-            {
-                case ShipType.Collector: MagnetScale *= _gameParams.CollectorMagnetScaleMultiplier; break;
-                case ShipType.Basic: MagnetScale *= _gameParams.BasicShipMultiplier; break;
-                case ShipType.Destroyer: MagnetScale *= _gameParams.DestroyerMagnetScaleMultiplier; break;
             }
         }
 

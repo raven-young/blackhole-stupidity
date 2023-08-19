@@ -95,6 +95,7 @@ namespace BlackHole
         public Upgrade MagnetUpgrade = new("Magnet I", "Magnet radius +100%", 1000, ActivateMagnetUpgrade);
         private static void ActivateMagnetUpgrade(bool activate = true)
         {
+            Debug.Log("pre magnet scale " + SettingsManager.MagnetScale);
             if (activate)
             {
                 SettingsManager.MagnetScale *= 2f;
@@ -103,6 +104,8 @@ namespace BlackHole
             {
                 SettingsManager.MagnetScale /= 2f;
             }
+
+            Debug.Log("post magnet scale " + SettingsManager.MagnetScale);
         }
 
         public Upgrade FirerateUpgrade = new("Firerate I", "Firerate +25%", 1000, ActivateFirerateUpgrade);

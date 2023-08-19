@@ -17,7 +17,7 @@ namespace BlackHole
 
         [SerializeField] private UpgradeSlot _selectedUpgradeSlot;
         [SerializeField] private GameObject _buyPanel;
-        public static event Action<UpgradeManager.Upgrade, UpgradeSlot> OnUpgradeEquipped;
+        public static event Action<UpgradeManager.Upgrade, UpgradeSlot, GameObject> OnUpgradeEquipped;
         public static event Action<UpgradeManager.Upgrade, UpgradeSlot> OnUpgradeUnequipped;
         public static event Action<UpgradeManager.Upgrade> OnUpgradeBought;
 
@@ -43,12 +43,17 @@ namespace BlackHole
         {
             _allUpgrades = UpgradeManager.Instance.GetAllUpgrades();
 
+            SettingsManager.Instance.ResetGameParams();
             Debug.Log("unequipping all");
             foreach (UpgradeManager.Upgrade u in _allUpgrades)
             {
                 GameObject button = Instantiate(_upgradeButtonPrefab, _viewport.transform);
+
+                if (u.Equipped)
+                {
+                    UpgradeManager.Instance.UnequipUpgrade(u);
+                }
                 u.Equipped = false;
-                UpgradeManager.Instance.UnequipUpgrade(u);
                 button.GetComponent<UpgradeButton>().Initialize(u);
                 _upgradeButtons.Add(button.GetComponent<UpgradeButton>());
             }
@@ -104,8 +109,8 @@ namespace BlackHole
             if (u.Equipped)
             {
                 UpgradeManager.Instance.UnequipUpgrade(u);
-                _selectedUpgradeSlot.ResetSlot();
-                _selectedUpgradeSlot.ActiveUpgradeButton = null;
+                //_selectedUpgradeSlot.ResetSlot();
+                //_selectedUpgradeSlot.ActiveUpgradeButton = null;
                 OnUpgradeUnequipped?.Invoke(u, _selectedUpgradeSlot);
                 EventSystem.current.SetSelectedGameObject(_selectedUpgradeSlot.gameObject, new BaseEventData(EventSystem.current));
                 Debug.Log("unequppped, now selected slot: " + _selectedUpgradeSlot);
@@ -113,8 +118,8 @@ namespace BlackHole
             else
             {
                 UpgradeManager.Instance.EquipUpgrade(u);
-                OnUpgradeEquipped?.Invoke(u, _selectedUpgradeSlot);
-                _selectedUpgradeSlot.EquipSlot(u, button);
+                OnUpgradeEquipped?.Invoke(u, _selectedUpgradeSlot, button);
+                //_selectedUpgradeSlot.EquipSlot(u, button);
                 EventSystem.current.SetSelectedGameObject(_selectedUpgradeSlot.gameObject, new BaseEventData(EventSystem.current));
             }
         }
@@ -123,18 +128,17 @@ namespace BlackHole
         {
             if (UpgradeManager.Instance.AvailableCurrency < u.UnlockCost)
             {
-                Debug.Log("not enough cash: " + UpgradeManager.Instance.AvailableCurrency + " " + u.UnlockCost);
+                //Debug.Log("not enough cash: " + UpgradeManager.Instance.AvailableCurrency + " " + u.UnlockCost);
+                SoundManager.Instance.PlayButtonPress(failed: true);
                 yield return null;
             }
 
             _buyCandidate = u;
             _buyPanel.SetActive(true);
             _isBuying = true;
-            Debug.Log("start buy");
 
             yield return new WaitWhile(() => _isBuying);
 
-            Debug.Log("FinishBuy buy");
             _buyPanel.SetActive(false);
         }
 
@@ -148,7 +152,6 @@ namespace BlackHole
             }
 
             _isBuying = false;
-            Debug.Log("isbuying " + _isBuying);
         }
 
     }

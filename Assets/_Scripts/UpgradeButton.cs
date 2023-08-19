@@ -9,6 +9,7 @@ namespace BlackHole {
     {
         public UpgradeManager.Upgrade Upgrade;
         public bool Equipped;
+        public UpgradeSlot EquippedSlot;
         private Color _unlockedColor;
         private Image _image;
         private TMP_Text _name;
@@ -56,14 +57,15 @@ namespace BlackHole {
             _cost.text = "Unlocked!";
         }
 
-        public void Equip(UpgradeManager.Upgrade newUpgrade, UpgradeSlot slot)
+        public void Equip(UpgradeManager.Upgrade newUpgrade, UpgradeSlot slot, GameObject newButton)
         {
             
-            // if the new upgrade is not this upgrade, unequip this upgrade
-            if (slot.ActiveUpgrade == Upgrade && newUpgrade != Upgrade)
+            // if this button is equipped in the active slot, but the new upgrade is not this upgrade, unslot this button
+            if (EquippedSlot == slot && newUpgrade != Upgrade)
             {
                 Debug.Log("unequipping upgrade button: " + slot + " " + Upgrade + " " + newUpgrade);
                 Equipped = false;
+                EquippedSlot = null;
                 _image.color = newUpgrade.Unlocked ? _unlockedColor : Color.grey;
                 UpgradeManager.Instance.UnequipUpgrade(Upgrade);
                 return;
@@ -73,6 +75,7 @@ namespace BlackHole {
             {
                 Debug.Log("equipping upgrade button: " + slot + " " + Upgrade + " " + newUpgrade);
                 Equipped = true;
+                EquippedSlot = slot;
                 _image.color = Color.green;
                 return;
             }
@@ -84,6 +87,7 @@ namespace BlackHole {
         {
             if (u != Upgrade) { return; }
             Equipped = false;
+            EquippedSlot = null;
             Debug.Log("unequip: " + u + " " + u.Name + " " + u.Unlocked);
             _image.color = u.Unlocked ? _unlockedColor : Color.grey;
         }
