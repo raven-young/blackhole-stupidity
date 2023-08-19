@@ -44,9 +44,6 @@ namespace BlackHole
             }
         }
 
-        public int AvailableCurrency = 3000;
-        private TMP_Text _currencyText;
-
         [Serializable]
         public class Upgrade
         {
@@ -81,14 +78,6 @@ namespace BlackHole
                 Debug.Log("Redundant UpgradeManager instance");
                 Destroy(this);
             }
-        }
-
-        public void Init()
-        {
-            _currencyText = GameObject.FindGameObjectWithTag("Canvas").transform.Find("Currency").GetComponent<TMP_Text>();
-            Debug.Log("pay day " + _currencyText);
-            AvailableCurrency = 10000;
-            _currencyText.text = "$"+AvailableCurrency.ToString();
         }
 
         #region Upgrades
@@ -134,7 +123,7 @@ namespace BlackHole
             }
         }
 
-        public Upgrade ShieldUpgrade = new("Shield", "Absorbs asteroid damage\nRegenerates after 10s", 2000, ActivateShieldUpgrade);
+        public Upgrade ShieldUpgrade = new("Shield", "Absorbs damage, regenerates after 10s", 2000, ActivateShieldUpgrade);
         private static void ActivateShieldUpgrade(bool activate = true)
         {
             if (activate)
@@ -153,11 +142,10 @@ namespace BlackHole
         {
             if (u.Unlocked) { return; }
 
-            if (u.UnlockCost < AvailableCurrency)
+            if (u.UnlockCost < Bank.Instance.AvailableCurrency)
             {
                 u.Unlocked = true;
-                AvailableCurrency -= u.UnlockCost;
-                _currencyText.text = AvailableCurrency.ToString();
+                Bank.Instance.CashTransfer(-u.UnlockCost);
             }
         }
 

@@ -38,13 +38,23 @@ namespace BlackHole
             }
         }
 
+        private void OnEnable()
+        {
+            Button.BuyComplete += FinishBuy;
+        }
+
+        private void OnDisable()
+        {
+            Button.BuyComplete -= FinishBuy;
+        }
+
         // Start is called before the first frame update
         void Start()
         {
             _allUpgrades = UpgradeManager.Instance.GetAllUpgrades();
 
             SettingsManager.Instance.ResetGameParams();
-            Debug.Log("unequipping all");
+            Debug.Log("unequipping all upgrades and resetting to base game params");
             foreach (UpgradeManager.Upgrade u in _allUpgrades)
             {
                 GameObject button = Instantiate(_upgradeButtonPrefab, _viewport.transform);
@@ -57,6 +67,7 @@ namespace BlackHole
                 button.GetComponent<UpgradeButton>().Initialize(u);
                 _upgradeButtons.Add(button.GetComponent<UpgradeButton>());
             }
+            SettingsManager.Instance.ResetGameParams();
         }
 
         public void RefreshUpgradeList()
@@ -68,11 +79,15 @@ namespace BlackHole
         }
             
         // careful when renaming: upgrade slot OnClick method must be set again
-        public void Switch_selectedUpgradeSlot(UpgradeSlot newslot)
+        public void SwitchSelectedUpgradeSlot(UpgradeSlot newslot)
         {
-            _selectedUpgradeSlot = newslot;
+            Debug.Log("newslot: " + newslot + " " + newslot.Unlocked);
+            if (!newslot.Unlocked) {
+                StartCoroutine(newslot.AttemptEquipBuy());
+                if (!newslot.Unlocked) { return; }
+            }
 
-            Debug.Log("switch selection: " + _selectedUpgradeSlot.ActiveUpgrade.Name + " " + _selectedUpgradeSlot.ActiveUpgradeButton);
+            _selectedUpgradeSlot = newslot;
 
             // if new slot already has equipped upgrade, jump to corresponding upgrade button
             if (_selectedUpgradeSlot.ActiveUpgrade.Name != "" && _selectedUpgradeSlot.ActiveUpgradeButton != null)
@@ -126,17 +141,17 @@ namespace BlackHole
 
         public IEnumerator AttemptEquipBuy(UpgradeManager.Upgrade u)
         {
-            if (UpgradeManager.Instance.AvailableCurrency < u.UnlockCost)
+            if (Bank.Instance.AvailableCurrency < u.UnlockCost)
             {
-                //Debug.Log("not enough cash: " + UpgradeManager.Instance.AvailableCurrency + " " + u.UnlockCost);
                 SoundManager.Instance.PlayButtonPress(failed: true);
-                yield return null;
+                yield break;
             }
 
             _buyCandidate = u;
             _buyPanel.SetActive(true);
             _isBuying = true;
             _buyPanel.transform.GetComponentInChildren<TMP_Text>().text = "Buy for $" + _buyCandidate.UnlockCost + "?";
+            EventSystem.current.SetSelectedGameObject(_buyPanel.transform.Find("DoBuy").gameObject, new BaseEventData(EventSystem.current));
             yield return new WaitWhile(() => _isBuying);
 
             _buyPanel.SetActive(false);
@@ -144,6 +159,8 @@ namespace BlackHole
 
         public void FinishBuy(bool doBuy)
         {
+            if (!_isBuying) { return; }
+
             if (doBuy)
             {
                 UpgradeManager.Instance.UnlockUpgrade(_buyCandidate);

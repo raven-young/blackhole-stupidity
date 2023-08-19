@@ -60,7 +60,7 @@ namespace BlackHole
 
         [Header("SFX")]
         [SerializeField] private AudioClip _alertClip;
-        [SerializeField] private AudioClip _victoryFanfare, _powerup, _shipTakeoff;
+        [SerializeField] private AudioClip _victoryFanfare, _powerup, _shipTakeoff, _kaching;
 
         [Header("UI")]
         [SerializeField] private AudioClip _buttonPress;
@@ -183,7 +183,8 @@ namespace BlackHole
             ButtonPress,
             VictoryFanfare,
             Powerup,
-            ShipTakeoff
+            ShipTakeoff,
+            Kaching
         }
         public void PlaySFX(SFX sfx)
         {
@@ -194,6 +195,7 @@ namespace BlackHole
                 case SFX.VictoryFanfare: PlaySound(_victoryFanfare); break;
                 case SFX.Powerup: PlaySound(_powerup); break;
                 case SFX.ShipTakeoff: PlaySound(_shipTakeoff); break;
+                case SFX.Kaching: PlaySound(_kaching); break;
             }
 
         }

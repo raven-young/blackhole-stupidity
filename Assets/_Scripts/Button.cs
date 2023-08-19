@@ -1,9 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class Button : MonoBehaviour
 {
+    public static event Action<bool> BuyComplete;
+
     [SerializeField] private AudioClip _selectedClip, _pressedClip, _failedClip;
     private AudioSource _audioSource;
     private Vector3 _baseScale;
@@ -35,5 +38,9 @@ public class Button : MonoBehaviour
     public void DecreaseScale()
     {
         gameObject.transform.localScale = _baseScale;
+    }
+    public void OnBuyComplete(bool doBuy)
+    {
+        BuyComplete?.Invoke(doBuy);
     }
 }

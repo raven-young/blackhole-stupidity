@@ -50,7 +50,7 @@ namespace BlackHole
             _extrasButton.transform.DOMoveY(_extrasButton.transform.position.y + 0.7f, 1f).SetEase(Ease.InOutSine).SetLoops(-1, LoopType.Yoyo).SetDelay(0.4f);
             _activePanel = _startButton;
 
-            UpgradeManager.Instance.Init();
+            Bank.Instance.DebugPayday();
             UpgradeManager.Instance.InitializeUpgrades();  
         }
 

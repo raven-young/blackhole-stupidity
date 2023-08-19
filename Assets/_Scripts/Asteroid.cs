@@ -85,6 +85,7 @@ namespace BlackHole
                 case 12: // shield
                     if (Shield.Instance.ShieldActive)
                     {
+                        ScreenShake.TriggerShake(0.5f*_gameParams.ScreenShakeDuration);
                         Shield.Instance.DisableShield();
                         Die();
                     }
