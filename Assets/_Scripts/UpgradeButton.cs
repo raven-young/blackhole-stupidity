@@ -47,7 +47,8 @@ namespace BlackHole {
             Equipped = u.Equipped;
             _name.text = u.Name;
             _description.text = u.Description;
-            _cost.text = u.Unlocked ? "Unlocked!" : "$" + u.UnlockCost.ToString();
+            //_cost.text = u.Unlocked ? "Unlocked!" : "$" + u.UnlockCost.ToString();
+            _cost.text = u.Equipped ? "Equipped" : u.Unlocked ? "Not equipped" : "$" + u.UnlockCost.ToString();
             _image.color = u.Equipped ? Color.green : u.Unlocked ? _unlockedColor : Color.grey;
         }
 
@@ -55,33 +56,30 @@ namespace BlackHole {
         {
             if (Upgrade != u) { return; }
             _image.color = _unlockedColor;
-            _cost.text = "Unlocked!";
+            _cost.text = "Not equipped";
         }
 
         public void Equip(UpgradeManager.Upgrade newUpgrade, UpgradeSlot slot, GameObject newButton)
         {
-            
             // if this button is equipped in the active slot, but the new upgrade is not this upgrade, unslot this button
             if (EquippedSlot == slot && newUpgrade != Upgrade)
             {
-                Debug.Log("unequipping upgrade button: " + slot + " " + Upgrade + " " + newUpgrade);
                 Equipped = false;
                 EquippedSlot = null;
                 _image.color = newUpgrade.Unlocked ? _unlockedColor : Color.grey;
                 UpgradeManager.Instance.UnequipUpgrade(Upgrade);
+                _cost.text = "Not equipped";
                 return;
             }
 
             if (!Equipped && newUpgrade == Upgrade)
             {
-                Debug.Log("equipping upgrade button: " + slot + " " + Upgrade + " " + newUpgrade);
                 Equipped = true;
                 EquippedSlot = slot;
                 _image.color = Color.green;
+                _cost.text = "Equipped";
                 return;
             }
-
-            Debug.Log("reached end: " + slot + " " + Upgrade + " " + newUpgrade);
         }
 
         public void Unequip(UpgradeManager.Upgrade u, UpgradeSlot slot)
@@ -89,8 +87,8 @@ namespace BlackHole {
             if (u != Upgrade) { return; }
             Equipped = false;
             EquippedSlot = null;
-            Debug.Log("unequip: " + u + " " + u.Name + " " + u.Unlocked);
             _image.color = u.Unlocked ? _unlockedColor : Color.grey;
+            _cost.text = "Not equipped";
         }
 
         public void OnSelect(BaseEventData eventData)

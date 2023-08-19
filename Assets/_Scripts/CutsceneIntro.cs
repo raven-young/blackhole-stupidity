@@ -157,13 +157,18 @@ namespace BlackHole
         {
             if (context.performed && !_dialogueSkipped)
             {
-                for (int i = _dialogueIterator; i <= dialogueListEasyNormal.Count; i++)
-                {
-                    AdvanceDialogue(0.2f);
-                }
-                _dialogueSkipped = true;
+                SkipDialogue();
             }
 
+        }
+
+        public void SkipDialogue()
+        {
+            for (int i = _dialogueIterator; i <= dialogueListEasyNormal.Count; i++)
+            {
+                AdvanceDialogue(0.2f);
+            }
+            _dialogueSkipped = true;
         }
 
         private void DisplayNewDialogue(Dialogue dialogue, float fadeTime = 0.1f)

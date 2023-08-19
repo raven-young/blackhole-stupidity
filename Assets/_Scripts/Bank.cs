@@ -27,13 +27,8 @@ namespace BlackHole {
                 Instance = this;
             }
 
+            AvailableCurrency = ES3.Load<int>("Cash", 0);
             _currencyText = GetComponent<TMP_Text>();
-        }
-
-        public void DebugPayday()
-        {
-            Debug.Log("Pay day " + _currencyText);
-            AvailableCurrency = 10000;
             _currencyText.text = "$" + AvailableCurrency.ToString();
         }
 
@@ -59,6 +54,7 @@ namespace BlackHole {
             AvailableCurrency += cash;
             _currencyText.text = "$" + AvailableCurrency.ToString();
             SoundManager.Instance.PlaySFX(SoundManager.SFX.Kaching);
+            ES3.Save("Cash", AvailableCurrency);
         }
     }
 }

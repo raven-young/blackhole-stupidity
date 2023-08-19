@@ -87,6 +87,8 @@ namespace BlackHole
         [SerializeField] private Achievement _score250k;
         [SerializeField] private Achievement _score500k;
 
+        [SerializeField] private Achievement _unlockAllUpgrades;
+
         private void OnEnable()
         {
             if (instance == null)
@@ -104,6 +106,7 @@ namespace BlackHole
             GameManager.On100PercentVictory += Unlock100PercentVictoryAchievement;
             GameManager.OnFlawlessVictory += UnlockFlawlessAchievement;
             Scoring.OnScored += UnlockScoringAchievements;
+            UpgradeManager.OnAllUpgradesUnlocked += UnlockAllUpgradesAchievement;
             OnAchievementUnlocked += NotifyAchievementUnlocked;
         }
 
@@ -114,6 +117,7 @@ namespace BlackHole
             GameManager.On100PercentVictory -= Unlock100PercentVictoryAchievement;
             GameManager.OnFlawlessVictory -= UnlockFlawlessAchievement;
             Scoring.OnScored -= UnlockScoringAchievements;
+            UpgradeManager.OnAllUpgradesUnlocked -= UnlockAllUpgradesAchievement;
             OnAchievementUnlocked -= NotifyAchievementUnlocked;
         }
 
@@ -253,6 +257,12 @@ namespace BlackHole
             }
         }
 
+        private void UnlockAllUpgradesAchievement()
+        {
+            _unlockAllUpgrades.Unlocked = true;
+            OnAchievementUnlocked?.Invoke(_unlockAllUpgrades);
+        }
+
         public void NotifyAchievementUnlocked(Achievement achievement)
         {
             Debug.Log("Achievement unlocked: " + achievement.Name);
@@ -286,26 +296,5 @@ namespace BlackHole
                 field.Unlocked = false;
             }
         }
-
-        // code below from chatgpt
-        //public List<object> GetNestedFieldValuesOfType<T>()
-        //{
-        //    List<object> values = new List<object>();
-        //    Type type = typeof(T);
-
-        //    // Use BindingFlags to include both public and non-public instance fields
-        //    FieldInfo[] fields = this.GetType().GetFields(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
-
-        //    foreach (FieldInfo field in fields)
-        //    {
-        //        if (field.FieldType == type)
-        //        {
-        //            object fieldValue = field.GetValue(this);
-        //            values.Add(fieldValue);
-        //        }
-        //    }
-
-        //    return values;
-        //}
     }
 }

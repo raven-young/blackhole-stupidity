@@ -167,8 +167,8 @@ MonoBehaviour:
           m_CallState: 2
         - m_Target: {fileID: 1007353442108780377}
           m_TargetAssemblyTypeName: Button, Assembly-CSharp
-          m_MethodName: PlayPressed
-          m_Mode: 6
+          m_MethodName: PlaySelected
+          m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine

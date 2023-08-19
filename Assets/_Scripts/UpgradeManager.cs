@@ -65,6 +65,9 @@ namespace BlackHole
         }
 
         public List<Upgrade> AllUpgrades { get; private set; } = new();
+        public static event Action OnAllUpgradesUnlocked;
+        private int _unlockedUpgradesCount = 0;
+        public float UnlockedUpgradesFraction = 0f;
         private readonly List<Upgrade> EquippedUpgrades = new();
 
         private void OnEnable()
@@ -185,6 +188,12 @@ namespace BlackHole
             {
                 u.Unlocked = true;
                 Bank.Instance.CashTransfer(-u.UnlockCost);
+                _unlockedUpgradesCount++;
+                UnlockedUpgradesFraction = (float)(_unlockedUpgradesCount) / AllUpgrades.Count;
+                if (_unlockedUpgradesCount == AllUpgrades.Count)
+                {
+                    OnAllUpgradesUnlocked.Invoke();
+                }
             }
         }
 
@@ -217,7 +226,10 @@ namespace BlackHole
         }
         public void InitializeUpgrades()
         {
+            _unlockedUpgradesCount = 0;
             AllUpgrades = new(this.GetNestedFieldValuesOfType<Upgrade>());
+            foreach (Upgrade u in AllUpgrades) { if (u.Unlocked) _unlockedUpgradesCount++; }
+            UnlockedUpgradesFraction = (float)(_unlockedUpgradesCount) / AllUpgrades.Count;
         }
 
         public List<Upgrade> GetAllUpgrades()
@@ -225,13 +237,16 @@ namespace BlackHole
             return new(this.GetNestedFieldValuesOfType<Upgrade>());
         }
 
-        public void LockAllUpgrades()
+        public void ResetAllUpgrades()
         {
             foreach (Upgrade u in AllUpgrades)
             {
                 u.Unlocked = false;
+                u.Equipped = false;
             }
-
+            UnlockedUpgradesFraction = 0f;
+            _unlockedUpgradesCount = 0;
+            UpgradeSlot.ResetAllSlots();
             UpgradeListDisplay.Instance.RefreshUpgradeList();
         }
     }

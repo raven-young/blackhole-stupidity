@@ -1,8 +1,9 @@
-using UnityEngine;
-using TMPro;
-using UnityEngine.EventSystems;
 using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using TMPro;
 using DG.Tweening;
 
 namespace BlackHole
@@ -11,6 +12,8 @@ namespace BlackHole
     {
         public UpgradeManager.Upgrade ActiveUpgrade;
         public GameObject ActiveUpgradeButton;
+
+        private static List<UpgradeSlot> _upgradeSlots;
 
         [SerializeField] private GameObject _buyPanel;
         private TMP_Text _slotText;
@@ -21,6 +24,11 @@ namespace BlackHole
         private void Awake()
         {
             _slotText = transform.Find("Text (TMP)").GetComponent<TMP_Text>();
+
+            if (_upgradeSlots == null)
+            {
+                _upgradeSlots = new();
+            }
         }
 
         // Start is called before the first frame update
@@ -31,10 +39,7 @@ namespace BlackHole
                 ResetSlot();
             }
 
-            if (!Unlocked)
-            {
-                transform.Find("CostText").GetComponent<TMP_Text>().text = "$" + _unlockCost;
-            }
+            transform.Find("CostText").GetComponent<TMP_Text>().text = "$" + _unlockCost;
         }
 
         private void OnEnable()
@@ -42,6 +47,7 @@ namespace BlackHole
             UpgradeListDisplay.OnUpgradeEquipped += Equip;
             UpgradeListDisplay.OnUpgradeUnequipped += Unequip;
             Button.BuyComplete += FinishBuy;
+            _upgradeSlots.Add(this);
         }
 
         private void OnDisable()
@@ -49,6 +55,7 @@ namespace BlackHole
             UpgradeListDisplay.OnUpgradeEquipped -= Equip;
             UpgradeListDisplay.OnUpgradeUnequipped -= Unequip;
             Button.BuyComplete -= FinishBuy;
+            _upgradeSlots.Remove(this);
         }
 
         public void Equip(UpgradeManager.Upgrade u, UpgradeSlot s, GameObject button)
@@ -72,6 +79,17 @@ namespace BlackHole
             _slotText.text = "Upgrade";
             ActiveUpgrade = null;
             ActiveUpgradeButton = null;
+        }
+
+        public static void ResetAllSlots()
+        {
+            foreach (UpgradeSlot slot in _upgradeSlots)
+            {
+                slot._slotText.text = "Upgrade";
+                slot.ActiveUpgrade = null;
+                slot.ActiveUpgradeButton = null;
+                LockSlot(slot);
+            }
         }
 
         public void EquipSlot(UpgradeManager.Upgrade u, GameObject button)
@@ -115,10 +133,18 @@ namespace BlackHole
         private void UnlockSlot()
         {
             Unlocked = true;
-            GetComponent<Image>().CrossFadeAlpha(1, 0f, true); // doesn't work?
+            //GetComponent<Image>().CrossFadeAlpha(1, 0f, true); // doesn't work?
             GetComponent<Image>().DOFade(1f, 0); // using DOTween instead
             transform.Find("Text (TMP)").GetComponent<TMP_Text>().DOFade(1f, 0);
             transform.Find("CostText").gameObject.SetActive(false);
+        }
+
+        private static void LockSlot(UpgradeSlot slot)
+        {
+            slot.Unlocked = false;
+            slot.GetComponent<Image>().DOFade(0.5f, 0);
+            slot.transform.Find("Text (TMP)").GetComponent<TMP_Text>().DOFade(0.5f, 0);
+            slot.transform.Find("CostText").gameObject.SetActive(true);
         }
     }
 }

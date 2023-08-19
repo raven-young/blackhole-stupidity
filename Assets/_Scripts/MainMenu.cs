@@ -18,7 +18,7 @@ namespace BlackHole
         [SerializeField] private Camera _cam;
         [SerializeField] private GameObject _startButton, _quitButton, _extrasButton, _normalDifficultyButton, _basicShipButton, _achievementsButton;
         [SerializeField] private Image _blackPanel;
-
+        [SerializeField] private AchievementNotification _achievementsNotification;
         [SerializeField] private GameObject _difficultyPanel, _upgradePanel, _extrasPanel, _achievementsPanel;
         private GameObject _activePanel;
 
@@ -32,8 +32,14 @@ namespace BlackHole
             playerInputActions.Player.Answer3.performed += EscapeAction;
         }
 
+        private void OnEnable()
+        {
+            AchievementsManager.OnAchievementUnlocked += DisplayAchievement;
+        }
+
         private void OnDisable()
         {
+            AchievementsManager.OnAchievementUnlocked -= DisplayAchievement;
             playerInputActions.Disable();
             playerInputActions.Player.EscapeAction.performed -= EscapeAction;
             playerInputActions.Player.Answer3.performed -= EscapeAction;
@@ -50,7 +56,6 @@ namespace BlackHole
             _extrasButton.transform.DOMoveY(_extrasButton.transform.position.y + 0.7f, 1f).SetEase(Ease.InOutSine).SetLoops(-1, LoopType.Yoyo).SetDelay(0.4f);
             _activePanel = _startButton;
 
-            Bank.Instance.DebugPayday();
             UpgradeManager.Instance.InitializeUpgrades();  
         }
 
@@ -101,6 +106,11 @@ namespace BlackHole
         {
             _achievementsListText.text = AchievementsManager.Instance.GetAchievementsString();
             _activePanel = _achievementsPanel;
+        }
+
+        public void UpdateAchievementsText()
+        {
+            _achievementsListText.text = AchievementsManager.Instance.GetAchievementsString();
         }
 
         private IEnumerator StartGameRoutine()
@@ -166,6 +176,12 @@ namespace BlackHole
 
             else if (_activePanel == _startButton)
                 return;
+        }
+
+        void DisplayAchievement(AchievementsManager.Achievement achievement)
+        {
+            _achievementsNotification.EnqeueueAchievement(achievement);
+            _achievementsNotification.StartAchievementsDisplay();
         }
     }
 }

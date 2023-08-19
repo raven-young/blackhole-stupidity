@@ -96,3 +96,7 @@ MonoBehaviour:
     Unlocked: 0
     Name: Legendary Scorer
     Description: Score 500'000 points
+  _unlockAllUpgrades:
+    Unlocked: 0
+    Name: Upgrade Hoarder
+    Description: Unlock all upgrades

@@ -14,7 +14,7 @@ namespace BlackHole
         [SerializeField] private GameObject _viewPortContent;
         private List<UpgradeManager.Upgrade> _allUpgrades;
         [SerializeField] private GameObject _upgradeButtonPrefab;
-
+        [SerializeField] private TMP_Text _upgradeCounterText;
         [SerializeField] private UpgradeSlot _selectedUpgradeSlot;
         [SerializeField] private GameObject _buyPanel;
         public static event Action<UpgradeManager.Upgrade, UpgradeSlot, GameObject> OnUpgradeEquipped;
@@ -68,6 +68,7 @@ namespace BlackHole
                 _upgradeButtons.Add(button.GetComponent<UpgradeButton>());
             }
             SettingsManager.Instance.ResetGameParams();
+            _upgradeCounterText.text = "Unlocked: " + Math.Round(100f * UpgradeManager.Instance.UnlockedUpgradesFraction) + "%";
         }
 
         public void RefreshUpgradeList()
@@ -76,6 +77,7 @@ namespace BlackHole
             {
                 b.Initialize(b.Upgrade);
             }
+            _upgradeCounterText.text = "Unlocked: " + Math.Round(100f * UpgradeManager.Instance.UnlockedUpgradesFraction) + "%";
         }
             
         // careful when renaming: upgrade slot OnClick method must be set again
@@ -118,6 +120,8 @@ namespace BlackHole
                 StartCoroutine(AttemptEquipBuy(u));
                 if (!u.Unlocked) { return; } 
             }
+
+            if (!_selectedUpgradeSlot.Unlocked) { return; }
 
             // to do: if equipped to different slot, unequip there and equip here; for now, return
             if (u.Equipped && _selectedUpgradeSlot.ActiveUpgrade != u) { return; }
@@ -167,6 +171,7 @@ namespace BlackHole
             {
                 UpgradeManager.Instance.UnlockUpgrade(_buyCandidate);
                 OnUpgradeBought?.Invoke(_buyCandidate);
+                _upgradeCounterText.text = "Unlocked: " + Math.Round(100f * UpgradeManager.Instance.UnlockedUpgradesFraction) + "%";
             }
 
             _isBuying = false;
