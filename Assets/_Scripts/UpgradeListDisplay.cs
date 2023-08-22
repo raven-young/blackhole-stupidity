@@ -4,6 +4,7 @@ using System;
 using UnityEngine.EventSystems;
 using System.Collections;
 using TMPro;
+using DG.Tweening;
 
 namespace BlackHole
 {
@@ -92,7 +93,7 @@ namespace BlackHole
             _selectedUpgradeSlot = newslot;
 
             // if new slot already has equipped upgrade, jump to corresponding upgrade button
-            if (_selectedUpgradeSlot.ActiveUpgrade.Name != "" && _selectedUpgradeSlot.ActiveUpgradeButton != null)
+            if (_selectedUpgradeSlot.ActiveUpgrade != null && _selectedUpgradeSlot.ActiveUpgradeButton != null)
             {
                 Debug.Log("switch to upgrade: " + _selectedUpgradeSlot.ActiveUpgradeButton);
                 EventSystem.current.SetSelectedGameObject(_selectedUpgradeSlot.ActiveUpgradeButton, new BaseEventData(EventSystem.current));
@@ -157,7 +158,7 @@ namespace BlackHole
             _buyPanel.SetActive(true);
             _isBuying = true;
             _buyPanel.transform.GetComponentInChildren<TMP_Text>().text = "Buy for $" + _buyCandidate.UnlockCost + "?";
-            EventSystem.current.SetSelectedGameObject(_buyPanel.transform.Find("DoBuy").gameObject, new BaseEventData(EventSystem.current));
+            EventSystem.current.SetSelectedGameObject(_buyPanel.transform.Find("Yes").gameObject, new BaseEventData(EventSystem.current));
             yield return new WaitWhile(() => _isBuying);
 
             _buyPanel.SetActive(false);
@@ -177,5 +178,13 @@ namespace BlackHole
             _isBuying = false;
         }
 
+        public void EnterUgradeListPanel()
+        {
+            gameObject.GetComponent<RectTransform>().DOAnchorPosX(280, 0.2f);
+        }
+        public void ExitUgradeListPanel()
+        {
+            gameObject.GetComponent<RectTransform>().DOAnchorPosX(800, 0.2f);
+        }
     }
 }

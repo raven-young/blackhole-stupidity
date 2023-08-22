@@ -40,16 +40,8 @@ namespace BlackHole {
                 return;
             }
 
-            if (cash > 0)
-            {
-                cashNumber = cashNumberPosPrefab.Spawn(Vector3.zero, cash);
-                cashNumber.SetAnchoredPosition(cashNumberRectParent, new Vector2(0, 0));
-            }
-            else if (cash < 0)
-            {
-                cashNumber = cashNumberNegPrefab.Spawn(Vector3.zero, -cash);
-                cashNumber.SetAnchoredPosition(cashNumberRectParent, new Vector2(0, 0));
-            }
+            cashNumber = cash >= 0 ? cashNumberPosPrefab.Spawn(Vector3.zero, cash) : cashNumberNegPrefab.Spawn(Vector3.zero, -cash);
+            cashNumber.SetAnchoredPosition(cashNumberRectParent, new Vector2(0, 0));
 
             AvailableCurrency += cash;
             _currencyText.text = "$" + AvailableCurrency.ToString();

@@ -175,7 +175,7 @@ namespace BlackHole
         {
             bool useClip1 = Random.Range(0f, 1f) < 0.5;
 
-            // Stop preveious character talking if player skips dialogue
+            // Stop previous character talking if player skips dialogue
             SoundManager.Instance.StopSFX();
 
             if (dialogue.Speaker == Speakers.Racoon)

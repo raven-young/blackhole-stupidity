@@ -6,6 +6,7 @@ using System;
 public class Button : MonoBehaviour
 {
     public static event Action<bool> BuyComplete;
+    public static event Action<bool> ContinueComplete;
 
     [SerializeField] private AudioClip _selectedClip, _pressedClip, _failedClip;
     private AudioSource _audioSource;
@@ -39,8 +40,14 @@ public class Button : MonoBehaviour
     {
         gameObject.transform.localScale = _baseScale;
     }
+
     public void OnBuyComplete(bool doBuy)
     {
         BuyComplete?.Invoke(doBuy);
+    }
+
+    public void OnContinueComplete(bool doContinue)
+    {
+        ContinueComplete?.Invoke(doContinue);
     }
 }

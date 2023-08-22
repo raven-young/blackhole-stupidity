@@ -19,6 +19,8 @@ namespace BlackHole
         public static float MagnetScale;
         public static int ItemSpawnBonus;
 
+        public static bool ScoreAttackEnabled = true;
+
         // Upgrades
         public static bool TripleShotEnabled = false;
         public static bool ShieldEnabled = false;

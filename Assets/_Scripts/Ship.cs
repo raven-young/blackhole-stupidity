@@ -278,6 +278,12 @@ namespace BlackHole
             }
         }
 
+        public void ResetShipPosition()
+        {
+            CannotMove = false;
+            ShipPositionRadius -= 0.5f * GameManager.Instance.DistanceToEventHorizon;
+        }
+
         private IEnumerator OverDrive()
         {
             TakeDamage((int)(0.8f * CurrentHealth));

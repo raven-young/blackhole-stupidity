@@ -20,6 +20,7 @@ namespace BlackHole
         [SerializeField] private Image _blackPanel;
         [SerializeField] private AchievementNotification _achievementsNotification;
         [SerializeField] private GameObject _difficultyPanel, _upgradePanel, _extrasPanel, _achievementsPanel;
+        [SerializeField] private RectTransform _background;
         private GameObject _activePanel;
 
         private PlayerInputActions playerInputActions;
@@ -50,12 +51,17 @@ namespace BlackHole
             Time.timeScale = 1f;
             SoundManager.Instance.StartMainMenuMusic();
             _gameParams.ScreenBounds = _cam.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, _cam.transform.position.z));
+
+            // Tween all the things
             float _buttonY = _startButton.transform.position.y;
             _startButton.transform.DOMoveY(_buttonY + 0.7f, 1f).SetEase(Ease.InOutSine).SetLoops(-1, LoopType.Yoyo);
             _quitButton.transform.DOMoveY(_buttonY + 0.7f, 1f).SetEase(Ease.InOutSine).SetLoops(-1, LoopType.Yoyo).SetDelay(0.2f);
             _extrasButton.transform.DOMoveY(_extrasButton.transform.position.y + 0.7f, 1f).SetEase(Ease.InOutSine).SetLoops(-1, LoopType.Yoyo).SetDelay(0.4f);
-            _activePanel = _startButton;
 
+            //_background.DOShapeCircle(10*Vector2.one, 180, 2f).SetLoops(-1, LoopType.Yoyo);
+
+            // Init some things
+            _activePanel = _startButton;
             UpgradeManager.Instance.InitializeUpgrades();  
         }
 

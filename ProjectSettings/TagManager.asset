@@ -96,12 +96,12 @@ TagManager:
   - name: Game UI Lower
     uniqueID: 2053663399
     locked: 0
-  - name: Game UI Upper
+  - name: Menu Bottom
     uniqueID: 3411952387
     locked: 0
-  - name: Menu
+  - name: Menu Middle
     uniqueID: 6986357
     locked: 0
-  - name: Menu UI
+  - name: Menu Top
     uniqueID: 2963888701
     locked: 0

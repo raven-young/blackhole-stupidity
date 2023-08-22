@@ -113,7 +113,7 @@ namespace BlackHole
             _buyPanel.SetActive(true);
             _isBuying = true;
             _buyPanel.transform.GetComponentInChildren<TMP_Text>().text = "Buy for $" + _unlockCost + "?";
-            EventSystem.current.SetSelectedGameObject(_buyPanel.transform.Find("DoBuy").gameObject, new BaseEventData(EventSystem.current));
+            EventSystem.current.SetSelectedGameObject(_buyPanel.transform.Find("Yes").gameObject, new BaseEventData(EventSystem.current));
             yield return new WaitWhile(() => _isBuying);
             _buyPanel.SetActive(false);
         }
