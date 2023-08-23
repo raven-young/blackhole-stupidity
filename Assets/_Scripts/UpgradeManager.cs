@@ -64,6 +64,7 @@ namespace BlackHole
             public ActivateUpgrade Activate;
         }
 
+        [SerializeField] private Bank _bankSO;
         public List<Upgrade> AllUpgrades { get; private set; } = new();
         public static event Action OnAllUpgradesUnlocked;
         private int _unlockedUpgradesCount = 0;
@@ -184,10 +185,10 @@ namespace BlackHole
         {
             if (u.Unlocked) { return; }
 
-            if (u.UnlockCost < Bank.Instance.AvailableCurrency)
+            if (u.UnlockCost < _bankSO.AvailableCurrency)
             {
                 u.Unlocked = true;
-                Bank.Instance.CashTransfer(-u.UnlockCost);
+                _bankSO.CashTransfer(-u.UnlockCost);
                 _unlockedUpgradesCount++;
                 UnlockedUpgradesFraction = (float)(_unlockedUpgradesCount) / AllUpgrades.Count;
                 if (_unlockedUpgradesCount == AllUpgrades.Count)

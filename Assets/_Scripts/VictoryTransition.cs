@@ -70,6 +70,11 @@ namespace BlackHole
             StartCoroutine(RaccoonBlink());
 
             yield return new WaitForSecondsRealtime(7f);
+            if (!SettingsManager.ScoreAttackUnlocked) 
+            {
+                SettingsManager.UnlockScoreAttack();
+                PopUp.SpawnPopUp("SCORE ATTACK UNLOCKED!"); 
+            }
             SoundManager.Instance.StartMainGameMusic(4f);
         }
 

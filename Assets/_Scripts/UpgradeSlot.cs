@@ -15,6 +15,7 @@ namespace BlackHole
 
         private static List<UpgradeSlot> _upgradeSlots;
 
+        [SerializeField] private Bank _bankSO;
         [SerializeField] private GameObject _buyPanel;
         private TMP_Text _slotText;
         [SerializeField] private int _unlockCost;
@@ -104,7 +105,7 @@ namespace BlackHole
 
         public IEnumerator AttemptEquipBuy()
         {
-            if (Bank.Instance.AvailableCurrency < _unlockCost)
+            if (_bankSO.AvailableCurrency < _unlockCost)
             {
                 SoundManager.Instance.PlayButtonPress(failed: true);
                 yield break;
@@ -124,7 +125,7 @@ namespace BlackHole
 
             if (doBuy)
             {
-                Bank.Instance.CashTransfer(-_unlockCost);
+                _bankSO.CashTransfer(-_unlockCost);
                 UnlockSlot();
             }
             _isBuying = false;

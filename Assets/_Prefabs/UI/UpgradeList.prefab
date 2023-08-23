@@ -224,7 +224,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.000015258789, y: -41.217995}
+  m_AnchoredPosition: {x: 0.000015258789, y: -41.218018}
   m_SizeDelta: {x: 0, y: -82.435}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3181152160869518788
@@ -546,7 +546,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -43.200012}
+  m_AnchoredPosition: {x: 0, y: -43.19995}
   m_SizeDelta: {x: 358.9, y: 76.369995}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6384766711373320974
@@ -736,6 +736,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9163cc672d3c9bc41a569a51de35b0b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _bankSO: {fileID: 11400000, guid: 781864877ffdfee4d99abfd9b1598406, type: 2}
   _viewPortContent: {fileID: 1559547796492528638}
   _upgradeButtonPrefab: {fileID: 8442223055657511187, guid: 99423e9ce47308e49949ef3ee6554cf2, type: 3}
   _upgradeCounterText: {fileID: 8981444122138783774}

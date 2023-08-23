@@ -7,22 +7,30 @@ using UnityEngine.UI;
 using UnityEngine.InputSystem;
 using UnityEngine.EventSystems;
 using TMPro;
+using DamageNumbersPro;
 
 namespace BlackHole
 {
     public class MainMenu : MonoBehaviour
     {
         [SerializeField] private GameParams _gameParams;
+        [SerializeField] private Bank _bankSO;
         //[SerializeField] private AchievementsManager _achievementsScriptableObject;
         [SerializeField] private TMP_Text _achievementsListText;
         [SerializeField] private Camera _cam;
         [SerializeField] private GameObject _startButton, _quitButton, _extrasButton, _normalDifficultyButton, _basicShipButton, _achievementsButton;
         [SerializeField] private Image _blackPanel;
         [SerializeField] private AchievementNotification _achievementsNotification;
-        [SerializeField] private GameObject _difficultyPanel, _upgradePanel, _extrasPanel, _achievementsPanel;
+        [SerializeField] private GameObject _difficultyPanel, _upgradePanel, _extrasPanel, _achievementsPanel, _scoreAttackToggle;
         [SerializeField] private RectTransform _background;
-        private GameObject _activePanel;
 
+        [SerializeField] private TMP_Text _currencyText;
+        [SerializeField] private DamageNumber cashNumberPosPrefab;
+        [SerializeField] private DamageNumber cashNumberNegPrefab;
+        [SerializeField] private RectTransform cashNumberRectParent;
+        private DamageNumber cashNumber;
+
+        private GameObject _activePanel;
         private PlayerInputActions playerInputActions;
 
         private void Awake()
@@ -36,11 +44,14 @@ namespace BlackHole
         private void OnEnable()
         {
             AchievementsManager.OnAchievementUnlocked += DisplayAchievement;
+            Bank.OnCashTransfer += UpdateCurrencyText;
         }
 
         private void OnDisable()
         {
             AchievementsManager.OnAchievementUnlocked -= DisplayAchievement;
+            Bank.OnCashTransfer -= UpdateCurrencyText;
+
             playerInputActions.Disable();
             playerInputActions.Player.EscapeAction.performed -= EscapeAction;
             playerInputActions.Player.Answer3.performed -= EscapeAction;
@@ -62,7 +73,10 @@ namespace BlackHole
 
             // Init some things
             _activePanel = _startButton;
-            UpgradeManager.Instance.InitializeUpgrades();  
+            UpgradeManager.Instance.InitializeUpgrades();
+
+            // Cash
+            _currencyText.text = "$" + _bankSO.AvailableCurrency.ToString();
         }
 
         private void Update()
@@ -85,6 +99,15 @@ namespace BlackHole
         {
             _difficultyPanel.SetActive(true);
             _activePanel = _difficultyPanel;
+            Debug.Log("unlocked: " + SettingsManager.ScoreAttackUnlocked);
+            if (SettingsManager.ScoreAttackUnlocked)
+            {
+                _scoreAttackToggle.SetActive(true);
+            }
+            else
+            {
+                _scoreAttackToggle.SetActive(false);
+            }
         }
 
         // Wrapper for button
@@ -188,6 +211,14 @@ namespace BlackHole
         {
             _achievementsNotification.EnqeueueAchievement(achievement);
             _achievementsNotification.StartAchievementsDisplay();
+        }
+
+        public void UpdateCurrencyText(int cash)
+        {
+            cashNumber = cash >= 0 ? cashNumberPosPrefab.Spawn(Vector3.zero, cash) : cashNumberNegPrefab.Spawn(Vector3.zero, -cash);
+            cashNumber.SetAnchoredPosition(cashNumberRectParent, new Vector2(0, 0));
+            _currencyText.text = "$" + _bankSO.AvailableCurrency.ToString();
+            SoundManager.Instance.PlaySFX(SoundManager.SFX.Kaching);
         }
     }
 }

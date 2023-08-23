@@ -19,7 +19,8 @@ namespace BlackHole
         public static float MagnetScale;
         public static int ItemSpawnBonus;
 
-        public static bool ScoreAttackEnabled = true;
+        public static bool ScoreAttackUnlocked = false;
+        public static bool ScoreAttackEnabled = false;
 
         // Upgrades
         public static bool TripleShotEnabled = false;
@@ -55,6 +56,7 @@ namespace BlackHole
             }
             else
             {
+                Debug.Log("destroyed redundant instance");
                 Destroy(gameObject);
                 return;
             }
@@ -125,6 +127,25 @@ namespace BlackHole
         public static void ToggleMobile(bool isMobile)
         {
             IsMobileGame = isMobile;
+        }
+
+        public static void UnlockScoreAttack()
+        {
+            ScoreAttackUnlocked = true;
+            ScoreAttackEnabled = true;
+        }
+
+        public static void ResetUnlocks()
+        {
+            ScoreAttackUnlocked = false;
+            ScoreAttackEnabled = false;
+        }
+
+        public void ToggleScoreAttack()
+        {
+            if (!ScoreAttackUnlocked) { return; }
+            Debug.Log("toggle " + ScoreAttackEnabled);
+            ScoreAttackEnabled = !ScoreAttackEnabled;
         }
     }
 }

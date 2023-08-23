@@ -9,6 +9,7 @@ namespace BlackHole
 
         [SerializeField] private GameParams _gameParams;
         [SerializeField] private GameObject _asteroidPrefab;
+        [SerializeField] private GameObject _crystalAsteroidPrefab;
 
         [SerializeField] private Camera _cam;
         private float _screenBoundsX;
@@ -41,7 +42,9 @@ namespace BlackHole
             if (_spawnTimer > _spawnPeriod)
             {
                 Vector2 spawnPos = new Vector2(0.6f * Random.Range(-_screenBoundsX, _screenBoundsX), transform.position.y);
-                GameObject asteroid = Instantiate(_asteroidPrefab, spawnPos, Quaternion.identity);
+                
+                GameObject asteroid = Instantiate(Random.Range(0f,1f) < _gameParams.CrystalProbability ? _crystalAsteroidPrefab : _asteroidPrefab, spawnPos, Quaternion.identity);
+
                 float randomAngle = Random.Range(0, 15f);
                 Vector2 direction = Vector2.up.Rotate(spawnPos.x > 0 ? -randomAngle : randomAngle);
                 float randomImpulse = Random.Range(0.5f, 1f);

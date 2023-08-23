@@ -38,9 +38,7 @@ namespace BlackHole
         public static event Action On100PercentVictory; // 100% correctly solved
         public static event Action OnFlawlessVictory;
 
-        [SerializeField] private GameObject _continuePanel;
-        private bool _isBinaryChoiceActive = false;
-        private bool _continueGame = false;
+        [SerializeField] private ContinuePanel _continuePanel;
 
         #region Unity Callbacks
         private void Awake()
@@ -53,11 +51,6 @@ namespace BlackHole
             playerInputActions = new PlayerInputActions();
             playerInputActions.Player.Enable();
             playerInputActions.Player.EscapeAction.performed += EscapeAction;
-        }
-
-        private void OnEnable()
-        {
-            Button.ContinueComplete += ExitContinue;
         }
 
         private void Start()
@@ -117,12 +110,6 @@ namespace BlackHole
                 Gizmos.DrawWireSphere(Vector3.zero, Ship.Instance.ShipPositionRadius - DistanceToEventHorizon + _gameParams.DangerZoneDistance);
             }
         }
-
-        private void OnDisable()
-        {
-            Button.ContinueComplete -= ExitContinue;
-        }
-
         private void OnDestroy()
         {
             playerInputActions.Player.EscapeAction.performed -= EscapeAction;
@@ -137,10 +124,10 @@ namespace BlackHole
 
             if (SettingsManager.ScoreAttackEnabled && victorious)
             {
-                AskContinue();
-                yield return new WaitWhile(() => _isBinaryChoiceActive);
-                Debug.Log("continue?" + _continueGame);
-                if (_continueGame) { yield break; }
+                _continuePanel.gameObject.SetActive(true);
+                _continuePanel.AskContinue();
+                yield return new WaitWhile(() => _continuePanel.IsBinaryChoiceActive);
+                if (_continuePanel.ContinueGame) { yield break; }
             }
 
             if (GameHasEnded) { yield break; }
@@ -185,6 +172,7 @@ namespace BlackHole
 
             SaveGame.SaveGameNow();
         }
+
         public void PauseGame()
         {
             if (!CanPause) { return; }
@@ -272,24 +260,6 @@ namespace BlackHole
             RaycastHit2D hit = Physics2D.Raycast(Ship.Instance.ShipPositionRadius * Vector2.up, -Vector2.up, 30, LayerMask.GetMask("BlackHole"));
             DistanceToEventHorizon = hit.distance;
             EventHorizonRadius = Ship.Instance.ShipPositionRadius - DistanceToEventHorizon;
-        }
-
-        private void AskContinue()
-        {
-            _isBinaryChoiceActive = true;
-            _continuePanel.SetActive(true);
-            Time.timeScale = 0;
-            CanPause = false;
-        }
-
-        private void ExitContinue(bool doContinue)
-        {
-            _isBinaryChoiceActive = false;
-            _continuePanel.SetActive(false);
-            Time.timeScale = 1;
-            CanPause = true;
-            _continueGame = doContinue;
-            if (doContinue) { Ship.Instance.ResetShipPosition(); }
         }
         #endregion
     }

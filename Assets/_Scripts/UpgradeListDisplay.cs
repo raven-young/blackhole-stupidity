@@ -11,7 +11,7 @@ namespace BlackHole
     public class UpgradeListDisplay : MonoBehaviour
     {
         public static UpgradeListDisplay Instance;
-
+        [SerializeField] private Bank _bankSO;
         [SerializeField] private GameObject _viewPortContent;
         private List<UpgradeManager.Upgrade> _allUpgrades;
         [SerializeField] private GameObject _upgradeButtonPrefab;
@@ -148,7 +148,7 @@ namespace BlackHole
 
         public IEnumerator AttemptEquipBuy(UpgradeManager.Upgrade u)
         {
-            if (Bank.Instance.AvailableCurrency < u.UnlockCost)
+            if (_bankSO.AvailableCurrency < u.UnlockCost)
             {
                 SoundManager.Instance.PlayButtonPress(failed: true);
                 yield break;

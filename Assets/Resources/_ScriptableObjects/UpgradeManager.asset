@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0baaf89f1ca04dc499f6078615a5269d, type: 3}
   m_Name: UpgradeManager
   m_EditorClassIdentifier: 
+  _bankSO: {fileID: 11400000, guid: 781864877ffdfee4d99abfd9b1598406, type: 2}
+  UnlockedUpgradesFraction: 0.2857143
   MagnetUpgrade:
     Name: Super Magnet
     Description: Magnet radius +100%
@@ -22,7 +24,7 @@ MonoBehaviour:
     Name: Quickshot
     Description: Firerate +25%
     UnlockCost: 1000
-    Unlocked: 1
+    Unlocked: 0
     Equipped: 0
   TripleshotUpgrade:
     Name: Triple Shot
@@ -52,5 +54,5 @@ MonoBehaviour:
     Name: Slow Beam
     Description: Math asteroid speed -25%
     UnlockCost: 1500
-    Unlocked: 1
+    Unlocked: 0
     Equipped: 0

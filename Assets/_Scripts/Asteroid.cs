@@ -9,7 +9,7 @@ namespace BlackHole
     public class Asteroid : MonoBehaviour
     {
 
-        [SerializeField] private GameParams _gameParams;
+        [SerializeField] protected GameParams _gameParams;
         [SerializeField] private Rigidbody2D _rb;
         [SerializeField] private GameObject _explosionEffect;
         [SerializeField] protected FlashColor flashEffect;
@@ -63,7 +63,7 @@ namespace BlackHole
             if (_currentHealth <= 0)
             {
                 Scoring.Instance.IncrementScore(_gameParams.ShotAsteroidScore);
-                Die();
+                Die(diedFromShip: true);
             }
         }
 
@@ -75,19 +75,19 @@ namespace BlackHole
                     ScreenShake.TriggerShake(_gameParams.ScreenShakeDuration);
                     collision.gameObject.GetComponent<Ship>().TakeDamage(_playerDamage);
                     OnAsteroidHit?.Invoke(AvatarReactions.ExpressionEvents.AsteroidHit);
-                    Die();
+                    Die(diedFromShip: true);
                     break;
                 case 10: // black hole
                          // increase BH
                     BlackHoleObject.Instance.GrowBlackHole(_gameParams.BlackHoleGrowthRate);
-                    Die();
+                    Die(diedFromShip: false);
                     break;
                 case 12: // shield
                     if (Shield.Instance.ShieldActive)
                     {
                         ScreenShake.TriggerShake(0.5f*_gameParams.ScreenShakeDuration);
                         Shield.Instance.DisableShield();
-                        Die();
+                        Die(diedFromShip: true);
                     }
                     break;
                 default:
@@ -96,7 +96,7 @@ namespace BlackHole
 
         }
 
-        private void Die()
+        protected virtual void Die(bool diedFromShip)
         {
             SoundManager.Instance.PlaySound(_explosionClip, 0.5f);
             GameObject effect = Instantiate(_explosionEffect, transform.position, Quaternion.identity);

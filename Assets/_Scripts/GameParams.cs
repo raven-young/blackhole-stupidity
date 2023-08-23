@@ -53,6 +53,9 @@ public class GameParams : ScriptableObject
     [Header("Items")]
     public int ScrapValue;
     public int FuelValue;
+    public int CrystalValue;
+    [Range(0f,1f), Tooltip("Probability of spawning crystal asteroid instead of regular one")]
+    public float CrystalProbability;
 
     [Header("Random Astroid Spawner")]
     public float SpawnPeriod = 3f;
