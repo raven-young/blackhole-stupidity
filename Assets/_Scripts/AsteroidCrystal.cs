@@ -9,11 +9,11 @@ namespace BlackHole
 
         [SerializeField] private GameObject _crystalPrefab;
 
-        protected override void Die(bool diedFromShip)
+        protected override void Die(bool diedFromShooting)
         {
-            base.Die(diedFromShip);
+            base.Die(diedFromShooting);
 
-            if (!diedFromShip) { return; }
+            if (!diedFromShooting) { return; }
 
             // Spawn crystals
             SpawnCrystals();

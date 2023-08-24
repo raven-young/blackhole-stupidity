@@ -63,7 +63,7 @@ namespace BlackHole
             if (_currentHealth <= 0)
             {
                 Scoring.Instance.IncrementScore(_gameParams.ShotAsteroidScore);
-                Die(diedFromShip: true);
+                Die(diedFromShooting: true);
             }
         }
 
@@ -75,19 +75,19 @@ namespace BlackHole
                     ScreenShake.TriggerShake(_gameParams.ScreenShakeDuration);
                     collision.gameObject.GetComponent<Ship>().TakeDamage(_playerDamage);
                     OnAsteroidHit?.Invoke(AvatarReactions.ExpressionEvents.AsteroidHit);
-                    Die(diedFromShip: true);
+                    Die(diedFromShooting: false);
                     break;
                 case 10: // black hole
                          // increase BH
                     BlackHoleObject.Instance.GrowBlackHole(_gameParams.BlackHoleGrowthRate);
-                    Die(diedFromShip: false);
+                    Die(diedFromShooting: false);
                     break;
                 case 12: // shield
                     if (Shield.Instance.ShieldActive)
                     {
                         ScreenShake.TriggerShake(0.5f*_gameParams.ScreenShakeDuration);
                         Shield.Instance.DisableShield();
-                        Die(diedFromShip: true);
+                        Die(diedFromShooting: false);
                     }
                     break;
                 default:
@@ -96,7 +96,7 @@ namespace BlackHole
 
         }
 
-        protected virtual void Die(bool diedFromShip)
+        protected virtual void Die(bool diedFromShooting)
         {
             SoundManager.Instance.PlaySound(_explosionClip, 0.5f);
             GameObject effect = Instantiate(_explosionEffect, transform.position, Quaternion.identity);

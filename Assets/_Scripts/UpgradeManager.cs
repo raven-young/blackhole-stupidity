@@ -60,6 +60,7 @@ namespace BlackHole
             public int UnlockCost;
             public bool Unlocked = false;
             public bool Equipped = false;
+            public int EquippedSlotNumber;
             public delegate void ActivateUpgrade(bool unequip);
             public ActivateUpgrade Activate;
         }
@@ -247,7 +248,7 @@ namespace BlackHole
             }
             UnlockedUpgradesFraction = 0f;
             _unlockedUpgradesCount = 0;
-            UpgradeSlot.ResetAllSlots();
+            UpgradeSlot.ResetAndLockAllSlots();
             UpgradeListDisplay.Instance.RefreshUpgradeList();
         }
     }

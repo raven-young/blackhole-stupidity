@@ -59,7 +59,7 @@ namespace BlackHole {
             _cost.text = "Not equipped";
         }
 
-        public void Equip(UpgradeManager.Upgrade newUpgrade, UpgradeSlot slot, GameObject newButton)
+        public void Equip(UpgradeManager.Upgrade newUpgrade, UpgradeSlot slot, GameObject newButton = null) // last param is redundant
         {
             // if this button is equipped in the active slot, but the new upgrade is not this upgrade, unslot this button
             if (EquippedSlot == slot && newUpgrade != Upgrade)

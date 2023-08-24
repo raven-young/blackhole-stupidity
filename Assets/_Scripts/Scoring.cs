@@ -25,6 +25,8 @@ namespace BlackHole
         public int ComboCount = 0;
         private bool _newHighscore = false;
         private TMP_Text _activeText;
+        private int _cashGained = 0;
+        public static int LoopCount { get; private set; } = 1;
 
         private void Awake()
         {
@@ -38,6 +40,20 @@ namespace BlackHole
         {
             _score += (int)(Mathf.Max(1, ComboCount) * amount * (Ship.Instance.IsOverdriveActive ? _gameParams.OverdriveScoreMultiplier : 1));
             _scoreTextGameplay.text = "Score: " + _score;
+            if (LoopCount > 1)
+            {
+                _scoreTextGameplay.text += "\nLoop: " + LoopCount;
+            }
+        }
+
+        public void IncrementCashGained(int cash)
+        {
+            _cashGained += cash;
+        }
+
+        public static void IncrementLoopCount()
+        {
+            LoopCount++;
         }
 
         public void CalculateFinalScore(bool victorious)
@@ -69,6 +85,7 @@ namespace BlackHole
 
             _finalAccuracy = "\nSolved: " + Math.Round(100f * QuestionAsteroid.Instance.GetAccuracy()) + "%";
             _activeText.text = _newHighscore ? "New Highscore: " + _score + _finalAccuracy : "Score: " + _score + _finalAccuracy;
+            _activeText.text += "\nLoot: $" + _cashGained;
 
             StartCoroutine(UpdateScore());
             StartCoroutine(SpawnScoreMultipliers());
@@ -89,6 +106,7 @@ namespace BlackHole
                 {
                     _score += delta;
                     _activeText.text = _newHighscore ? "New Highscore: " + _score + _finalAccuracy : "Score: " + _score + _finalAccuracy;
+                    _activeText.text += "\nLoot: $" + _cashGained;
                     yield return new WaitForSecondsRealtime(updateFreq);
                 }
             }
@@ -99,11 +117,13 @@ namespace BlackHole
                 {
                     _score += delta;
                     _activeText.text = _newHighscore ? "New Highscore: " + _score + _finalAccuracy : "Score: " + _score + _finalAccuracy;
+                    _activeText.text += "\nLoot: $" + _cashGained;
                     yield return new WaitForSecondsRealtime(updateFreq);
                 }
             }
             _score = _finalScore;
             _activeText.text = _newHighscore ? "New Highscore: " + _score + _finalAccuracy : "Score: " + _score + _finalAccuracy;
+            _activeText.text += "\nLoot: $" + _cashGained;
         }
 
         private IEnumerator SpawnScoreMultipliers()

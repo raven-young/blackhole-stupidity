@@ -1,27 +1,84 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
-namespace BlackHole {
-    public class UpgradeSlotManager : MonoBehaviour
+namespace BlackHole
+{
+    [CreateAssetMenu(fileName = "UpgradeSlotManager", menuName = "ScriptableObject/UpgradeSlotManager")]
+    public class UpgradeSlotManager : ScriptableObject
     {
-        public static UpgradeSlotManager Instance;
-        [SerializeField] private List<UpgradeSlot> _upgradeslots = new();
+        // The Singleton instance
+        private static UpgradeSlotManager instance;
 
-        private void Awake()
+        // Property to access the Singleton instance
+        public static UpgradeSlotManager Instance
         {
-            if (Instance != null && Instance != this)
-                Destroy(gameObject);
-            else
-                Instance = this;
-        }
-
-        public void MakeSlotsInteractable(bool interactable)
-        {
-            foreach (UpgradeSlot s in _upgradeslots)
+            get
             {
-                s.gameObject.GetComponent<UnityEngine.UI.Button>().interactable = interactable;
+                if (instance == null)
+                {
+                    if (!ES3.KeyExists("UpgradeSlotManager"))
+                    {
+
+                        instance = Resources.Load<UpgradeSlotManager>("_ScriptableObjects/UpgradeSlotManager");
+
+                        // If the asset doesn't exist in Resources, create a new instance
+                        if (instance == null)
+                        {
+                            instance = CreateInstance<UpgradeSlotManager>();
+                        }
+                        ES3.Save("UpgradeSlotManager", instance);
+                        Debug.Log("Saved non-existent UpgradeSlotManager key: " + instance);
+                    }
+                    else
+                    {
+                        instance = ES3.Load<UpgradeSlotManager>("UpgradeSlotManager");
+                        Debug.Log("Loaded UpgradeSlotManager asset: " + instance);
+                    }
+                }
+
+                return instance;
             }
         }
+
+        [Serializable]
+        public class UpgradeSlotState
+        {
+            public UpgradeSlotState(bool unlocked)
+            {
+                Unlocked = unlocked;
+            }
+            public bool Unlocked;
+
+        }
+
+        private Dictionary<int, UpgradeSlotState> _upgradeSlotStates;
+
+        private void OnEnable()
+        {
+            if (_upgradeSlotStates == null)
+            {
+                _upgradeSlotStates = new();
+            }
+        }
+
+        public void SaveSlotState(UpgradeSlot slot)
+        {
+            UpgradeSlotState state = _upgradeSlotStates[slot.SlotNumber];
+            state.Unlocked = slot.Unlocked;
+        }
+
+        public UpgradeSlotState LoadSlotState(UpgradeSlot slot)
+        {
+            if (!_upgradeSlotStates.ContainsKey(slot.SlotNumber))
+            {
+                Debug.Log("Adding slot " + slot.SlotNumber + " to upgrade slot dict");
+                _upgradeSlotStates[slot.SlotNumber] = new UpgradeSlotState(slot.Unlocked);
+                return _upgradeSlotStates[slot.SlotNumber];
+            }
+            return _upgradeSlotStates[slot.SlotNumber];
+        }
+
     }
 }

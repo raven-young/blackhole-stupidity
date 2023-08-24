@@ -317,6 +317,7 @@ namespace BlackHole
                         break;
                 }
 
+                answerHighlight.gameObject.SetActive(true);
                 if (chosenAnswer == _correctAnswer)
                 {
                     answerHighlight.color = Color.green;

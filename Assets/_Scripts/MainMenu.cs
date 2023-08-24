@@ -122,6 +122,7 @@ namespace BlackHole
         public void SetShipAndStart(int selectedShip)
         {
             SettingsManager.Instance.SelectedShipType = (SettingsManager.ShipType)selectedShip;
+            UpgradeSlot.SaveAllSlotStates();
             StartCoroutine(StartGameRoutine());
         }
 

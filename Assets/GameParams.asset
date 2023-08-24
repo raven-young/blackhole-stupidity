@@ -35,8 +35,8 @@ MonoBehaviour:
   AsteroidHealth: 5
   ScrapValue: 2
   FuelValue: 4
-  CrystalValue: 50
-  CrystalProbability: 0.057
+  CrystalValue: 30
+  CrystalProbability: 0.1
   SpawnPeriod: 1.2
   RandomAsteroidImpulse: 10
   SpawnAcceleration: 0.9967

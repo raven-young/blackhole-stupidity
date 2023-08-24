@@ -10,10 +10,11 @@ namespace BlackHole
 {
     public class UpgradeSlot : MonoBehaviour
     {
+        public static UpgradeSlotManager _upgradeSlotManagerSO;
         public UpgradeManager.Upgrade ActiveUpgrade;
         public GameObject ActiveUpgradeButton;
 
-        private static List<UpgradeSlot> _upgradeSlots;
+        public static Dictionary<int, UpgradeSlot> UpgradeSlots;
 
         [SerializeField] private Bank _bankSO;
         [SerializeField] private GameObject _buyPanel;
@@ -21,23 +22,49 @@ namespace BlackHole
         [SerializeField] private int _unlockCost;
         public bool Unlocked;
         private bool _isBuying = false;
+        public int SlotNumber;
 
         private void Awake()
         {
             _slotText = transform.Find("Text (TMP)").GetComponent<TMP_Text>();
 
-            if (_upgradeSlots == null)
+            if (UpgradeSlots == null)
             {
-                _upgradeSlots = new();
+                UpgradeSlots = new();
             }
+
+            if (_upgradeSlotManagerSO == null)
+            {
+                _upgradeSlotManagerSO = Resources.Load<UpgradeSlotManager>("_ScriptableObjects/UpgradeSlotManager");
+            }
+        }
+
+        private void LoadSlotStateWrapper() // i wanna cri
+        {
+            UpgradeSlotManager.UpgradeSlotState dummy = _upgradeSlotManagerSO.LoadSlotState(this);
+            Debug.Log("unlocked? " + Unlocked);
+            Unlocked = dummy.Unlocked;
         }
 
         // Start is called before the first frame update
         void Start()
         {
+            LoadSlotStateWrapper();
+
+            if (Unlocked)
+            {
+                UnlockSlot(); // change the appearance of slot to unlocked slot
+            }
+            Debug.Log("Loaded " + "UpgradeSlot" + SlotNumber + " " + ActiveUpgrade + " " + ActiveUpgradeButton);
+
             if (ActiveUpgrade == null || ActiveUpgrade.Name == "")
             {
                 ResetSlot();
+            }
+            else
+            {
+                _slotText.text = ActiveUpgrade.Name;
+                ActiveUpgradeButton.GetComponent<UpgradeButton>().Equip(ActiveUpgrade, this);
             }
 
             transform.Find("CostText").GetComponent<TMP_Text>().text = "$" + _unlockCost;
@@ -48,7 +75,7 @@ namespace BlackHole
             UpgradeListDisplay.OnUpgradeEquipped += Equip;
             UpgradeListDisplay.OnUpgradeUnequipped += Unequip;
             Button.BuyComplete += FinishBuy;
-            _upgradeSlots.Add(this);
+            UpgradeSlots[SlotNumber] = this;
         }
 
         private void OnDisable()
@@ -56,7 +83,6 @@ namespace BlackHole
             UpgradeListDisplay.OnUpgradeEquipped -= Equip;
             UpgradeListDisplay.OnUpgradeUnequipped -= Unequip;
             Button.BuyComplete -= FinishBuy;
-            _upgradeSlots.Remove(this);
         }
 
         public void Equip(UpgradeManager.Upgrade u, UpgradeSlot s, GameObject button)
@@ -82,14 +108,22 @@ namespace BlackHole
             ActiveUpgradeButton = null;
         }
 
-        public static void ResetAllSlots()
+        public static void ResetAndLockAllSlots()
         {
-            foreach (UpgradeSlot slot in _upgradeSlots)
+            foreach (UpgradeSlot slot in UpgradeSlots.Values)
             {
                 slot._slotText.text = "Upgrade";
                 slot.ActiveUpgrade = null;
                 slot.ActiveUpgradeButton = null;
                 LockSlot(slot);
+            }
+        }
+
+        public static void SaveAllSlotStates()
+        {
+            foreach (UpgradeSlot slot in UpgradeSlots.Values)
+            {
+                _upgradeSlotManagerSO.SaveSlotState(slot);
             }
         }
 
@@ -138,6 +172,7 @@ namespace BlackHole
             GetComponent<Image>().DOFade(1f, 0); // using DOTween instead
             transform.Find("Text (TMP)").GetComponent<TMP_Text>().DOFade(1f, 0);
             transform.Find("CostText").gameObject.SetActive(false);
+            _upgradeSlotManagerSO.SaveSlotState(this);
         }
 
         private static void LockSlot(UpgradeSlot slot)
@@ -146,6 +181,7 @@ namespace BlackHole
             slot.GetComponent<Image>().DOFade(0.5f, 0);
             slot.transform.Find("Text (TMP)").GetComponent<TMP_Text>().DOFade(0.5f, 0);
             slot.transform.Find("CostText").gameObject.SetActive(true);
+            _upgradeSlotManagerSO.SaveSlotState(slot);
         }
     }
 }

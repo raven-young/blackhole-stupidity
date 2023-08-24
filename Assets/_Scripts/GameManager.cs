@@ -127,7 +127,10 @@ namespace BlackHole
                 _continuePanel.gameObject.SetActive(true);
                 _continuePanel.AskContinue();
                 yield return new WaitWhile(() => _continuePanel.IsBinaryChoiceActive);
-                if (_continuePanel.ContinueGame) { yield break; }
+                if (_continuePanel.ContinueGame) {
+                    Scoring.IncrementLoopCount();
+                    yield break; 
+                }
             }
 
             if (GameHasEnded) { yield break; }

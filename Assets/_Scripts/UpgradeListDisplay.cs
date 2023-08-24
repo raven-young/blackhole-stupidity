@@ -55,20 +55,18 @@ namespace BlackHole
             _allUpgrades = UpgradeManager.Instance.GetAllUpgrades();
 
             SettingsManager.Instance.ResetGameParams();
-            Debug.Log("unequipping all upgrades and resetting to base game params");
+
             foreach (UpgradeManager.Upgrade u in _allUpgrades)
             {
                 GameObject button = Instantiate(_upgradeButtonPrefab, _viewPortContent.transform);
-
+                button.GetComponent<UpgradeButton>().Initialize(u);
                 if (u.Equipped)
                 {
-                    UpgradeManager.Instance.UnequipUpgrade(u);
+                    OnUpgradeEquipped?.Invoke(u, UpgradeSlot.UpgradeSlots[u.EquippedSlotNumber], button);
                 }
-                u.Equipped = false;
-                button.GetComponent<UpgradeButton>().Initialize(u);
                 _upgradeButtons.Add(button.GetComponent<UpgradeButton>());
             }
-            SettingsManager.Instance.ResetGameParams();
+
             _upgradeCounterText.text = "Unlocked: " + Math.Round(100f * UpgradeManager.Instance.UnlockedUpgradesFraction) + "%";
         }
 
@@ -119,7 +117,7 @@ namespace BlackHole
 
             if (!u.Unlocked) {
                 StartCoroutine(AttemptEquipBuy(u));
-                if (!u.Unlocked) { return; } 
+                if (!u.Unlocked) { Debug.Log("returning");return; } 
             }
 
             if (!_selectedUpgradeSlot.Unlocked) { return; }
@@ -140,6 +138,7 @@ namespace BlackHole
             else
             {
                 UpgradeManager.Instance.EquipUpgrade(u);
+                u.EquippedSlotNumber = _selectedUpgradeSlot.SlotNumber;
                 OnUpgradeEquipped?.Invoke(u, _selectedUpgradeSlot, button);
                 //_selectedUpgradeSlot.EquipSlot(u, button);
                 EventSystem.current.SetSelectedGameObject(_selectedUpgradeSlot.gameObject, new BaseEventData(EventSystem.current));

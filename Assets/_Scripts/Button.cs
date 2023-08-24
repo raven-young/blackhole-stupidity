@@ -27,7 +27,7 @@ public class Button : MonoBehaviour
 
     public void PlaySelected()
     {
-        _audioSource.PlayOneShot(_selectedClip);
+        //_audioSource.PlayOneShot(_selectedClip);
     }
 
     public void IncreaseScale()

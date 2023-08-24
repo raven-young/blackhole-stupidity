@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 260034695165870800}
   - component: {fileID: 4242394023723850243}
   - component: {fileID: 6204608308695653361}
-  - component: {fileID: 5280368019031323800}
   - component: {fileID: 6374350012055215569}
+  - component: {fileID: 6892117645337851606}
   m_Layer: 7
   m_Name: CrystalPickup
   m_TagString: Untagged
@@ -30,7 +30,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 4.6243796, y: 20.890505, z: -0.124331355}
-  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
@@ -114,8 +114,25 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!70 &5280368019031323800
-CapsuleCollider2D:
+--- !u!114 &6374350012055215569
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2630137599359193109}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 794b23aa3435d1e4aac43967dd460573, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _gameParams: {fileID: 11400000, guid: dd8a65e487f3ad244b57dea38948a9e4, type: 2}
+  _rb: {fileID: 4242394023723850243}
+  _pickupClip: {fileID: 8300000, guid: 81507b00c60ce65469050492969e63b2, type: 3}
+  _bankSO: {fileID: 11400000, guid: 781864877ffdfee4d99abfd9b1598406, type: 2}
+  _cashNumberPosPrefab: {fileID: 8800034077884002147, guid: 516e189338d996240924f2c2f2cc7cc5, type: 3}
+--- !u!58 &6892117645337851606
+CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -147,21 +164,5 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_Size: {x: 3, y: 5}
-  m_Direction: 0
---- !u!114 &6374350012055215569
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2630137599359193109}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 794b23aa3435d1e4aac43967dd460573, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _gameParams: {fileID: 11400000, guid: dd8a65e487f3ad244b57dea38948a9e4, type: 2}
-  _rb: {fileID: 4242394023723850243}
-  _pickupClip: {fileID: 8300000, guid: 81507b00c60ce65469050492969e63b2, type: 3}
-  _bankSO: {fileID: 11400000, guid: 781864877ffdfee4d99abfd9b1598406, type: 2}
+  serializedVersion: 2
+  m_Radius: 0.27
