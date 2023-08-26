@@ -25,7 +25,7 @@ namespace BlackHole
         private bool _isBuying = false;
         private UpgradeManager.Upgrade _buyCandidate;
 
-        private List<UpgradeButton> _upgradeButtons = new();
+        private static List<UpgradeButton> _upgradeButtons = new();
 
         private void Awake()
         {
@@ -37,6 +37,8 @@ namespace BlackHole
             {
                 Instance = this;
             }
+
+            _upgradeButtons = new();
         }
 
         private void OnEnable()
@@ -68,6 +70,20 @@ namespace BlackHole
             }
 
             _upgradeCounterText.text = "Unlocked: " + Math.Round(100f * UpgradeManager.Instance.UnlockedUpgradesFraction) + "%";
+
+            UpgradeSlot.Init();
+        }
+
+
+        public static GameObject GetUpgradeButtonFromName(string name)
+        {
+            foreach (UpgradeButton b in _upgradeButtons)
+            {
+                if (b.Upgrade.Name == name) { return b.gameObject; }
+            }
+
+            Debug.LogWarning($"Button with name {name} not found");
+            return null;
         }
 
         public void RefreshUpgradeList()

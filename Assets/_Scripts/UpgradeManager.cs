@@ -205,6 +205,13 @@ namespace BlackHole
             {
                 return;
             }
+
+            if (u.Equipped)
+            {
+                Debug.LogWarning("Trying to equip upgrade that is already equipped!");
+                return;
+            }
+
             EquippedUpgrades.Add(u);
             u.Equipped = true;
             u.Activate(true);
@@ -216,6 +223,13 @@ namespace BlackHole
             {
                 return;
             }
+
+            if (!u.Equipped)
+            {
+                Debug.LogWarning("Trying to unequip upgrade that is not equipped!");
+                return;
+            }
+
             EquippedUpgrades.Remove(u);
             u.Equipped = false;
             u.Activate(false);

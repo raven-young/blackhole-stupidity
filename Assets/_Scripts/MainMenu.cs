@@ -152,6 +152,7 @@ namespace BlackHole
         }
         public void Quit()
         {
+            UpgradeSlot.SaveAllSlotStates();
             Application.Quit();
         }
 

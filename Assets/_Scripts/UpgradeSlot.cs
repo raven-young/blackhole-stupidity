@@ -12,7 +12,7 @@ namespace BlackHole
     {
         public static UpgradeSlotManager _upgradeSlotManagerSO;
         public UpgradeManager.Upgrade ActiveUpgrade;
-        public GameObject ActiveUpgradeButton;
+        public GameObject ActiveUpgradeButton; // redundant, should write method to get button from upgrade
 
         public static Dictionary<int, UpgradeSlot> UpgradeSlots;
 
@@ -42,32 +42,45 @@ namespace BlackHole
         private void LoadSlotStateWrapper() // i wanna cri
         {
             UpgradeSlotManager.UpgradeSlotState dummy = _upgradeSlotManagerSO.LoadSlotState(this);
-            Debug.Log("unlocked? " + Unlocked);
+            Debug.Log("slot loaded, unlocked? " + Unlocked + " button: " + dummy.ActiveUpgradeButtonName);
             Unlocked = dummy.Unlocked;
-        }
-
-        // Start is called before the first frame update
-        void Start()
-        {
-            LoadSlotStateWrapper();
-
-            if (Unlocked)
+            if (dummy.ActiveUpgradeButtonName != null && dummy.ActiveUpgradeButtonName != "")
             {
-                UnlockSlot(); // change the appearance of slot to unlocked slot
-            }
-            Debug.Log("Loaded " + "UpgradeSlot" + SlotNumber + " " + ActiveUpgrade + " " + ActiveUpgradeButton);
-
-            if (ActiveUpgrade == null || ActiveUpgrade.Name == "")
-            {
-                ResetSlot();
-            }
+                ActiveUpgradeButton = UpgradeListDisplay.GetUpgradeButtonFromName(dummy.ActiveUpgradeButtonName);
+                ActiveUpgrade = ActiveUpgradeButton.GetComponent<UpgradeButton>().Upgrade;
+            } 
             else
             {
-                _slotText.text = ActiveUpgrade.Name;
-                ActiveUpgradeButton.GetComponent<UpgradeButton>().Equip(ActiveUpgrade, this);
+                ActiveUpgradeButton = null;
+                ActiveUpgrade = null;
             }
+        }
 
-            transform.Find("CostText").GetComponent<TMP_Text>().text = "$" + _unlockCost;
+        public static void Init()
+        {
+            foreach (UpgradeSlot slot in UpgradeSlots.Values)
+            {
+                slot.LoadSlotStateWrapper();
+
+                if (slot.Unlocked)
+                {
+                    slot.UnlockSlot(); // change the appearance of slot to unlocked slot
+                }
+                Debug.Log("Loaded " + "UpgradeSlot" + slot.SlotNumber + " " + slot.ActiveUpgrade + " " + slot.ActiveUpgradeButton);
+
+                if (slot.ActiveUpgrade == null || slot.ActiveUpgrade.Name == "")
+                {
+                    slot.ResetSlot();
+                }
+                else
+                {
+                    slot._slotText.text = slot.ActiveUpgrade.Name;
+                    slot.ActiveUpgradeButton.GetComponent<UpgradeButton>().EquippedSlot = slot;
+                    slot.ActiveUpgradeButton.GetComponent<UpgradeButton>().Equip(slot.ActiveUpgrade, slot);
+                }
+
+                slot.transform.Find("CostText").GetComponent<TMP_Text>().text = "$" + slot._unlockCost;
+            }
         }
 
         private void OnEnable()

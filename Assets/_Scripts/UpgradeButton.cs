@@ -13,7 +13,7 @@ namespace BlackHole {
         public UpgradeSlot EquippedSlot;
         private Color _unlockedColor;
         private Image _image;
-        private TMP_Text _name;
+        private TMP_Text _upgradeName;
         private TMP_Text _description;
         private TMP_Text _cost;
 
@@ -21,7 +21,7 @@ namespace BlackHole {
         {
             ColorUtility.TryParseHtmlString("#0D086F", out _unlockedColor);
             _image = gameObject.GetComponent<Image>();
-            _name = gameObject.transform.Find("Name").GetComponent<TMP_Text>();
+            _upgradeName = gameObject.transform.Find("Name").GetComponent<TMP_Text>();
             _description = gameObject.transform.Find("Description").GetComponent<TMP_Text>();
             _cost = gameObject.transform.Find("Cost").GetComponent<TMP_Text>();
         }
@@ -40,12 +40,11 @@ namespace BlackHole {
             UpgradeListDisplay.OnUpgradeBought -= OnUpgradeBoughtResult;
         }
 
-
         public void Initialize(UpgradeManager.Upgrade u)
         {
             Upgrade = u;
             Equipped = u.Equipped;
-            _name.text = u.Name;
+            _upgradeName.text = u.Name;
             _description.text = u.Description;
             //_cost.text = u.Unlocked ? "Unlocked!" : "$" + u.UnlockCost.ToString();
             _cost.text = u.Equipped ? "Equipped" : u.Unlocked ? "Not equipped" : "$" + u.UnlockCost.ToString();
@@ -61,9 +60,16 @@ namespace BlackHole {
 
         public void Equip(UpgradeManager.Upgrade newUpgrade, UpgradeSlot slot, GameObject newButton = null) // last param is redundant
         {
+            if (EquippedSlot != null)
+            {
+                if (Upgrade.Name == "Shield ") Debug.Log("old Shield:" + Equipped + " " + EquippedSlot.SlotNumber + " " + slot.SlotNumber + " " + Upgrade.Name + " " + newUpgrade.Name);
+                if (newUpgrade.Name == "Shield") Debug.Log("new Shield:" + Equipped + " " + EquippedSlot.SlotNumber + " " + slot.SlotNumber + " " + Upgrade.Name + " " + newUpgrade.Name);
+            }
+
             // if this button is equipped in the active slot, but the new upgrade is not this upgrade, unslot this button
             if (EquippedSlot == slot && newUpgrade != Upgrade)
             {
+                Debug.Log("unequpping now");
                 Equipped = false;
                 EquippedSlot = null;
                 _image.color = newUpgrade.Unlocked ? _unlockedColor : Color.grey;

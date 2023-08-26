@@ -2,11 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using Sirenix.OdinInspector;
 
 namespace BlackHole
 {
     [CreateAssetMenu(fileName = "UpgradeSlotManager", menuName = "ScriptableObject/UpgradeSlotManager")]
-    public class UpgradeSlotManager : ScriptableObject
+    public class UpgradeSlotManager : SerializedScriptableObject
     {
         // The Singleton instance
         private static UpgradeSlotManager instance;
@@ -45,15 +46,16 @@ namespace BlackHole
         [Serializable]
         public class UpgradeSlotState
         {
-            public UpgradeSlotState(bool unlocked)
+            public UpgradeSlotState(bool unlocked, string activeUpgradeButtonName)
             {
                 Unlocked = unlocked;
+                ActiveUpgradeButtonName = activeUpgradeButtonName;
             }
             public bool Unlocked;
-
+            public string ActiveUpgradeButtonName;
         }
 
-        private Dictionary<int, UpgradeSlotState> _upgradeSlotStates;
+        [SerializeField] private Dictionary<int, UpgradeSlotState> _upgradeSlotStates;
 
         private void OnEnable()
         {
@@ -66,7 +68,12 @@ namespace BlackHole
         public void SaveSlotState(UpgradeSlot slot)
         {
             UpgradeSlotState state = _upgradeSlotStates[slot.SlotNumber];
+
             state.Unlocked = slot.Unlocked;
+            state.ActiveUpgradeButtonName = slot.ActiveUpgradeButton != null ? slot.ActiveUpgradeButton.GetComponent<UpgradeButton>().Upgrade.Name : null;
+
+            if (_upgradeSlotStates[slot.SlotNumber].ActiveUpgradeButtonName != null)
+                Debug.Log("saved slot state:" + state.Unlocked + " " + state.ActiveUpgradeButtonName + " " + _upgradeSlotStates[slot.SlotNumber].ActiveUpgradeButtonName);
         }
 
         public UpgradeSlotState LoadSlotState(UpgradeSlot slot)
@@ -74,7 +81,7 @@ namespace BlackHole
             if (!_upgradeSlotStates.ContainsKey(slot.SlotNumber))
             {
                 Debug.Log("Adding slot " + slot.SlotNumber + " to upgrade slot dict");
-                _upgradeSlotStates[slot.SlotNumber] = new UpgradeSlotState(slot.Unlocked);
+                _upgradeSlotStates[slot.SlotNumber] = new UpgradeSlotState(slot.Unlocked, slot.ActiveUpgradeButton.GetComponent<UpgradeButton>().Upgrade.Name);
                 return _upgradeSlotStates[slot.SlotNumber];
             }
             return _upgradeSlotStates[slot.SlotNumber];

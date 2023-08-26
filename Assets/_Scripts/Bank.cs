@@ -9,7 +9,8 @@ namespace BlackHole {
     public class Bank : ScriptableObject
     {
 
-        public int AvailableCurrency = 0;
+        public int AvailableCurrency { get; private set; } = 0;
+
         public static event Action<int> OnCashTransfer;
 
         public void CashTransfer(int cash)
@@ -21,12 +22,13 @@ namespace BlackHole {
             }
 
             AvailableCurrency += cash;
+            AvailableCurrency = Mathf.Clamp(AvailableCurrency, 0, 99999);
             OnCashTransfer?.Invoke(cash);
         }
 
         public void FileForBankcruptcy()
         {
-            // Use this rather than setting directly to 0 in order to send event
+            // Use this rather than setting directly to 0 in order to invoke event
             CashTransfer(-AvailableCurrency);
         }
     }
