@@ -46,6 +46,10 @@ namespace BlackHole
         [Serializable]
         public class UpgradeSlotState
         {
+            public UpgradeSlotState()
+            {
+
+            }
             public UpgradeSlotState(bool unlocked, string activeUpgradeButtonName)
             {
                 Unlocked = unlocked;
@@ -67,6 +71,11 @@ namespace BlackHole
 
         public void SaveSlotState(UpgradeSlot slot)
         {
+            if (!_upgradeSlotStates.ContainsKey(slot.SlotNumber))
+            {
+                _upgradeSlotStates[slot.SlotNumber] = new UpgradeSlotState();
+            }
+
             UpgradeSlotState state = _upgradeSlotStates[slot.SlotNumber];
 
             state.Unlocked = slot.Unlocked;
@@ -81,7 +90,7 @@ namespace BlackHole
             if (!_upgradeSlotStates.ContainsKey(slot.SlotNumber))
             {
                 Debug.Log("Adding slot " + slot.SlotNumber + " to upgrade slot dict");
-                _upgradeSlotStates[slot.SlotNumber] = new UpgradeSlotState(slot.Unlocked, slot.ActiveUpgradeButton.GetComponent<UpgradeButton>().Upgrade.Name);
+                _upgradeSlotStates[slot.SlotNumber] = slot.ActiveUpgradeButton == null  ? new UpgradeSlotState() : new UpgradeSlotState(slot.Unlocked, slot.ActiveUpgradeButton.GetComponent<UpgradeButton>().Upgrade.Name);
                 return _upgradeSlotStates[slot.SlotNumber];
             }
             return _upgradeSlotStates[slot.SlotNumber];

@@ -20,7 +20,8 @@ namespace BlackHole
             {
                 if (instance == null)
                 {
-                    if (!ES3.KeyExists("AchievementsManager"))
+                    Debug.Log("null upgrade manaer, get new");
+                    if (!ES3.KeyExists("UpgradeManager"))
                     {
 
                         instance = Resources.Load<UpgradeManager>("_ScriptableObjects/UpgradeManager");
@@ -30,7 +31,7 @@ namespace BlackHole
                         {
                             instance = CreateInstance<UpgradeManager>();
                         }
-                        ES3.Save("AchievementsManager", instance);
+                        ES3.Save("UpgradeManager", instance);
                         Debug.Log("Saved non-existent UpgradeManager key: " + instance);
                     }
                     else
@@ -90,6 +91,7 @@ namespace BlackHole
         private static void ActivateMagnetUpgrade(bool activate = true)
         {
             Debug.Log("pre magnet scale " + SettingsManager.MagnetScale);
+            if (SettingsManager.MagnetScale < 10) Debug.LogWarning("fix this finally ffs");
             if (activate)
             {
                 SettingsManager.MagnetScale *= 2f;
@@ -242,6 +244,7 @@ namespace BlackHole
         }
         public void InitializeUpgrades()
         {
+            Debug.Log("init upgrade maanger");
             _unlockedUpgradesCount = 0;
             AllUpgrades = new(this.GetNestedFieldValuesOfType<Upgrade>());
             foreach (Upgrade u in AllUpgrades) { if (u.Unlocked) _unlockedUpgradesCount++; }

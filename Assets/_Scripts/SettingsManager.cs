@@ -3,9 +3,44 @@ using UnityEngine.SceneManagement;
 
 namespace BlackHole
 {
-    public class SettingsManager : MonoBehaviour
+    [CreateAssetMenu(fileName = "SettingsManager", menuName = "ScriptableObject/SettingsManager")]
+    public class SettingsManager : ScriptableObject
     {
-        public static SettingsManager Instance;
+        // The Singleton instance
+        private static SettingsManager instance;
+
+        // Property to access the Singleton instance
+        public static SettingsManager Instance
+        {
+            get
+            {
+                if (instance == null)
+                {
+                    if (!ES3.KeyExists("SettingsManager"))
+                    {
+
+                        instance = Resources.Load<SettingsManager>("_ScriptableObjects/SettingsManager");
+
+                        // If the asset doesn't exist in Resources, create a new instance
+                        if (instance == null)
+                        {
+                            Debug.LogWarning("Creating fresh SettingsManager");
+                            instance = CreateInstance<SettingsManager>();
+                        }
+                        ES3.Save("SettingsManager", instance);
+                        Debug.Log("Saved non-existent SettingsManager key: " + instance);
+                    }
+                    else
+                    {
+                        instance = ES3.Load<SettingsManager>("SettingsManager");
+                        Debug.Log("Loaded SettingsManager asset: " + instance);
+                    }
+                }
+
+                return instance;
+            }
+        }
+
         [SerializeField] private GameParams _gameParams;
         public DifficultySetting SelectedDifficulty;
         public ShipType SelectedShipType;
@@ -49,25 +84,20 @@ namespace BlackHole
 
         private void Awake()
         {
-            if (Instance == null)
+            if (instance == null)
             {
-                Instance = this;
-                DontDestroyOnLoad(gameObject);
+                instance = this;
             }
-            else
+            else if (instance != this)
             {
-                Debug.Log("destroyed redundant instance");
-                Destroy(gameObject);
-                return;
+                Debug.Log("Redundant SettingsManager instance");
+                Destroy(this);
             }
 
             ToggleMobile(Application.platform == RuntimePlatform.Android || Application.platform == RuntimePlatform.IPhonePlayer);
 
             ResetGameParams();
-        }
 
-        private void Start()
-        {
             // Needed when directly starting game in edit mode (in real scenario, set by player in main menu)
             if (SceneManager.GetActiveScene().name == "BlackHole")
             {
@@ -79,6 +109,7 @@ namespace BlackHole
 
         public void ResetGameParams()
         {
+            Debug.Log("firerate "+_gameParams.FirePeriod);
             BulletDamage = _gameParams.BulletDamage;
             BurnRate = _gameParams.FuelBurnRate;
             FirePeriod = _gameParams.FirePeriod;
@@ -141,11 +172,10 @@ namespace BlackHole
             ScoreAttackEnabled = false;
         }
 
-        public void ToggleScoreAttack()
+        public void ToggleScoreAttack(bool toggle)
         {
             if (!ScoreAttackUnlocked) { return; }
-            Debug.Log("toggle " + ScoreAttackEnabled);
-            ScoreAttackEnabled = !ScoreAttackEnabled;
+            ScoreAttackEnabled = toggle;
         }
     }
 }
