@@ -59,6 +59,8 @@ namespace BlackHole
 
         private void Start()
         {
+            SaveGame.LoadGameNow();
+
             Time.timeScale = 1f;
             SoundManager.Instance.StartMainMenuMusic();
             _gameParams.ScreenBounds = _cam.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, _cam.transform.position.z));
@@ -152,7 +154,10 @@ namespace BlackHole
         }
         public void Quit()
         {
-            UpgradeSlot.SaveAllSlotStates();
+            if (UpgradeSlot.UpgradeSlots != null)
+            {
+                UpgradeSlot.SaveAllSlotStates();
+            }
             Application.Quit();
         }
 

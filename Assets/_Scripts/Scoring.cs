@@ -23,7 +23,7 @@ namespace BlackHole
         private int _score = 0;
         private int _finalScore = 0;
         private string _finalAccuracy = "";
-        public static int ComboCount { get; set; } = 0;
+        public int ComboCount { get; set; } = 0;
         private bool _newHighscore = false;
         private TMP_Text _activeText;
         private int _cashGained = 0;
@@ -59,9 +59,10 @@ namespace BlackHole
             _cashGained += cash;
         }
 
-        public static void IncrementLoopCount()
+        public void IncrementLoopCount()
         {
             LoopCount++;
+            _scoreTextGameplay.text = "Score: " + _score + "\nLoop: " + LoopCount;
         }
 
         public void CalculateFinalScoreAndCash(bool victorious)

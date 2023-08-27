@@ -35,6 +35,12 @@ namespace BlackHole
 
         public IEnumerator StartVictoryTransition()
         {
+
+            if (!SettingsManager.ScoreAttackUnlocked)
+            {
+                SettingsManager.UnlockScoreAttack();
+            }
+
             Ship.Instance.CannotMove = true;
             Ship.Instance.IsInvincible = true;
             Shooting.Instance.ToggleAutoshoot(false);
@@ -69,10 +75,9 @@ namespace BlackHole
             CanvasManager.Instance.RenderGameOverScreen(true);
             StartCoroutine(RaccoonBlink());
 
-            yield return new WaitForSecondsRealtime(7f);
+            yield return new WaitForSecondsRealtime(6f);
             if (!SettingsManager.ScoreAttackUnlocked) 
             {
-                SettingsManager.UnlockScoreAttack();
                 PopUp.SpawnPopUp("SCORE ATTACK UNLOCKED!"); 
             }
             SoundManager.Instance.StartMainGameMusic(4f);

@@ -128,7 +128,7 @@ namespace BlackHole
                 _continuePanel.AskContinue();
                 yield return new WaitWhile(() => _continuePanel.IsBinaryChoiceActive);
                 if (_continuePanel.ContinueGame) {
-                    Scoring.IncrementLoopCount();
+                    Scoring.Instance.IncrementLoopCount();
                     yield break; 
                 }
             }

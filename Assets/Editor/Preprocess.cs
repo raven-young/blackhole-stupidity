@@ -18,6 +18,10 @@ namespace BlackHole
             _achievementsSO = AchievementsManager.Instance; //(AchievementsManager)Resources.Load("_ScriptableObjects/AchievementsManager");
             _achievementsSO.ResetAchievements();
 
+            Debug.LogWarning("REMEMBER TO RESET UPGRADES BEFORE BUILD");
+            //UpgradeManager.Instance.ResetAllUpgrades(); // this requires upgrade slots to be active
+            // to do: reset the slots via slot state in slotmanager SO
+
             // Reset cash
             _bankSO = (Bank)Resources.Load("_ScriptableObjects/Bank");
             _bankSO.CashTransfer(-_bankSO.AvailableCurrency);

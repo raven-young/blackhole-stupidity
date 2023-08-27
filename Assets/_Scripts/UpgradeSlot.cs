@@ -37,6 +37,8 @@ namespace BlackHole
             {
                 _upgradeSlotManagerSO = Resources.Load<UpgradeSlotManager>("_ScriptableObjects/UpgradeSlotManager");
             }
+
+            UpgradeSlots[SlotNumber] = this;
         }
 
         private void LoadSlotStateWrapper() // i wanna cri
@@ -88,7 +90,6 @@ namespace BlackHole
             UpgradeListDisplay.OnUpgradeEquipped += Equip;
             UpgradeListDisplay.OnUpgradeUnequipped += Unequip;
             Button.BuyComplete += FinishBuy;
-            UpgradeSlots[SlotNumber] = this;
         }
 
         private void OnDisable()
