@@ -3,15 +3,16 @@ using UnityEngine;
 using TMPro;
 using System;
 using DamageNumbersPro;
-
+using DG.Tweening;
 namespace BlackHole
 {
     public class Scoring : MonoBehaviour
     {
         public static Scoring Instance;
 
-        [SerializeField] private GameParams _gameParams;
-        [SerializeField] private PlayerStats _playerStats;
+        [SerializeField] private Bank _bankSO;
+        [SerializeField] private GameParams _gameParamsSO;
+        [SerializeField] private PlayerStats _playerStatsSO;
 
         [SerializeField] private TMP_Text _scoreTextGameplay, _scoreTextVictory, _scoreTextGameOver;
         [SerializeField] private DamageNumberGUI _multiplierDamageNumberPrefab;
@@ -22,23 +23,30 @@ namespace BlackHole
         private int _score = 0;
         private int _finalScore = 0;
         private string _finalAccuracy = "";
-        public int ComboCount = 0;
+        public static int ComboCount { get; set; } = 0;
         private bool _newHighscore = false;
         private TMP_Text _activeText;
         private int _cashGained = 0;
-        public static int LoopCount { get; private set; } = 1;
+        private int _finalCashGained = 0;
+        public static int LoopCount { get; private set; } = 1; 
 
         private void Awake()
         {
             if (Instance != null && Instance != this)
+            {
                 Destroy(gameObject);
+            }
             else
+            {
                 Instance = this;
+            }
+
+            LoopCount = 1;
         }
 
         public void IncrementScore(int amount)
         {
-            _score += (int)(Mathf.Max(1, ComboCount) * amount * (Ship.Instance.IsOverdriveActive ? _gameParams.OverdriveScoreMultiplier : 1));
+            _score += (int)(Mathf.Max(1, ComboCount) * amount * (Ship.Instance.IsOverdriveActive ? _gameParamsSO.OverdriveScoreMultiplier : 1));
             _scoreTextGameplay.text = "Score: " + _score;
             if (LoopCount > 1)
             {
@@ -56,80 +64,53 @@ namespace BlackHole
             LoopCount++;
         }
 
-        public void CalculateFinalScore(bool victorious)
+        public void CalculateFinalScoreAndCash(bool victorious)
         {
-            _finalScore = victorious ? (int)(_gameParams.VictoryMultiplier * _score) : (int)(_gameParams.GameOverMultiplier * _score);
+
+            float finalMultiplier = victorious ? _gameParamsSO.VictoryMultiplier : _gameParamsSO.GameOverMultiplier;
 
             switch (SettingsManager.Instance.SelectedDifficulty)
             {
-                case SettingsManager.DifficultySetting.Easy: _finalScore = (int)(_finalScore * _gameParams.EasyScoreMultiplier); break;
-                case SettingsManager.DifficultySetting.Normal: _finalScore = (int)(_finalScore * _gameParams.NormalScoreMultiplier); break;
-                case SettingsManager.DifficultySetting.Hard: _finalScore = (int)(_finalScore * _gameParams.HardScoreMultiplier); break;
-                case SettingsManager.DifficultySetting.Expert: _finalScore = (int)(_finalScore * _gameParams.ExpertScoreMultiplier); break;
+                case SettingsManager.DifficultySetting.Easy: finalMultiplier *= _gameParamsSO.EasyScoreMultiplier; break;
+                case SettingsManager.DifficultySetting.Normal: finalMultiplier *= _gameParamsSO.NormalScoreMultiplier; break;
+                case SettingsManager.DifficultySetting.Hard: finalMultiplier *= _gameParamsSO.HardScoreMultiplier; break;
+                case SettingsManager.DifficultySetting.Expert: finalMultiplier *= _gameParamsSO.ExpertScoreMultiplier; break;
             }
 
-            if (_finalScore > _playerStats.GetHighscore())
+            _finalScore = (int)(finalMultiplier * _score);
+            _finalCashGained = (int)(finalMultiplier * _cashGained);
+
+            _bankSO.CashTransfer(_finalCashGained);
+
+            if (_finalScore > _playerStatsSO.GetHighscore())
             {
-                _playerStats.SetHighscore(_finalScore);
+                _playerStatsSO.SetHighscore(_finalScore);
                 _newHighscore = true;
             }
 
             OnScored?.Invoke(_finalScore);
         }
 
-        public void DisplayFinalScore(bool victorious)
+        public void DisplayFinalScoreAndCash(bool victorious)
         {
-            CalculateFinalScore(victorious);
+            CalculateFinalScoreAndCash(victorious);
+            StartCoroutine(SpawnScoreMultipliers());
 
             _activeText = victorious ? _scoreTextVictory : _scoreTextGameOver;
-
             _finalAccuracy = "\nSolved: " + Math.Round(100f * QuestionAsteroid.Instance.GetAccuracy()) + "%";
-            _activeText.text = _newHighscore ? "New Highscore: " + _score + _finalAccuracy : "Score: " + _score + _finalAccuracy;
-            _activeText.text += "\nLoot: $" + _cashGained;
 
-            StartCoroutine(UpdateScore());
-            StartCoroutine(SpawnScoreMultipliers());
-        }
-
-        private IEnumerator UpdateScore()
-        {
-            // to do: handle special cases
-            float duration = 4f; // display score changing to finalscore in this many seconds
-            float updateFreq = 0.05f;
-            int updateSteps = (int)(duration / updateFreq);
-
-            // refactor later too tired to think
-            if (_finalScore >= _score)
-            {
-                int delta = Mathf.Max(1, ((_finalScore - _score) / updateSteps));
-                while (_score < _finalScore)
-                {
-                    _score += delta;
-                    _activeText.text = _newHighscore ? "New Highscore: " + _score + _finalAccuracy : "Score: " + _score + _finalAccuracy;
-                    _activeText.text += "\nLoot: $" + _cashGained;
-                    yield return new WaitForSecondsRealtime(updateFreq);
-                }
-            }
-            else
-            {
-                int delta = Mathf.Min(-1, ((_finalScore - _score) / updateSteps));
-                while (_score > _finalScore)
-                {
-                    _score += delta;
-                    _activeText.text = _newHighscore ? "New Highscore: " + _score + _finalAccuracy : "Score: " + _score + _finalAccuracy;
-                    _activeText.text += "\nLoot: $" + _cashGained;
-                    yield return new WaitForSecondsRealtime(updateFreq);
-                }
-            }
-            _score = _finalScore;
-            _activeText.text = _newHighscore ? "New Highscore: " + _score + _finalAccuracy : "Score: " + _score + _finalAccuracy;
-            _activeText.text += "\nLoot: $" + _cashGained;
+            // Tween score and cash to final values
+            string highscoretext = _newHighscore ? "New Highscore: " : "Score: "; 
+            DOTween.To(() => _cashGained, x => _cashGained = x, _finalCashGained, 4f).SetUpdate(true);
+            DOTween.To(() => _score, x => _score = x, _finalScore, 4f).OnUpdate( () => {
+                _activeText.text = highscoretext + _score + _finalAccuracy + "\nLoot: $" + _cashGained;
+            }).SetUpdate(true);     
         }
 
         private IEnumerator SpawnScoreMultipliers()
         {
             yield return new WaitForSecondsRealtime(0.3f);
-            float gameResult = GameManager.Instance.GameWasWon ? _gameParams.VictoryMultiplier : _gameParams.GameOverMultiplier;
+            float gameResult = GameManager.Instance.GameWasWon ? _gameParamsSO.VictoryMultiplier : _gameParamsSO.GameOverMultiplier;
             SoundManager.Instance.PlaySFX(SoundManager.SFX.Powerup);
             DamageNumber d = _multiplierDamageNumberPrefab.Spawn(Vector3.zero, gameResult);
             d.SetAnchoredPosition(_multiplierSpawnPoint, _multiplierSpawnPoint, Vector2.zero);

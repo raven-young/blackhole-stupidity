@@ -188,10 +188,10 @@ namespace BlackHole
 
             SpawnStuff(true);
 
-            Scoring.Instance.ComboCount++;
-            if (Scoring.Instance.ComboCount > 1)
+            Scoring.ComboCount++;
+            if (Scoring.ComboCount > 1)
             {
-                _comboDamageNumberPrefab.Spawn(transform.position, Scoring.Instance.ComboCount);
+                _comboDamageNumberPrefab.Spawn(transform.position, Scoring.ComboCount);
             }
 
             Debug.Log("diff " + _currentProblemDifficulty + " score: " + _gameParams.CorrectAnswerScore * _currentProblemDifficulty);
@@ -214,7 +214,7 @@ namespace BlackHole
             }
             else
             {
-                Scoring.Instance.ComboCount = 0;
+                Scoring.ComboCount = 0;
             }
 
             OnProblemFailed?.Invoke(AvatarReactions.ExpressionEvents.ProblemFailed);

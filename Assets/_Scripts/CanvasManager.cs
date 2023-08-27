@@ -154,7 +154,7 @@ namespace BlackHole
         public void RenderGameOverScreen(bool victorious)
         {
             ToggleTouchControls(false);
-            Scoring.Instance.DisplayFinalScore(victorious);
+            Scoring.Instance.DisplayFinalScoreAndCash(victorious);
 
             if (_newAchievementsQueue.Count > 0)
             {
