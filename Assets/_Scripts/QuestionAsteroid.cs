@@ -10,8 +10,20 @@ namespace BlackHole
 {
     public class QuestionAsteroid : MonoBehaviour
     {
+        public static QuestionAsteroid Instance;
+
+        public float SolveAccuracy
+        {
+            get => _totalSpawned > 0 ? (float)_correctlyAnswered / _totalSpawned : 0f;
+            set => Mathf.Clamp(value, 0f, 1f);
+        }
+
+        public static event Action<AvatarReactions.ExpressionEvents> OnProblemSpawned;
+        public static event Action<AvatarReactions.ExpressionEvents> OnProblemFailed;
+        public static event Action<AvatarReactions.ExpressionEvents> OnProblemSuccess;
+
         private PlayerInputActions playerInputActions;
-        [SerializeField] private GameParams _gameParams;
+        [SerializeField] private GameParams _gameParamsSO;
 
         [SerializeField] private GameObject _scrapPrefab;
         [SerializeField] private GameObject _fuelPrefab;
@@ -29,10 +41,6 @@ namespace BlackHole
         [SerializeField] private TMP_Text _answer3Text;
         [SerializeField] private SpriteRenderer _answer1Highlight, _answer2Highlight, _answer3Highlight;
 
-        public static event Action<AvatarReactions.ExpressionEvents> OnProblemSpawned;
-        public static event Action<AvatarReactions.ExpressionEvents> OnProblemFailed;
-        public static event Action<AvatarReactions.ExpressionEvents> OnProblemSuccess;
-
         private bool _questionActive = false;
         private int _correctAnswer; // 1,2,3
         private float _deltaDelta = 0;
@@ -49,9 +57,6 @@ namespace BlackHole
         private int _currentProblemDifficulty; // difficulty of current math problem, higher levels yield higher score
         private int _totalSpawned = 0;
         private int _correctlyAnswered = 0;
-        public float Accuracy; // fraction of correctly answered questions
-
-        public static QuestionAsteroid Instance;
 
         private void Awake()
         {
@@ -70,16 +75,16 @@ namespace BlackHole
         {
             _questionAsteroid.SetActive(false);
             challenge = new MathChallenge();
-            _questionAsteroidSpeed = _gameParams.QuestionAsteroidSpeed;
+            _questionAsteroidSpeed = _gameParamsSO.QuestionAsteroidSpeed;
 
             _asteroidSpawnBonus = 0;
             switch (SettingsManager.Instance.SelectedDifficulty)
             {
                 case SettingsManager.DifficultySetting.Easy:
-                    _questionAsteroidSpeed *= _gameParams.EasyMultiplier;
+                    _questionAsteroidSpeed *= _gameParamsSO.EasyMultiplier;
                     break;
                 case SettingsManager.DifficultySetting.Hard:
-                    _asteroidSpawnBonus += _gameParams.FailAsteroidSpawnBonus;
+                    _asteroidSpawnBonus += _gameParamsSO.FailAsteroidSpawnBonus;
                     break;
             }
 
@@ -111,7 +116,7 @@ namespace BlackHole
             {
                 _deltaDelta += Time.deltaTime;
 
-                if (_deltaDelta > _gameParams.QuestionDelta)
+                if (_deltaDelta > _gameParamsSO.QuestionDelta)
                 {
                     SpawnQuestion();
                 }
@@ -119,7 +124,7 @@ namespace BlackHole
 
             else
             {
-                if (transform.position.y < 1.03 * _gameParams.WinRadius)
+                if (transform.position.y < 1.03 * _gameParamsSO.WinRadius)
                 {
                     StartCoroutine(Fail());
                 }
@@ -182,9 +187,9 @@ namespace BlackHole
             Debug.Log("Correct answer!");
 
             // spawn laser
-            StartCoroutine(_laserEffect.ActivateLaser(_gameParams.LaserDuration));
-            StartCoroutine(Shooting.DisableShoot(_gameParams.LaserDuration));
-            yield return new WaitForSeconds(_gameParams.LaserDuration);
+            StartCoroutine(_laserEffect.ActivateLaser(_gameParamsSO.LaserDuration));
+            StartCoroutine(Shooting.DisableShoot(_gameParamsSO.LaserDuration));
+            yield return new WaitForSeconds(_gameParamsSO.LaserDuration);
 
             SpawnStuff(true);
 
@@ -194,8 +199,8 @@ namespace BlackHole
                 _comboDamageNumberPrefab.Spawn(transform.position, Scoring.Instance.ComboCount);
             }
 
-            Debug.Log("diff " + _currentProblemDifficulty + " score: " + _gameParams.CorrectAnswerScore * _currentProblemDifficulty);
-            Scoring.Instance.IncrementScore(_gameParams.CorrectAnswerScore * _currentProblemDifficulty);
+            Debug.Log("diff " + _currentProblemDifficulty + " score: " + _gameParamsSO.CorrectAnswerScore * _currentProblemDifficulty);
+            Scoring.Instance.IncrementScore(_gameParamsSO.CorrectAnswerScore * _currentProblemDifficulty);
 
             SoundManager.Instance.PlaySound(_rightAnswerclip);
             AnswerExit();
@@ -222,7 +227,7 @@ namespace BlackHole
             {
                 SoundManager.Instance.PlaySound(_wrongAnswerclip);
             }
-            yield return new WaitForSeconds(_gameParams.LaserDuration);
+            yield return new WaitForSeconds(_gameParamsSO.LaserDuration);
             SpawnStuff(false);
             Debug.Log("Wrong answer!");
             AnswerExit();
@@ -230,7 +235,7 @@ namespace BlackHole
 
         private void AnswerExit()
         {
-            _questionAsteroidSpeed *= _gameParams.QuestionAsteroidAcceleration;
+            _questionAsteroidSpeed *= _gameParamsSO.QuestionAsteroidAcceleration;
             Explode();
         }
 
@@ -252,7 +257,7 @@ namespace BlackHole
                 prefab2 = _fuelPrefab;
             }
 
-            int spawnAmount = _gameParams.SpawnAmount;
+            int spawnAmount = _gameParamsSO.SpawnAmount;
             if (!correctlyAnswered)
             {
                 prefab1 = prefab2 = _asteroidPrefab;
@@ -265,24 +270,17 @@ namespace BlackHole
 
             for (int i = 0; i < spawnAmount + _itemSpawnBonus; i++)
             {
-                float randomX = 0.1f * UnityEngine.Random.Range(-1f, 1f) * _gameParams.ScreenBounds.x;
+                float randomX = 0.1f * UnityEngine.Random.Range(-1f, 1f) * _gameParamsSO.ScreenBounds.x;
                 Vector2 spawnPos = new Vector2(transform.position.x + randomX, transform.position.y);
                 GameObject spawnedObject = Instantiate(UnityEngine.Random.Range(0f, 1f) < 0.5 ? prefab1 : prefab2,
                                                        spawnPos, Quaternion.identity);
 
-                float angle = UnityEngine.Random.Range(-_gameParams.MaxSpawnAngle, _gameParams.MaxSpawnAngle);
+                float angle = UnityEngine.Random.Range(-_gameParamsSO.MaxSpawnAngle, _gameParamsSO.MaxSpawnAngle);
                 Vector2 direction = Vector2.up.Rotate(angle);
 
-                spawnedObject.GetComponent<Rigidbody2D>().AddForce(-UnityEngine.Random.Range(0.5f, 1f) * _gameParams.SpawnImpulse * direction,
+                spawnedObject.GetComponent<Rigidbody2D>().AddForce(-UnityEngine.Random.Range(0.5f, 1f) * _gameParamsSO.SpawnImpulse * direction,
                                                                    ForceMode2D.Impulse);
             }
-        }
-
-        public float GetAccuracy()
-        {
-            if (_totalSpawned == 0) { return 0; }
-
-            return (float)_correctlyAnswered / _totalSpawned;
         }
 
         // refactor this later

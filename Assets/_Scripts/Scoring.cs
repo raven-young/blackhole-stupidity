@@ -98,7 +98,7 @@ namespace BlackHole
             StartCoroutine(SpawnScoreMultipliers());
 
             _activeText = victorious ? _scoreTextVictory : _scoreTextGameOver;
-            _finalAccuracy = "\nSolved: " + Math.Round(100f * QuestionAsteroid.Instance.GetAccuracy()) + "%";
+            _finalAccuracy = "\nSolved: " + Math.Round(100f * QuestionAsteroid.Instance.SolveAccuracy) + "%";
 
             // Tween score and cash to final values
             string highscoretext = _newHighscore ? "New Highscore: " : "Score: "; 

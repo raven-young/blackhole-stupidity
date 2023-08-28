@@ -9,7 +9,6 @@ namespace BlackHole
     [CreateAssetMenu(fileName = "UpgradeManager", menuName = "ScriptableObject/UpgradeManager")]
     public class UpgradeManager : ScriptableObject
     {
-
         // The Singleton instance
         private static UpgradeManager instance;
 
@@ -65,12 +64,17 @@ namespace BlackHole
             public delegate void ActivateUpgrade(bool unequip);
             public ActivateUpgrade Activate;
         }
-
-        [SerializeField] private Bank _bankSO;
+        
         public List<Upgrade> AllUpgrades { get; private set; } = new();
         public static event Action OnAllUpgradesUnlocked;
+        public float UnlockedUpgradesFraction
+        { 
+            get => AllUpgrades.Count > 0 ? (float)(_unlockedUpgradesCount) / AllUpgrades.Count : 0f; 
+            set => Mathf.Clamp(value, 0f, 1f);
+        }
+
+        [SerializeField] private Bank _bankSO;
         private int _unlockedUpgradesCount = 0;
-        public float UnlockedUpgradesFraction = 0f;
         private readonly List<Upgrade> EquippedUpgrades = new();
 
         private void OnEnable()
@@ -193,7 +197,6 @@ namespace BlackHole
                 u.Unlocked = true;
                 _bankSO.CashTransfer(-u.UnlockCost);
                 _unlockedUpgradesCount++;
-                UnlockedUpgradesFraction = (float)(_unlockedUpgradesCount) / AllUpgrades.Count;
                 if (_unlockedUpgradesCount == AllUpgrades.Count)
                 {
                     OnAllUpgradesUnlocked.Invoke();
@@ -248,7 +251,6 @@ namespace BlackHole
             _unlockedUpgradesCount = 0;
             AllUpgrades = new(this.GetNestedFieldValuesOfType<Upgrade>());
             foreach (Upgrade u in AllUpgrades) { if (u.Unlocked) _unlockedUpgradesCount++; }
-            UnlockedUpgradesFraction = (float)(_unlockedUpgradesCount) / AllUpgrades.Count;
         }
 
         public List<Upgrade> GetAllUpgrades()

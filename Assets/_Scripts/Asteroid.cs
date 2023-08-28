@@ -57,6 +57,8 @@ namespace BlackHole
         public void TakeDamage(int damage)
         {
 
+            if (_currentHealth <= 0) { return; }
+
             flashEffect.Flash();
             _currentHealth -= damage;
 

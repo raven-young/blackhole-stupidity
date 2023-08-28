@@ -27,7 +27,6 @@ namespace BlackHole
         public bool CanPause = true;
         public float DistanceToEventHorizon { get; private set; }
         public float EventHorizonRadius { get; private set; }
-        //public float InitialDistanceToEventHorizon { get; private set; }
         public bool InDangerZone { get; private set; }
 
         public static event Action OnEnteredDangerZone;
@@ -153,11 +152,11 @@ namespace BlackHole
                 {
                     OnNoDamageVictory?.Invoke();
                 }
-                if (QuestionAsteroid.Instance.GetAccuracy() == 1)
+                if (QuestionAsteroid.Instance.SolveAccuracy == 1)
                 {
                     On100PercentVictory?.Invoke();
                 }
-                if (QuestionAsteroid.Instance.GetAccuracy() == 1 && !Ship.Instance.TakenDamage && !BlackHoleObject.Instance.HasGrown)
+                if (QuestionAsteroid.Instance.SolveAccuracy== 1 && !Ship.Instance.TakenDamage && !BlackHoleObject.Instance.HasGrown)
                 {
                     OnFlawlessVictory?.Invoke();
                 }

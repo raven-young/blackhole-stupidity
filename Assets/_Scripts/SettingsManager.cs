@@ -73,7 +73,7 @@ namespace BlackHole
             Expert = 3
         }
 
-        public enum ShipType
+        public enum ShipType // deprecated
         {
             Basic = 0, // balanced
             Collector = 1, // bigger item magnet
@@ -82,7 +82,7 @@ namespace BlackHole
             Scorer = 4 // more points NOT YET USED
         }
 
-        private void Awake()
+        private void OnEnable() // awake not called on reloaded scritpable objects!
         {
             if (instance == null)
             {
@@ -101,9 +101,9 @@ namespace BlackHole
             // Needed when directly starting game in edit mode (in real scenario, set by player in main menu)
             if (SceneManager.GetActiveScene().name == "BlackHole")
             {
+                Debug.Log("Initializing settings manager from BlackHole scene");
                 SelectedDifficulty = DifficultySetting.Normal;
                 SelectedShipType = ShipType.Basic;
-                PrepareGame();
             }
         }
 
@@ -130,7 +130,7 @@ namespace BlackHole
 
         public void PrepareGame()
         {
-            //Debug.Log("Preparing game with difficulty " + SelectedDifficulty);
+            Debug.Log("Preparing game with difficulty " + SelectedDifficulty);
 
             CalculateGameParams();
 
