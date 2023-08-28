@@ -53,10 +53,12 @@ namespace BlackHole
         [SerializeField] private AudioClip _rightAnswerclip, _bigLaserClip, _wrongAnswerclip;
 
         [SerializeField] private DamageNumber _comboDamageNumberPrefab;
+        [SerializeField] private DamageNumber _quickSolveDamageNumberPrefab;
 
         private int _currentProblemDifficulty; // difficulty of current math problem, higher levels yield higher score
         private int _totalSpawned = 0;
         private int _correctlyAnswered = 0;
+        private bool _quickSolveFailed = false;
 
         private void Awake()
         {
@@ -124,6 +126,8 @@ namespace BlackHole
 
             else
             {
+                _quickSolveFailed = transform.position.y < _gameParamsSO.QuickSolveRadius;
+
                 if (transform.position.y < 1.03 * _gameParamsSO.WinRadius)
                 {
                     StartCoroutine(Fail());
@@ -146,6 +150,7 @@ namespace BlackHole
             transform.position = _spawnPoint.position;
             _speedModifier = 1f;
             _itemSpawnBonus = 0;
+            _quickSolveFailed = false;
 
             //int difficulty = (int)(5f*GameManager.Instance.DistanceToEventHorizon / (_gameParams.WinRadius - GameManager.Instance.EventHorizonRadius));
             _currentProblemDifficulty = Mathf.Max(1, (int)(GameManager.Instance.DistanceToEventHorizon / 2.7f));
@@ -200,7 +205,15 @@ namespace BlackHole
             }
 
             Debug.Log("diff " + _currentProblemDifficulty + " score: " + _gameParamsSO.CorrectAnswerScore * _currentProblemDifficulty);
-            Scoring.Instance.IncrementScore(_gameParamsSO.CorrectAnswerScore * _currentProblemDifficulty);
+
+            int quickSolveBonus = _quickSolveFailed ? 1 : 2;
+
+            if (!_quickSolveFailed)
+            {
+                _quickSolveDamageNumberPrefab.Spawn(5 * Vector3.right + transform.position);
+            }
+
+            Scoring.Instance.IncrementScore(_gameParamsSO.CorrectAnswerScore * _currentProblemDifficulty * quickSolveBonus);
 
             SoundManager.Instance.PlaySound(_rightAnswerclip);
             AnswerExit();

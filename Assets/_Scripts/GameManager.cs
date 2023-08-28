@@ -102,6 +102,9 @@ namespace BlackHole
             // Escape horizon
             Gizmos.DrawWireSphere(Vector3.zero, _gameParams.WinRadius);
 
+            // Quick solve horizon
+            Gizmos.DrawWireSphere(Vector3.zero, _gameParams.QuickSolveRadius);
+
             // Danger zone
             Gizmos.color = Color.red;
             if (Application.isPlaying)

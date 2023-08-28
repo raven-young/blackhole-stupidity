@@ -6,7 +6,7 @@ using UnityEngine;
 public class GameParams : ScriptableObject
 {
     [Header("Base Params")]
-    [SerializeField, Range(10, 30),Tooltip("Escape horizon distance from origin (workaround)")] 
+    [Range(10, 30),Tooltip("Escape horizon distance from origin (workaround)")] 
     public float WinRadius = 18f;
     [Range(0,20f), Tooltip("Critical distance to event horizon (change music etc.)")]
     public float DangerZoneDistance = 4f;
@@ -45,6 +45,9 @@ public class GameParams : ScriptableObject
     public float QuestionAsteroidSpeed = 1f;
     [Tooltip("Every cycle, multiply speed by this value"), Range(1f, 1.07f)]
     public float QuestionAsteroidAcceleration = 1f;
+    [SerializeField, Tooltip("Get bonus score if solved before reaching this radius")]
+    private float _quickSolveRadius;
+    public float QuickSolveRadius { get => _quickSolveRadius; set => _quickSolveRadius = Mathf.Clamp(value, WinRadius, 30); }
 
     [Header("Asteroid")]
     public int PlayerDamage = 3;
@@ -96,4 +99,10 @@ public class GameParams : ScriptableObject
     [Header("Don't change in editor")]
     //public int HighScore = 0;
     public Vector2 ScreenBounds;
+
+    // Needed for property validation in inspector (e.g. clamping)
+    private void OnValidate()
+    {
+        QuickSolveRadius = _quickSolveRadius;
+    }
 }
