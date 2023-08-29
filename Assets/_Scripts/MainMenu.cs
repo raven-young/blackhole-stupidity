@@ -71,7 +71,7 @@ namespace BlackHole
             _quitButton.transform.DOMoveY(_buttonY + 0.7f, 1f).SetEase(Ease.InOutSine).SetLoops(-1, LoopType.Yoyo).SetDelay(0.2f);
             _extrasButton.transform.DOMoveY(_extrasButton.transform.position.y + 0.7f, 1f).SetEase(Ease.InOutSine).SetLoops(-1, LoopType.Yoyo).SetDelay(0.4f);
 
-            //_background.DOShapeCircle(10*Vector2.one, 180, 2f).SetLoops(-1, LoopType.Yoyo);
+            _background.DOShapeCircle(Vector2.zero, 360, 22f).SetEase(Ease.InOutFlash).SetLoops(-1, LoopType.Yoyo);
 
             // Init some things
             _activePanel = _startButton;

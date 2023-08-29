@@ -38,8 +38,9 @@ public class FakeAsteroidSpawner : MonoBehaviour
             float spawnY = Random.Range(0f, 1f) > 0.5f ? _screenBoundsY : -_screenBoundsY;
             Vector2 spawnPos = new(1.1f*Random.Range(-_screenBoundsX, _screenBoundsX), 1.1f*spawnY);
             GameObject asteroid = Instantiate(_fakeAsteroidPrefab, spawnPos, Quaternion.identity);
-            float randomScale = Random.Range(0.5f, 1f);
-            asteroid.transform.localScale = new(randomScale, randomScale, randomScale);
+            float randomScaleX = Random.Range(0.5f, 1f);
+            float randomScaleY = randomScaleX * Random.Range(0.8f, 1.2f);
+            asteroid.transform.localScale = new(randomScaleX, randomScaleY, 1);
             float randomAngle = Random.Range(0, 70f);
             Vector2 _verticalDirection = spawnPos.y < 0 ? Vector2.down : Vector2.up;
             Vector2 direction = _verticalDirection.Rotate(spawnPos.x > 0 ? randomAngle : -randomAngle);

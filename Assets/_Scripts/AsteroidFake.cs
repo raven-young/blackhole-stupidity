@@ -17,7 +17,7 @@ public class AsteroidFake : MonoBehaviour
         gameObject.GetComponent<SpriteRenderer>().flipY = UnityEngine.Random.Range(0f, 1f) < 0.5f;
 
         var spin = UnityEngine.Random.Range(0f, 1f) < 0.5f ? 1 : -1;
-        float torque = UnityEngine.Random.Range(5f, 20f);
+        float torque = UnityEngine.Random.Range(3f, 18f);
 
         if (UnityEngine.Random.Range(0f, 1f) < 0.02f)
         {

@@ -109,7 +109,6 @@ namespace BlackHole
 
         public void ResetGameParams()
         {
-            Debug.Log("firerate "+_gameParams.FirePeriod);
             BulletDamage = _gameParams.BulletDamage;
             BurnRate = _gameParams.FuelBurnRate;
             FirePeriod = _gameParams.FirePeriod;
