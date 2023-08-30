@@ -105,6 +105,7 @@ namespace BlackHole
             }
 
             _selectedUpgradeSlot = newslot;
+            _selectedUpgradeSlot.IsActiveSlot = true; 
 
             // if new slot already has equipped upgrade, jump to corresponding upgrade button
             if (_selectedUpgradeSlot.ActiveUpgrade != null && _selectedUpgradeSlot.ActiveUpgradeButton != null)

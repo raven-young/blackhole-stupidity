@@ -21,8 +21,32 @@ namespace BlackHole
         private TMP_Text _slotText;
         [SerializeField] private int _unlockCost;
         public bool Unlocked;
-        private bool _isBuying = false;
         public int SlotNumber;
+        private bool _isBuying = false;
+
+        private Vector3 _baseScale;
+        private bool _isActiveSlot;
+        public bool IsActiveSlot
+        { 
+            get => _isActiveSlot; 
+            set 
+            {
+                _isActiveSlot = value;
+                if (!_isActiveSlot) return;
+                
+                transform.DOScale(1.2f * _baseScale, 0.2f);
+
+                foreach (UpgradeSlot slot in UpgradeSlots.Values)
+                {
+                    if (slot != this)
+                    {
+                        slot.IsActiveSlot = false;
+                        transform.DOScale(_baseScale, 0.2f);
+                    }
+                }
+            } 
+        }
+        
 
         private void Awake()
         {
@@ -39,6 +63,7 @@ namespace BlackHole
             }
 
             UpgradeSlots[SlotNumber] = this;
+            _baseScale = transform.localScale;
         }
 
         private void LoadSlotStateWrapper() // i wanna cri

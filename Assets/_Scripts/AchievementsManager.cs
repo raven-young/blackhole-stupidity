@@ -277,11 +277,11 @@ namespace BlackHole
             {
                 if (field.Unlocked)
                 {
-                    outstring += field.Name + ": <color=\"green\">Unlocked</color>\n";
+                    outstring += "<color=\"green\">" + field.Name + "</color>\n";
                 }
                 else
                 {
-                    outstring += field.Name + ": <color=\"red\">Locked</color>\n";
+                    outstring += "<color=\"grey\">" + field.Name + "</color>\n";
                 }
             }
             return outstring;
