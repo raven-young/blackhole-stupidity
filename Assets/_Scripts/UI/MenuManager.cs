@@ -7,6 +7,9 @@ namespace BlackHole
     // Adapted from a Udemy course by Wilmer Lin
     public class MenuManager : MonoBehaviour
     {
+        private static MenuManager _instance;
+        public static MenuManager Instance { get => _instance; }
+
         public Menu MainMenuPrefab;
         public Menu DifficultyMenuPrefab;
         //public Menu UpgradeMenuPrefab;
@@ -17,9 +20,25 @@ namespace BlackHole
 
         private void Awake()
         {
-            InitializeMenus();
+            if (_instance != null)
+            {
+                Destroy(gameObject);
+            } 
+            else
+            {
+                _instance = this;
+                InitializeMenus();
+            }
         }
-         
+
+        private void OnDestroy()
+        {
+            if (_instance == this)
+            {
+                _instance = null;
+            }
+        }
+
         private void InitializeMenus()
         {
             if (_menuParent == null)

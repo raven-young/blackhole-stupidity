@@ -4,30 +4,38 @@ using UnityEngine;
 
 namespace BlackHole
 {
-    [RequireComponent(typeof(Canvas))]
-    public class Menu : MonoBehaviour
+
+    public abstract class Menu<T>:Menu where T: Menu<T>
     {
-        [SerializeField] private MenuManager _menuManager;
+        private static T _instance;
+        public static T Instance { get => _instance; }
 
-        private void Start()
+        protected virtual void Awake()
         {
-            _menuManager = FindObjectOfType<MenuManager>();
+            if (_instance != null)
+            {
+                Destroy(gameObject);
+            }
+            else
+            {
+                _instance = (T)this;
+            }
         }
-
-        public void OnPlayPressed()
+        protected virtual void OnDestroy()
         {
-            Menu difficultySelection = transform.parent.Find("DifficultySelection(Clone)").GetComponent<Menu>();
-            _menuManager.OpenMenu(difficultySelection);
+            if (_instance == this)
+            {
+                _instance = null;
+            }
         }
+    }
 
-        public void OnDifficultySelected(int selectedDifficulty)
+    [RequireComponent(typeof(Canvas))]
+    public abstract class Menu : MonoBehaviour
+    {
+        public virtual void OnBackPressed()
         {
-            SettingsManager.Instance.SelectedDifficulty = (SettingsManager.DifficultySetting)selectedDifficulty;
-        }
-
-        public void OnBackPressed()
-        {
-            _menuManager.CloseMenu();
+            MenuManager.Instance.CloseMenu();
         }
     }
 }

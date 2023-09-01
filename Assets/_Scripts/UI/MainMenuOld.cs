@@ -11,7 +11,7 @@ using DamageNumbersPro;
 
 namespace BlackHole
 {
-    public class MainMenu : MonoBehaviour
+    public class MainMenuOld : MonoBehaviour
     {
         [SerializeField] private GameParams _gameParams;
         [SerializeField] private Bank _bankSO;

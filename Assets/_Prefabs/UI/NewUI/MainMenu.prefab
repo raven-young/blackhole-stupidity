@@ -574,8 +574,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 7329285753291486097}
-        m_TargetAssemblyTypeName: BlackHole.Menu, Assembly-CSharp
+      - m_Target: {fileID: 5390124571604232791}
+        m_TargetAssemblyTypeName: BlackHole.MainMenu, Assembly-CSharp
         m_MethodName: OnPlayPressed
         m_Mode: 1
         m_Arguments:
@@ -1024,6 +1024,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+      - m_Target: {fileID: 5390124571604232791}
+        m_TargetAssemblyTypeName: BlackHole.MainMenu, Assembly-CSharp
+        m_MethodName: OnBackPressed
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
 --- !u!114 &1577362129963301041
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1338,7 +1350,7 @@ GameObject:
   - component: {fileID: 8138648326565821549}
   - component: {fileID: 5163241452561093774}
   - component: {fileID: 4539595319425666750}
-  - component: {fileID: 7329285753291486097}
+  - component: {fileID: 5390124571604232791}
   m_Layer: 5
   m_Name: MainMenu
   m_TagString: Untagged
@@ -1431,7 +1443,7 @@ MonoBehaviour:
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
   m_PresetInfoIsWorld: 0
---- !u!114 &7329285753291486097
+--- !u!114 &5390124571604232791
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1440,7 +1452,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 8970600268288419409}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bd2479f8d44ccf545999cc74a82e78bd, type: 3}
+  m_Script: {fileID: 11500000, guid: 3e0e3240a50133540898a507aa07979a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _menuManager: {fileID: 0}
