@@ -18,7 +18,7 @@ namespace BlackHole
 
         private void Update()
         {
-            if (GameManager.Instance.GameHasEnded)
+            if (GameManager.GameHasEnded)
             {
                 _laserAimLineRenderer.GetComponent<LineRenderer>().enabled = false;
                 return;

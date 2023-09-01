@@ -167,7 +167,7 @@ namespace BlackHole
         {
             float fadeDuration = 1f;
 
-            if (GameManager.Instance.InDangerZone)
+            if (GameManager.InDangerZone)
             {
                 ChangeMusicPairSource(MusicSourceID.MusicSource1, fadeDuration);
             }

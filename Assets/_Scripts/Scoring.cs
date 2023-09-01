@@ -111,11 +111,11 @@ namespace BlackHole
         private IEnumerator SpawnScoreMultipliers()
         {
             yield return new WaitForSecondsRealtime(0.3f);
-            float gameResult = GameManager.Instance.GameWasWon ? _gameParamsSO.VictoryMultiplier : _gameParamsSO.GameOverMultiplier;
+            float gameResult = GameManager.GameWasWon ? _gameParamsSO.VictoryMultiplier : _gameParamsSO.GameOverMultiplier;
             SoundManager.Instance.PlaySFX(SoundManager.SFX.Powerup);
             DamageNumber d = _multiplierDamageNumberPrefab.Spawn(Vector3.zero, gameResult);
             d.SetAnchoredPosition(_multiplierSpawnPoint, _multiplierSpawnPoint, Vector2.zero);
-            d.leftText = GameManager.Instance.GameWasWon ? "Victory x" : "Defeat x";
+            d.leftText = GameManager.GameWasWon ? "Victory x" : "Defeat x";
             yield return new WaitForSecondsRealtime(1.5f);
             SoundManager.Instance.PlaySFX(SoundManager.SFX.Powerup);
             DamageNumber d2 = _multiplierDamageNumberPrefab.Spawn(Vector3.zero, SettingsManager.DifficultyScoreMultiplier);

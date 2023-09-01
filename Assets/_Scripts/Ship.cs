@@ -97,7 +97,7 @@ namespace BlackHole
             if (CannotMove)
                 return;
 
-            if (ShipPositionRadius > _gameParams.WinRadius && !GameManager.Instance.GameHasEnded)
+            if (ShipPositionRadius > _gameParams.WinRadius && !GameManager.GameHasEnded)
             {
                 CannotMove = true;
                 StartCoroutine(GameManager.Instance.GameOver(true));
@@ -281,7 +281,7 @@ namespace BlackHole
         public void ResetShipPosition()
         {
             CannotMove = false;
-            ShipPositionRadius -= 0.5f * GameManager.Instance.DistanceToEventHorizon;
+            ShipPositionRadius -= 0.5f * GameManager.DistanceToEventHorizon;
         }
 
         private IEnumerator OverDrive()

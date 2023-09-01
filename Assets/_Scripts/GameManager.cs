@@ -17,17 +17,16 @@ namespace BlackHole
         private float _dangerzoneTimer = 0f;
 
         [SerializeField] private GameParams _gameParams;
-        [SerializeField] private GameObject _replaybutton_paused;
         [SerializeField] private GameObject _replaybutton_gameover;
         [SerializeField] private GameObject _replaybutton_victory;
 
-        public bool GameHasEnded { get; private set; } = false;
-        public bool GameWasWon { get; private set; } = false;
-        public bool IsPaused = false;
-        public bool CanPause = true;
-        public float DistanceToEventHorizon { get; private set; }
-        public float EventHorizonRadius { get; private set; }
-        public bool InDangerZone { get; private set; }
+        public static bool GameHasEnded { get; private set; } = false;
+        public static bool GameWasWon { get; private set; } = false;
+        public static bool IsPaused = false;
+        public static bool CanPause = true;
+        public static float DistanceToEventHorizon { get; private set; }
+        public static float EventHorizonRadius { get; private set; }
+        public static bool InDangerZone { get; private set; }
 
         public static event Action OnEnteredDangerZone;
         public static event Action OnExitedDangerZone;
@@ -188,21 +187,21 @@ namespace BlackHole
             if (!GameHasEnded)
             {
                 IsPaused = true;
-                var eventSystem = EventSystem.current;
-                eventSystem.SetSelectedGameObject(_replaybutton_paused, new BaseEventData(eventSystem));
-                CanvasManager.Instance.RenderPauseScreen();
+                if (MenuManager.Instance != null && PauseMenu.Instance != null)
+                {
+                    MenuManager.Instance.OpenMenu(PauseMenu.Instance);
+                }
             }
         }
-        public void ResumeGame()
+        public static void ResumeGame()
         {
             if (!CanPause) { return; }
 
             IsPaused = false;
             Time.timeScale = 1;
             Cursor.visible = false;
-            CanvasManager.Instance.DisablePauseScreen();
         }
-        public void Restart()
+        public static void Restart()
         {
             DOTween.KillAll();
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);

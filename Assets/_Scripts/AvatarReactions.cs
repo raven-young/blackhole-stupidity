@@ -99,7 +99,7 @@ namespace BlackHole
 
         public void React(Sprite sprite)
         {
-            if (GameManager.Instance.GameHasEnded)
+            if (GameManager.GameHasEnded)
                 return;
 
             // If the routine is not null, then it is currently running.
@@ -143,26 +143,26 @@ namespace BlackHole
             //if (_reactionActive)
             //    return;
 
-            if (GameManager.Instance.GameWasWon)
+            if (GameManager.GameWasWon)
             {
                 _image.sprite = _victory;
                 return;
             }
 
-            if (GameManager.Instance.GameHasEnded && !GameManager.Instance.GameWasWon)
+            if (GameManager.GameHasEnded && !GameManager.GameWasWon)
             {
                 _image.sprite = _defeat;
                 return;
             }
 
-            if (GameManager.Instance.InDangerZone)
+            if (GameManager.InDangerZone)
             {
                 _image.sprite = _idleDanger;
                 //_expressionTimer = 0f;
                 return;
             }
 
-            if (!GameManager.Instance.InDangerZone)
+            if (!GameManager.InDangerZone)
             {
                 _image.sprite = _idleSafe;
                 //_expressionTimer = 0f;

@@ -103,7 +103,7 @@ namespace BlackHole
         private void Update()
         {
 
-            if (GameManager.Instance.GameHasEnded)
+            if (GameManager.GameHasEnded)
             {
                 if (!_questionAsteroid.activeSelf) { return; }
 
@@ -137,7 +137,7 @@ namespace BlackHole
 
         private void SpawnQuestion()
         {
-            if (GameManager.Instance.GameHasEnded) { return; }
+            if (GameManager.GameHasEnded) { return; }
 
             _answer1Highlight.gameObject.SetActive(false);
             _answer2Highlight.gameObject.SetActive(false);
@@ -153,7 +153,7 @@ namespace BlackHole
             _quickSolveFailed = false;
 
             //int difficulty = (int)(5f*GameManager.Instance.DistanceToEventHorizon / (_gameParams.WinRadius - GameManager.Instance.EventHorizonRadius));
-            _currentProblemDifficulty = Mathf.Max(1, (int)(GameManager.Instance.DistanceToEventHorizon / 2.7f));
+            _currentProblemDifficulty = Mathf.Max(1, (int)(GameManager.DistanceToEventHorizon / 2.7f));
 
             // refactor later
             var c = challenge.SimpleArithemticChallenge(_currentProblemDifficulty);
@@ -236,7 +236,7 @@ namespace BlackHole
             }
 
             OnProblemFailed?.Invoke(AvatarReactions.ExpressionEvents.ProblemFailed);
-            if (!GameManager.Instance.GameHasEnded)
+            if (!GameManager.GameHasEnded)
             {
                 SoundManager.Instance.PlaySound(_wrongAnswerclip);
             }

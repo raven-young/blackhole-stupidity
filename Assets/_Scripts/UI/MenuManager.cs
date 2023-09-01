@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace BlackHole
 {
@@ -10,9 +11,11 @@ namespace BlackHole
         private static MenuManager _instance;
         public static MenuManager Instance { get => _instance; }
 
+        // Don't change types below to subtyles, else GetNestedFieldValuesOfType won't work
         public Menu MainMenuPrefab;
         public Menu DifficultyMenuPrefab;
         //public Menu UpgradeMenuPrefab;
+        public Menu PauseMenuPrefab;
 
         [SerializeField] private Transform _menuParent;
 
@@ -29,6 +32,8 @@ namespace BlackHole
                 _instance = this;
                 InitializeMenus();
             }
+
+            DontDestroyOnLoad(this);
         }
 
         private void OnDestroy()
@@ -45,17 +50,17 @@ namespace BlackHole
             {
                 GameObject menuParentObject = new("Menus");
                 _menuParent = menuParentObject.transform;
+                DontDestroyOnLoad(_menuParent.gameObject);
             }
 
             List<object> menuPrefabs = new(this.GetNestedFieldValuesOfType<Menu>());
 
             foreach (Menu prefab in menuPrefabs)
             {
-                Debug.Log(prefab + " " + _menuParent);
                 if (prefab != null)
                 {
                     Menu menuInstance = Instantiate(prefab, _menuParent);
-                    if (prefab != MainMenuPrefab)
+                    if (prefab != MainMenuPrefab || SceneManager.GetActiveScene().name == "BlackHole") // when testing Black Hole scene in editor
                     {
                         menuInstance.gameObject.SetActive(false);
                     }

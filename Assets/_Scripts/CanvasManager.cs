@@ -128,24 +128,9 @@ namespace BlackHole
             _inputPopup.SetActive(false);
         }
 
-        public void RenderPauseScreen()
-        {
-            ToggleTouchControls(false);
-            _pauseScreen.SetActive(true);
-            GameObject ResumeButton = _pauseScreen.transform.Find("Resume Button").gameObject;
-            var eventSystem = EventSystem.current;
-            eventSystem.SetSelectedGameObject(ResumeButton, new BaseEventData(eventSystem));
-        }
-
-        public void DisablePauseScreen()
-        {
-            ToggleTouchControls(SettingsManager.IsMobileGame);
-            _pauseScreen.SetActive(false);
-        }
-
         public void ToggleTouchControls(bool touchActive)
         {
-            if (touchActive && GameManager.Instance.IsPaused)
+            if (touchActive && GameManager.IsPaused)
                 return;
 
             _touchControls.SetActive(touchActive && SettingsManager.IsMobileGame);
