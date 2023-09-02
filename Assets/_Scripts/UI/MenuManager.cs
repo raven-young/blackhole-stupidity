@@ -16,6 +16,7 @@ namespace BlackHole
         public Menu DifficultyMenuPrefab;
         //public Menu UpgradeMenuPrefab;
         public Menu PauseMenuPrefab;
+        public Menu VictoryScreenPrefab;
 
         [SerializeField] private Transform _menuParent;
 
@@ -74,6 +75,13 @@ namespace BlackHole
 
         public void OpenMenu(Menu menuInstance)
         {
+
+            if (menuInstance.gameObject.activeSelf)
+            {
+                return;
+            }
+
+
             if (menuInstance == null)
             {
                 Debug.LogWarning("MENUMANAGER OpenMenu ERROR: Invalid menu");
@@ -88,6 +96,7 @@ namespace BlackHole
             }
 
             menuInstance.gameObject.SetActive(true);
+            menuInstance.SetFirstSelected();
             _menuStack.Push(menuInstance);
         }
 
@@ -106,6 +115,7 @@ namespace BlackHole
             {
                 Menu nextMenu = _menuStack.Peek();
                 nextMenu.gameObject.SetActive(true);
+                nextMenu.SetFirstSelected();
             }
         }
     }

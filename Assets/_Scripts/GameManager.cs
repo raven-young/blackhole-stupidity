@@ -17,8 +17,6 @@ namespace BlackHole
         private float _dangerzoneTimer = 0f;
 
         [SerializeField] private GameParams _gameParams;
-        [SerializeField] private GameObject _replaybutton_gameover;
-        [SerializeField] private GameObject _replaybutton_victory;
 
         public static bool GameHasEnded { get; private set; } = false;
         public static bool GameWasWon { get; private set; } = false;
@@ -42,13 +40,22 @@ namespace BlackHole
         private void Awake()
         {
             if (Instance != null && Instance != this)
+            {
                 Destroy(gameObject);
+            }
             else
+            {
                 Instance = this;
+            }
 
             playerInputActions = new PlayerInputActions();
             playerInputActions.Player.Enable();
             playerInputActions.Player.EscapeAction.performed += EscapeAction;
+
+            IsPaused = false;
+            CanPause = true;
+            GameHasEnded = false;
+            GameWasWon = false;
         }
 
         private void Start()
@@ -141,11 +148,8 @@ namespace BlackHole
             SoundManager.Instance.StopMusic();
             SoundManager.Instance.StopSFX();
 
-            var eventSystem = EventSystem.current;
-
             if (victorious)
             {
-                eventSystem.SetSelectedGameObject(_replaybutton_victory, new BaseEventData(eventSystem));
                 GameWasWon = true;
 
                 // Check if new achievements unlocked
@@ -168,7 +172,6 @@ namespace BlackHole
             }
             else
             {
-                eventSystem.SetSelectedGameObject(_replaybutton_gameover, new BaseEventData(eventSystem));
                 GameWasWon = false;
                 OnGameOver?.Invoke();
                 StartCoroutine(GameOverTransition.Instance.StartGameOverTransition());
@@ -187,10 +190,7 @@ namespace BlackHole
             if (!GameHasEnded)
             {
                 IsPaused = true;
-                if (MenuManager.Instance != null && PauseMenu.Instance != null)
-                {
-                    MenuManager.Instance.OpenMenu(PauseMenu.Instance);
-                }
+                PauseMenu.Open();
             }
         }
         public static void ResumeGame()
@@ -210,6 +210,7 @@ namespace BlackHole
         {
             DOTween.KillAll();
             SceneManager.LoadScene("MainMenu");
+            MainMenu.Open();
         }
         public void Quit()
         {
@@ -255,7 +256,7 @@ namespace BlackHole
             }
             else if (IsPaused && context.performed)
             {
-                ResumeGame();
+                PauseMenu.Instance.OnBackPressed();
             }
         }
 

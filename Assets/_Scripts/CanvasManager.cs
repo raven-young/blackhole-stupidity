@@ -16,14 +16,12 @@ namespace BlackHole
         [SerializeField] private GameParams _gameParams;
         [SerializeField] private PlayerStats _playerStats;
         [SerializeField] private GameObject _gameOverScreen;
-        [SerializeField] private GameObject _victoryScreen;
-        [SerializeField] private GameObject _pauseScreen;
         [SerializeField] private GameObject _inputPopup;
         [SerializeField] private RectTransform _achievementPanel;
         [SerializeField] private GameObject _touchControls;
 
         [SerializeField] private TMP_Text _scoreText;
-        [SerializeField] private TMP_Text _scoreTextGameOver, _highscoreTextGameOver, _scoreTextVictory, _highscoreTextVictory;
+        [SerializeField] private TMP_Text _scoreTextGameOver, _highscoreTextGameOver;
 
         [SerializeField] private Slider _fuelSlider, _healthSlider;
         [SerializeField] private GameObject _alertIcon;
@@ -139,7 +137,6 @@ namespace BlackHole
         public void RenderGameOverScreen(bool victorious)
         {
             ToggleTouchControls(false);
-            Scoring.Instance.DisplayFinalScoreAndCash(victorious);
 
             if (_newAchievementsQueue.Count > 0)
             {
@@ -147,23 +144,11 @@ namespace BlackHole
                 _achievementPanel.GetComponent<AchievementNotification>().StartAchievementsDisplay();
             }
 
-            string difficulty = SettingsManager.Instance.SelectedDifficulty.ToString();
-            if (victorious)
-            {
-                _highscoreTextVictory.text = difficulty + " Highscore: " + _playerStats.GetHighscore();
-                _victoryScreen.SetActive(true);
-                GameObject ReplayButton = _victoryScreen.transform.Find("Replay Button").gameObject;
-                var eventSystem = EventSystem.current;
-                eventSystem.SetSelectedGameObject(ReplayButton, new BaseEventData(eventSystem));
-            }
-            else
-            {
-                _highscoreTextGameOver.text = difficulty + " Highscore: " + _playerStats.GetHighscore();
-                _gameOverScreen.SetActive(true);
-                GameObject ReplayButton = _gameOverScreen.transform.Find("Replay Button").gameObject;
-                var eventSystem = EventSystem.current;
-                eventSystem.SetSelectedGameObject(ReplayButton, new BaseEventData(eventSystem));
-            }
+            string difficulty = SettingsManager.Instance.SelectedDifficulty.ToString();            
+            PostGameScreen.Open();
+            PostGameScreen.Instance.SwapPostGameState(victorious);
+            PostGameScreen.Instance.HighscoreText.text = difficulty + " Highscore: " + _playerStats.GetHighscore();
+            Scoring.Instance.DisplayFinalScoreAndCash(victorious);
         }
 
         private void QueueAchievement(AchievementsManager.Achievement achievement)

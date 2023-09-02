@@ -7,17 +7,12 @@ namespace BlackHole
 {
     public class PauseMenu : Menu<PauseMenu>
     {
-
-        [SerializeField] private GameObject _resumeButton;
-
-        public void OnEnable()
+        protected void OnEnable()
         {
             // When the MenuManager initializes in Awake, CanvasManager might not exist yet
             if (CanvasManager.Instance != null)
             {
                 CanvasManager.Instance.ToggleTouchControls(false);
-                var eventSystem = EventSystem.current;
-                eventSystem.SetSelectedGameObject(_resumeButton, new BaseEventData(eventSystem));
             }
         }
 
@@ -37,9 +32,10 @@ namespace BlackHole
 
         public void OnQuitToMenuPressed()
         {
-            GameManager.QuitToMenu();
             base.OnBackPressed();
+            GameManager.QuitToMenu();
         }
+
         public override void OnBackPressed()
         {
             GameManager.ResumeGame();

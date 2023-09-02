@@ -8,10 +8,7 @@ namespace BlackHole
     {
         public void OnPlayPressed()
         {
-            if (MenuManager.Instance != null && DifficultySelectionMenu.Instance != null)
-            {
-                MenuManager.Instance.OpenMenu(DifficultySelectionMenu.Instance);
-            }
+            DifficultySelectionMenu.Open();
         }
 
         public override void OnBackPressed()

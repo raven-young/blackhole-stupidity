@@ -11,7 +11,7 @@ namespace BlackHole
         public static VictoryTransition Instance;
 
         [SerializeField] private Sprite _victorySprite;
-        [SerializeField] private Image _raccoonImage;
+        private Image _raccoonImage;
         [SerializeField] private AudioClip _victoryClip;
         [SerializeField] private Transform _shipTransform;
         [SerializeField] private ParticleSystem _exhaustParticles;
@@ -31,6 +31,7 @@ namespace BlackHole
         {
             _shipMaterial = _shipTransform.gameObject.GetComponent<SpriteRenderer>().material;
             //_shipMaterial = _shipTransform.transform.Find("ItemMagnet").GetComponent<SpriteRenderer>().material;
+            _raccoonImage = PostGameScreen.Instance.RaccoonImage;
         }
 
         public IEnumerator StartVictoryTransition()

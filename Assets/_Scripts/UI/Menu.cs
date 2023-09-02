@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace BlackHole
 {
@@ -28,11 +29,27 @@ namespace BlackHole
                 _instance = null;
             }
         }
+
+        public static void Open()
+        {
+            if (MenuManager.Instance != null && _instance != null)
+            {
+                MenuManager.Instance.OpenMenu(_instance);
+            }
+        }
     }
 
     [RequireComponent(typeof(Canvas))]
     public abstract class Menu : MonoBehaviour
     {
+        [SerializeField] private GameObject _firstSelected;
+
+        public virtual void SetFirstSelected()
+        {
+            var eventSystem = EventSystem.current;
+            eventSystem.SetSelectedGameObject(_firstSelected, new BaseEventData(eventSystem));
+        }
+
         public virtual void OnBackPressed()
         {
             MenuManager.Instance.CloseMenu();

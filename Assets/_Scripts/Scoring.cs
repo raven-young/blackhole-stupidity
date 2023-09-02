@@ -14,7 +14,7 @@ namespace BlackHole
         [SerializeField] private GameParams _gameParamsSO;
         [SerializeField] private PlayerStats _playerStatsSO;
 
-        [SerializeField] private TMP_Text _scoreTextGameplay, _scoreTextVictory, _scoreTextGameOver;
+        [SerializeField] private TMP_Text _scoreTextGameplay, _scoreTextGameOver;
         [SerializeField] private DamageNumberGUI _multiplierDamageNumberPrefab;
         [SerializeField] private Transform _multiplierSpawnPoint;
 
@@ -97,7 +97,7 @@ namespace BlackHole
             CalculateFinalScoreAndCash(victorious);
             StartCoroutine(SpawnScoreMultipliers());
 
-            _activeText = victorious ? _scoreTextVictory : _scoreTextGameOver;
+            _activeText = PostGameScreen.Instance.ScoreText;
             _finalAccuracy = "\nSolved: " + Math.Round(100f * QuestionAsteroid.Instance.SolveAccuracy) + "%";
 
             // Tween score and cash to final values
