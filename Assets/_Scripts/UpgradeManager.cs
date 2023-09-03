@@ -95,7 +95,7 @@ namespace BlackHole
         private static void ActivateMagnetUpgrade(bool activate = true)
         {
             Debug.Log("pre magnet scale " + SettingsManager.MagnetScale);
-            if (SettingsManager.MagnetScale < 10) Debug.LogWarning("fix this finally ffs");
+            if (SettingsManager.MagnetScale < 10 || SettingsManager.MagnetScale > 20) Debug.LogWarning("fix this finally ffs");
             if (activate)
             {
                 SettingsManager.MagnetScale *= 2f;

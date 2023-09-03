@@ -32,9 +32,15 @@ namespace BlackHole
 
         public static void Open()
         {
+            Debug.Log("opening" + _instance);
             if (MenuManager.Instance != null && _instance != null)
             {
                 MenuManager.Instance.OpenMenu(_instance);
+            }
+            else
+            {
+                if (_instance == null) Debug.LogWarning("MENU Error: Null Instance");
+                if (MenuManager.Instance == null) Debug.LogWarning("MENU Error: MenuManager Null Instance");
             }
         }
     }

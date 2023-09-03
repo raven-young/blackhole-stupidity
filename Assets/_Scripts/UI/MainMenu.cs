@@ -8,6 +8,7 @@ namespace BlackHole
     {
         public void OnPlayPressed()
         {
+            UpgradeManager.Instance.InitializeUpgrades();
             DifficultySelectionMenu.Open();
         }
 

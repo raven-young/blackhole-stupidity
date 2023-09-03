@@ -80,7 +80,7 @@ namespace BlackHole
                 InDangerZone = true;
                 OnEnteredDangerZone?.Invoke();
                 _dangerzoneTimer = 0f;
-                Debug.Log("Entered danger zone! " + DistanceToEventHorizon + " " + _gameParams.DangerZoneDistance);
+                //Debug.Log("Entered danger zone! " + DistanceToEventHorizon + " " + _gameParams.DangerZoneDistance);
             }
             else if (InDangerZone)
             {
@@ -90,7 +90,7 @@ namespace BlackHole
                     InDangerZone = false;
                     OnExitedDangerZone?.Invoke();
                     _dangerzoneTimer = 0;
-                    Debug.Log("Left danger zone! " + DistanceToEventHorizon + " " + _gameParams.DangerZoneDistance);
+                    //Debug.Log("Left danger zone! " + DistanceToEventHorizon + " " + _gameParams.DangerZoneDistance);
                 }
             }
         }

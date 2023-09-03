@@ -9,6 +9,17 @@ namespace BlackHole
         public void OnDifficultySelected(int selectedDifficulty)
         {
             SettingsManager.Instance.SelectedDifficulty = (SettingsManager.DifficultySetting)selectedDifficulty;
+
+            if (SettingsManager.ScoreAttackUnlocked)
+            {
+                //_scoreAttackToggle.SetActive(true);
+            }
+            else
+            {
+                //_scoreAttackToggle.SetActive(false);
+            }
+
+            UpgradeMenu.Open();
         }
 
         public override void OnBackPressed()

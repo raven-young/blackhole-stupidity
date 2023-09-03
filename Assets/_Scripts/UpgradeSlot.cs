@@ -13,11 +13,10 @@ namespace BlackHole
         public static UpgradeSlotManager _upgradeSlotManagerSO;
         public UpgradeManager.Upgrade ActiveUpgrade;
         public GameObject ActiveUpgradeButton; // redundant, should write method to get button from upgrade
-
+        [SerializeField] private GameObject _buyPanel;
         public static Dictionary<int, UpgradeSlot> UpgradeSlots;
 
         [SerializeField] private Bank _bankSO;
-        [SerializeField] private GameObject _buyPanel;
         private TMP_Text _slotText;
         [SerializeField] private int _unlockCost;
         public bool Unlocked;
@@ -65,6 +64,19 @@ namespace BlackHole
             UpgradeSlots[SlotNumber] = this;
             _baseScale = transform.localScale;
         }
+        private void OnEnable()
+        {
+            UpgradeListDisplay.OnUpgradeEquipped += Equip;
+            UpgradeListDisplay.OnUpgradeUnequipped += Unequip;
+            Button.BuyComplete += FinishBuy;
+        }
+
+        private void OnDisable()
+        {
+            UpgradeListDisplay.OnUpgradeEquipped -= Equip;
+            UpgradeListDisplay.OnUpgradeUnequipped -= Unequip;
+            Button.BuyComplete -= FinishBuy;
+        }
 
         private void LoadSlotStateWrapper() // i wanna cri
         {
@@ -108,20 +120,6 @@ namespace BlackHole
 
                 slot.transform.Find("CostText").GetComponent<TMP_Text>().text = "$" + slot._unlockCost;
             }
-        }
-
-        private void OnEnable()
-        {
-            UpgradeListDisplay.OnUpgradeEquipped += Equip;
-            UpgradeListDisplay.OnUpgradeUnequipped += Unequip;
-            Button.BuyComplete += FinishBuy;
-        }
-
-        private void OnDisable()
-        {
-            UpgradeListDisplay.OnUpgradeEquipped -= Equip;
-            UpgradeListDisplay.OnUpgradeUnequipped -= Unequip;
-            Button.BuyComplete -= FinishBuy;
         }
 
         public void Equip(UpgradeManager.Upgrade u, UpgradeSlot s, GameObject button)
@@ -186,8 +184,7 @@ namespace BlackHole
 
             _buyPanel.SetActive(true);
             _isBuying = true;
-            _buyPanel.transform.GetComponentInChildren<TMP_Text>().text = "Buy for $" + _unlockCost + "?";
-            EventSystem.current.SetSelectedGameObject(_buyPanel.transform.Find("Yes").gameObject, new BaseEventData(EventSystem.current));
+            _buyPanel.GetComponent<BuyPanel>().HeaderText.text = "Buy for $" + _unlockCost + "?";
             yield return new WaitWhile(() => _isBuying);
             _buyPanel.SetActive(false);
         }

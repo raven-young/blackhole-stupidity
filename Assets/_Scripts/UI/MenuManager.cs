@@ -12,11 +12,12 @@ namespace BlackHole
         public static MenuManager Instance { get => _instance; }
 
         // Don't change types below to subtyles, else GetNestedFieldValuesOfType won't work
-        public Menu MainMenuPrefab;
-        public Menu DifficultyMenuPrefab;
-        //public Menu UpgradeMenuPrefab;
-        public Menu PauseMenuPrefab;
-        public Menu VictoryScreenPrefab;
+        [SerializeField] private Menu MainMenuPrefab;
+        [SerializeField] private Menu DifficultyMenuPrefab;
+        //[SerializeField] private Menu UpgradeMenuPrefab;
+        [SerializeField] private Menu PauseMenuPrefab;
+        [SerializeField] private Menu VictoryScreenPrefab;
+        [SerializeField] private Menu UpgradeMenuPrefab;
 
         [SerializeField] private Transform _menuParent;
 
@@ -76,8 +77,9 @@ namespace BlackHole
         public void OpenMenu(Menu menuInstance)
         {
 
-            if (menuInstance.gameObject.activeSelf)
+            if (menuInstance.gameObject.activeSelf && _menuStack.Count > 0 && _menuStack.Peek() == menuInstance)
             {
+                Debug.LogWarning("MENUMANAGER OpenMenu ERROR: Attempted to open already open menu");
                 return;
             }
 
@@ -91,6 +93,7 @@ namespace BlackHole
             {
                 foreach (Menu menu in _menuStack)
                 {
+                    Debug.Log("deactivating " + menu.gameObject);
                     menu.gameObject.SetActive(false);
                 }
             }
@@ -98,6 +101,7 @@ namespace BlackHole
             menuInstance.gameObject.SetActive(true);
             menuInstance.SetFirstSelected();
             _menuStack.Push(menuInstance);
+            Debug.Log("pushed " + menuInstance.gameObject);
         }
 
         public void CloseMenu()
@@ -116,6 +120,14 @@ namespace BlackHole
                 Menu nextMenu = _menuStack.Peek();
                 nextMenu.gameObject.SetActive(true);
                 nextMenu.SetFirstSelected();
+            }
+        }
+
+        public void CloseAllMenus()
+        {
+            while (_menuStack.Count > 0)
+            {
+                CloseMenu();
             }
         }
     }
