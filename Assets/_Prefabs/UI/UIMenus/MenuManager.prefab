@@ -1,0 +1,54 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &8736970140120889984
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6178380141368114}
+  - component: {fileID: 8892115482900893690}
+  m_Layer: 0
+  m_Name: MenuManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6178380141368114
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8736970140120889984}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8892115482900893690
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8736970140120889984}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5e253adb5ddeb14a9d84ebd28902dcb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MainMenuPrefab: {fileID: 5390124571604232791, guid: ca209fb6ec48a354bbdb0c42cc49be61, type: 3}
+  DifficultyMenuPrefab: {fileID: 5510553584806522182, guid: d0fb300183226df488064ce20708adc1, type: 3}
+  PauseMenuPrefab: {fileID: 7473569491227157855, guid: 25b446f589dabd344a34c01963ba3ea1, type: 3}
+  VictoryScreenPrefab: {fileID: 6807386818251417967, guid: 424bbac5f235c3a4d9490aaeee1f2304, type: 3}
+  UpgradeMenuPrefab: {fileID: 8396746128303661110, guid: 670d36b80e4667d449b13f9ed69455d6, type: 3}
+  ExtrasMenuPrefab: {fileID: 838231745616679485, guid: 1b152947c78448645a1fe724fb39afd2, type: 3}
+  AchievementsMenuPrefab: {fileID: 7612843928280099468, guid: b99f9acfcd9cc714482acd293c1d5751, type: 3}
+  _menuParent: {fileID: 0}

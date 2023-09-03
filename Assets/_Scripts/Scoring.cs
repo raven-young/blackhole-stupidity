@@ -14,7 +14,7 @@ namespace BlackHole
         [SerializeField] private GameParams _gameParamsSO;
         [SerializeField] private PlayerStats _playerStatsSO;
 
-        [SerializeField] private TMP_Text _scoreTextGameplay, _scoreTextVictory, _scoreTextGameOver;
+        [SerializeField] private TMP_Text _scoreTextGameplay;
         [SerializeField] private DamageNumberGUI _multiplierDamageNumberPrefab;
         [SerializeField] private Transform _multiplierSpawnPoint;
 
@@ -67,6 +67,7 @@ namespace BlackHole
 
         public void CalculateFinalScoreAndCash(bool victorious)
         {
+            _scoreTextGameplay.gameObject.SetActive(false);
 
             float finalMultiplier = victorious ? _gameParamsSO.VictoryMultiplier : _gameParamsSO.GameOverMultiplier;
 
@@ -97,7 +98,7 @@ namespace BlackHole
             CalculateFinalScoreAndCash(victorious);
             StartCoroutine(SpawnScoreMultipliers());
 
-            _activeText = victorious ? _scoreTextVictory : _scoreTextGameOver;
+            _activeText = PostGameScreen.Instance.ScoreText;
             _finalAccuracy = "\nSolved: " + Math.Round(100f * QuestionAsteroid.Instance.SolveAccuracy) + "%";
 
             // Tween score and cash to final values
@@ -111,11 +112,11 @@ namespace BlackHole
         private IEnumerator SpawnScoreMultipliers()
         {
             yield return new WaitForSecondsRealtime(0.3f);
-            float gameResult = GameManager.Instance.GameWasWon ? _gameParamsSO.VictoryMultiplier : _gameParamsSO.GameOverMultiplier;
+            float gameResult = GameManager.GameWasWon ? _gameParamsSO.VictoryMultiplier : _gameParamsSO.GameOverMultiplier;
             SoundManager.Instance.PlaySFX(SoundManager.SFX.Powerup);
             DamageNumber d = _multiplierDamageNumberPrefab.Spawn(Vector3.zero, gameResult);
             d.SetAnchoredPosition(_multiplierSpawnPoint, _multiplierSpawnPoint, Vector2.zero);
-            d.leftText = GameManager.Instance.GameWasWon ? "Victory x" : "Defeat x";
+            d.leftText = GameManager.GameWasWon ? "Victory x" : "Defeat x";
             yield return new WaitForSecondsRealtime(1.5f);
             SoundManager.Instance.PlaySFX(SoundManager.SFX.Powerup);
             DamageNumber d2 = _multiplierDamageNumberPrefab.Spawn(Vector3.zero, SettingsManager.DifficultyScoreMultiplier);

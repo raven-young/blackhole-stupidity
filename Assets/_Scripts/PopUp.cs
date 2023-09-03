@@ -8,7 +8,7 @@ public class PopUp : MonoBehaviour
     public static void SpawnPopUp(string message)
     {
         GameObject popupPrefab = Resources.Load<GameObject>("_Prefabs/GenericPopUp");
-        RectTransform canvas = GameObject.FindGameObjectWithTag("Canvas").GetComponent<RectTransform>();
+        RectTransform canvas = GameObject.FindGameObjectWithTag("TopCanvas").GetComponent<RectTransform>();
         GameObject popup = Instantiate(popupPrefab, canvas);
         popup.transform.Find("Body").GetComponent<TMP_Text>().text = message;
     }
