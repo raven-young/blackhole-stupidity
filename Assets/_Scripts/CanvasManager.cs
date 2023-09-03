@@ -107,6 +107,7 @@ namespace BlackHole
 
         public void ShowControlsPanel()
         {
+            ScreenFader.FadeFromBlack(1f);
             _inputPopup.SetActive(true);
 
             if (Gamepad.current != null)

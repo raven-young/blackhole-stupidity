@@ -29,8 +29,6 @@ namespace BlackHole
         [SerializeField] private AudioClip _raccoonTalking1, _raccoonTalking2;
         [SerializeField] private AudioClip _cowTalking1, _cowTalking2;
 
-        [SerializeField] private Image _blackPanel;
-
         //[SerializeField] private GameObject _sliders;
         //[SerializeField] private GameObject _scorePanel;
 
@@ -116,7 +114,7 @@ namespace BlackHole
             _character2Speechbubble.GetComponent<Image>().CrossFadeAlpha(_fadedAlpha, 0, true);
             _character2Text.CrossFadeAlpha(_fadedAlpha, 0, true);
 
-            _blackPanel.DOFade(0f, 1f);
+            ScreenFader.FadeFromBlack(1f);
             yield return new WaitForSecondsRealtime(1f);
 
             // Change from main menu theme to dialogue theme
@@ -225,15 +223,22 @@ namespace BlackHole
         {
             if (_selectedDialogue.Count <= _dialogueIterator)
             {
-                SoundManager.Instance.StopSFX();
-                DOTween.KillAll();
-                SceneManager.LoadScene("BlackHole");
+                StartCoroutine(StartGame());
                 return;
             }
 
             var next = _selectedDialogue[_dialogueIterator];
             DisplayNewDialogue(next, fadeTime);
             _dialogueIterator++;
+        }
+
+        private IEnumerator StartGame()
+        {
+            ScreenFader.FadeToBlack(1f);
+            yield return new WaitForSecondsRealtime(1f);
+            SoundManager.Instance.StopSFX();
+            DOTween.KillAll();
+            SceneManager.LoadScene("BlackHole");
         }
     }
 }

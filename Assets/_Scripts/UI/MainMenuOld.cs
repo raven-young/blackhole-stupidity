@@ -19,7 +19,6 @@ namespace BlackHole
         [SerializeField] private TMP_Text _achievementsListText;
         [SerializeField] private Camera _cam;
         [SerializeField] private GameObject _achievementsButton;
-        [SerializeField] private Image _blackPanel;
         [SerializeField] private AchievementNotification _achievementsNotification;
         [SerializeField] private GameObject _difficultyPanel, _upgradePanel, _extrasPanel, _achievementsPanel, _scoreAttackToggle;
         [SerializeField] private RectTransform _background;
@@ -30,7 +29,6 @@ namespace BlackHole
         [SerializeField] private RectTransform cashNumberRectParent;
         private DamageNumber cashNumber;
 
-        private GameObject _activePanel;
         private PlayerInputActions playerInputActions;
 
         private void Awake()

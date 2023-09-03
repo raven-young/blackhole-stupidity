@@ -15,7 +15,7 @@ namespace BlackHole
 
         private IEnumerator StartGameRoutine()
         {
-            //_blackPanel.DOFade(1f, 1f);
+            ScreenFader.FadeToBlack(1f);
             yield return new WaitForSecondsRealtime(1f);
             DOTween.KillAll();
             SceneManager.LoadScene("CutsceneIntro");
