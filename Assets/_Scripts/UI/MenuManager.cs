@@ -93,7 +93,6 @@ namespace BlackHole
             {
                 foreach (Menu menu in _menuStack)
                 {
-                    Debug.Log("deactivating " + menu.gameObject);
                     menu.gameObject.SetActive(false);
                 }
             }
@@ -101,7 +100,6 @@ namespace BlackHole
             menuInstance.gameObject.SetActive(true);
             menuInstance.SetFirstSelected();
             _menuStack.Push(menuInstance);
-            Debug.Log("pushed " + menuInstance.gameObject);
         }
 
         public void CloseMenu()

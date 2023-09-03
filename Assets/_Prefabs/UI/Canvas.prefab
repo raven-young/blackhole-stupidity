@@ -4322,16 +4322,12 @@ MonoBehaviour:
   _gameParams: {fileID: 11400000, guid: dd8a65e487f3ad244b57dea38948a9e4, type: 2}
   _playerStats: {fileID: 11400000, guid: 42f054a91392e5243a4f390209487cb4, type: 2}
   _gameOverScreen: {fileID: 1736660819990711954}
-  _victoryScreen: {fileID: 0}
-  _pauseScreen: {fileID: 0}
   _inputPopup: {fileID: 6068167619240253332}
   _achievementPanel: {fileID: 2464141888622014640}
   _touchControls: {fileID: 6620969072160245426}
   _scoreText: {fileID: 1620022891089617867}
   _scoreTextGameOver: {fileID: 2172310315836300642}
   _highscoreTextGameOver: {fileID: 3567563674489720688}
-  _scoreTextVictory: {fileID: 0}
-  _highscoreTextVictory: {fileID: 0}
   _fuelSlider: {fileID: 2773099236092990658}
   _healthSlider: {fileID: 8056232210407815718}
   _alertIcon: {fileID: 6276568462064900348}
@@ -5255,7 +5251,6 @@ MonoBehaviour:
   _gameParamsSO: {fileID: 11400000, guid: dd8a65e487f3ad244b57dea38948a9e4, type: 2}
   _playerStatsSO: {fileID: 11400000, guid: 42f054a91392e5243a4f390209487cb4, type: 2}
   _scoreTextGameplay: {fileID: 1620022891089617867}
-  _scoreTextVictory: {fileID: 0}
   _scoreTextGameOver: {fileID: 2172310315836300642}
   _multiplierDamageNumberPrefab: {fileID: 2121139711047777747, guid: 2e7384ad964ad0247a9fbb1175a654e2, type: 3}
   _multiplierSpawnPoint: {fileID: 3016293400690093423}

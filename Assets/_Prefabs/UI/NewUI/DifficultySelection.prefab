@@ -633,6 +633,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _firstSelected: {fileID: 3414272256941852999}
+  _scoreAttackToggle: {fileID: 4835305816241057369}
 --- !u!1 &5697618534967479537
 GameObject:
   m_ObjectHideFlags: 0
