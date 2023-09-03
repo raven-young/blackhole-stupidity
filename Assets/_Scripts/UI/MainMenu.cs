@@ -12,6 +12,11 @@ namespace BlackHole
             DifficultySelectionMenu.Open();
         }
 
+        public void OnExtrasPressed()
+        {
+            ExtrasMenu.Open();
+        }
+
         public override void OnBackPressed()
         {
             Application.Quit();

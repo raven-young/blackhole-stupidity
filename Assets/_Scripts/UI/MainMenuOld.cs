@@ -91,9 +91,9 @@ namespace BlackHole
         //    _activePanel = _achievementsPanel;
         //}
 
-        //public void UpdateAchievementsText()
+        //public void Updateachievementstext()
         //{
-        //    _achievementsListText.text = AchievementsManager.Instance.GetAchievementsString();
+        //    _achievementslisttext.text = achievementsmanager.instance.getachievementsstring();
         //}
 
         //public void Quit()
