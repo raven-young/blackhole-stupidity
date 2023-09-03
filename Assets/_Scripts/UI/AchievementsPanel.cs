@@ -10,8 +10,9 @@ namespace BlackHole
 
         [SerializeField] private TMP_Text _achievementsListText;
 
-        private void OnEnable()
+        protected override void OnEnable()
         {
+            base.OnEnable();
             _achievementsListText.text = AchievementsManager.Instance.GetAchievementsString();
         }
 

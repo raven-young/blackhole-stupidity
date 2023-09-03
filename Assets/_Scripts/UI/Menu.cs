@@ -22,6 +22,17 @@ namespace BlackHole
                 _instance = (T)this;
             }
         }
+
+        protected virtual void OnEnable()
+        {
+            MainMenuController.EscapeActionPressed += OnBackPressed;
+        }
+
+        protected virtual void OnDisable()
+        {
+            MainMenuController.EscapeActionPressed -= OnBackPressed;
+        }
+
         protected virtual void OnDestroy()
         {
             if (_instance == this)

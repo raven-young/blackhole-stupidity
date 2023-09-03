@@ -14,7 +14,7 @@ namespace BlackHole
         [SerializeField] private GameParams _gameParamsSO;
         [SerializeField] private PlayerStats _playerStatsSO;
 
-        [SerializeField] private TMP_Text _scoreTextGameplay, _scoreTextGameOver;
+        [SerializeField] private TMP_Text _scoreTextGameplay;
         [SerializeField] private DamageNumberGUI _multiplierDamageNumberPrefab;
         [SerializeField] private Transform _multiplierSpawnPoint;
 
@@ -67,6 +67,7 @@ namespace BlackHole
 
         public void CalculateFinalScoreAndCash(bool victorious)
         {
+            _scoreTextGameplay.gameObject.SetActive(false);
 
             float finalMultiplier = victorious ? _gameParamsSO.VictoryMultiplier : _gameParamsSO.GameOverMultiplier;
 

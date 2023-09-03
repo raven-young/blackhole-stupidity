@@ -17,8 +17,9 @@ namespace BlackHole
             _extrasButton = transform.Find("ExtrasButton").gameObject;
         }
 
-        private void OnEnable()
+        protected override void OnEnable()
         {
+            base.OnEnable();
             float _buttonY = _startButton.transform.position.y;
             _startButton.transform.DOMoveY(_buttonY + 4f, 1f).SetEase(Ease.InOutSine).SetLoops(-1, LoopType.Yoyo);
             _quitButton.transform.DOMoveY(_buttonY + 4f, 1f).SetEase(Ease.InOutSine).SetLoops(-1, LoopType.Yoyo).SetDelay(0.2f);
@@ -26,8 +27,9 @@ namespace BlackHole
 
         }
 
-        private void OnDisable()
+        protected override void OnDisable()
         {
+            base.OnDisable();
             _startButton.transform.DOKill();
             _quitButton.transform.DOKill();
             _extrasButton.transform.DOKill();

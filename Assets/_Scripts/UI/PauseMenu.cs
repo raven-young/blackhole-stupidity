@@ -7,8 +7,9 @@ namespace BlackHole
 {
     public class PauseMenu : Menu<PauseMenu>
     {
-        protected void OnEnable()
+        protected override void OnEnable()
         {
+            base.OnEnable();
             // When the MenuManager initializes in Awake, CanvasManager might not exist yet
             if (CanvasManager.Instance != null)
             {
@@ -16,8 +17,9 @@ namespace BlackHole
             }
         }
 
-        public void OnDisable()
+        protected override void OnDisable()
         {
+            base.OnDisable();
             if (CanvasManager.Instance != null)
             {
                 CanvasManager.Instance.ToggleTouchControls(SettingsManager.IsMobileGame);

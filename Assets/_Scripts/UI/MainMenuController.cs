@@ -1,11 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using DG.Tweening;
-using UnityEngine.UI;
 using UnityEngine.InputSystem;
-using UnityEngine.EventSystems;
+using DG.Tweening;
 using TMPro;
 using DamageNumbersPro;
 
@@ -13,6 +9,8 @@ namespace BlackHole
 {
     public class MainMenuController : MonoBehaviour
     {
+        public static event Action EscapeActionPressed;
+
         [SerializeField] private GameParams _gameParams;
         [SerializeField] private Bank _bankSO;
         [SerializeField] private TMP_Text _achievementsListText;
@@ -33,8 +31,8 @@ namespace BlackHole
         {
             playerInputActions = new PlayerInputActions();
             playerInputActions.Enable();
-            //playerInputActions.Player.EscapeAction.performed += EscapeAction;
-            //playerInputActions.Player.Answer3.performed += EscapeAction;
+            playerInputActions.Player.EscapeAction.performed += EscapeAction;
+            playerInputActions.Player.Answer3.performed += EscapeAction;
         }
 
         private void OnEnable()
@@ -49,8 +47,8 @@ namespace BlackHole
             Bank.OnCashTransfer -= UpdateCurrencyText;
 
             playerInputActions.Disable();
-            //playerInputActions.Player.EscapeAction.performed -= EscapeAction;
-            //playerInputActions.Player.Answer3.performed -= EscapeAction;
+            playerInputActions.Player.EscapeAction.performed -= EscapeAction;
+            playerInputActions.Player.Answer3.performed -= EscapeAction;
         }
 
         private void Start()
@@ -70,13 +68,13 @@ namespace BlackHole
             _currencyText.text = "$" + _bankSO.AvailableCurrency.ToString();
         }
 
-        //private void EscapeAction(InputAction.CallbackContext context)
-        //{
-        //    if (context.performed)
-        //    {
-        //        Escape();
-        //    }
-        //}
+        private void EscapeAction(InputAction.CallbackContext context)
+        {
+            if (context.performed)
+            {
+                EscapeActionPressed?.Invoke();
+            }
+        }
 
         //public void Escape()
         //{
