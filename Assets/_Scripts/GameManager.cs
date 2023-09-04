@@ -204,12 +204,14 @@ namespace BlackHole
         public static void Restart()
         {
             DOTween.KillAll();
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            LevelManager.Instance.LoadLevel(SceneManager.GetActiveScene().name);
+            //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
         public static void QuitToMenu()
         {
             DOTween.KillAll();
-            SceneManager.LoadScene("MainMenu");
+            LevelManager.Instance.LoadLevel("MainMenu");
+            //SceneManager.LoadScene("MainMenu");
             MainMenu.Open();
         }
         public void Quit()
