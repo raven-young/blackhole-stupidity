@@ -20,6 +20,7 @@ namespace BlackHole
         [SerializeField] private Menu UpgradeMenuPrefab;
         [SerializeField] private Menu ExtrasMenuPrefab;
         [SerializeField] private Menu AchievementsMenuPrefab;
+        [SerializeField] private Menu SettingsMenuPrefab;
 
         [SerializeField] private Transform _menuParent;
 

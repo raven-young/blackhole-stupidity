@@ -57,6 +57,8 @@ namespace BlackHole
         [Header("Music")]
         [SerializeField] private AudioClip _backgroundMusic;
         [SerializeField] private AudioClip _nervousMusic, _mainMenuMusic, _dialogueMusic;
+        private float _maxMusicVolume = 1f;
+        public float MaxMusicVolume { get => _maxMusicVolume; set => _maxMusicVolume = Mathf.Clamp01(value); }
 
         [Header("SFX")]
         [SerializeField] private AudioClip _alertClip;
@@ -65,6 +67,14 @@ namespace BlackHole
         [Header("UI")]
         [SerializeField] private AudioClip _buttonPress;
         [SerializeField] private AudioClip _failedButtonPress, _buttonSelect;
+
+        public enum MusicSourceID
+        {
+            MusicSource1,
+            MusicSource2
+        }
+
+        private MusicSourceID _activeMusicSource;
 
         private void OnEnable()
         {
@@ -77,12 +87,6 @@ namespace BlackHole
         {
             GameManager.OnEnteredDangerZone -= DangerZoneCrossSwapMusic;
             GameManager.OnExitedDangerZone -= DangerZoneCrossSwapMusic;
-        }
-
-        public enum MusicSourceID
-        {
-            MusicSource1,
-            MusicSource2
         }
 
         public void PlaySound(AudioClip clip, float volumeScale = 1f)
@@ -98,11 +102,11 @@ namespace BlackHole
         {
             _effectsSource.volume = volume;
         }
-        public void ChangeMusicVolume(float volume, float fadeDuration = 0f)
-        {
-            _musicSource1.DOFade(volume, fadeDuration).SetUpdate(true);
-            _musicSource2.DOFade(volume, fadeDuration).SetUpdate(true);
-        }
+        //public void ChangeMusicVolume(float volume, float fadeDuration = 0f)
+        //{
+        //    _musicSource1.DOFade(volume, fadeDuration).SetUpdate(true);
+        //    _musicSource2.DOFade(volume, fadeDuration).SetUpdate(true);
+        //}
 
         public void StopSFX()
         {
@@ -125,8 +129,9 @@ namespace BlackHole
             _musicSource2.clip = clip2;
             _musicSource1.Play();
             _musicSource2.Play();
-            _musicSource1.DOFade(1, fadeinDuration).SetUpdate(true); // set update to make independent of time scale
+            _musicSource1.DOFade(_maxMusicVolume, fadeinDuration).SetUpdate(true); // set update to make independent of time scale
             _musicSource2.DOFade(0, 0).SetUpdate(true);
+            _activeMusicSource = MusicSourceID.MusicSource1;
         }
 
         public void ChangeMusicPairSource(MusicSourceID oldMusicSourceNumber, float fadeDuration = 0f)
@@ -135,12 +140,29 @@ namespace BlackHole
             if (oldMusicSourceNumber == MusicSourceID.MusicSource1)
             {
                 _musicSource1.DOFade(0, fadeDuration).SetUpdate(true);
-                _musicSource2.DOFade(1, fadeDuration).SetUpdate(true);
+                _musicSource2.DOFade(_maxMusicVolume, fadeDuration).SetUpdate(true);
+                _activeMusicSource = MusicSourceID.MusicSource2;
             }
             else if (oldMusicSourceNumber == MusicSourceID.MusicSource2)
             {
-                _musicSource1.DOFade(1, fadeDuration).SetUpdate(true);
+                _musicSource1.DOFade(_maxMusicVolume, fadeDuration).SetUpdate(true);
                 _musicSource2.DOFade(0, fadeDuration).SetUpdate(true);
+                _activeMusicSource = MusicSourceID.MusicSource1;
+            }
+        }
+
+        public void ChangeMusicPairVolume(float volume)
+        {
+            _maxMusicVolume = volume;
+
+            switch (_activeMusicSource)
+            {
+                case MusicSourceID.MusicSource1:
+                    _musicSource1.volume = volume;
+                    break;
+                case MusicSourceID.MusicSource2:
+                    _musicSource2.volume = volume;
+                    break;
             }
         }
 

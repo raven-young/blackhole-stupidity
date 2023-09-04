@@ -11,5 +11,10 @@ namespace BlackHole
             AchievementsPanel.Open();
         }
 
+        public void OnSettingsPressed()
+        {
+            SettingsMenu.Open();
+        }
+
     }
 }

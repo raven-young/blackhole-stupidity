@@ -125,7 +125,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _firstSelected: {fileID: 7448543034426123428}
-  _resumeButton: {fileID: 7448543034426123428}
 --- !u!1 &3855276827308007440
 GameObject:
   m_ObjectHideFlags: 0
@@ -278,7 +277,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1380279683474783610, guid: 89248b8a163a5b248bcdc1ffb32e35b4, type: 3}
       propertyPath: m_Interactable
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1380279683474783610, guid: 89248b8a163a5b248bcdc1ffb32e35b4, type: 3}
       propertyPath: m_Navigation.m_Mode
@@ -298,19 +297,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1380279683474783610, guid: 89248b8a163a5b248bcdc1ffb32e35b4, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1380279683474783610, guid: 89248b8a163a5b248bcdc1ffb32e35b4, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 7473569491227157855}
     - target: {fileID: 1380279683474783610, guid: 89248b8a163a5b248bcdc1ffb32e35b4, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1380279683474783610, guid: 89248b8a163a5b248bcdc1ffb32e35b4, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: OnDifficultySelected
+      value: OnSettingsPressed
       objectReference: {fileID: 0}
     - target: {fileID: 1380279683474783610, guid: 89248b8a163a5b248bcdc1ffb32e35b4, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
-      value: BlackHole.DifficultySelectionMenu, Assembly-CSharp
+      value: BlackHole.PauseMenu, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 1380279683474783610, guid: 89248b8a163a5b248bcdc1ffb32e35b4, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_IntArgument

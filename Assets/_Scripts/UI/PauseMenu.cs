@@ -32,6 +32,11 @@ namespace BlackHole
             base.OnBackPressed();
         }
 
+        public void OnSettingsPressed()
+        {
+            SettingsMenu.Open();
+        }
+
         public void OnQuitToMenuPressed()
         {
             base.OnBackPressed();

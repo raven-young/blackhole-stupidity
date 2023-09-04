@@ -23,7 +23,8 @@ namespace BlackHole
 
         private static bool _canShoot = true;
         private bool _isShooting = false;
-        private bool _isAutoshooting = false;
+        private static bool _isAutoshooting = false;
+        public static bool IsAutoshooting { get => _isAutoshooting; set => _isAutoshooting = value; }
         private float _shootCooldown;
 
         private static IObjectPool<Bullet> _pool;

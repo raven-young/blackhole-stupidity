@@ -21,9 +21,9 @@ namespace BlackHole
         {
             base.OnEnable();
             float _buttonY = _startButton.transform.position.y;
-            _startButton.transform.DOMoveY(_buttonY + 4f, 1f).SetEase(Ease.InOutSine).SetLoops(-1, LoopType.Yoyo);
-            _quitButton.transform.DOMoveY(_buttonY + 4f, 1f).SetEase(Ease.InOutSine).SetLoops(-1, LoopType.Yoyo).SetDelay(0.2f);
-            _extrasButton.transform.DOMoveY(_extrasButton.transform.position.y + 4f, 1f).SetEase(Ease.InOutSine).SetLoops(-1, LoopType.Yoyo).SetDelay(0.4f);
+            _startButton.transform.DOMoveY(_buttonY + 5.5f, 1f).SetEase(Ease.InOutSine).SetLoops(-1, LoopType.Yoyo);
+            _quitButton.transform.DOMoveY(_buttonY + 5.5f, 1f).SetEase(Ease.InOutSine).SetLoops(-1, LoopType.Yoyo).SetDelay(0.2f);
+            _extrasButton.transform.DOMoveY(_extrasButton.transform.position.y + 5.5f, 1f).SetEase(Ease.InOutSine).SetLoops(-1, LoopType.Yoyo).SetDelay(0.4f);
 
         }
 
