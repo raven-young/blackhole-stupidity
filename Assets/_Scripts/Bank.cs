@@ -9,11 +9,46 @@ namespace BlackHole {
     public class Bank : ScriptableObject
     {
 
-        public int AvailableCurrency { get; private set; } = 0;
+        // The Singleton instance
+        private static Bank _instance;
+
+        // Property to access the Singleton instance
+        public static Bank Instance
+        {
+            get
+            {
+                if (_instance == null)
+                {
+                    if (!ES3.KeyExists("Bank"))
+                    {
+
+                        _instance = Resources.Load<Bank>("_ScriptableObjects/Bank");
+
+                        // If the asset doesn't exist in Resources, create a new instance
+                        if (_instance == null)
+                        {
+                            _instance = CreateInstance<Bank>();
+                        }
+                        ES3.Save("Bank", _instance);
+                        Debug.Log("Saved non-existent Bank key: " + _instance);
+                    }
+                    else
+                    {
+                        _instance = ES3.Load<Bank>("Bank");
+                        Debug.Log("Loaded Bank asset: " + _instance);
+                    }
+                }
+                return _instance;
+            }
+
+            set => _instance = value;
+        }
+
+        public static int AvailableCurrency { get; set; }
 
         public static event Action<int> OnCashTransfer;
 
-        public void CashTransfer(int cash)
+        public static void CashTransfer(int cash)
         {
             if (AvailableCurrency + cash < 0)
             {

@@ -7,38 +7,40 @@ namespace BlackHole
     public class SettingsManager : ScriptableObject
     {
         // The Singleton instance
-        private static SettingsManager instance;
+        private static SettingsManager _instance;
 
         // Property to access the Singleton instance
         public static SettingsManager Instance
         {
             get
             {
-                if (instance == null)
+                if (_instance == null)
                 {
                     if (!ES3.KeyExists("SettingsManager"))
                     {
 
-                        instance = Resources.Load<SettingsManager>("_ScriptableObjects/SettingsManager");
+                        _instance = Resources.Load<SettingsManager>("_ScriptableObjects/SettingsManager");
 
                         // If the asset doesn't exist in Resources, create a new instance
-                        if (instance == null)
+                        if (_instance == null)
                         {
                             Debug.LogWarning("Creating fresh SettingsManager");
-                            instance = CreateInstance<SettingsManager>();
+                            _instance = CreateInstance<SettingsManager>();
                         }
-                        ES3.Save("SettingsManager", instance);
-                        Debug.Log("Saved non-existent SettingsManager key: " + instance);
+                        ES3.Save("SettingsManager", _instance);
+                        Debug.Log("Saved non-existent SettingsManager key: " + _instance);
                     }
                     else
                     {
-                        instance = ES3.Load<SettingsManager>("SettingsManager");
-                        Debug.Log("Loaded SettingsManager asset: " + instance);
+                        _instance = ES3.Load<SettingsManager>("SettingsManager");
+                        Debug.Log("Loaded SettingsManager asset: " + _instance);
                     }
                 }
 
-                return instance;
+                return _instance;
             }
+
+            set => _instance = value;
         }
 
         [SerializeField] private GameParams _gameParams;
@@ -84,11 +86,11 @@ namespace BlackHole
 
         private void OnEnable() // awake not called on reloaded scritpable objects!
         {
-            if (instance == null)
+            if (_instance == null)
             {
-                instance = this;
+                _instance = this;
             }
-            else if (instance != this)
+            else if (_instance != this)
             {
                 Debug.Log("Redundant SettingsManager instance");
                 Destroy(this);

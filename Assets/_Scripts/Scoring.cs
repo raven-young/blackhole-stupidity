@@ -10,7 +10,6 @@ namespace BlackHole
     {
         public static Scoring Instance;
 
-        [SerializeField] private Bank _bankSO;
         [SerializeField] private GameParams _gameParamsSO;
         [SerializeField] private PlayerStats _playerStatsSO;
 
@@ -82,7 +81,7 @@ namespace BlackHole
             _finalScore = (int)(finalMultiplier * _score);
             _finalCashGained = (int)(finalMultiplier * _cashGained);
 
-            _bankSO.CashTransfer(_finalCashGained);
+            Bank.CashTransfer(_finalCashGained);
 
             if (_finalScore > _playerStatsSO.GetHighscore())
             {

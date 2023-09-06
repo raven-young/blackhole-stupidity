@@ -10,39 +10,43 @@ namespace BlackHole
     public class UpgradeManager : ScriptableObject
     {
         // The Singleton instance
-        private static UpgradeManager instance;
+        private static UpgradeManager _instance;
 
         // Property to access the Singleton instance
         public static UpgradeManager Instance
         {
             get
             {
-                if (instance == null)
+                if (_instance == null)
                 {
                     Debug.Log("null upgrade manaer, get new");
                     if (!ES3.KeyExists("UpgradeManager"))
                     {
 
-                        instance = Resources.Load<UpgradeManager>("_ScriptableObjects/UpgradeManager");
+                        _instance = Resources.Load<UpgradeManager>("_ScriptableObjects/UpgradeManager");
 
                         // If the asset doesn't exist in Resources, create a new instance
-                        if (instance == null)
+                        if (_instance == null)
                         {
-                            instance = CreateInstance<UpgradeManager>();
+                            _instance = CreateInstance<UpgradeManager>();
                         }
-                        ES3.Save("UpgradeManager", instance);
-                        Debug.Log("Saved non-existent UpgradeManager key: " + instance);
+                        ES3.Save("UpgradeManager", _instance);
+                        Debug.Log("Saved non-existent UpgradeManager key: " + _instance);
                     }
                     else
                     {
-                        instance = ES3.Load<UpgradeManager>("UpgradeManager");
-                        Debug.Log("Loaded UpgradeManager asset: " + instance);
+                        _instance = ES3.Load<UpgradeManager>("UpgradeManager");
+                        Debug.Log("Loaded UpgradeManager asset: " + _instance);
                     }
                 }
 
-                return instance;
+                return _instance;
             }
+
+            set => _instance = value;
         }
+
+        [SerializeField] private string dummyreminder = "DON'T RENAME UPGRADES UNTIL NULL DELEGATE ISSUE IS PROPERLY FIXED";
 
         [Serializable]
         public class Upgrade
@@ -55,12 +59,14 @@ namespace BlackHole
                 UnlockCost = cost;
             }
 
-            public string Name;
+            public string Name; // don't make readonly (null delegate issue)
             public string Description;
             public int UnlockCost;
             public bool Unlocked = false;
             public bool Equipped = false;
             public int EquippedSlotNumber;
+
+            // Warning: EasySave cannot save this!
             public delegate void ActivateUpgrade(bool unequip);
             public ActivateUpgrade Activate;
         }
@@ -73,20 +79,34 @@ namespace BlackHole
             set => Mathf.Clamp(value, 0f, 1f);
         }
 
-        [SerializeField] private Bank _bankSO;
         private int _unlockedUpgradesCount = 0;
         private readonly List<Upgrade> EquippedUpgrades = new();
 
         private void OnEnable()
         {
-            if (instance == null)
+            if (_instance == null)
             {
-                instance = this;
+                _instance = this;
             }
-            else if (instance != this)
+            else if (_instance != this)
             {
                 Debug.Log("Redundant UpgradeManager instance");
                 Destroy(this);
+            }
+        }
+
+        // workaround, refactor save system later
+        private void FillNullDelegate(Upgrade u)
+        {
+            switch (u.Name)
+            {
+                case "Super Magnet": u.Activate = ActivateMagnetUpgrade; break;
+                case "Quickshot": u.Activate = ActivateFirerateUpgrade; break;
+                case "Triple Shot": u.Activate = ActivateTripleshotUpgrade; break;
+                case "Shield": u.Activate = ActivateShieldUpgrade; break;
+                case "Combo Saver": u.Activate = ActivateComboSaverUpgrade; break;
+                case "Scavenger": u.Activate = ActivateItemSpawnBonusUpgrade; break;
+                case "Slow Beam": u.Activate = ActivateAsteroidSlowUpgrade; break;
             }
         }
 
@@ -192,10 +212,10 @@ namespace BlackHole
         {
             if (u.Unlocked) { return; }
 
-            if (u.UnlockCost < _bankSO.AvailableCurrency)
+            if (u.UnlockCost < Bank.AvailableCurrency)
             {
                 u.Unlocked = true;
-                _bankSO.CashTransfer(-u.UnlockCost);
+                Bank.CashTransfer(-u.UnlockCost);
                 _unlockedUpgradesCount++;
                 if (_unlockedUpgradesCount == AllUpgrades.Count)
                 {
@@ -219,6 +239,15 @@ namespace BlackHole
 
             EquippedUpgrades.Add(u);
             u.Equipped = true;
+            if (u.Activate.Method == null)
+            {
+                FillNullDelegate(u);
+                if (u.Activate.Method == null)
+                {
+                    Debug.LogError("Attemtping to call null delegate!! This crashes everything, editor included!!!");
+                    return;
+                }
+            }
             u.Activate(true);
         }
 

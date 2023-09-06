@@ -12,7 +12,6 @@ namespace BlackHole
         public static event Action EscapeActionPressed;
 
         [SerializeField] private GameParams _gameParams;
-        [SerializeField] private Bank _bankSO;
         [SerializeField] private TMP_Text _achievementsListText;
         [SerializeField] private Camera _cam;
         [SerializeField] private GameObject _achievementsButton;
@@ -65,7 +64,7 @@ namespace BlackHole
             //UpgradeManager.Instance.InitializeUpgrades();
 
             // Cash
-            _currencyText.text = "$" + _bankSO.AvailableCurrency.ToString();
+            _currencyText.text = "$" + Bank.AvailableCurrency.ToString();
         }
 
         private void EscapeAction(InputAction.CallbackContext context)
@@ -131,7 +130,7 @@ namespace BlackHole
         {
             cashNumber = cash >= 0 ? cashNumberPosPrefab.Spawn(Vector3.zero, cash) : cashNumberNegPrefab.Spawn(Vector3.zero, -cash);
             cashNumber.SetAnchoredPosition(cashNumberRectParent, new Vector2(0, 0));
-            _currencyText.text = "$" + _bankSO.AvailableCurrency.ToString();
+            _currencyText.text = "$" + Bank.AvailableCurrency.ToString();
             SoundManager.Instance.PlaySFX(SoundManager.SFX.Kaching);
         }
     }

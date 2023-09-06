@@ -11,7 +11,6 @@ namespace BlackHole
     public class UpgradeListDisplay : MonoBehaviour
     {
         public static UpgradeListDisplay Instance;
-        [SerializeField] private Bank _bankSO;
         [SerializeField] private GameObject _viewPortContent;
         private List<UpgradeManager.Upgrade> _allUpgrades;
         [SerializeField] private GameObject _upgradeButtonPrefab;
@@ -130,14 +129,12 @@ namespace BlackHole
         {
             UpgradeManager.Upgrade u = button.transform.GetComponent<UpgradeButton>().Upgrade;
 
-            Debug.Log(u.Name + " " + u.Unlocked);
-
             if (!u.Unlocked) {
                 StartCoroutine(AttemptEquipBuy(u));
                 if (!u.Unlocked) { Debug.Log("returning");return; } 
             }
 
-            if (!_selectedUpgradeSlot.Unlocked) { return; }
+            if (_selectedUpgradeSlot == null || !_selectedUpgradeSlot.Unlocked) { return; }
 
             // to do: if equipped to different slot, unequip there and equip here; for now, return
             if (u.Equipped && _selectedUpgradeSlot.ActiveUpgrade != u) { return; }
@@ -164,7 +161,7 @@ namespace BlackHole
 
         public IEnumerator AttemptEquipBuy(UpgradeManager.Upgrade u)
         {
-            if (_bankSO.AvailableCurrency < u.UnlockCost)
+            if (Bank.AvailableCurrency < u.UnlockCost)
             {
                 SoundManager.Instance.PlayButtonPress(failed: true);
                 yield break;

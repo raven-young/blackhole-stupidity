@@ -214,11 +214,6 @@ namespace BlackHole
             //SceneManager.LoadScene("MainMenu");
             MainMenu.Open();
         }
-        public void Quit()
-        {
-            SaveGame.SaveGameNow();
-            Application.Quit();
-        }
 
         #endregion
 

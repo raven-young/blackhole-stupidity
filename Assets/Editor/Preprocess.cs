@@ -9,7 +9,6 @@ namespace BlackHole
     {
 
         private AchievementsManager _achievementsSO;
-        private Bank _bankSO;
 
         public int callbackOrder { get { return 0; } }
         public void OnPreprocessBuild(BuildReport report)
@@ -23,8 +22,7 @@ namespace BlackHole
             // to do: reset the slots via slot state in slotmanager SO
 
             // Reset cash
-            _bankSO = (Bank)Resources.Load("_ScriptableObjects/Bank");
-            _bankSO.CashTransfer(-_bankSO.AvailableCurrency);
+            Bank.CashTransfer(-Bank.AvailableCurrency);
         }
     }
 }

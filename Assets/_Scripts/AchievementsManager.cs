@@ -11,37 +11,38 @@ namespace BlackHole
     {
 
         // The Singleton instance
-        private static AchievementsManager instance;
+        private static AchievementsManager _instance;
 
         // Property to access the Singleton instance
         public static AchievementsManager Instance
         {
             get
             {
-                if (instance == null)
+                if (_instance == null)
                 {
                     if (!ES3.KeyExists("AchievementsManager"))
                     {
 
-                        instance = Resources.Load<AchievementsManager>("_ScriptableObjects/AchievementsManager");
+                        _instance = Resources.Load<AchievementsManager>("_ScriptableObjects/AchievementsManager");
 
                         // If the asset doesn't exist in Resources, create a new instance
-                        if (instance == null)
+                        if (_instance == null)
                         {
-                            instance = CreateInstance<AchievementsManager>();
+                            _instance = CreateInstance<AchievementsManager>();
                         }
-                        ES3.Save("AchievementsManager", instance);
-                        Debug.Log("Saved non-existent AchievementsManager key: " + instance);
+                        ES3.Save("AchievementsManager", _instance);
+                        Debug.Log("Saved non-existent AchievementsManager key: " + _instance);
                     }
                     else
                     {
-                        instance = ES3.Load<AchievementsManager>("AchievementsManager");
-                        Debug.Log("Loaded AchievementsManager asset: " + instance);
+                        _instance = ES3.Load<AchievementsManager>("AchievementsManager");
+                        Debug.Log("Loaded AchievementsManager asset: " + _instance);
                     }
                 }
-
-                return instance;
+                return _instance;
             }
+
+            set => _instance = value;
         }
 
         public static event Action<Achievement> OnAchievementUnlocked;
@@ -91,11 +92,11 @@ namespace BlackHole
 
         private void OnEnable()
         {
-            if (instance == null)
+            if (_instance == null)
             {
-                instance = this;
+                _instance = this;
             }
-            else if (instance != this)
+            else if (_instance != this)
             {
                 Debug.Log("Redundant AchievementsManager instance");
                 Destroy(this);

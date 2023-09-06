@@ -48,6 +48,7 @@ namespace BlackHole
 
         public override void OnBackPressed()
         {
+            SaveGame.SaveGameNow();
             Application.Quit();
         }
 
