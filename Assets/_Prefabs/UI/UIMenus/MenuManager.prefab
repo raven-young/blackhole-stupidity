@@ -52,4 +52,5 @@ MonoBehaviour:
   ExtrasMenuPrefab: {fileID: 838231745616679485, guid: 1b152947c78448645a1fe724fb39afd2, type: 3}
   AchievementsMenuPrefab: {fileID: 7612843928280099468, guid: b99f9acfcd9cc714482acd293c1d5751, type: 3}
   SettingsMenuPrefab: {fileID: 6738533402967759575, guid: b02feded044dc574b837c15c7ca0de95, type: 3}
+  HighscoresMenuPrefab: {fileID: 4075402512380143118, guid: 9cc02d9f7c1b2f442b52741e2692cb3e, type: 3}
   _menuParent: {fileID: 0}

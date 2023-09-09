@@ -144,11 +144,9 @@ namespace BlackHole
                 //StartCoroutine(DisplayAchievementNotification());
                 _achievementPanel.GetComponent<AchievementNotification>().StartAchievementsDisplay();
             }
-
-            string difficulty = SettingsManager.Instance.SelectedDifficulty.ToString();            
+            
             PostGameScreen.Open();
             PostGameScreen.Instance.SwapPostGameState(victorious);
-            PostGameScreen.Instance.HighscoreText.text = difficulty + " Highscore: " + _playerStats.GetHighscore();
             Scoring.Instance.DisplayFinalScoreAndCash(victorious);
         }
 

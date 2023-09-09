@@ -6,70 +6,56 @@ namespace BlackHole
     public class PlayerStats : ScriptableObject
     {
 
-        //public class Stats
-        //{
-        //    public Stats(int highscore, int maxcombo)
-        //    {
-        //        Highscore = highscore;
-        //        Maxcombo = maxcombo;
-        //    }
+        // The Singleton instance
+        private static PlayerStats _instance;
 
-        //    public int Highscore;
-        //    public int Maxcombo;
-        //}
+        // Property to access the Singleton instance
+        public static PlayerStats Instance
+        {
+            get
+            {
+                if (_instance == null)
+                {
+                    if (!ES3.KeyExists("PlayerStats"))
+                    {
 
-        //// unity does not support serializing dictionaries
-        //// there must be a better way
-        //[SerializeField] public Dictionary<SettingsManager.DifficultySetting, 
-        //    Dictionary<SettingsManager.ShipType, Stats>> StatsDict = new();
+                        _instance = Resources.Load<PlayerStats>("_ScriptableObjects/PlayerStats");
 
-        //public void ResetStatsDict()
-        //{
-        //    Debug.Log("resetting stats dict");
+                        // If the asset doesn't exist in Resources, create a new instance
+                        if (_instance == null)
+                        {
+                            _instance = CreateInstance<PlayerStats>();
+                        }
+                        ES3.Save("PlayerStats", _instance);
+                        Debug.Log("Saved non-existent PlayerStats key: " + _instance);
+                    }
+                    else
+                    {
+                        _instance = ES3.Load<PlayerStats>("PlayerStats");
+                        Debug.Log("Loaded PlayerStats asset: " + _instance);
+                    }
+                }
+                return _instance;
+            }
 
-        //    foreach (int diff in Enum.GetValues(typeof(SettingsManager.DifficultySetting)))
-        //    {
-        //        StatsDict[(SettingsManager.DifficultySetting)diff] = new Dictionary<SettingsManager.ShipType, Stats>();
-        //        foreach (int ship in Enum.GetValues(typeof(SettingsManager.ShipType)))
-        //        {
-        //            StatsDict[(SettingsManager.DifficultySetting)diff]
-        //                [(SettingsManager.ShipType)ship] = new Stats(0, 0);
-        //        }
-        //    }
-        //}
-
-        //public int newGetHighscore()
-        //{
-        //    if (StatsDict.Count < 1)
-        //        ResetStatsDict();
-
-        //    return StatsDict[SettingsManager.Instance.SelectedDifficulty][SettingsManager.Instance.SelectedShipType].Highscore;
-        //}
-
-        //public void newSetHighscore(int newscore)
-        //{
-        //    if (StatsDict.Count < 1)
-        //        ResetStatsDict();
-
-        //    StatsDict[SettingsManager.Instance.SelectedDifficulty][SettingsManager.Instance.SelectedShipType].Highscore = newscore;
-        //}
-
-        // old below
+            set => _instance = value;
+        }
 
         [Header("Highscores")]
-        public int HighScoreEasy = 0;
-        public int HighScoreNormal = 0;
-        public int HighScoreHard = 0;
-        public int HighScoreExpert = 0;
+        private int _highScoreEasy = 0;
+        private int _highScoreNormal = 0;
+        private int _highScoreHard = 0;
+        private int _highScoreExpert = 0;
 
         public void SetHighscore(int newScore)
         {
             switch (SettingsManager.Instance.SelectedDifficulty)
             {
-                case SettingsManager.DifficultySetting.Easy: HighScoreEasy = newScore; break;
-                case SettingsManager.DifficultySetting.Normal: HighScoreNormal = newScore; break;
-                case SettingsManager.DifficultySetting.Hard: HighScoreHard = newScore; break;
-                case SettingsManager.DifficultySetting.Expert: HighScoreExpert = newScore; break;
+                case SettingsManager.DifficultySetting.Easy: _highScoreEasy = newScore; break;
+                case SettingsManager.DifficultySetting.Normal: _highScoreNormal = newScore; break;
+                case SettingsManager.DifficultySetting.Hard: _highScoreHard = newScore; break;
+                case SettingsManager.DifficultySetting.Expert: _highScoreExpert = newScore; break;
+                default: Debug.LogWarning("Invalid difficulty"); break;
             }
         }
 
@@ -77,10 +63,22 @@ namespace BlackHole
         {
             switch (SettingsManager.Instance.SelectedDifficulty)
             {
-                case SettingsManager.DifficultySetting.Easy: return HighScoreEasy;
-                case SettingsManager.DifficultySetting.Normal: return HighScoreNormal;
-                case SettingsManager.DifficultySetting.Hard: return HighScoreHard;
-                case SettingsManager.DifficultySetting.Expert: return HighScoreExpert;
+                case SettingsManager.DifficultySetting.Easy: return _highScoreEasy;
+                case SettingsManager.DifficultySetting.Normal: return _highScoreNormal;
+                case SettingsManager.DifficultySetting.Hard: return _highScoreHard;
+                case SettingsManager.DifficultySetting.Expert: return _highScoreExpert;
+                default: Debug.LogWarning("Invalid difficulty"); return 0;
+            }
+        }
+
+        public int GetHighscore(SettingsManager.DifficultySetting difficulty)
+        {
+            switch (difficulty)
+            {
+                case SettingsManager.DifficultySetting.Easy: return _highScoreEasy;
+                case SettingsManager.DifficultySetting.Normal: return _highScoreNormal;
+                case SettingsManager.DifficultySetting.Hard: return _highScoreHard;
+                case SettingsManager.DifficultySetting.Expert: return _highScoreExpert;
                 default: Debug.LogWarning("Invalid difficulty"); return 0;
             }
         }

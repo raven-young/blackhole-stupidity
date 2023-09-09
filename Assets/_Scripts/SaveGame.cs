@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace BlackHole
 {
-    public class SaveGame : MonoBehaviour
+    public class SaveGame
     {
 
         public static void SaveGameNow()
@@ -14,6 +14,7 @@ namespace BlackHole
             ES3.Save("AchievementsManager", AchievementsManager.Instance);
             ES3.Save("UpgradeManager", UpgradeManager.Instance);
             ES3.Save("SettingsManager", SettingsManager.Instance);
+            ES3.Save("PlayerStats", PlayerStats.Instance);
             ES3.Save("AvailableCurrency", Bank.AvailableCurrency);
             ES3.Save("UpgradeSlotStateDict", UpgradeSlotManager.Instance.UpgradeSlotStates);
         }
@@ -25,6 +26,7 @@ namespace BlackHole
                 AchievementsManager.Instance = ES3.Load<AchievementsManager>("AchievementsManager");
                 UpgradeManager.Instance = ES3.Load<UpgradeManager>("UpgradeManager");
                 SettingsManager.Instance = ES3.Load<SettingsManager>("SettingsManager");
+                PlayerStats.Instance = ES3.Load<PlayerStats>("PlayerStats");
                 Bank.AvailableCurrency = ES3.Load<int>("AvailableCurrency");
 
                 if (ES3.KeyExists("UpgradeSlotStateDict"))

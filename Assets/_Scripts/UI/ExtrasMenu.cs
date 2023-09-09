@@ -16,5 +16,10 @@ namespace BlackHole
             SettingsMenu.Open();
         }
 
+        public void OnHighscoresPressed()
+        {
+            HighscoresMenu.Open();
+        }
+
     }
 }

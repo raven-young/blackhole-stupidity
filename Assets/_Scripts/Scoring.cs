@@ -95,6 +95,10 @@ namespace BlackHole
         public void DisplayFinalScoreAndCash(bool victorious)
         {
             CalculateFinalScoreAndCash(victorious);
+
+            string difficulty = SettingsManager.Instance.SelectedDifficulty.ToString();
+            PostGameScreen.Instance.HighscoreText.text = difficulty + " Highscore: " + PlayerStats.Instance.GetHighscore();
+
             StartCoroutine(SpawnScoreMultipliers());
 
             _activeText = PostGameScreen.Instance.ScoreText;
