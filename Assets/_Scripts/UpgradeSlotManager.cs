@@ -1,7 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System;
+using UnityEngine.EventSystems;
 using Sirenix.OdinInspector;
 
 namespace BlackHole
@@ -48,6 +49,9 @@ namespace BlackHole
         [Serializable]
         public class UpgradeSlotState
         {
+            public bool Unlocked;
+            public string ActiveUpgradeButtonName;
+
             public UpgradeSlotState()
             {
 
@@ -57,11 +61,31 @@ namespace BlackHole
                 Unlocked = unlocked;
                 ActiveUpgradeButtonName = activeUpgradeButtonName;
             }
-            public bool Unlocked;
-            public string ActiveUpgradeButtonName;
+
+            public void ResetState()
+            {
+                Unlocked = false;
+                ActiveUpgradeButtonName = null;
+            }
         }
 
         public Dictionary<int, UpgradeSlotState> UpgradeSlotStates;
+
+        private UpgradeSlot _selectedUpgradeSlot;
+        public UpgradeSlot SelectedUpgradeSlot { get => _selectedUpgradeSlot; set => _selectedUpgradeSlot = value; }
+
+        private void Awake()
+        {
+            if (_instance == null)
+            {
+                _instance = this;
+            }
+            else if (_instance != this)
+            {
+                Debug.Log("Redundant UpgradeSlotManager instance");
+                Destroy(this);
+            }
+        }
 
         private void OnEnable()
         {
@@ -69,6 +93,19 @@ namespace BlackHole
             {
                 UpgradeSlotStates = new();
             }
+        }
+
+        public void SwitchSelectedUpgradeSlot(UpgradeSlot newslot)
+        {
+            Debug.Log("newslot: " + newslot + " " + newslot.Unlocked);
+            if (!newslot.Unlocked)
+            {
+                newslot.AttemptEquipBuyWrapper();
+                if (!newslot.Unlocked) { return; }
+            }
+
+            SelectedUpgradeSlot = newslot;
+            SelectedUpgradeSlot.IsActiveSlot = true;
         }
 
         public void SaveSlotState(UpgradeSlot slot)
@@ -96,6 +133,26 @@ namespace BlackHole
                 return UpgradeSlotStates[slot.SlotNumber];
             }
             return UpgradeSlotStates[slot.SlotNumber];
+        }
+
+        public void ResetAllSlots()
+        {
+            foreach (UpgradeSlotState state in UpgradeSlotStates.Values)
+            {
+                state.ResetState();
+
+                if (UpgradeSlot.UpgradeSlots != null)
+                {
+                    foreach (UpgradeSlot slot in UpgradeSlot.UpgradeSlots.Values)
+                    {
+                        if (slot != null)
+                        {
+                            slot.ResetSlot();
+                            UpgradeSlot.LockSlot(slot);
+                        }
+                    }
+                }
+            }
         }
 
     }

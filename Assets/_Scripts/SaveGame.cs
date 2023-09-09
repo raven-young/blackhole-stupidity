@@ -7,14 +7,15 @@ namespace BlackHole
     public class SaveGame
     {
 
+        // To save SO with ES3, don't forget to add SO reference to ES3 manager
         public static void SaveGameNow()
         {
             Debug.Log("Saving game...");
-
             ES3.Save("AchievementsManager", AchievementsManager.Instance);
             ES3.Save("UpgradeManager", UpgradeManager.Instance);
             ES3.Save("SettingsManager", SettingsManager.Instance);
             ES3.Save("PlayerStats", PlayerStats.Instance);
+            Debug.Log(PlayerStats.Instance.GetHighscore(SettingsManager.DifficultySetting.Normal));
             ES3.Save("AvailableCurrency", Bank.AvailableCurrency);
             ES3.Save("UpgradeSlotStateDict", UpgradeSlotManager.Instance.UpgradeSlotStates);
         }
@@ -27,6 +28,7 @@ namespace BlackHole
                 UpgradeManager.Instance = ES3.Load<UpgradeManager>("UpgradeManager");
                 SettingsManager.Instance = ES3.Load<SettingsManager>("SettingsManager");
                 PlayerStats.Instance = ES3.Load<PlayerStats>("PlayerStats");
+                Debug.Log(PlayerStats.Instance.GetHighscore(SettingsManager.DifficultySetting.Normal));
                 Bank.AvailableCurrency = ES3.Load<int>("AvailableCurrency");
 
                 if (ES3.KeyExists("UpgradeSlotStateDict"))

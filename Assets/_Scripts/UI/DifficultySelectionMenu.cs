@@ -8,10 +8,15 @@ namespace BlackHole
     {
         [SerializeField] private GameObject _scoreAttackToggle;
 
+        protected override void OnEnable()
+        {
+            base.OnEnable();
+            _scoreAttackToggle.SetActive(SettingsManager.ScoreAttackUnlocked);
+        }
+
         public void OnDifficultySelected(int selectedDifficulty)
         {
             SettingsManager.Instance.SelectedDifficulty = (SettingsManager.DifficultySetting)selectedDifficulty;
-            _scoreAttackToggle.SetActive(SettingsManager.ScoreAttackUnlocked);
             UpgradeMenu.Open();
         }
 

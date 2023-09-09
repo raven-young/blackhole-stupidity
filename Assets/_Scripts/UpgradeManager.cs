@@ -269,7 +269,7 @@ namespace BlackHole
             u.Activate(false);
         }
 
-        // since upgrade button is a prefab instantiate at run-time, call wrapper from this persisent scriptable object
+        // since upgrade button is a prefab instantiated at run-time, call wrapper from this persisent scriptable object
         public void EquipUpgradeFromUpgradeButtonWrapper(GameObject button)
         {
             UpgradeListDisplay.Instance.EquipUpgradeFromUpgradeButton(button);
@@ -296,7 +296,8 @@ namespace BlackHole
             }
             UnlockedUpgradesFraction = 0f;
             _unlockedUpgradesCount = 0;
-            UpgradeSlot.ResetAndLockAllSlots();
+            //UpgradeSlot.ResetAndLockAllSlots();
+            UpgradeSlotManager.Instance.ResetAllSlots();
             UpgradeListDisplay.Instance.RefreshUpgradeList();
         }
     }

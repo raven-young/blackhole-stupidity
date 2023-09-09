@@ -177,6 +177,7 @@ namespace BlackHole
                 StartCoroutine(GameOverTransition.Instance.StartGameOverTransition());
             }
 
+            Scoring.Instance.CalculateFinalScoreAndCash(victorious);
             SaveGame.SaveGameNow();
         }
 

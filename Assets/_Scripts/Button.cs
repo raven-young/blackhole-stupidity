@@ -17,6 +17,12 @@ public class Button : MonoBehaviour
         _baseScale = gameObject.transform.localScale;
     }
 
+    private void OnEnable()
+    {
+        // Reset to base scale in case button was deactivated while selected
+        DecreaseScale();
+    }
+
     public void PlayPressed(bool success = true)
     {
         if (success)

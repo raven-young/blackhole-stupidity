@@ -21,5 +21,10 @@ namespace BlackHole
             SceneManager.LoadScene("CutsceneIntro");
             MenuManager.Instance.CloseAllMenus();
         }
+
+        public void OnUpgradeSlotPressed(UpgradeSlot newslot)
+        {
+            UpgradeSlotManager.Instance.SwitchSelectedUpgradeSlot(newslot);
+        }
     }
 }

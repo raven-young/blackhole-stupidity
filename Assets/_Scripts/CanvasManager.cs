@@ -14,20 +14,14 @@ namespace BlackHole
 
         public static CanvasManager Instance;
         [SerializeField] private GameParams _gameParams;
-        [SerializeField] private PlayerStats _playerStats;
-        [SerializeField] private GameObject _gameOverScreen;
         [SerializeField] private GameObject _inputPopup;
         [SerializeField] private RectTransform _achievementPanel;
         [SerializeField] private GameObject _touchControls;
-
         [SerializeField] private TMP_Text _scoreText;
-        [SerializeField] private TMP_Text _scoreTextGameOver, _highscoreTextGameOver;
-
         [SerializeField] private Slider _fuelSlider, _healthSlider;
         [SerializeField] private GameObject _alertIcon;
         private bool _isLowOnStats = false;
 
-        private PlayerInput playerInput;
         private GameObject playerController;
 
         private Queue<AchievementsManager.Achievement> _newAchievementsQueue = new();
@@ -52,13 +46,7 @@ namespace BlackHole
             _healthSlider.minValue = 0;
             _healthSlider.value = _gameParams.MaxHealth / 2;
 
-
             playerController = GameObject.Find("ShipController");
-            playerInput = playerController.GetComponent<PlayerInput>();
-            //playerInput.onControlsChanged += OnDeviceChange;
-
-            UpdateAchievementsText();
-
             ToggleTouchControls(SettingsManager.IsMobileGame);
         }
 
@@ -141,25 +129,18 @@ namespace BlackHole
 
             if (_newAchievementsQueue.Count > 0)
             {
-                //StartCoroutine(DisplayAchievementNotification());
                 _achievementPanel.GetComponent<AchievementNotification>().StartAchievementsDisplay();
             }
             
             PostGameScreen.Open();
             PostGameScreen.Instance.SwapPostGameState(victorious);
-            Scoring.Instance.DisplayFinalScoreAndCash(victorious);
+            Scoring.Instance.DisplayFinalScoreAndCash();
         }
 
         private void QueueAchievement(AchievementsManager.Achievement achievement)
         {
             _newAchievementsQueue.Enqueue(achievement);
             _achievementPanel.GetComponent<AchievementNotification>().EnqeueueAchievement(achievement);
-        }
-
-        public void UpdateAchievementsText()
-        {
-            // Debug
-            _achievementsListText.text = AchievementsManager.Instance.GetAchievementsString();
         }
     }
 }

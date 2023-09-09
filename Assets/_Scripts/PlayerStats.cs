@@ -32,7 +32,7 @@ namespace BlackHole
                     else
                     {
                         _instance = ES3.Load<PlayerStats>("PlayerStats");
-                        Debug.Log("Loaded PlayerStats asset: " + _instance);
+                        Debug.Log("Loaded PlayerStats asset: " + _instance + " normal: " + _instance._highScoreNormal);
                     }
                 }
                 return _instance;
@@ -40,12 +40,22 @@ namespace BlackHole
 
             set => _instance = value;
         }
+        [SerializeField] private int _highScoreEasy;
+        [SerializeField] private int _highScoreNormal;
+        [SerializeField] private int _highScoreHard;
 
-        [Header("Highscores")]
-        private int _highScoreEasy = 0;
-        private int _highScoreNormal = 0;
-        private int _highScoreHard = 0;
-        private int _highScoreExpert = 0;
+        private void OnEnable()
+        {
+            if (_instance == null)
+            {
+                _instance = this;
+            }
+            if (_instance != this)
+            {
+                Debug.Log("Redundant PlayerStats instance");
+                Destroy(this);
+            }
+        }
 
         public void SetHighscore(int newScore)
         {
@@ -54,7 +64,6 @@ namespace BlackHole
                 case SettingsManager.DifficultySetting.Easy: _highScoreEasy = newScore; break;
                 case SettingsManager.DifficultySetting.Normal: _highScoreNormal = newScore; break;
                 case SettingsManager.DifficultySetting.Hard: _highScoreHard = newScore; break;
-                case SettingsManager.DifficultySetting.Expert: _highScoreExpert = newScore; break;
                 default: Debug.LogWarning("Invalid difficulty"); break;
             }
         }
@@ -66,7 +75,6 @@ namespace BlackHole
                 case SettingsManager.DifficultySetting.Easy: return _highScoreEasy;
                 case SettingsManager.DifficultySetting.Normal: return _highScoreNormal;
                 case SettingsManager.DifficultySetting.Hard: return _highScoreHard;
-                case SettingsManager.DifficultySetting.Expert: return _highScoreExpert;
                 default: Debug.LogWarning("Invalid difficulty"); return 0;
             }
         }
@@ -78,9 +86,15 @@ namespace BlackHole
                 case SettingsManager.DifficultySetting.Easy: return _highScoreEasy;
                 case SettingsManager.DifficultySetting.Normal: return _highScoreNormal;
                 case SettingsManager.DifficultySetting.Hard: return _highScoreHard;
-                case SettingsManager.DifficultySetting.Expert: return _highScoreExpert;
                 default: Debug.LogWarning("Invalid difficulty"); return 0;
             }
+        }
+
+        public void ResetHighscores()
+        {
+            _highScoreEasy = 0;
+            _highScoreNormal = 0;
+            _highScoreHard = 0;
         }
 
         //[Header("MaxCombos")]

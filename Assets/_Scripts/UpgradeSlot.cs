@@ -10,9 +10,9 @@ namespace BlackHole
 {
     public class UpgradeSlot : MonoBehaviour
     {
-        public static UpgradeSlotManager _upgradeSlotManagerSO;
         public UpgradeManager.Upgrade ActiveUpgrade;
         public GameObject ActiveUpgradeButton; // redundant, should write method to get button from upgrade
+        [SerializeField] private GameObject _activeSlotIndicator;
         [SerializeField] private GameObject _buyPanel;
         public static Dictionary<int, UpgradeSlot> UpgradeSlots;
 
@@ -21,8 +21,6 @@ namespace BlackHole
         public bool Unlocked;
         public int SlotNumber;
         private bool _isBuying = false;
-
-        private Vector3 _baseScale;
         private bool _isActiveSlot;
         public bool IsActiveSlot
         { 
@@ -30,16 +28,18 @@ namespace BlackHole
             set 
             {
                 _isActiveSlot = value;
+                Color newcolor = ActiveUpgrade == null ? Color.red : Color.green;
+                newcolor.a = _isActiveSlot ? 1f : 0.5f;
+                _activeSlotIndicator.GetComponent<Image>().color = newcolor;
+
                 if (!_isActiveSlot) return;
                 
-                transform.DOScale(1.2f * _baseScale, 0.2f);
-
                 foreach (UpgradeSlot slot in UpgradeSlots.Values)
                 {
                     if (slot != this)
                     {
                         slot.IsActiveSlot = false;
-                        transform.DOScale(_baseScale, 0.2f);
+                        slot._activeSlotIndicator.GetComponent<Image>().DOFade(0.5f, 0f);
                     }
                 }
             } 
@@ -55,13 +55,12 @@ namespace BlackHole
                 UpgradeSlots = new();
             }
 
-            if (_upgradeSlotManagerSO == null)
+            if (UpgradeSlotManager.Instance == null)
             {
-                _upgradeSlotManagerSO = Resources.Load<UpgradeSlotManager>("_ScriptableObjects/UpgradeSlotManager");
+                UpgradeSlotManager.Instance = Resources.Load<UpgradeSlotManager>("_ScriptableObjects/UpgradeSlotManager");
             }
 
             UpgradeSlots[SlotNumber] = this;
-            _baseScale = transform.localScale;
         }
         private void OnEnable()
         {
@@ -79,7 +78,7 @@ namespace BlackHole
 
         private void LoadSlotStateWrapper() // i wanna cri
         {
-            UpgradeSlotManager.UpgradeSlotState dummy = _upgradeSlotManagerSO.LoadSlotState(this);
+            UpgradeSlotManager.UpgradeSlotState dummy = UpgradeSlotManager.Instance.LoadSlotState(this);
             Debug.Log("slot loaded, unlocked? " + Unlocked + " button: " + dummy.ActiveUpgradeButtonName);
             Unlocked = dummy.Unlocked;
             if (dummy.ActiveUpgradeButtonName != null && dummy.ActiveUpgradeButtonName != "")
@@ -128,6 +127,7 @@ namespace BlackHole
             ActiveUpgrade = u;
             ActiveUpgradeButton = button;
             _slotText.text = u.Name;
+            _activeSlotIndicator.GetComponent<Image>().color = Color.green;
             EventSystem.current.SetSelectedGameObject(gameObject, new BaseEventData(EventSystem.current));
         }
 
@@ -142,6 +142,9 @@ namespace BlackHole
             _slotText.text = "Upgrade";
             ActiveUpgrade = null;
             ActiveUpgradeButton = null;
+            Color color = Color.red;
+            color.a = 0.5f;
+            _activeSlotIndicator.GetComponent<Image>().color = color;
         }
 
         public static void ResetAndLockAllSlots()
@@ -159,7 +162,7 @@ namespace BlackHole
         {
             foreach (UpgradeSlot slot in UpgradeSlots.Values)
             {
-                _upgradeSlotManagerSO.SaveSlotState(slot);
+                UpgradeSlotManager.Instance.SaveSlotState(slot);
             }
         }
 
@@ -171,6 +174,11 @@ namespace BlackHole
             ActiveUpgrade = u;
             _slotText.text = u.Name;
             EventSystem.current.SetSelectedGameObject(gameObject, new BaseEventData(EventSystem.current));
+        }
+
+        public void AttemptEquipBuyWrapper()
+        {
+            StartCoroutine(AttemptEquipBuy());
         }
 
         public IEnumerator AttemptEquipBuy()
@@ -196,6 +204,7 @@ namespace BlackHole
             {
                 Bank.CashTransfer(-_unlockCost);
                 UnlockSlot();
+                UpgradeSlotManager.Instance.SwitchSelectedUpgradeSlot(this);
             }
             _isBuying = false;
         }
@@ -207,16 +216,16 @@ namespace BlackHole
             GetComponent<Image>().DOFade(1f, 0); // using DOTween instead
             transform.Find("Text (TMP)").GetComponent<TMP_Text>().DOFade(1f, 0);
             transform.Find("CostText").gameObject.SetActive(false);
-            _upgradeSlotManagerSO.SaveSlotState(this);
+            UpgradeSlotManager.Instance.SaveSlotState(this);
         }
 
-        private static void LockSlot(UpgradeSlot slot)
+        public static void LockSlot(UpgradeSlot slot)
         {
             slot.Unlocked = false;
             slot.GetComponent<Image>().DOFade(0.5f, 0);
             slot.transform.Find("Text (TMP)").GetComponent<TMP_Text>().DOFade(0.5f, 0);
             slot.transform.Find("CostText").gameObject.SetActive(true);
-            _upgradeSlotManagerSO.SaveSlotState(slot);
+            UpgradeSlotManager.Instance.SaveSlotState(slot);
         }
     }
 }

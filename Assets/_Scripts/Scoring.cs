@@ -11,7 +11,6 @@ namespace BlackHole
         public static Scoring Instance;
 
         [SerializeField] private GameParams _gameParamsSO;
-        [SerializeField] private PlayerStats _playerStatsSO;
 
         [SerializeField] private TMP_Text _scoreTextGameplay;
         [SerializeField] private DamageNumberGUI _multiplierDamageNumberPrefab;
@@ -83,19 +82,17 @@ namespace BlackHole
 
             Bank.CashTransfer(_finalCashGained);
 
-            if (_finalScore > _playerStatsSO.GetHighscore())
+            if (_finalScore > PlayerStats.Instance.GetHighscore())
             {
-                _playerStatsSO.SetHighscore(_finalScore);
+                PlayerStats.Instance.SetHighscore(_finalScore);
                 _newHighscore = true;
             }
 
             OnScored?.Invoke(_finalScore);
         }
 
-        public void DisplayFinalScoreAndCash(bool victorious)
+        public void DisplayFinalScoreAndCash()
         {
-            CalculateFinalScoreAndCash(victorious);
-
             string difficulty = SettingsManager.Instance.SelectedDifficulty.ToString();
             PostGameScreen.Instance.HighscoreText.text = difficulty + " Highscore: " + PlayerStats.Instance.GetHighscore();
 

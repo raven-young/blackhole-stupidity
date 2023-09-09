@@ -45,7 +45,6 @@ namespace BlackHole
 
         [SerializeField] private GameParams _gameParams;
         public DifficultySetting SelectedDifficulty;
-        public ShipType SelectedShipType;
 
         public static bool IsMobileGame = false;
 
@@ -75,15 +74,6 @@ namespace BlackHole
             Expert = 3
         }
 
-        public enum ShipType // deprecated
-        {
-            Basic = 0, // balanced
-            Collector = 1, // bigger item magnet
-            Destroyer = 2, // more firepower
-            Tank = 3, // more HP NOT YET USED
-            Scorer = 4 // more points NOT YET USED
-        }
-
         private void OnEnable() // awake not called on reloaded scritpable objects!
         {
             if (_instance == null)
@@ -105,7 +95,6 @@ namespace BlackHole
             {
                 Debug.Log("Initializing settings manager from BlackHole scene");
                 SelectedDifficulty = DifficultySetting.Normal;
-                SelectedShipType = ShipType.Basic;
             }
         }
 

@@ -464,6 +464,7 @@ GameObject:
   - component: {fileID: 1965624637198982630}
   - component: {fileID: 4541476874035804449}
   - component: {fileID: 6738533402967759575}
+  - component: {fileID: 2902492679247321911}
   m_Layer: 5
   m_Name: SettingsMenu
   m_TagString: Untagged
@@ -577,6 +578,37 @@ MonoBehaviour:
   _firstSelected: {fileID: 1355348010180284908}
   _musicVolumeSlider: {fileID: 1091557766204104076}
   _sfxVolumeSlider: {fileID: 3112738763543367164}
+  _backgroundImage: {fileID: 0}
+--- !u!114 &2902492679247321911
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3472094925378077785}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: 0fab3ff31f5bb444baa9b3648231b920, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
 --- !u!1 &4104365327139649990
 GameObject:
   m_ObjectHideFlags: 0

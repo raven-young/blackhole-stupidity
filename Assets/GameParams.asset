@@ -31,7 +31,7 @@ MonoBehaviour:
   MaxSpawnAngle: 130
   QuestionAsteroidSpeed: 1
   QuestionAsteroidAcceleration: 1.0205
-  _quickSolveRadius: 21.41
+  _quickSolveRadius: 20.9
   PlayerDamage: 10
   AsteroidHealth: 5
   ScrapValue: 2

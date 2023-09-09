@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 namespace BlackHole
 {
@@ -9,6 +10,7 @@ namespace BlackHole
     {
         [SerializeField] private Slider _musicVolumeSlider;
         [SerializeField] private Slider _sfxVolumeSlider;
+        private Image _backgroundImage;
 
         private float _musicVolume, _sfxVolume;
         private bool _isAutoshooting;
@@ -17,6 +19,13 @@ namespace BlackHole
         {
             base.Awake();
             LoadSettings();
+            _backgroundImage = GetComponent<Image>();
+        }
+
+        protected override void OnEnable()
+        {
+            base.OnEnable();
+            _backgroundImage.enabled = SceneManager.GetActiveScene().name != "MainMenu";
         }
 
         public void OnMusicVolumeChanged(float volume)
@@ -52,9 +61,9 @@ namespace BlackHole
 
         public void LoadSettings()
         {
-            _musicVolumeSlider.value = ES3.Load<float>("MusicVolume");
-            _sfxVolumeSlider.value = ES3.Load<float>("SFXVolume");
-            OnToggleAutoshoot(ES3.Load<bool>("IsAutoshooting"));
+            _musicVolumeSlider.value = ES3.Load<float>("MusicVolume", 1f);
+            _sfxVolumeSlider.value = ES3.Load<float>("SFXVolume", 1f);
+            OnToggleAutoshoot(ES3.Load<bool>("IsAutoshooting", true));
         }
     }
 }
