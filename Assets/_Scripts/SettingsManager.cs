@@ -52,8 +52,14 @@ namespace BlackHole
         public static int BulletDamage;
         public static float BurnRate;
         public static float FirePeriod;
-        public static float MagnetScale;
+        private static float _magnetScale;
+        public static float MagnetScale { get => _magnetScale; set { Debug.Log($"setting to {value}"); _magnetScale = value; } }
         public static int ItemSpawnBonus;
+
+        public void PrintParams()
+        {
+            Debug.Log("Magnet scale:" + MagnetScale);
+        }
 
         public static bool ScoreAttackUnlocked = false;
         public static bool ScoreAttackEnabled = false;
@@ -100,12 +106,14 @@ namespace BlackHole
 
         public void ResetGameParams()
         {
+            Debug.Log("pre resetting:" + MagnetScale);
             BulletDamage = _gameParams.BulletDamage;
             BurnRate = _gameParams.FuelBurnRate;
             FirePeriod = _gameParams.FirePeriod;
-            MagnetScale = _gameParams.MagnetScale;
+            _magnetScale = _gameParams.MagnetScale;
             ItemSpawnBonus = 0;
             AsteroidSpeedModifier = 1f;
+            Debug.Log("post resetting:" + MagnetScale);
         }
 
         // Calculate game params based on difficulty and ship selected

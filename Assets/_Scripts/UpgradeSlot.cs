@@ -1,17 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using TMPro;
 using DG.Tweening;
+using MoreMountains.Tools;
 
 namespace BlackHole
 {
     public class UpgradeSlot : MonoBehaviour
     {
-        public UpgradeManager.Upgrade ActiveUpgrade;
-        public GameObject ActiveUpgradeButton; // redundant, should write method to get button from upgrade
         [SerializeField] private GameObject _activeSlotIndicator;
         [SerializeField] private GameObject _buyPanel;
         public static Dictionary<int, UpgradeSlot> UpgradeSlots;
@@ -21,14 +21,16 @@ namespace BlackHole
         public bool Unlocked;
         public int SlotNumber;
         private bool _isBuying = false;
-        private bool _isActiveSlot;
+        [SerializeField] private bool _hasUpgrade = false;
+        public bool HasUpgrade { get => _hasUpgrade; set => _hasUpgrade = value; }
+        [SerializeField] private bool _isActiveSlot;
         public bool IsActiveSlot
         { 
             get => _isActiveSlot; 
             set 
             {
                 _isActiveSlot = value;
-                Color newcolor = ActiveUpgrade == null ? Color.red : Color.green;
+                Color newcolor = _hasUpgrade ? Color.green : Color.red;
                 newcolor.a = _isActiveSlot ? 1f : 0.5f;
                 _activeSlotIndicator.GetComponent<Image>().color = newcolor;
 
@@ -76,56 +78,34 @@ namespace BlackHole
             Button.BuyComplete -= FinishBuy;
         }
 
-        private void LoadSlotStateWrapper() // i wanna cri
-        {
-            UpgradeSlotManager.UpgradeSlotState dummy = UpgradeSlotManager.Instance.LoadSlotState(this);
-            Debug.Log("slot loaded, unlocked? " + Unlocked + " button: " + dummy.ActiveUpgradeButtonName);
-            Unlocked = dummy.Unlocked;
-            if (dummy.ActiveUpgradeButtonName != null && dummy.ActiveUpgradeButtonName != "")
-            {
-                ActiveUpgradeButton = UpgradeListDisplay.GetUpgradeButtonFromName(dummy.ActiveUpgradeButtonName);
-                ActiveUpgrade = ActiveUpgradeButton.GetComponent<UpgradeButton>().Upgrade;
-            } 
-            else
-            {
-                ActiveUpgradeButton = null;
-                ActiveUpgrade = null;
-            }
-        }
-
         public static void Init()
         {
             foreach (UpgradeSlot slot in UpgradeSlots.Values)
             {
-                slot.LoadSlotStateWrapper();
+                slot.Unlocked = UpgradeSlotManager.Instance.LoadSlotState(slot).Unlocked;
 
                 if (slot.Unlocked)
                 {
                     slot.UnlockSlot(); // change the appearance of slot to unlocked slot
                 }
-                Debug.Log("Loaded " + "UpgradeSlot" + slot.SlotNumber + " " + slot.ActiveUpgrade + " " + slot.ActiveUpgradeButton);
 
-                if (slot.ActiveUpgrade == null || slot.ActiveUpgrade.Name == "")
-                {
-                    slot.ResetSlot();
-                }
-                else
-                {
-                    slot._slotText.text = slot.ActiveUpgrade.Name;
-                    slot.ActiveUpgradeButton.GetComponent<UpgradeButton>().EquippedSlot = slot;
-                    slot.ActiveUpgradeButton.GetComponent<UpgradeButton>().Equip(slot.ActiveUpgrade, slot);
-                }
+                //if (slot.ActiveUpgrade == null || slot.ActiveUpgrade.Name == "")
+                //{
+                //    slot.ResetSlot();
+                //}
 
                 slot.transform.Find("CostText").GetComponent<TMP_Text>().text = "$" + slot._unlockCost;
             }
+
+            UpgradeSlotManager.Instance.SwitchSelectedUpgradeSlot(UpgradeSlots.First().Value, firstTimeSelection: true);
+
         }
 
         public void Equip(UpgradeManager.Upgrade u, UpgradeSlot s, GameObject button)
         {
             if (s != this) { return; }
 
-            ActiveUpgrade = u;
-            ActiveUpgradeButton = button;
+            HasUpgrade = true;
             _slotText.text = u.Name;
             _activeSlotIndicator.GetComponent<Image>().color = Color.green;
             EventSystem.current.SetSelectedGameObject(gameObject, new BaseEventData(EventSystem.current));
@@ -140,11 +120,10 @@ namespace BlackHole
         public void ResetSlot()
         {
             _slotText.text = "Upgrade";
-            ActiveUpgrade = null;
-            ActiveUpgradeButton = null;
             Color color = Color.red;
             color.a = 0.5f;
             _activeSlotIndicator.GetComponent<Image>().color = color;
+            HasUpgrade = false;
         }
 
         public static void ResetAndLockAllSlots()
@@ -152,8 +131,7 @@ namespace BlackHole
             foreach (UpgradeSlot slot in UpgradeSlots.Values)
             {
                 slot._slotText.text = "Upgrade";
-                slot.ActiveUpgrade = null;
-                slot.ActiveUpgradeButton = null;
+                slot.HasUpgrade = false;
                 LockSlot(slot);
             }
         }
@@ -164,16 +142,6 @@ namespace BlackHole
             {
                 UpgradeSlotManager.Instance.SaveSlotState(slot);
             }
-        }
-
-        public void EquipSlot(UpgradeManager.Upgrade u, GameObject button)
-        {
-            if (ActiveUpgrade != null && u == ActiveUpgrade) { return; }
-
-            ActiveUpgradeButton = button;
-            ActiveUpgrade = u;
-            _slotText.text = u.Name;
-            EventSystem.current.SetSelectedGameObject(gameObject, new BaseEventData(EventSystem.current));
         }
 
         public void AttemptEquipBuyWrapper()

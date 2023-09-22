@@ -51,6 +51,8 @@ namespace BlackHole {
             else if (u.Equipped)
             {
                 Equipped = true;
+                u.Equipped = false; // will be set to true in next line
+                UpgradeManager.Instance.EquipUpgrade(u);
             }
             else
             {
@@ -73,12 +75,6 @@ namespace BlackHole {
 
         public void Equip(UpgradeManager.Upgrade newUpgrade, UpgradeSlot slot, GameObject newButton = null) // last param is redundant
         {
-            if (EquippedSlot != null)
-            {
-                if (Upgrade.Name == "Shield ") Debug.Log("old Shield:" + Equipped + " " + EquippedSlot.SlotNumber + " " + slot.SlotNumber + " " + Upgrade.Name + " " + newUpgrade.Name);
-                if (newUpgrade.Name == "Shield") Debug.Log("new Shield:" + Equipped + " " + EquippedSlot.SlotNumber + " " + slot.SlotNumber + " " + Upgrade.Name + " " + newUpgrade.Name);
-            }
-
             // if this button is equipped in the active slot, but the new upgrade is not this upgrade, unslot this button
             if (EquippedSlot == slot && newUpgrade != Upgrade)
             {
@@ -96,6 +92,7 @@ namespace BlackHole {
                 Equipped = true;
                 EquippedSlot = slot;
                 _image.color = Color.green;
+                UpgradeManager.Instance.EquipUpgrade(Upgrade);
                 _cost.text = "Equipped";
                 return;
             }
@@ -107,6 +104,7 @@ namespace BlackHole {
             Equipped = false;
             EquippedSlot = null;
             _image.color = u.Unlocked ? _unlockedColor : Color.grey;
+            UpgradeManager.Instance.UnequipUpgrade(Upgrade);
             _cost.text = "Not equipped";
         }
 

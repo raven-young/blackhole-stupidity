@@ -63,6 +63,7 @@ namespace BlackHole
                 button.GetComponent<UpgradeButton>().Initialize(u);
                 if (u.Equipped)
                 {
+                    u.Equipped = false; // set to true via OnUpgradeEquipped -> UpgradeButton -> Equip
                     OnUpgradeEquipped?.Invoke(u, UpgradeSlot.UpgradeSlots[u.EquippedSlotNumber], button);
                 }
                 _upgradeButtons.Add(button.GetComponent<UpgradeButton>());
@@ -125,7 +126,7 @@ namespace BlackHole
 
         //}
 
-        public void EquipUpgradeFromUpgradeButton(GameObject button)
+        public void UpgradeButtonClick(GameObject button)
         {
             UpgradeManager.Upgrade u = button.transform.GetComponent<UpgradeButton>().Upgrade;
 
@@ -134,30 +135,42 @@ namespace BlackHole
                 if (!u.Unlocked) { Debug.Log("returning");return; } 
             }
 
-            if (UpgradeSlotManager.Instance.SelectedUpgradeSlot == null || !UpgradeSlotManager.Instance.SelectedUpgradeSlot.Unlocked) { return; }
+            if (UpgradeSlotManager.Instance.SelectedUpgradeSlot == null) {
+                Debug.LogWarning("Selected upgrade slot is null");
+                return; 
+            }
+
+            if (!UpgradeSlotManager.Instance.SelectedUpgradeSlot.Unlocked)
+            {
+                return;
+            }
 
             // if equipped to different slot, unequip there
-            if (u.Equipped && UpgradeSlotManager.Instance.SelectedUpgradeSlot.ActiveUpgrade != u) {
+            if (u.Equipped && UpgradeSlotManager.Instance.SelectedUpgradeSlot.SlotNumber != u.EquippedSlotNumber) {
                 OnUpgradeUnequipped?.Invoke(u, UpgradeSlot.UpgradeSlots[u.EquippedSlotNumber]);
             }
 
             // if already equipped to this slot, unequip the upgrade
-            if (u.Equipped && UpgradeSlotManager.Instance.SelectedUpgradeSlot.ActiveUpgrade == u)
+            if (u.Equipped && UpgradeSlotManager.Instance.SelectedUpgradeSlot.SlotNumber == u.EquippedSlotNumber)
             {
-                UpgradeManager.Instance.UnequipUpgrade(u);
+                //UpgradeManager.Instance.UnequipUpgrade(u);
                 //UpgradeSlotManager.Instance.SelectedUpgradeSlot.ResetSlot();
                 //UpgradeSlotManager.Instance.SelectedUpgradeSlot.ActiveUpgradeButton = null;
                 OnUpgradeUnequipped?.Invoke(u, UpgradeSlotManager.Instance.SelectedUpgradeSlot);
                 EventSystem.current.SetSelectedGameObject(UpgradeSlotManager.Instance.SelectedUpgradeSlot.gameObject, new BaseEventData(EventSystem.current));
                 Debug.Log("unequppped, now selected slot: " + UpgradeSlotManager.Instance.SelectedUpgradeSlot);
             }
-            else
+            else if (!u.Equipped)
             {
-                UpgradeManager.Instance.EquipUpgrade(u);
+                //UpgradeManager.Instance.EquipUpgrade(u);
                 u.EquippedSlotNumber = UpgradeSlotManager.Instance.SelectedUpgradeSlot.SlotNumber;
                 OnUpgradeEquipped?.Invoke(u, UpgradeSlotManager.Instance.SelectedUpgradeSlot, button);
                 //UpgradeSlotManager.Instance.SelectedUpgradeSlot.EquipSlot(u, button);
                 EventSystem.current.SetSelectedGameObject(UpgradeSlotManager.Instance.SelectedUpgradeSlot.gameObject, new BaseEventData(EventSystem.current));
+            }
+            else
+            {
+                Debug.LogWarning("wat");
             }
         }
 

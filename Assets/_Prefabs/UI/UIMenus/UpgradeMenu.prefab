@@ -1219,7 +1219,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5466443101098116895, guid: 89248b8a163a5b248bcdc1ffb32e35b4, type: 3}
       propertyPath: m_Name
-      value: 'Upgrade2Slot '
+      value: 'Upgrade1Slot '
       objectReference: {fileID: 0}
     - target: {fileID: 7558095109279999560, guid: 89248b8a163a5b248bcdc1ffb32e35b4, type: 3}
       propertyPath: m_Pivot.x
@@ -1347,14 +1347,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78f1a2658421b0c47bdfc16bf659039b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ActiveUpgrade:
-    Name: 
-    Description: 
-    UnlockCost: 0
-    Unlocked: 0
-    Equipped: 0
-    EquippedSlotNumber: 0
-  ActiveUpgradeButton: {fileID: 0}
   _activeSlotIndicator: {fileID: 7790915864382653645}
   _buyPanel: {fileID: 925034693673406845}
   _unlockCost: 5000
@@ -1649,7 +1641,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5466443101098116895, guid: 89248b8a163a5b248bcdc1ffb32e35b4, type: 3}
       propertyPath: m_Name
-      value: Upgrade3Slot
+      value: Upgrade2Slot
       objectReference: {fileID: 0}
     - target: {fileID: 7558095109279999560, guid: 89248b8a163a5b248bcdc1ffb32e35b4, type: 3}
       propertyPath: m_Pivot.x
@@ -1782,14 +1774,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78f1a2658421b0c47bdfc16bf659039b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ActiveUpgrade:
-    Name: 
-    Description: 
-    UnlockCost: 0
-    Unlocked: 0
-    Equipped: 0
-    EquippedSlotNumber: 0
-  ActiveUpgradeButton: {fileID: 0}
   _activeSlotIndicator: {fileID: 4861276013097215535}
   _buyPanel: {fileID: 925034693673406845}
   _unlockCost: 10000
@@ -2324,7 +2308,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5466443101098116895, guid: 89248b8a163a5b248bcdc1ffb32e35b4, type: 3}
       propertyPath: m_Name
-      value: Upgrade1Slot
+      value: Upgrade0Slot
       objectReference: {fileID: 0}
     - target: {fileID: 7558095109279999560, guid: 89248b8a163a5b248bcdc1ffb32e35b4, type: 3}
       propertyPath: m_Pivot.x
@@ -2446,14 +2430,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78f1a2658421b0c47bdfc16bf659039b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ActiveUpgrade:
-    Name: 
-    Description: 
-    UnlockCost: 0
-    Unlocked: 0
-    Equipped: 0
-    EquippedSlotNumber: 0
-  ActiveUpgradeButton: {fileID: 0}
   _activeSlotIndicator: {fileID: 6485863491435375565}
   _buyPanel: {fileID: 925034693673406845}
   _unlockCost: 1000
