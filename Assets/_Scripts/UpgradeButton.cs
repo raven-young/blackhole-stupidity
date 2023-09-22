@@ -43,7 +43,21 @@ namespace BlackHole {
         public void Initialize(UpgradeManager.Upgrade u)
         {
             Upgrade = u;
-            Equipped = u.Equipped;
+
+            if (EquippedSlot == null) 
+            { 
+                Equipped = false; 
+            }
+            else if (u.Equipped)
+            {
+                Equipped = true;
+            }
+            else
+            {
+                Debug.LogWarning("Upgrade not equipped but upgrade slot not null");
+                Equipped = false;
+                EquippedSlot = null;
+            }
             _upgradeName.text = u.Name;
             _description.text = u.Description;
             _cost.text = u.Equipped ? "Equipped" : u.Unlocked ? "Not equipped" : "$" + u.UnlockCost.ToString();

@@ -136,7 +136,7 @@ namespace BlackHole
 
             if (UpgradeSlotManager.Instance.SelectedUpgradeSlot == null || !UpgradeSlotManager.Instance.SelectedUpgradeSlot.Unlocked) { return; }
 
-            // to do: if equipped to different slot, unequip there
+            // if equipped to different slot, unequip there
             if (u.Equipped && UpgradeSlotManager.Instance.SelectedUpgradeSlot.ActiveUpgrade != u) {
                 OnUpgradeUnequipped?.Invoke(u, UpgradeSlot.UpgradeSlots[u.EquippedSlotNumber]);
             }

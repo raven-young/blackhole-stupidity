@@ -45,7 +45,6 @@ namespace BlackHole
             } 
         }
         
-
         private void Awake()
         {
             _slotText = transform.Find("Text (TMP)").GetComponent<TMP_Text>();
@@ -57,6 +56,7 @@ namespace BlackHole
 
             if (UpgradeSlotManager.Instance == null)
             {
+                Debug.LogWarning("UpgradeSlot: UpgradeSlotManager is null");
                 UpgradeSlotManager.Instance = Resources.Load<UpgradeSlotManager>("_ScriptableObjects/UpgradeSlotManager");
             }
 

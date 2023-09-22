@@ -82,8 +82,15 @@ namespace BlackHole
         private int _unlockedUpgradesCount = 0;
         private readonly List<Upgrade> EquippedUpgrades = new();
 
+        private void Awake()
+        {
+            Debug.Log("awakening upgrade manager");
+        }
+
         private void OnEnable()
         {
+            Debug.Log("enable upgrade manager");
+
             if (_instance == null)
             {
                 _instance = this;

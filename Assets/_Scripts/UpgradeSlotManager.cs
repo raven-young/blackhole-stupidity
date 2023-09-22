@@ -54,7 +54,8 @@ namespace BlackHole
 
             public UpgradeSlotState()
             {
-
+                Unlocked = false;
+                ActiveUpgradeButtonName = null;
             }
             public UpgradeSlotState(bool unlocked, string activeUpgradeButtonName)
             {
@@ -130,7 +131,6 @@ namespace BlackHole
             {
                 Debug.Log("Adding slot " + slot.SlotNumber + " to upgrade slot dict");
                 UpgradeSlotStates[slot.SlotNumber] = slot.ActiveUpgradeButton == null  ? new UpgradeSlotState() : new UpgradeSlotState(slot.Unlocked, slot.ActiveUpgradeButton.GetComponent<UpgradeButton>().Upgrade.Name);
-                return UpgradeSlotStates[slot.SlotNumber];
             }
             return UpgradeSlotStates[slot.SlotNumber];
         }

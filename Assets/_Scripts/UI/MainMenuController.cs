@@ -29,15 +29,16 @@ namespace BlackHole
         private void Awake()
         {
             playerInputActions = new PlayerInputActions();
-            playerInputActions.Enable();
-            playerInputActions.Player.EscapeAction.performed += EscapeAction;
-            playerInputActions.Player.Answer3.performed += EscapeAction;
         }
 
         private void OnEnable()
         {
             AchievementsManager.OnAchievementUnlocked += DisplayAchievement;
             Bank.OnCashTransfer += UpdateCurrencyText;
+
+            playerInputActions.Enable();
+            playerInputActions.Player.EscapeAction.performed += EscapeAction;
+            playerInputActions.Player.Answer3.performed += EscapeAction;
         }
 
         private void OnDisable()
