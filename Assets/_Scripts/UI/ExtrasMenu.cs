@@ -21,5 +21,10 @@ namespace BlackHole
             HighscoresMenu.Open();
         }
 
+        public void OnLeaderboardPressed()
+        {
+            LeaderboardMenu.Open();
+        }
+
     }
 }

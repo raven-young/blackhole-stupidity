@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6178380141368114}
   - component: {fileID: 8892115482900893690}
+  - component: {fileID: 8475918120540509717}
   m_Layer: 0
   m_Name: MenuManager
   m_TagString: Untagged
@@ -17,21 +18,25 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &6178380141368114
-Transform:
+--- !u!224 &6178380141368114
+RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8736970140120889984}
-  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -0.26870346}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 2.4066184, y: 0.8617806}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &8892115482900893690
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -53,4 +58,28 @@ MonoBehaviour:
   AchievementsMenuPrefab: {fileID: 7612843928280099468, guid: b99f9acfcd9cc714482acd293c1d5751, type: 3}
   SettingsMenuPrefab: {fileID: 6738533402967759575, guid: b02feded044dc574b837c15c7ca0de95, type: 3}
   HighscoresMenuPrefab: {fileID: 4075402512380143118, guid: 9cc02d9f7c1b2f442b52741e2692cb3e, type: 3}
+  LeaderboardMenuPrefab: {fileID: 1332598011144835713, guid: dd1b1665cfd1b5547a38accfa8722737, type: 3}
   _menuParent: {fileID: 0}
+--- !u!223 &8475918120540509717
+Canvas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8736970140120889984}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_RenderMode: 2
+  m_Camera: {fileID: 0}
+  m_PlaneDistance: 100
+  m_PixelPerfect: 0
+  m_ReceivesEvents: 1
+  m_OverrideSorting: 0
+  m_OverridePixelPerfect: 0
+  m_SortingBucketNormalizedSize: 0
+  m_VertexColorAlwaysGammaSpace: 0
+  m_AdditionalShaderChannelsFlag: 0
+  m_UpdateRectTransformForStandalone: 0
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+  m_TargetDisplay: 0
