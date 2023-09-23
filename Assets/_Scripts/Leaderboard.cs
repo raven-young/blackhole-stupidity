@@ -14,16 +14,14 @@ namespace BlackHole
 
         private string _publicLeaderboardKey = "f3b5592574eedbd3136877354f8e17c664ac66f8920531537b0e58e12ef8d100";
 
-        // Start is called before the first frame update
-        void Start()
+        private void OnEnable()
         {
-
+            Scoring.OnScored += SubmitScore;
         }
 
-        // Update is called once per frame
-        void Update()
+        private void OnDisable()
         {
-
+            Scoring.OnScored -= SubmitScore;
         }
 
         public void GetLeaderboard()
@@ -43,6 +41,11 @@ namespace BlackHole
             {
                 GetLeaderboard();
             });
+        }
+
+        private void SubmitScore(int score)
+        {
+            SetLeaderboardEntry("testname", score);
         }
     }
 }
