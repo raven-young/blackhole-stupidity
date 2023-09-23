@@ -65,8 +65,6 @@ namespace BlackHole
 
         public void CalculateFinalScoreAndCash(bool victorious)
         {
-            _scoreTextGameplay.gameObject.SetActive(false);
-
             float finalMultiplier = victorious ? _gameParamsSO.VictoryMultiplier : _gameParamsSO.GameOverMultiplier;
 
             switch (SettingsManager.Instance.SelectedDifficulty)
@@ -74,7 +72,6 @@ namespace BlackHole
                 case SettingsManager.DifficultySetting.Easy: finalMultiplier *= _gameParamsSO.EasyScoreMultiplier; break;
                 case SettingsManager.DifficultySetting.Normal: finalMultiplier *= _gameParamsSO.NormalScoreMultiplier; break;
                 case SettingsManager.DifficultySetting.Hard: finalMultiplier *= _gameParamsSO.HardScoreMultiplier; break;
-                case SettingsManager.DifficultySetting.Expert: finalMultiplier *= _gameParamsSO.ExpertScoreMultiplier; break;
             }
 
             _finalScore = (int)(finalMultiplier * _score);

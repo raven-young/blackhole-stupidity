@@ -820,6 +820,9 @@ MonoBehaviour:
   _blackHoleNormalLayer: {fileID: 2338669928787441268}
   _blackHoleNormalHardLayer: {fileID: 3336183828981977191}
   _blackHoleHardLayer: {fileID: 4562808637573773291}
+  _eventHorizonDesktop: {fileID: 0}
+  _eventHorizonMobile: {fileID: 0}
+  HasGrown: 0
 --- !u!1 &8638492421582651548
 GameObject:
   m_ObjectHideFlags: 0

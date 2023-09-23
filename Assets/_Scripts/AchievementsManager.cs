@@ -65,22 +65,18 @@ namespace BlackHole
         [SerializeField] private Achievement _victoryEasy;
         [SerializeField] private Achievement _victoryNormal;
         [SerializeField] private Achievement _victoryHard;
-        [SerializeField] private Achievement _victoryExpert;
 
         [SerializeField] private Achievement _victoryNoDamageEasy;
         [SerializeField] private Achievement _victoryNoDamageNormal;
         [SerializeField] private Achievement _victoryNoDamageHard;
-        [SerializeField] private Achievement _victoryNoDamageExpert;
 
         [SerializeField] private Achievement _victory100PercentEasy;
         [SerializeField] private Achievement _victory100PercentNormal;
         [SerializeField] private Achievement _victory100PercentHard;
-        [SerializeField] private Achievement _victory100PercentExpert;
 
         [SerializeField] private Achievement _victoryFlawlessEasy;
         [SerializeField] private Achievement _victoryFlawlessNormal;
         [SerializeField] private Achievement _victoryFlawlessHard;
-        [SerializeField] private Achievement _victoryFlawlessExpert;
 
         [SerializeField] private Achievement _score10k;
         [SerializeField] private Achievement _score50k;
@@ -141,11 +137,6 @@ namespace BlackHole
                     _victoryHard.Unlocked = true;
                     OnAchievementUnlocked?.Invoke(_victoryHard);
                     break;
-                case SettingsManager.DifficultySetting.Expert:
-                    if (_victoryExpert.Unlocked) return;
-                    _victoryExpert.Unlocked = true;
-                    OnAchievementUnlocked?.Invoke(_victoryExpert);
-                    break;
             }
         }
 
@@ -167,11 +158,6 @@ namespace BlackHole
                     if (_victoryNoDamageHard.Unlocked) return;
                     _victoryNoDamageHard.Unlocked = true;
                     OnAchievementUnlocked?.Invoke(_victoryNoDamageHard);
-                    break;
-                case SettingsManager.DifficultySetting.Expert:
-                    if (_victoryNoDamageExpert.Unlocked) return;
-                    _victoryNoDamageExpert.Unlocked = true;
-                    OnAchievementUnlocked?.Invoke(_victoryNoDamageExpert);
                     break;
             }
         }
@@ -195,11 +181,6 @@ namespace BlackHole
                     _victory100PercentHard.Unlocked = true;
                     OnAchievementUnlocked?.Invoke(_victory100PercentHard);
                     break;
-                case SettingsManager.DifficultySetting.Expert:
-                    if (_victory100PercentExpert.Unlocked) return;
-                    _victory100PercentExpert.Unlocked = true;
-                    OnAchievementUnlocked?.Invoke(_victory100PercentExpert);
-                    break;
             }
         }
         private void UnlockFlawlessAchievement()
@@ -220,11 +201,6 @@ namespace BlackHole
                     if (_victoryFlawlessHard.Unlocked) return;
                     _victoryFlawlessHard.Unlocked = true;
                     OnAchievementUnlocked?.Invoke(_victoryFlawlessHard);
-                    break;
-                case SettingsManager.DifficultySetting.Expert:
-                    if (_victoryFlawlessExpert.Unlocked) return;
-                    _victoryFlawlessExpert.Unlocked = true;
-                    OnAchievementUnlocked?.Invoke(_victoryFlawlessExpert);
                     break;
             }
         }

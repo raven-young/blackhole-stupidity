@@ -46,15 +46,20 @@ namespace BlackHole
         [SerializeField] private GameParams _gameParams;
         public DifficultySetting SelectedDifficulty;
 
-        public static bool IsMobileGame = false;
+        private static bool _isMobile = false;
+        public static bool IsMobileGame { get => _isMobile; set => _isMobile = value; }
 
         // GAME PARAMETERS
-        public static int BulletDamage;
-        public static float BurnRate;
-        public static float FirePeriod;
+        private static int _bulletDamage;
+        public static int BulletDamage { get => _bulletDamage; set => _bulletDamage = value; }
+        private static float _burnRate;
+        public static float BurnRate { get => _burnRate; set => _burnRate = value; }
+        private static float _firePerid;
+        public static float FirePeriod { get => _firePerid; set => _firePerid = value; }
         private static float _magnetScale;
-        public static float MagnetScale { get => _magnetScale; set { Debug.Log($"setting to {value}"); _magnetScale = value; } }
-        public static int ItemSpawnBonus;
+        public static float MagnetScale { get => _magnetScale; set => _magnetScale = value; }
+        private static int _itemSpawnBonus;
+        public static int ItemSpawnBonus { get => _itemSpawnBonus; set => _itemSpawnBonus = value; }
 
         public void PrintParams()
         {
@@ -76,8 +81,7 @@ namespace BlackHole
         {
             Easy = 0,
             Normal = 1,
-            Hard = 2,
-            Expert = 3
+            Hard = 2
         }
 
         private void OnEnable() // awake not called on reloaded scritpable objects!
@@ -146,16 +150,17 @@ namespace BlackHole
                     CanvasManager.Instance.ToggleFuelSlider(true);
                     DifficultyScoreMultiplier = _gameParams.HardScoreMultiplier;
                     break;
-                case DifficultySetting.Expert:
-                    CanvasManager.Instance.ToggleFuelSlider(true);
-                    DifficultyScoreMultiplier = _gameParams.ExpertScoreMultiplier;
-                    break;
             }
         }
 
         public static void ToggleMobile(bool isMobile)
         {
             IsMobileGame = isMobile;
+
+            if (CanvasManager.Instance != null)
+            {
+                CanvasManager.Instance.ToggleTouchControls(isMobile);
+            }
         }
 
         public static void UnlockScoreAttack()
