@@ -22,9 +22,9 @@ public class AsteroidFake : MonoBehaviour
         if (UnityEngine.Random.Range(0f, 1f) < 0.02f)
         {
             gameObject.GetComponent<SpriteRenderer>().sprite = UnityEngine.Random.Range(0f, 1f) < 0.5f ? _vachette : _raccoon;
-            if (gameObject.GetComponent<SpriteRenderer>().sprite == _raccoon) transform.localScale = new Vector3(0.6f, 0.6f, 0.6f);
+            transform.localScale = gameObject.GetComponent<SpriteRenderer>().sprite == _raccoon ? new Vector3(0.6f, 0.6f, 0.6f) : new Vector3(3f, 3f, 3f);
             torque *= 0.3f;
-        }
+        }   
         // random torque
         _rb.AddTorque(torque * spin, ForceMode2D.Impulse);
     }

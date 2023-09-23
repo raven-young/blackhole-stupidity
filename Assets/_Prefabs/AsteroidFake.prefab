@@ -115,5 +115,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _gameParams: {fileID: 11400000, guid: dd8a65e487f3ad244b57dea38948a9e4, type: 2}
   _rb: {fileID: 3389226978271209169}
-  _vachette: {fileID: 21300000, guid: b7d98f55c77358c488fc8b0829f60700, type: 3}
+  _vachette: {fileID: 21300000, guid: 5c141d81e888f7a4982fc0d2ca3f484e, type: 3}
   _raccoon: {fileID: 21300000, guid: 9ec1eee508babc34fad8d888f6f4f68d, type: 3}

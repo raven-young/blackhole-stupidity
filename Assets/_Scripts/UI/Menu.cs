@@ -68,7 +68,6 @@ namespace BlackHole
 
         public virtual void OnBackPressed()
         {
-            Debug.Log("onbackpressed");
             MenuManager.Instance.CloseMenu();
         }
     }
