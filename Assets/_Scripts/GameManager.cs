@@ -231,6 +231,7 @@ namespace BlackHole
         IEnumerator StartGame()
         {
             SoundManager.Instance.StartMainGameMusic();
+            ScreenFader.FadeFromBlack(1f);
             CanvasManager.Instance.ShowControlsPanel();
 
             while (true)
@@ -239,7 +240,7 @@ namespace BlackHole
                     break;
                 yield return null;
             }
-
+           
             SoundManager.Instance.PlayButtonPress(failed: false);
             CanvasManager.Instance.StartGame();
             CanPause = true;
