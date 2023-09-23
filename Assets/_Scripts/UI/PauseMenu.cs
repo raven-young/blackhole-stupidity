@@ -9,7 +9,8 @@ namespace BlackHole
     {
         protected override void OnEnable()
         {
-            base.OnEnable();
+            //base.OnEnable(); // Don't subscribe to EscapeActionPressed, else Button East will resume game AND Select Answer 3
+
             // When the MenuManager initializes in Awake, CanvasManager might not exist yet
             if (CanvasManager.Instance != null)
             {

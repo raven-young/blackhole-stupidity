@@ -10,7 +10,6 @@ namespace BlackHole
 {
     public class AchievementNotification : MonoBehaviour
     {
-
         private Queue<IEnumerator> coroutineQueue = new Queue<IEnumerator>();
 
         public void StartAchievementsDisplay()

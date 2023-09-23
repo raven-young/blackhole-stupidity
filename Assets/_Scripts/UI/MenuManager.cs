@@ -1,6 +1,7 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
 namespace BlackHole
@@ -11,10 +12,11 @@ namespace BlackHole
         private static MenuManager _instance;
         public static MenuManager Instance { get => _instance; }
 
-        // Don't change types below to subtyles, else GetNestedFieldValuesOfType won't work
+        public static event Action EscapeActionPressed;
+
+        // Don't change types below to subtypes, else GetNestedFieldValuesOfType won't work
         [SerializeField] private Menu MainMenuPrefab;
         [SerializeField] private Menu DifficultyMenuPrefab;
-        //[SerializeField] private Menu UpgradeMenuPrefab;
         [SerializeField] private Menu PauseMenuPrefab;
         [SerializeField] private Menu VictoryScreenPrefab;
         [SerializeField] private Menu UpgradeMenuPrefab;
@@ -28,6 +30,8 @@ namespace BlackHole
 
         private readonly Stack<Menu> _menuStack = new();
 
+        private PlayerInputActions playerInputActions;
+
         private void Awake()
         {
             if (_instance != null)
@@ -38,9 +42,24 @@ namespace BlackHole
             {
                 _instance = this;
                 InitializeMenus();
+                playerInputActions = new PlayerInputActions();
             }
 
             DontDestroyOnLoad(this);
+        }
+
+        private void OnEnable()
+        {
+            playerInputActions.Enable();
+            playerInputActions.Player.EscapeAction.performed += EscapeAction;
+            playerInputActions.Player.Answer3.performed += EscapeAction;
+        }
+
+        private void OnDisable()
+        {
+            playerInputActions.Disable();
+            playerInputActions.Player.EscapeAction.performed -= EscapeAction;
+            playerInputActions.Player.Answer3.performed -= EscapeAction;
         }
 
         private void OnDestroy()
@@ -131,6 +150,14 @@ namespace BlackHole
             while (_menuStack.Count > 0)
             {
                 CloseMenu();
+            }
+        }
+
+        private void EscapeAction(InputAction.CallbackContext context)
+        {
+            if (context.performed)
+            {
+                EscapeActionPressed?.Invoke();
             }
         }
     }

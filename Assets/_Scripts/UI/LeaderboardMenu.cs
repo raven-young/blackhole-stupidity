@@ -15,11 +15,8 @@ namespace BlackHole
 
         protected override void OnEnable()
         {
+            base.OnEnable(); // Subscribe to EscapeActionPressed
             GetLeaderboard();
-        }
-
-        protected override void OnDisable()
-        {
         }
 
         public void GetLeaderboard()
@@ -34,6 +31,11 @@ namespace BlackHole
                     _scores[i].text = msg[i].Score.ToString();
                 }
             }));
+        }
+
+        public override void OnBackPressed()
+        {
+            base.OnBackPressed();
         }
 
     }

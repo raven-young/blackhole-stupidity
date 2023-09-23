@@ -25,12 +25,12 @@ namespace BlackHole
 
         protected virtual void OnEnable()
         {
-            MainMenuController.EscapeActionPressed += OnBackPressed;
+            MenuManager.EscapeActionPressed += OnBackPressed;
         }
 
         protected virtual void OnDisable()
         {
-            MainMenuController.EscapeActionPressed -= OnBackPressed;
+            MenuManager.EscapeActionPressed -= OnBackPressed;
         }
 
         protected virtual void OnDestroy()

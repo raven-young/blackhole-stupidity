@@ -96,13 +96,20 @@ namespace BlackHole
 
         public void ShowControlsPanel()
         {
-            ScreenFader.FadeFromBlack(1f);
             _inputPopup.SetActive(true);
 
-            if (Gamepad.current != null)
+            if (SettingsManager.IsMobileGame)
+            {
+                _inputPopup.transform.Find("Mobile").gameObject.SetActive(true);
+            }
+            else if (Gamepad.current != null)
+            {
                 _inputPopup.transform.Find("Gamepad").gameObject.SetActive(true);
+            }
             else
+            {
                 _inputPopup.transform.Find("Keyboard").gameObject.SetActive(true);
+            }
 
             // doesnt work
             //if (playerInput.currentControlScheme == "Gamepad")

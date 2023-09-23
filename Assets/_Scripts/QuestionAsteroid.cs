@@ -299,7 +299,7 @@ namespace BlackHole
         // refactor this later
         private void AnswerInputAction(InputAction.CallbackContext context)
         {
-            if (!_questionActive) { return; }
+            if (!_questionActive || GameManager.IsPaused) { return; }
 
             if (context.performed)
             {
