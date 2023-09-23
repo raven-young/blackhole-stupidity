@@ -15,7 +15,6 @@ namespace BlackHole
             ES3.Save("UpgradeManager", UpgradeManager.Instance);
             ES3.Save("SettingsManager", SettingsManager.Instance);
             ES3.Save("PlayerStats", PlayerStats.Instance);
-            Debug.Log(PlayerStats.Instance.GetHighscore(SettingsManager.DifficultySetting.Normal));
             ES3.Save("AvailableCurrency", Bank.AvailableCurrency);
             ES3.Save("UpgradeSlotStateDict", UpgradeSlotManager.Instance.UpgradeSlotStates);
         }

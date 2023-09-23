@@ -309,7 +309,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &6463474486226789644
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2585,7 +2585,7 @@ GameObject:
   - component: {fileID: 4114219753428253170}
   - component: {fileID: 7890244260834212785}
   - component: {fileID: 8529166325666298077}
-  - component: {fileID: 5991154614491512212}
+  - component: {fileID: 1332598011144835713}
   m_Layer: 5
   m_Name: LeaderBoards
   m_TagString: Untagged
@@ -2685,7 +2685,7 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 270327
---- !u!114 &5991154614491512212
+--- !u!114 &1332598011144835713
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2694,9 +2694,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 7365975735160931965}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bcbaa129af4309040bb91bc18c1d1cc8, type: 3}
+  m_Script: {fileID: 11500000, guid: 65a78daccd6a85843b1dbc6861b9a81a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _firstSelected: {fileID: 832369327992803865}
   _names:
   - {fileID: 326396024012317791}
   - {fileID: 6680306634720616388}
@@ -3287,6 +3288,10 @@ PrefabInstance:
       value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 5141809706132245129, guid: beb5c9dfcc82e4b48b0a07cba28fe063, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 1332598011144835713}
+    - target: {fileID: 5141809706132245129, guid: beb5c9dfcc82e4b48b0a07cba28fe063, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
       value: OnBackPressed
       objectReference: {fileID: 0}
@@ -3399,6 +3404,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: beb5c9dfcc82e4b48b0a07cba28fe063, type: 3}
+--- !u!1 &832369327992803865 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5319676199212263151, guid: beb5c9dfcc82e4b48b0a07cba28fe063, type: 3}
+  m_PrefabInstance: {fileID: 4782367808767177974}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &1388990952815170413 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5843646769083393947, guid: beb5c9dfcc82e4b48b0a07cba28fe063, type: 3}
@@ -3419,6 +3429,10 @@ PrefabInstance:
     - target: {fileID: 5466443101098116895, guid: 89248b8a163a5b248bcdc1ffb32e35b4, type: 3}
       propertyPath: m_Name
       value: SubmitButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 5466443101098116895, guid: 89248b8a163a5b248bcdc1ffb32e35b4, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7558095109279999560, guid: 89248b8a163a5b248bcdc1ffb32e35b4, type: 3}
       propertyPath: m_Pivot.x
