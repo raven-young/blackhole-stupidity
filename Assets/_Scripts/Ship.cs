@@ -22,6 +22,7 @@ namespace BlackHole
         private float _theta = Mathf.PI / 2;
         public float ShipPositionRadius; // distance from black hole
         private float _angularVelocity;
+        private float _baseAngularVelocity;
         private float _dragAngularVelocityMultiplier = 2f;
         private delegate void HandleMovement();
         private HandleMovement _handleMovement;
@@ -39,6 +40,16 @@ namespace BlackHole
         public bool CannotMove = false;
         public bool IsInvincible = false;
         public bool IsOverdriveActive = false;
+
+        public enum ControlSetting
+        {
+            StickOrKeyboard = 0,
+            MobileStick = 1,
+            TouchDrag = 2
+        }
+
+        public static ControlSetting ActiveControls;
+        [SerializeField] private GameObject _mobileStick;
 
         [Header("Effects")]
         [SerializeField] private GameObject deathEffect;
@@ -69,12 +80,14 @@ namespace BlackHole
         {
             _playerInputActions.Player.Enable();
             _playerInputActions.Player.Special.performed += ActivateOverdrive;
+            SettingsMenu.OnControlSettingsChanged += SwitchControlSetting;
         }
 
         void OnDisable()
         {
             _playerInputActions.Player.Disable();
             _playerInputActions.Player.Special.performed -= ActivateOverdrive;
+            SettingsMenu.OnControlSettingsChanged -= SwitchControlSetting;
         }
 
         public void InitializeShip()
@@ -88,8 +101,19 @@ namespace BlackHole
             _itemMagnet.transform.localScale = new Vector3(SettingsManager.MagnetScale, SettingsManager.MagnetScale, SettingsManager.MagnetScale);
             _itemMagnetMaterial = _itemMagnet.transform.GetComponent<SpriteRenderer>().material;
 
-            _handleMovement = HanldeMovementStickOrKeyboard;
-            _angularVelocity = _gameParams.AngularVelocity;
+            _baseAngularVelocity = _gameParams.AngularVelocity;
+            _angularVelocity = _baseAngularVelocity;
+
+            if (!SettingsManager.IsMobileGame)
+            {
+                ActiveControls = ControlSetting.StickOrKeyboard;
+            }
+            else if (ActiveControls == ControlSetting.StickOrKeyboard)
+            {
+                Debug.LogWarning("IsMobileGame but not using mobile control scheme!");
+            }
+
+            SwitchControlSetting();
         }
 
         private void Update()
@@ -165,19 +189,41 @@ namespace BlackHole
             _movementX = theta > _theta ? -1 : 1;
         }
 
-        public void ToggleDragMovement(bool activateDrag)
+        private void SwitchControlSetting()
         {
-            if (activateDrag)
+            switch (ActiveControls)
             {
-                _angularVelocity *= _dragAngularVelocityMultiplier;
-                _handleMovement = HandleMovementTouchDrag;
-            }
-            else
-            {
-                _angularVelocity /= _dragAngularVelocityMultiplier;
-                _handleMovement = HanldeMovementStickOrKeyboard;
+                case ControlSetting.StickOrKeyboard:
+                    _handleMovement = HanldeMovementStickOrKeyboard;
+                    _mobileStick.SetActive(false);
+                    _angularVelocity = _baseAngularVelocity;
+                    break;
+                case ControlSetting.MobileStick:
+                    _handleMovement = HanldeMovementStickOrKeyboard;
+                    _mobileStick.SetActive(true);
+                    _angularVelocity = _baseAngularVelocity;
+                    break;
+                case ControlSetting.TouchDrag:
+                    _handleMovement = HandleMovementTouchDrag;
+                    _mobileStick.SetActive(false);
+                    _angularVelocity = _baseAngularVelocity * _dragAngularVelocityMultiplier;
+                    break;
             }
         }
+
+        //public void ToggleDragMovement(bool activateDrag)
+        //{
+        //    if (activateDrag)
+        //    {
+        //        _angularVelocity *= _dragAngularVelocityMultiplier;
+        //        _handleMovement = HandleMovementTouchDrag;
+        //    }
+        //    else
+        //    {
+        //        _angularVelocity /= _dragAngularVelocityMultiplier;
+        //        _handleMovement = HanldeMovementStickOrKeyboard;
+        //    }
+        //}
 
         private void FixedUpdate()
         {

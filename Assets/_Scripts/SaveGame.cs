@@ -28,7 +28,7 @@ namespace BlackHole
                 UpgradeManager.Instance = ES3.Load<UpgradeManager>("UpgradeManager");
                 SettingsManager.Instance = ES3.Load<SettingsManager>("SettingsManager");
                 PlayerStats.Instance = ES3.Load<PlayerStats>("PlayerStats");
-                Debug.Log(PlayerStats.Instance.GetHighscore(SettingsManager.DifficultySetting.Normal));
+                //Debug.Log(PlayerStats.Instance.GetHighscore(SettingsManager.DifficultySetting.Normal));
                 Bank.AvailableCurrency = ES3.Load<int>("AvailableCurrency");
 
                 if (ES3.KeyExists("UpgradeSlotStateDict"))

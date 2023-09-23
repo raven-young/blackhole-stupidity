@@ -246,6 +246,11 @@ namespace BlackHole
 
             EquippedUpgrades.Add(u);
             u.Equipped = true;
+            SafeActivate(u, true);
+        }
+
+        private void SafeActivate(Upgrade u, bool activate)
+        {
             if (u.Activate.Method == null)
             {
                 FillNullDelegate(u);
@@ -255,7 +260,7 @@ namespace BlackHole
                     return;
                 }
             }
-            u.Activate(true);
+            u.Activate(activate);
         }
 
         public void UnequipUpgrade(Upgrade u)
@@ -271,19 +276,25 @@ namespace BlackHole
                 return;
             }
 
-            EquippedUpgrades.Remove(u);
+            if (EquippedUpgrades.Contains(u))
+            {
+                EquippedUpgrades.Remove(u);
+            }
+            else
+            {
+                Debug.LogWarning("Trying to unequip upgrade not in equipped upgrades list");
+            }
             u.Equipped = false;
-            u.Activate(false);
+            SafeActivate(u, false);
         }
 
         // since upgrade button is a prefab instantiated at run-time, call wrapper from this persisent scriptable object
         public void EquipUpgradeFromUpgradeButtonWrapper(GameObject button)
         {
-            UpgradeListDisplay.Instance.EquipUpgradeFromUpgradeButton(button);
+            UpgradeListDisplay.Instance.UpgradeButtonClick(button);
         }
         public void InitializeUpgrades()
         {
-            Debug.Log("init upgrade maanger");
             _unlockedUpgradesCount = 0;
             AllUpgrades = new(this.GetNestedFieldValuesOfType<Upgrade>());
             foreach (Upgrade u in AllUpgrades) { if (u.Unlocked) _unlockedUpgradesCount++; }

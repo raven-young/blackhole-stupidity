@@ -46,7 +46,8 @@ namespace BlackHole
             _healthSlider.minValue = 0;
             _healthSlider.value = _gameParams.MaxHealth / 2;
 
-            playerController = GameObject.Find("ShipController");
+            //playerController = GameObject.Find("ShipController");
+            playerController = GameObject.FindGameObjectWithTag("Player");
             ToggleTouchControls(SettingsManager.IsMobileGame);
         }
 
