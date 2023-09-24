@@ -126,10 +126,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 794b23aa3435d1e4aac43967dd460573, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _collectedSpeed: 12
   _gameParams: {fileID: 11400000, guid: dd8a65e487f3ad244b57dea38948a9e4, type: 2}
   _rb: {fileID: 4242394023723850243}
   _pickupClip: {fileID: 8300000, guid: 81507b00c60ce65469050492969e63b2, type: 3}
-  _bankSO: {fileID: 11400000, guid: 781864877ffdfee4d99abfd9b1598406, type: 2}
   _cashNumberPosPrefab: {fileID: 8800034077884002147, guid: 516e189338d996240924f2c2f2cc7cc5, type: 3}
 --- !u!58 &6892117645337851606
 CircleCollider2D:

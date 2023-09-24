@@ -93,12 +93,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 4
     m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
-    m_SelectOnLeft: {fileID: 0}
-    m_SelectOnRight: {fileID: 0}
+    m_SelectOnLeft: {fileID: 5571269513774268762}
+    m_SelectOnRight: {fileID: 5571269513774268762}
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
@@ -313,9 +313,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e891727d1a336ac42b6d3c6c4d7fa22c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _selectedClip: {fileID: 8300000, guid: eef6199541910d047960f7f36b500352, type: 3}
-  _pressedClip: {fileID: 8300000, guid: 17d75296bcd41904d9122a44f4bb444a, type: 3}
-  _failedClip: {fileID: 8300000, guid: 3b92775ccaa84f54fbab325dbdf1d934, type: 3}
 --- !u!1 &1410861077216171441
 GameObject:
   m_ObjectHideFlags: 0
@@ -456,12 +453,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 4
     m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
-    m_SelectOnLeft: {fileID: 0}
-    m_SelectOnRight: {fileID: 0}
+    m_SelectOnLeft: {fileID: 5811215143818219761}
+    m_SelectOnRight: {fileID: 5811215143818219761}
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
@@ -676,9 +673,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e891727d1a336ac42b6d3c6c4d7fa22c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _selectedClip: {fileID: 8300000, guid: eef6199541910d047960f7f36b500352, type: 3}
-  _pressedClip: {fileID: 8300000, guid: 17d75296bcd41904d9122a44f4bb444a, type: 3}
-  _failedClip: {fileID: 8300000, guid: 3b92775ccaa84f54fbab325dbdf1d934, type: 3}
 --- !u!1 &2127437093408135233
 GameObject:
   m_ObjectHideFlags: 0

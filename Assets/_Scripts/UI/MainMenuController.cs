@@ -24,13 +24,13 @@ namespace BlackHole
 
         private void OnEnable()
         {
-            AchievementsManager.OnAchievementUnlocked += DisplayAchievement;
+            AchievementsManager.AchievementUnlocked += DisplayAchievement;
             Bank.OnCashTransfer += UpdateCurrencyText;
         }
 
         private void OnDisable()
         {
-            AchievementsManager.OnAchievementUnlocked -= DisplayAchievement;
+            AchievementsManager.AchievementUnlocked -= DisplayAchievement;
             Bank.OnCashTransfer -= UpdateCurrencyText;
         }
 

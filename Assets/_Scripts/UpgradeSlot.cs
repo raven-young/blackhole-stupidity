@@ -30,20 +30,7 @@ namespace BlackHole
             set 
             {
                 _isActiveSlot = value;
-                Color newcolor = _hasUpgrade ? Color.green : Color.red;
-                newcolor.a = _isActiveSlot ? 1f : 0.5f;
-                _activeSlotIndicator.GetComponent<Image>().color = newcolor;
-
-                if (!_isActiveSlot) return;
-                
-                foreach (UpgradeSlot slot in UpgradeSlots.Values)
-                {
-                    if (slot != this)
-                    {
-                        slot.IsActiveSlot = false;
-                        slot._activeSlotIndicator.GetComponent<Image>().DOFade(0.5f, 0f);
-                    }
-                }
+                HandleActiveSlotIndicator();
             } 
         }
         
@@ -107,7 +94,7 @@ namespace BlackHole
 
             HasUpgrade = true;
             _slotText.text = u.Name;
-            _activeSlotIndicator.GetComponent<Image>().color = Color.green;
+            HandleActiveSlotIndicator();
             EventSystem.current.SetSelectedGameObject(gameObject, new BaseEventData(EventSystem.current));
         }
 
@@ -117,13 +104,29 @@ namespace BlackHole
             ResetSlot();
         }
 
+        private void HandleActiveSlotIndicator()
+        {
+            Color newcolor = _hasUpgrade ? Color.green : Color.red;
+            newcolor.a = _isActiveSlot ? 1f : 0.5f;
+            _activeSlotIndicator.GetComponent<Image>().color = newcolor;
+
+            if (!_isActiveSlot) return;
+
+            foreach (UpgradeSlot slot in UpgradeSlots.Values)
+            {
+                if (slot != this)
+                {
+                    slot.IsActiveSlot = false;
+                    slot._activeSlotIndicator.GetComponent<Image>().DOFade(0.5f, 0f);
+                }
+            }
+        }
+
         public void ResetSlot()
         {
             _slotText.text = "Upgrade";
-            Color color = Color.red;
-            color.a = 0.5f;
-            _activeSlotIndicator.GetComponent<Image>().color = color;
             HasUpgrade = false;
+            HandleActiveSlotIndicator();
         }
 
         public static void ResetAndLockAllSlots()
@@ -157,6 +160,7 @@ namespace BlackHole
                 yield break;
             }
 
+            SoundManager.Instance.PlayButtonPress(failed: false);
             _buyPanel.SetActive(true);
             _isBuying = true;
             _buyPanel.GetComponent<BuyPanel>().HeaderText.text = "Buy for $" + _unlockCost + "?";
@@ -174,6 +178,7 @@ namespace BlackHole
                 UnlockSlot();
                 UpgradeSlotManager.Instance.SwitchSelectedUpgradeSlot(this);
             }
+            SoundManager.Instance.PlayButtonPress(failed: false);
             _isBuying = false;
         }
 

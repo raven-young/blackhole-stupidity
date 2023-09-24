@@ -4,13 +4,16 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using TMPro;
+using System;
 
 namespace BlackHole {
     public class UpgradeButton : MonoBehaviour, ISelectHandler, IDeselectHandler
     {
+        public static Action<GameObject> UpgradeButtonClick;
         public UpgradeManager.Upgrade Upgrade;
-        public bool Equipped;
         public UpgradeSlot EquippedSlot;
+        public bool Equipped;
+
         private Color _unlockedColor;
         private Image _image;
         private TMP_Text _upgradeName;
@@ -106,6 +109,11 @@ namespace BlackHole {
             _image.color = u.Unlocked ? _unlockedColor : Color.grey;
             UpgradeManager.Instance.UnequipUpgrade(Upgrade);
             _cost.text = "Not equipped";
+        }
+
+        public void OnClick()
+        {
+            UpgradeButtonClick?.Invoke(gameObject);
         }
 
         public void OnSelect(BaseEventData eventData)

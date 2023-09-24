@@ -30,7 +30,7 @@ namespace BlackHole
 
         [Header("Logic")]
         [SerializeField] private GameObject _itemMagnet;
-        private Material _itemMagnetMaterial;
+        //private Material _itemMagnetMaterial; // overdrive
         [SerializeField] public float InitialFuel = 100;
         public float CurrentHealth;
         public float CurrentFuel;
@@ -79,14 +79,14 @@ namespace BlackHole
         private void OnEnable()
         {
             _playerInputActions.Player.Enable();
-            _playerInputActions.Player.Special.performed += ActivateOverdrive;
+            //_playerInputActions.Player.Special.performed += ActivateOverdrive;
             SettingsMenu.OnControlSettingsChanged += SwitchControlSetting;
         }
 
         void OnDisable()
         {
             _playerInputActions.Player.Disable();
-            _playerInputActions.Player.Special.performed -= ActivateOverdrive;
+            //_playerInputActions.Player.Special.performed -= ActivateOverdrive;
             SettingsMenu.OnControlSettingsChanged -= SwitchControlSetting;
         }
 
@@ -99,7 +99,7 @@ namespace BlackHole
             _exhaustSpeed = 1.5f * _exhaustParticles.main.startSpeed.constant;
 
             _itemMagnet.transform.localScale = new Vector3(SettingsManager.MagnetScale, SettingsManager.MagnetScale, SettingsManager.MagnetScale);
-            _itemMagnetMaterial = _itemMagnet.transform.GetComponent<SpriteRenderer>().material;
+            //_itemMagnetMaterial = _itemMagnet.transform.GetComponent<SpriteRenderer>().material;
 
             _baseAngularVelocity = _gameParams.AngularVelocity;
             _angularVelocity = _baseAngularVelocity;
@@ -310,19 +310,19 @@ namespace BlackHole
             yield return new WaitForSeconds(2f);
         }
 
-        private void ActivateOverdrive(InputAction.CallbackContext context)
-        {
+        //private void ActivateOverdrive(InputAction.CallbackContext context)
+        //{
 
-            if (context.performed && CurrentHealth >= _gameParams.MaxHealth && !IsOverdriveActive)
-            {
-                SoundManager.Instance.PlayButtonPress(failed: false);
-                StartCoroutine(OverDrive());
-            }
-            else
-            {
-                SoundManager.Instance.PlayButtonPress(failed: true);
-            }
-        }
+        //    if (context.performed && CurrentHealth >= _gameParams.MaxHealth && !IsOverdriveActive)
+        //    {
+        //        SoundManager.Instance.PlayButtonPress(failed: false);
+        //        StartCoroutine(OverDrive());
+        //    }
+        //    else
+        //    {
+        //        SoundManager.Instance.PlayButtonPress(failed: true);
+        //    }
+        //}
 
         public void ResetShipPosition()
         {
@@ -330,22 +330,22 @@ namespace BlackHole
             ShipPositionRadius -= 0.5f * GameManager.DistanceToEventHorizon;
         }
 
-        private IEnumerator OverDrive()
-        {
-            TakeDamage((int)(0.8f * CurrentHealth));
-            IsOverdriveActive = true;
-            _itemMagnet.transform.localScale *= _gameParams.OverdriveMagnetScale;
-            _itemMagnetMaterial.DOFloat(1, "_HologramBlend", 1f);
-            _itemMagnetMaterial.DOFloat(8, "_Glow", 1f);
-            //SoundManager.Instance.ChangeMusicSourcePitch(1.01f, 1f);
-            ActivateInvincibility(_gameParams.OverdriveDuration);
-            yield return new WaitForSecondsRealtime(_gameParams.OverdriveDuration);
-            IsOverdriveActive = false;
-            _itemMagnet.transform.localScale /= _gameParams.OverdriveMagnetScale;
-            _itemMagnetMaterial.DOFloat(0, "_HologramBlend", 1f);
-            _itemMagnetMaterial.DOFloat(0, "_Glow", 1f);
-            SoundManager.Instance.ChangeMusicSourcePitch(1f, 1f);
-        }
+        //private IEnumerator OverDrive()
+        //{
+        //    TakeDamage((int)(0.8f * CurrentHealth));
+        //    IsOverdriveActive = true;
+        //    _itemMagnet.transform.localScale *= _gameParams.OverdriveMagnetScale;
+        //    _itemMagnetMaterial.DOFloat(1, "_HologramBlend", 1f);
+        //    _itemMagnetMaterial.DOFloat(8, "_Glow", 1f);
+        //    //SoundManager.Instance.ChangeMusicSourcePitch(1.01f, 1f);
+        //    ActivateInvincibility(_gameParams.OverdriveDuration);
+        //    yield return new WaitForSecondsRealtime(_gameParams.OverdriveDuration);
+        //    IsOverdriveActive = false;
+        //    _itemMagnet.transform.localScale /= _gameParams.OverdriveMagnetScale;
+        //    _itemMagnetMaterial.DOFloat(0, "_HologramBlend", 1f);
+        //    _itemMagnetMaterial.DOFloat(0, "_Glow", 1f);
+        //    SoundManager.Instance.ChangeMusicSourcePitch(1f, 1f);
+        //}
         private void OnTriggerEnter2D(Collider2D collision)
         {
 

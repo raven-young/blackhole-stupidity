@@ -288,11 +288,6 @@ namespace BlackHole
             SafeActivate(u, false);
         }
 
-        // since upgrade button is a prefab instantiated at run-time, call wrapper from this persisent scriptable object
-        public void EquipUpgradeFromUpgradeButtonWrapper(GameObject button)
-        {
-            UpgradeListDisplay.Instance.UpgradeButtonClick(button);
-        }
         public void InitializeUpgrades()
         {
             _unlockedUpgradesCount = 0;

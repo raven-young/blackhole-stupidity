@@ -21,7 +21,7 @@ MonoBehaviour:
   FuelBurnRate: 2
   MagnetScale: 10
   FirePeriod: 0.1
-  BulletVelocity: 10
+  BulletVelocity: 14
   BulletDamage: 1
   LaserDuration: 0.5
   BlackHoleGrowthRate: 1.005
@@ -47,14 +47,9 @@ MonoBehaviour:
   EasyScoreMultiplier: 0.75
   NormalScoreMultiplier: 1
   HardScoreMultiplier: 1.5
-  ExpertScoreMultiplier: 2
   VictoryMultiplier: 1.5
   GameOverMultiplier: 0.75
   ScreenShakeDuration: 0.15
-  OverdriveDuration: 10
-  OverdriveScoreMultiplier: 2
-  OverdriveBulletDamageBonus: 1
-  OverdriveMagnetScale: 1.5
   EasyMultiplier: 0.6
   HardMultiplier: 1.2
   HardPlayerDamageBonus: 6
