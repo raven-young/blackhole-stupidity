@@ -703,6 +703,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _firstSelected: {fileID: 1944380974838248345}
   _achievementsListText: {fileID: 1341332579180476194}
+  _achievementsCountText: {fileID: 8002302753593334078}
 --- !u!1 &6065015261175192817
 GameObject:
   m_ObjectHideFlags: 0
@@ -823,8 +824,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 8976650282366175244}
   m_HandleRect: {fileID: 3872137017481910636}
   m_Direction: 2
-  m_Value: 0.9999999
-  m_Size: 0.61050725
+  m_Value: 1.0000001
+  m_Size: 0.48109725
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -864,7 +865,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: -10.600002}
-  m_SizeDelta: {x: 500.4, y: 110.2}
+  m_SizeDelta: {x: 653.76, y: 110.2}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3799590352628984598
 CanvasRenderer:
@@ -894,7 +895,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: ACHIEVEMENTS
+  m_text: 'UNLOCKED: 100%'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: bbf88256819b86b4886c9b9b0930acfa, type: 2}
   m_sharedMaterial: {fileID: -1957399580717593635, guid: bbf88256819b86b4886c9b9b0930acfa, type: 2}

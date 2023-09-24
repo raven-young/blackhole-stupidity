@@ -73,7 +73,8 @@ namespace BlackHole
         public static bool TripleShotEnabled = false;
         public static bool ShieldEnabled = false;
         public static bool ComboSaverEnabled = false;
-        public static float AsteroidSpeedModifier = 1f;
+        private static float _asteroidSpeedModifier = 1f;
+        public static float AsteroidSpeedModifier { get => _asteroidSpeedModifier; set => _asteroidSpeedModifier = value; }
 
         public static float DifficultyScoreMultiplier;
 
@@ -110,13 +111,18 @@ namespace BlackHole
 
         public void ResetGameParams()
         {
-            BulletDamage = _gameParams.BulletDamage;
-            BurnRate = _gameParams.FuelBurnRate;
-            FirePeriod = _gameParams.FirePeriod;
+            _bulletDamage = _gameParams.BulletDamage;
+            _burnRate = _gameParams.FuelBurnRate;
+            _firePerid = _gameParams.FirePeriod;
             _magnetScale = _gameParams.MagnetScale;
             ItemSpawnBonus = 0;
             AsteroidSpeedModifier = 1f;
-        }
+
+            TripleShotEnabled = false;
+            ShieldEnabled = false;
+            ComboSaverEnabled = false;
+            AsteroidSpeedModifier = 1f;
+    }
 
         // Calculate game params based on difficulty and ship selected
         public void CalculateGameParams()

@@ -34,11 +34,13 @@ public class SelectableUIComponent : MonoBehaviour
 
     public void PlaySelected()
     {
-        SoundManager.Instance.PlayButtonSelect();
+        // Disable for now to prevent pressed and selected sounds playing simultaneously when opening new menu
+        //SoundManager.Instance.PlayButtonSelect();
     }
 
     public void IncreaseScale()
     {
+        //if (SettingsManager.IsMobileGame) { return; }
         gameObject.transform.localScale = 1.1f * _baseScale;
     }
 

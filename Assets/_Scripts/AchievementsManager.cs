@@ -93,14 +93,15 @@ namespace BlackHole
             get
             {
                 //_allAchievements ??= new(this.GetNestedFieldValuesOfType<Achievement>());
-                _allAchievements = new(this.GetNestedFieldValuesOfType<Achievement>()); // due to bug, for now, always refresh list
+                // due to weird behavior (modifying achievement in SO does not modify all achievemnts list), for now, always refresh list
+                _allAchievements = new(this.GetNestedFieldValuesOfType<Achievement>());
                 return _allAchievements;
             }
         }
 
         public float UnlockedAchievementsFraction
         {
-            get => AllAchievements.Count > 0 ? (float)(_unlockedAchievementsCount) / AllAchievements.Count : 0f;
+            get => AllAchievements.Count > 0 ? (float)(UnlockedAchievementsCount) / AllAchievements.Count : 0f;
             set => Mathf.Clamp(value, 0f, 1f);
         }
 
