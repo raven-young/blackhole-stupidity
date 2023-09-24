@@ -44,7 +44,7 @@ namespace BlackHole
 
         public void IncrementScore(int amount)
         {
-            _score += (int)(Mathf.Max(1, ComboCount) * amount * (Ship.Instance.IsOverdriveActive ? _gameParamsSO.OverdriveScoreMultiplier : 1));
+            _score += (int)(Mathf.Max(1, ComboCount) * amount); // * (Ship.Instance.IsOverdriveActive ? _gameParamsSO.OverdriveScoreMultiplier : 1));
             _scoreTextGameplay.text = "Score: " + _score;
             if (LoopCount > 1)
             {

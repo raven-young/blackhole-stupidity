@@ -32,7 +32,7 @@ namespace BlackHole
         private void OnTriggerEnter2D(Collider2D collider)
         {
             Asteroid target = collider.GetComponent<Asteroid>();
-            target.TakeDamage(SettingsManager.BulletDamage + (Ship.Instance.IsOverdriveActive ? _gameParams.OverdriveBulletDamageBonus : 0));
+            target.TakeDamage(SettingsManager.BulletDamage);// + (Ship.Instance.IsOverdriveActive ? _gameParams.OverdriveBulletDamageBonus : 0));
 
             BulletExit(collider);
         }

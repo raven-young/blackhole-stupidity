@@ -1187,7 +1187,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8230424318418484512, guid: 89248b8a163a5b248bcdc1ffb32e35b4, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -6.4594193
+      value: -6.4594116
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1226,6 +1226,18 @@ PrefabInstance:
       propertyPath: m_fontSizeBase
       value: 100
       objectReference: {fileID: 0}
+    - target: {fileID: 5141809706132245129, guid: beb5c9dfcc82e4b48b0a07cba28fe063, type: 3}
+      propertyPath: m_Navigation.m_Mode
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5141809706132245129, guid: beb5c9dfcc82e4b48b0a07cba28fe063, type: 3}
+      propertyPath: m_Navigation.m_SelectOnUp
+      value: 
+      objectReference: {fileID: 8409607740696180239}
+    - target: {fileID: 5141809706132245129, guid: beb5c9dfcc82e4b48b0a07cba28fe063, type: 3}
+      propertyPath: m_Navigation.m_SelectOnDown
+      value: 
+      objectReference: {fileID: 3618209882565524406}
     - target: {fileID: 5141809706132245129, guid: beb5c9dfcc82e4b48b0a07cba28fe063, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
@@ -1343,6 +1355,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: beb5c9dfcc82e4b48b0a07cba28fe063, type: 3}
+--- !u!114 &7750828268721485964 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5141809706132245129, guid: beb5c9dfcc82e4b48b0a07cba28fe063, type: 3}
+  m_PrefabInstance: {fileID: 3227701671800353285}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &9066823946238367134 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5843646769083393947, guid: beb5c9dfcc82e4b48b0a07cba28fe063, type: 3}
@@ -1490,7 +1513,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8230424318418484512, guid: 89248b8a163a5b248bcdc1ffb32e35b4, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -6.4594193
+      value: -6.4594116
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1507,6 +1530,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 5466443101098116895, guid: 89248b8a163a5b248bcdc1ffb32e35b4, type: 3}
   m_PrefabInstance: {fileID: 7259058842127502936}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &8618454281480631074 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1380279683474783610, guid: 89248b8a163a5b248bcdc1ffb32e35b4, type: 3}
+  m_PrefabInstance: {fileID: 7259058842127502936}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3414272256941852999}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &7463397655685745525
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1515,6 +1549,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1551500133574904125}
     m_Modifications:
+    - target: {fileID: 1380279683474783610, guid: 89248b8a163a5b248bcdc1ffb32e35b4, type: 3}
+      propertyPath: m_Navigation.m_Mode
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1380279683474783610, guid: 89248b8a163a5b248bcdc1ffb32e35b4, type: 3}
+      propertyPath: m_Navigation.m_SelectOnUp
+      value: 
+      objectReference: {fileID: 8618454281480631074}
+    - target: {fileID: 1380279683474783610, guid: 89248b8a163a5b248bcdc1ffb32e35b4, type: 3}
+      propertyPath: m_Navigation.m_SelectOnDown
+      value: 
+      objectReference: {fileID: 7750828268721485964}
     - target: {fileID: 1380279683474783610, guid: 89248b8a163a5b248bcdc1ffb32e35b4, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
       value: 2
@@ -1649,7 +1695,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8230424318418484512, guid: 89248b8a163a5b248bcdc1ffb32e35b4, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -6.4594193
+      value: -6.4594116
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

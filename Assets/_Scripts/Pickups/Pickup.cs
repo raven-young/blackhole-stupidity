@@ -7,9 +7,9 @@ namespace BlackHole
     public class Pickup : MonoBehaviour
     {
 
+        [SerializeField, Range(0f,100f)] private float _collectedSpeed = 14f;
         [SerializeField] protected GameParams _gameParams;
         [SerializeField] private Rigidbody2D _rb;
-
         [SerializeField] private AudioClip _pickupClip;
 
         private bool _collected = false;
@@ -17,9 +17,9 @@ namespace BlackHole
         private void Start()
         {
             // random flip
-            gameObject.GetComponent<SpriteRenderer>().flipY = UnityEngine.Random.Range(0f, 1f) < 0.5f;
+            gameObject.GetComponent<SpriteRenderer>().flipY = Random.Range(0f, 1f) < 0.5f;
 
-            var spin = UnityEngine.Random.Range(0f, 1f) < 0.5f ? 1 : -1;
+            var spin = Random.Range(0f, 1f) < 0.5f ? 1 : -1;
             // random torque
             _rb.AddTorque(10f * spin, ForceMode2D.Impulse);
         }
@@ -34,7 +34,7 @@ namespace BlackHole
         {
             if (_collected)
             {
-                transform.position = Vector2.MoveTowards(transform.position, Ship.Instance.transform.position, 10 * Time.deltaTime);
+                transform.position = Vector2.MoveTowards(transform.position, Ship.Instance.transform.position, _collectedSpeed * Time.deltaTime);
                 return;
             }
 

@@ -79,11 +79,11 @@ public class GameParams : ScriptableObject
     [Header("Juice")]
     public float ScreenShakeDuration = 0.2f;
 
-    [Header("Overdrive")]
-    public float OverdriveDuration = 10f;
-    public float OverdriveScoreMultiplier = 2f;
-    public int OverdriveBulletDamageBonus = 1;
-    public float OverdriveMagnetScale = 1.3f;
+    //[Header("Overdrive")]
+    //public float OverdriveDuration = 10f;
+    //public float OverdriveScoreMultiplier = 2f;
+    //public int OverdriveBulletDamageBonus = 1;
+    //public float OverdriveMagnetScale = 1.3f;
 
     [Header("Difficulty Settings")]
     [Tooltip("Multiply or divide certain parameters by this value to adjust difficulty:\n" +

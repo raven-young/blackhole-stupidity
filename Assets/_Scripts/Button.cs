@@ -2,18 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using BlackHole;
 
 public class Button : MonoBehaviour
 {
     public static event Action<bool> BuyComplete;
 
     [SerializeField] private AudioClip _selectedClip, _pressedClip, _failedClip;
-    private AudioSource _audioSource;
+    //private AudioSource _audioSource;
     private Vector3 _baseScale;
 
     private void Awake()
     {
-        _audioSource = GetComponent<AudioSource>();
+        //_audioSource = GetComponent<AudioSource>();
         _baseScale = gameObject.transform.localScale;
     }
 
@@ -26,14 +27,23 @@ public class Button : MonoBehaviour
     public void PlayPressed(bool success = true)
     {
         if (success)
-            _audioSource.PlayOneShot(_pressedClip);
+        {
+            SoundManager.Instance.PlayButtonPress(failed: false);
+            //SoundManager.Instance.PlaySound(_pressedClip);
+            //_audioSource.PlayOneShot(_pressedClip);
+        }
         else
-            _audioSource.PlayOneShot(_failedClip);
+        {
+            //_audioSource.PlayOneShot(_failedClip);
+            //SoundManager.Instance.PlaySound(_failedClip);
+            SoundManager.Instance.PlayButtonPress(failed: true);
+        }
     }
 
     public void PlaySelected()
     {
         //_audioSource.PlayOneShot(_selectedClip);
+        SoundManager.Instance.PlayButtonSelect();
     }
 
     public void IncreaseScale()
