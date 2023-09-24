@@ -12,91 +12,83 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 471e2fbce59dd7f419ed39270fdadcfc, type: 3}
   m_Name: AchievementsManager
   m_EditorClassIdentifier: 
+  _scoreAttackUnlocked:
+    Unlocked: 0
+    Name: SCORE ATTACK
+    Description: UNLOCK SCORE ATTACK
   _victoryEasy:
     Unlocked: 0
-    Name: Easy Victory
-    Description: Win the game on easy
+    Name: EASY VICTORY
+    Description: WIN THE GAME ON EASY
   _victoryNormal:
     Unlocked: 0
-    Name: Normal Victory
-    Description: Win the game on normal
+    Name: NORMAL VICTORY
+    Description: WIN THE GAME ON NORMAL
   _victoryHard:
     Unlocked: 0
-    Name: Hard Victory
-    Description: Win the game on hard
-  _victoryExpert:
-    Unlocked: 0
-    Name: Expert Victory
-    Description: Win the game on expert
+    Name: HARD VICTORY
+    Description: WIN THE GAME ON HARD
   _victoryNoDamageEasy:
     Unlocked: 0
-    Name: No Damage Easy
+    Name: NO DAMAGE EASY
     Description: Win the game on easy without taking any damage
   _victoryNoDamageNormal:
     Unlocked: 0
-    Name: No Damage Normal
+    Name: NO DAMAGE NORMAL
     Description: Win the game on normal without taking any damage
   _victoryNoDamageHard:
     Unlocked: 0
-    Name: No Damage Hard
+    Name: NO DAMAGE HARD
     Description: Win the game on hard without taking any damage
-  _victoryNoDamageExpert:
-    Unlocked: 0
-    Name: No Damage Expert
-    Description: Win the game on expert without taking any damage
   _victory100PercentEasy:
     Unlocked: 0
-    Name: 100% Easy
+    Name: 100% EASY
     Description: Win the game and achieve 100% accuracy on easy
   _victory100PercentNormal:
     Unlocked: 0
-    Name: 100% Normal
+    Name: 100% NORMAL
     Description: Win the game and achieve 100% accuracy on normal
   _victory100PercentHard:
     Unlocked: 0
-    Name: 100% Hard
+    Name: 100% HARD
     Description: Win the game and achieve 100% accuracy on hard
-  _victory100PercentExpert:
-    Unlocked: 0
-    Name: 100% Expert
-    Description: Win the game and achieve 100% accuracy on expert
   _victoryFlawlessEasy:
     Unlocked: 0
-    Name: Flawless Easy
+    Name: FLAWLESS EASY
     Description: Achieve a flawless victory on easy
   _victoryFlawlessNormal:
     Unlocked: 0
-    Name: Flawless Normal
+    Name: FLAWLESS NORMAL
     Description: Achieve a flawless victory on normal
   _victoryFlawlessHard:
     Unlocked: 0
-    Name: Flawless Hard
+    Name: FLAWLESS HARD
     Description: Achieve a flawless victory on hard
-  _victoryFlawlessExpert:
-    Unlocked: 0
-    Name: Flawless Expert
-    Description: Achieve a flawless victory on expert
   _score10k:
     Unlocked: 0
-    Name: Novice Scorer
+    Name: NOVICE SCORER
     Description: Score 10'000 points
   _score50k:
     Unlocked: 0
-    Name: Adept Scorer
+    Name: ADEPT SCORER
     Description: Score 50'000 points
   _score100k:
     Unlocked: 0
-    Name: Expert Scorer
+    Name: EXPERT SCORER
     Description: Score 100'000 points
   _score250k:
     Unlocked: 0
-    Name: Master Scorer
+    Name: MASTER SCORER
     Description: Score 250'000 points
   _score500k:
     Unlocked: 0
-    Name: Legendary Scorer
+    Name: LEGENDARY SCORER
     Description: Score 500'000 points
   _unlockAllUpgrades:
     Unlocked: 0
-    Name: Upgrade Hoarder
+    Name: UPGRADE HOARDER
     Description: Unlock all upgrades
+  _unlockAllAchievements:
+    Unlocked: 0
+    Name: 
+    Description: 

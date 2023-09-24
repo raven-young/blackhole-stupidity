@@ -53,12 +53,12 @@ namespace BlackHole
 
         private void OnEnable()
         {
-            AchievementsManager.OnAchievementUnlocked += QueueAchievement;
+            AchievementsManager.AchievementUnlocked += QueueAchievement;
         }
 
         private void OnDisable()
         {
-            AchievementsManager.OnAchievementUnlocked -= QueueAchievement;
+            AchievementsManager.AchievementUnlocked -= QueueAchievement;
         }
 
         public void UpdateHealth(float newValue)

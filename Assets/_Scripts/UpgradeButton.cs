@@ -11,8 +11,9 @@ namespace BlackHole {
     {
         public static Action<GameObject> UpgradeButtonClick;
         public UpgradeManager.Upgrade Upgrade;
-        public bool Equipped;
         public UpgradeSlot EquippedSlot;
+        public bool Equipped;
+
         private Color _unlockedColor;
         private Image _image;
         private TMP_Text _upgradeName;
