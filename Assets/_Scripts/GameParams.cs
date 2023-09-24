@@ -73,7 +73,6 @@ public class GameParams : ScriptableObject
     public float EasyScoreMultiplier = 0.75f;
     public float NormalScoreMultiplier = 1f;
     public float HardScoreMultiplier = 1.5f;
-    public float ExpertScoreMultiplier = 2f;
     public float VictoryMultiplier = 1.5f;
     public float GameOverMultiplier = 0.75f;
 
@@ -87,12 +86,12 @@ public class GameParams : ScriptableObject
     public float OverdriveMagnetScale = 1.3f;
 
     [Header("Difficulty Settings")]
-    [Tooltip("Multiply or divide certain parameters by this value to make it harder:\n" +
+    [Tooltip("Multiply or divide certain parameters by this value to adjust difficulty:\n" +
         "Small asteroid spawn period")]
 
     public float EasyMultiplier = 0.7f;
-
     public float HardMultiplier = 1.2f;
+
     public int HardPlayerDamageBonus = 2;
     public int FailAsteroidSpawnBonus = 2;
 

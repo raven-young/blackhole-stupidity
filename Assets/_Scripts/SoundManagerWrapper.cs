@@ -16,24 +16,14 @@ namespace BlackHole
     public class SoundManagerWrapper : MonoBehaviour
     {
 
-        private SoundManager _soundManager;
-
-        private void Start()
-        {
-            // Instantiate the sound manager by calling the getter from singleton instance
-            var dummy = SoundManager.Instance.name;
-
-            _soundManager = GameObject.FindWithTag("SoundManager").GetComponent<SoundManager>();
-        }
-
         public void PlayButtonPress(bool failed = false)
         {
-            _soundManager.PlayButtonPress(failed);
+            SoundManager.Instance.PlayButtonPress(failed);
         }
 
         public void PlayButtonSelect()
         {
-            _soundManager.PlayButtonSelect();
+            SoundManager.Instance.PlayButtonSelect();
         }
     }
 }
