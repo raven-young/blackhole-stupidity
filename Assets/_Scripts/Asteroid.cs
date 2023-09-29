@@ -17,12 +17,12 @@ namespace BlackHole
 
         private int _currentHealth;
         private int _playerDamage;
-
         public static event Action<AvatarReactions.ExpressionEvents> OnAsteroidHit;
 
         private void Start()
         {
             _currentHealth = _gameParams.AsteroidHealth;
+            _rb.drag = _gameParams.AsteroidLinearDrag;
 
             // random flip
             gameObject.GetComponent<SpriteRenderer>().flipY = UnityEngine.Random.Range(0f, 1f) < 0.5f;
@@ -50,8 +50,7 @@ namespace BlackHole
         private void FixedUpdate()
         {
             // force in direction of black hole
-            float force = BlackHoleObject.Instance.CurrentForce;
-            _rb.AddForce(-transform.position * force * Time.fixedDeltaTime, ForceMode2D.Force);
+            _rb.AddForce(-BlackHoleObject.Instance.CurrentForce * Time.fixedDeltaTime * transform.position, ForceMode2D.Force);
         }
 
         public void TakeDamage(int damage)
@@ -80,7 +79,6 @@ namespace BlackHole
                     Die(diedFromShooting: false);
                     break;
                 case 10: // black hole
-                         // increase BH
                     BlackHoleObject.Instance.GrowBlackHole(_gameParams.BlackHoleGrowthRate);
                     Die(diedFromShooting: false);
                     break;

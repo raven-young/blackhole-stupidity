@@ -40,7 +40,7 @@ namespace BlackHole
 
             // force in direction of black hole
             float force = BlackHoleObject.Instance.CurrentForce;
-            _rb.AddForce(-transform.position * force * Time.fixedDeltaTime, ForceMode2D.Force);
+            _rb.AddForce(-force * Time.fixedDeltaTime * transform.position, ForceMode2D.Force);
         }
 
         private void OnTriggerEnter2D(Collider2D collision)

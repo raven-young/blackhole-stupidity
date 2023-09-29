@@ -20,7 +20,8 @@ namespace BlackHole
         [SerializeField] private Rigidbody2D _rb;
 
         private float _theta = Mathf.PI / 2;
-        public float ShipPositionRadius; // distance from black hole
+        private float _shipPositionRadius;
+        public float ShipPositionRadius { get => _shipPositionRadius; set => _shipPositionRadius = value; } // distance from black hole
         private float _angularVelocity;
         private float _baseAngularVelocity;
         private float _dragAngularVelocityMultiplier = 2f;
@@ -31,7 +32,7 @@ namespace BlackHole
         [Header("Logic")]
         [SerializeField] private GameObject _itemMagnet;
         //private Material _itemMagnetMaterial; // overdrive
-        [SerializeField] public float InitialFuel = 100;
+        public float InitialFuel = 100;
         public float CurrentHealth;
         public float CurrentFuel;
         private float _burnRate;
@@ -48,14 +49,15 @@ namespace BlackHole
             TouchDrag = 2
         }
 
-        public static ControlSetting ActiveControls;
+        private static ControlSetting _activeControls;
+        public static ControlSetting ActiveControls { get => _activeControls; set => _activeControls = value; }
         [SerializeField] private GameObject _mobileStick;
 
         [Header("Effects")]
-        [SerializeField] private GameObject deathEffect;
-        [SerializeField] private GameObject PlayerHitEffect;
-        [SerializeField] private DamageNumber dodgePrefab;
-        [SerializeField] private FlashColor flashEffect;
+        [SerializeField] private GameObject _deathEffect;
+        [SerializeField] private GameObject _playerHitEffect;
+        [SerializeField] private DamageNumber _dodgePrefab;
+        [SerializeField] private FlashColor _flashEffect;
         [SerializeField] private ParticleSystem _exhaustParticles;
         [SerializeField] private AudioClip _explosionClip;
         private float _exhaustEmissionRate;
@@ -111,6 +113,7 @@ namespace BlackHole
             else if (ActiveControls == ControlSetting.StickOrKeyboard)
             {
                 Debug.LogWarning("IsMobileGame but not using mobile control scheme!");
+                ActiveControls = SettingsMenu.Instance.MobileStickEnabled ? ControlSetting.MobileStick : ControlSetting.TouchDrag;
             }
 
             SwitchControlSetting();
@@ -208,6 +211,9 @@ namespace BlackHole
                     _mobileStick.SetActive(false);
                     _angularVelocity = _baseAngularVelocity * _dragAngularVelocityMultiplier;
                     break;
+                default:
+                    Debug.LogError("Invalid Control Setting");
+                    break;
             }
         }
 
@@ -260,7 +266,7 @@ namespace BlackHole
             if (IsInvincible) { return; }
 
             TakenDamage = true;
-            flashEffect.Flash();
+            _flashEffect.Flash();
             CurrentHealth -= damage;
             CanvasManager.Instance.UpdateHealth(CurrentHealth);
             StartCoroutine(ActivateInvincibility(0.2f));
@@ -277,19 +283,19 @@ namespace BlackHole
         {
             // death animation
             Vector3 explosionOffset = new(UnityEngine.Random.Range(-1.2f, 1.2f), UnityEngine.Random.Range(-1.2f, 1.2f), 0);
-            GameObject effect1 = Instantiate(deathEffect, transform.position + explosionOffset, Quaternion.identity);
+            GameObject effect1 = Instantiate(_deathEffect, transform.position + explosionOffset, Quaternion.identity);
             Destroy(effect1, 1f);
             SoundManager.Instance.PlaySound(_explosionClip, 0.5f);
             yield return new WaitForSeconds(0.5f);
 
             Vector3 explosionOffset2 = new(UnityEngine.Random.Range(-1.2f, 1.2f), UnityEngine.Random.Range(-1.2f, 1.2f), 0);
-            GameObject effect2 = Instantiate(deathEffect, transform.position + explosionOffset2, Quaternion.identity);
+            GameObject effect2 = Instantiate(_deathEffect, transform.position + explosionOffset2, Quaternion.identity);
             Destroy(effect2, 1f);
             SoundManager.Instance.PlaySound(_explosionClip, 0.5f);
             yield return new WaitForSeconds(0.6f);
 
             Vector3 explosionOffset3 = new(UnityEngine.Random.Range(-1.2f, 1.2f), UnityEngine.Random.Range(-1.2f, 1.2f), 0);
-            GameObject effect3 = Instantiate(deathEffect, transform.position + explosionOffset3, Quaternion.identity);
+            GameObject effect3 = Instantiate(_deathEffect, transform.position + explosionOffset3, Quaternion.identity);
             Destroy(effect3, 1f);
             SoundManager.Instance.PlaySound(_explosionClip, 0.5f);
             yield return new WaitForSeconds(0.4f);
@@ -299,7 +305,7 @@ namespace BlackHole
             CannotMove = true;
             IsInvincible = true;
             gameObject.SetActive(false);
-            GameObject finaleffect = Instantiate(deathEffect, transform.position, Quaternion.identity);
+            GameObject finaleffect = Instantiate(_deathEffect, transform.position, Quaternion.identity);
             finaleffect.transform.localScale *= 2f;
             Destroy(finaleffect, 1f);
             SoundManager.Instance.PlaySound(_explosionClip, 0.5f);

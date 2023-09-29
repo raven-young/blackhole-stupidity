@@ -284,14 +284,14 @@ namespace BlackHole
             for (int i = 0; i < spawnAmount + _itemSpawnBonus; i++)
             {
                 float randomX = 0.1f * UnityEngine.Random.Range(-1f, 1f) * _gameParamsSO.ScreenBounds.x;
-                Vector2 spawnPos = new Vector2(transform.position.x + randomX, transform.position.y);
+                Vector2 spawnPos = new(transform.position.x + randomX, transform.position.y);
                 GameObject spawnedObject = Instantiate(UnityEngine.Random.Range(0f, 1f) < 0.5 ? prefab1 : prefab2,
                                                        spawnPos, Quaternion.identity);
 
                 float angle = UnityEngine.Random.Range(-_gameParamsSO.MaxSpawnAngle, _gameParamsSO.MaxSpawnAngle);
                 Vector2 direction = Vector2.up.Rotate(angle);
 
-                spawnedObject.GetComponent<Rigidbody2D>().AddForce(-UnityEngine.Random.Range(0.5f, 1f) * _gameParamsSO.SpawnImpulse * direction,
+                spawnedObject.GetComponent<Rigidbody2D>().AddForce(UnityEngine.Random.Range(0.5f, 1f) * _gameParamsSO.SpawnImpulse * direction,
                                                                    ForceMode2D.Impulse);
             }
         }

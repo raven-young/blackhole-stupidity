@@ -15,14 +15,13 @@ namespace BlackHole
         public static CanvasManager Instance;
         [SerializeField] private GameParams _gameParams;
         [SerializeField] private GameObject _inputPopup;
-        [SerializeField] private RectTransform _achievementPanel;
+        [SerializeField] private GameObject _slidersLayoutGroup, _sliderFiller;
+        [SerializeField] private RectTransform _achievementPanel, _scoreTextDesktopTransform;
         [SerializeField] private GameObject _touchControls;
         [SerializeField] private TMP_Text _scoreText;
         [SerializeField] private Slider _fuelSlider, _healthSlider;
         [SerializeField] private GameObject _alertIcon;
         private bool _isLowOnStats = false;
-
-        private GameObject playerController;
 
         private Queue<AchievementsManager.Achievement> _newAchievementsQueue = new();
 
@@ -46,9 +45,7 @@ namespace BlackHole
             _healthSlider.minValue = 0;
             _healthSlider.value = _gameParams.MaxHealth / 2;
 
-            //playerController = GameObject.Find("ShipController");
-            playerController = GameObject.FindGameObjectWithTag("Player");
-            ToggleTouchControls(SettingsManager.IsMobileGame);
+            ToggleMobileLayout(SettingsManager.IsMobileGame);
         }
 
         private void OnEnable()
@@ -123,17 +120,31 @@ namespace BlackHole
             _inputPopup.SetActive(false);
         }
 
-        public void ToggleTouchControls(bool touchActive)
+        public void ToggleMobileLayout(bool touchActive)
         {
             if (touchActive && GameManager.IsPaused)
                 return;
 
             _touchControls.SetActive(touchActive && SettingsManager.IsMobileGame);
+
+            if (SettingsManager.IsMobileGame)
+            {
+                _scoreText.transform.SetParent(_slidersLayoutGroup.transform);
+                _scoreText.alignment = TextAlignmentOptions.Left;
+                _sliderFiller.SetActive(false);
+            }
+            else
+            {
+                _scoreText.transform.SetParent(_scoreTextDesktopTransform.transform);
+                _scoreText.transform.position = _scoreTextDesktopTransform.position;
+                _scoreText.alignment = TextAlignmentOptions.Right;
+                _sliderFiller.SetActive(true);
+            }
         }
 
         public void RenderGameOverScreen(bool victorious)
         {
-            ToggleTouchControls(false);
+            ToggleMobileLayout(false);
 
             if (_newAchievementsQueue.Count > 0)
             {

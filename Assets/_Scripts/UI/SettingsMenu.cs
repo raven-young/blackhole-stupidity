@@ -13,12 +13,13 @@ namespace BlackHole
 
         [SerializeField] private Slider _musicVolumeSlider;
         [SerializeField] private Slider _sfxVolumeSlider;
-        [SerializeField] private GameObject _mobileStickToggle;
-        private Image _backgroundImage;
+        [SerializeField] private Toggle _mobileStickToggle;
+        [SerializeField] private Toggle _autoshootToggle;
 
+        private Image _backgroundImage;
         private float _musicVolume, _sfxVolume;
         private bool _isAutoshooting, _mobileStickEnabled;
-
+        public bool MobileStickEnabled { get => _mobileStickEnabled; set => _mobileStickEnabled = value; }
         private bool _firstTimeEnabled = true;
 
         protected override void Awake()
@@ -40,7 +41,7 @@ namespace BlackHole
             }
             else 
             {
-                _mobileStickToggle.SetActive(SettingsManager.IsMobileGame);
+                _mobileStickToggle.gameObject.SetActive(SettingsManager.IsMobileGame);
             }
         }
 
@@ -60,18 +61,20 @@ namespace BlackHole
         {
             Shooting.IsAutoshooting = toggle;
             _isAutoshooting = toggle;
+            _autoshootToggle.isOn = toggle;
         }
 
         public void OnToggleMobileStick(bool toggle)
         {
+            _mobileStickToggle.isOn = toggle;
             if (toggle)
             {
-                _mobileStickEnabled = true;
+                MobileStickEnabled = true;
                 Ship.ActiveControls = Ship.ControlSetting.MobileStick;
             }
             else
             {
-                _mobileStickEnabled = false;
+                MobileStickEnabled = false;
                 Ship.ActiveControls = Ship.ControlSetting.TouchDrag;
             }
             OnControlSettingsChanged?.Invoke();
@@ -88,7 +91,7 @@ namespace BlackHole
             ES3.Save("MusicVolume", _musicVolume);
             ES3.Save("SFXVolume", _sfxVolume);
             ES3.Save("IsAutoshooting", _isAutoshooting);
-            ES3.Save("MobileStickEnabled", _mobileStickEnabled);
+            ES3.Save("MobileStickEnabled", MobileStickEnabled);
         }
 
         public void LoadSettings()

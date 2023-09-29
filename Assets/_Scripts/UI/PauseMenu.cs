@@ -14,7 +14,7 @@ namespace BlackHole
             // When the MenuManager initializes in Awake, CanvasManager might not exist yet
             if (CanvasManager.Instance != null)
             {
-                CanvasManager.Instance.ToggleTouchControls(false);
+                CanvasManager.Instance.ToggleMobileLayout(false);
             }
         }
 
@@ -23,7 +23,7 @@ namespace BlackHole
             base.OnDisable();
             if (CanvasManager.Instance != null)
             {
-                CanvasManager.Instance.ToggleTouchControls(SettingsManager.IsMobileGame);
+                CanvasManager.Instance.ToggleMobileLayout(SettingsManager.IsMobileGame);
             }
         }
 

@@ -163,7 +163,7 @@ namespace BlackHole
 
             if (CanvasManager.Instance != null)
             {
-                CanvasManager.Instance.ToggleTouchControls(isMobile);
+                CanvasManager.Instance.ToggleMobileLayout(isMobile);
             }
         }
 

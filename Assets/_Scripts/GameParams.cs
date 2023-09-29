@@ -38,9 +38,9 @@ public class GameParams : ScriptableObject
     //public float QuestionDuration; // time to answer the question
     public float QuestionDelta; // time until next question
     public int SpawnAmount; // how many things to spawn after answering question
-    [Range(0, 100), Tooltip("Maximum impulse applied to spawned objects")]
+    [Range(-100, 100), Tooltip("Maximum impulse applied to spawned objects; positive values indicate upward force")]
     public float SpawnImpulse;
-    [Range(0, 360), Tooltip("Maximum angle applied to spawned objects")]
+    [Range(0, 360), Tooltip("Maximum angle applied to force vector of spawned objects")]
     public float MaxSpawnAngle;
     public float QuestionAsteroidSpeed = 1f;
     [Tooltip("Every cycle, multiply speed by this value"), Range(1f, 1.07f)]
@@ -50,6 +50,8 @@ public class GameParams : ScriptableObject
     public float QuickSolveRadius { get => _quickSolveRadius; set => _quickSolveRadius = Mathf.Clamp(value, WinRadius, 30); }
 
     [Header("Asteroid")]
+    [Range(0f,2f),Tooltip("Increase drag to slow down asteroid")]
+    public float AsteroidLinearDrag = 0f;
     public int PlayerDamage = 3;
     public int AsteroidHealth = 5;
 

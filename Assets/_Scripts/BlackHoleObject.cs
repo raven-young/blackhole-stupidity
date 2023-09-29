@@ -9,7 +9,8 @@ namespace BlackHole
         [SerializeField] private GameParams _gameParams;
 
         private float _initalForce;
-        public float CurrentForce;
+        private float _currentForce;
+        public float CurrentForce { get => _currentForce; set => _currentForce = value; }
 
         public static BlackHoleObject Instance;
 

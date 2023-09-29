@@ -27,11 +27,12 @@ MonoBehaviour:
   BlackHoleGrowthRate: 1.005
   QuestionDelta: 1
   SpawnAmount: 8
-  SpawnImpulse: 27
-  MaxSpawnAngle: 130
+  SpawnImpulse: 30.7
+  MaxSpawnAngle: 107
   QuestionAsteroidSpeed: 1
   QuestionAsteroidAcceleration: 1.0205
   _quickSolveRadius: 20.9
+  AsteroidLinearDrag: 0.282
   PlayerDamage: 10
   AsteroidHealth: 5
   ScrapValue: 2
@@ -54,4 +55,4 @@ MonoBehaviour:
   HardMultiplier: 1.2
   HardPlayerDamageBonus: 6
   FailAsteroidSpawnBonus: 3
-  ScreenBounds: {x: 43.183548, y: 19.930868}
+  ScreenBounds: {x: 40.585297, y: 19.930868}
