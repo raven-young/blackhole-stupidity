@@ -59,7 +59,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -193,7 +193,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -327,7 +327,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -651,9 +651,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e891727d1a336ac42b6d3c6c4d7fa22c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _selectedClip: {fileID: 8300000, guid: eef6199541910d047960f7f36b500352, type: 3}
-  _pressedClip: {fileID: 8300000, guid: 17d75296bcd41904d9122a44f4bb444a, type: 3}
-  _failedClip: {fileID: 8300000, guid: 3b92775ccaa84f54fbab325dbdf1d934, type: 3}
 --- !u!114 &-2854468939300501228
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -673,8 +670,8 @@ MonoBehaviour:
     Unlocked: 0
     Equipped: 0
     EquippedSlotNumber: 0
-  Equipped: 0
   EquippedSlot: {fileID: 0}
+  Equipped: 0
 --- !u!114 &7936366709088245183
 MonoBehaviour:
   m_ObjectHideFlags: 0

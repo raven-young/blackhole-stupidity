@@ -12,12 +12,12 @@ namespace BlackHole
 
         private void OnEnable()
         {
-            Scoring.OnScored += SubmitScore;
+            //Scoring.OnScored += SubmitScore;
         }
 
         private void OnDisable()
         {
-            Scoring.OnScored -= SubmitScore;
+            //Scoring.OnScored -= SubmitScore;
         }
 
         public void SetLeaderboardEntry(string username, int score)

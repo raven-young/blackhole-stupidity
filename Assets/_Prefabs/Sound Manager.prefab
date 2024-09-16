@@ -183,7 +183,11 @@ MonoBehaviour:
   _mainMenuMusic: {fileID: 8300000, guid: 1e4651de4893a97449ff4f4972f5dd07, type: 3}
   _dialogueMusic: {fileID: 8300000, guid: 0c8b51fb35cdc8f4394891d7567ed61e, type: 3}
   _alertClip: {fileID: 8300000, guid: 5fcb2db3f0a45dd49a5f7be60a1cbdf2, type: 3}
-  _buttonPress: {fileID: 8300000, guid: 17d75296bcd41904d9122a44f4bb444a, type: 3}
+  _victoryFanfare: {fileID: 0}
+  _powerup: {fileID: 0}
+  _shipTakeoff: {fileID: 0}
+  _kaching: {fileID: 0}
+  _buttonPress: {fileID: 8300000, guid: eef6199541910d047960f7f36b500352, type: 3}
   _failedButtonPress: {fileID: 8300000, guid: 3b92775ccaa84f54fbab325dbdf1d934, type: 3}
   _buttonSelect: {fileID: 8300000, guid: eef6199541910d047960f7f36b500352, type: 3}
 --- !u!1 &7697533690129528751

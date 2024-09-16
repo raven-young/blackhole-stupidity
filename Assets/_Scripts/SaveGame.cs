@@ -38,7 +38,7 @@ namespace BlackHole
             else
             {
                 Debug.Log("First time starting app");
-                Bank.AvailableCurrency = 0;
+                Bank.AvailableCurrency = 1000;
             }
         }
     }

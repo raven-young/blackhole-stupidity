@@ -38,10 +38,7 @@ namespace BlackHole
         {
             _slotText = transform.Find("Text (TMP)").GetComponent<TMP_Text>();
 
-            if (UpgradeSlots == null)
-            {
-                UpgradeSlots = new();
-            }
+            UpgradeSlots ??= new();
 
             if (UpgradeSlotManager.Instance == null)
             {
