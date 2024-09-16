@@ -161,8 +161,10 @@ namespace BlackHole
             _buyPanel.SetActive(true);
             _isBuying = true;
             _buyPanel.GetComponent<BuyPanel>().HeaderText.text = "Buy for $" + _unlockCost + "?";
+            EventSystem.current.SetSelectedGameObject(_buyPanel.transform.Find("Yes").gameObject, new BaseEventData(EventSystem.current));
             yield return new WaitWhile(() => _isBuying);
             _buyPanel.SetActive(false);
+            EventSystem.current.SetSelectedGameObject(UpgradeSlotManager.Instance.SelectedUpgradeSlot.gameObject, new BaseEventData(EventSystem.current));
         }
 
         private void FinishBuy(bool doBuy)

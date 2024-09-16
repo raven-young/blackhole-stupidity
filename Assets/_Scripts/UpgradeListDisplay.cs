@@ -159,6 +159,7 @@ namespace BlackHole
             yield return new WaitWhile(() => _isBuying);
 
             _buyPanel.SetActive(false);
+            EventSystem.current.SetSelectedGameObject(UpgradeSlotManager.Instance.SelectedUpgradeSlot.gameObject, new BaseEventData(EventSystem.current));
         }
 
         public void FinishBuy(bool doBuy)

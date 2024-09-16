@@ -22,8 +22,8 @@ namespace BlackHole
         [SerializeField] private GameObject _blackHoleNormalHardLayer;
         [SerializeField] private GameObject _blackHoleHardLayer;
 
-        //[SerializeField] private List<GameObject> _layers;
-        //[SerializeField] private float _angularVelocity = 45f;
+        [SerializeField] private List<GameObject> _layers;
+        [SerializeField] private float _angularVelocity = 45f;
 
         [SerializeField] private GameObject _eventHorizonDesktop;
         [SerializeField] private GameObject _eventHorizonMobile;
@@ -39,14 +39,14 @@ namespace BlackHole
             Instance = this;
         }
 
-        //private void Update()
-        //{
-        //    for (int i = 0; i < _layers.Count; i++)
-        //    {
-        //        GameObject layer = _layers[i];
-        //        layer.transform.Rotate(Vector3.forward, Time.deltaTime * (_angularVelocity + 5f*i*i));
-        //    }
-        //}
+        private void Update()
+        {
+            for (int i = 0; i < _layers.Count; i++)
+            {
+                GameObject layer = _layers[i];
+                layer.transform.Rotate(Vector3.forward, Time.deltaTime * (_angularVelocity + 5f * i * i));
+            }
+        }
 
         public void InitializeBlackHole()
         {
