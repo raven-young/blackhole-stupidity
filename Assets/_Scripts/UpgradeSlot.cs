@@ -12,6 +12,7 @@ namespace BlackHole
 {
     public class UpgradeSlot : MonoBehaviour
     {
+        [SerializeField] private Color _activeSlotIndicatorDeselectedColor = Color.red;
         [SerializeField] private GameObject _activeSlotIndicator;
         [SerializeField] private GameObject _buyPanel;
         public static Dictionary<int, UpgradeSlot> UpgradeSlots;
@@ -103,7 +104,7 @@ namespace BlackHole
 
         private void HandleActiveSlotIndicator()
         {
-            Color newcolor = _hasUpgrade ? Color.green : Color.red;
+            Color newcolor = _hasUpgrade ? Color.green : _activeSlotIndicatorDeselectedColor;
             newcolor.a = _isActiveSlot ? 1f : 0.5f;
             _activeSlotIndicator.GetComponent<Image>().color = newcolor;
 

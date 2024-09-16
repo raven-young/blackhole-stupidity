@@ -3,15 +3,23 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using BlackHole;
+using UnityEngine.UI;
+using DG.Tweening;
 
 public class SelectableUIComponent : MonoBehaviour
 {
 
     private Vector3 _baseScale;
+    [SerializeField] private Image _image;
+
+    private Color _imageBaseColor;
 
     private void Awake()
     {
         _baseScale = gameObject.transform.localScale;
+
+        if (_image != null)
+            _imageBaseColor = _image.color;
     }
 
     private void OnEnable()
@@ -48,4 +56,17 @@ public class SelectableUIComponent : MonoBehaviour
     {
         gameObject.transform.localScale = _baseScale;
     }
+
+    public void TweenImageColor()
+    {
+        _image.DOFade(1, 0.5f).SetLoops(-1, LoopType.Yoyo);
+    }
+
+    public void KillImageTween()
+    {
+        _image.color = _imageBaseColor;
+        _image.DOKill();
+    }
+
+
 }
